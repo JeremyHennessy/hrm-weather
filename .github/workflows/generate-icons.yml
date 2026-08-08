@@ -1,0 +1,47 @@
+name: Generate PWA icons
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'icons/weather-consensus.svg'
+      - '.github/workflows/generate-icons.yml'
+permissions:
+  contents: write
+concurrency:
+  group: generate-weather-icons
+  cancel-in-progress: true
+jobs:
+  icons:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Render full-bleed PNG icons
+        run: |
+          pip install --quiet cairosvg
+          python - <<'PY'
+          import cairosvg
+          src='icons/weather-consensus.svg'
+          for path,size in [('icons/apple-touch-icon.png',180),('icons/icon-192.png',192),('icons/icon-512.png',512)]:
+              cairosvg.svg2png(url=src,write_to=path,output_width=size,output_height=size)
+          PY
+      - name: Verify dimensions
+        run: |
+          python - <<'PY'
+          from PIL import Image
+          for p,s in [('icons/apple-touch-icon.png',180),('icons/icon-192.png',192),('icons/icon-512.png',512)]:
+              im=Image.open(p); assert im.size==(s,s), (p,im.size)
+          PY
+      - name: Commit icons
+        run: |
+          git config user.name 'weather-consensus-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add icons/apple-touch-icon.png icons/icon-192.png icons/icon-512.png
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Regenerate PWA icons'
+          git pull --rebase origin main
+          git push
