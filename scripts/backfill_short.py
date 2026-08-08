@@ -7,9 +7,11 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 SKILL=ROOT/'data'/'skill.json'
 LOCS={
- 'hrm':(44.6488,-63.5752,[-63.80,44.48,-63.42,44.84]),
+ 'hrm':(44.6822,-63.6012,[-63.80,44.48,-63.42,44.84]),
  'moncton':(46.0878,-64.7782,[-64.95,45.98,-64.62,46.20]),
  'shediac':(46.2198,-64.5411,[-64.68,46.10,-64.40,46.34]),
+ 'lunenburg':(44.377896,-64.309529,[-64.46,44.25,-64.15,44.50]),
+ 'wolfville':(45.0791,-64.4383,[-64.62,44.98,-64.22,45.20]),
 }
 MODELS=['gem_hrdps_continental','gem_regional','ecmwf_ifs025','gfs_seamless','icon_seamless','ukmo_seamless']
 LEADS=[3,6,12]
@@ -94,6 +96,6 @@ def main():
  if not skills:
   raise SystemExit(f'No skill records produced; completed {completed}/{len(tasks)} archive requests')
  state['updated_at']=datetime.now(timezone.utc).isoformat(); save(state)
- print(f'short-lead skills={len(skills)} archive_requests={completed}/{len(tasks)}')
+ print(f'short-lead skills={len(skills)} archive_requests={completed}/{len(tasks)} locations={len(LOCS)}')
 
 if __name__=='__main__':main()
