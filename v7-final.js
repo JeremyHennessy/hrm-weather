@@ -12,4 +12,22 @@ runHistoricalBacktest=async function(days=90){await wxBaseBacktest(days);wxMerge
 const wxPriorLoad=load;
 load=async function(){await wxLoadSharedSkills();return wxPriorLoad()};
 refresh.onclick=load;
-window.addEventListener('load',()=>{if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});wxLoadSharedSkills().then(()=>{const h=document.getElementById('health');if(h&&h.dataset.sharedUpdated){const d=new Date(h.dataset.sharedUpdated);if(!Number.isNaN(d)){const age=Math.max(0,Math.round((Date.now()-d)/3600000));h.insertAdjacentHTML('beforeend',`<span> · shared calibration ${age}h old</span>`)}}})});
+
+function wxApplyTerminology(){
+  const range=document.getElementById('range');
+  if(range)range.textContent=range.textContent.replace(/Likely feels-like range/i,'Real Feel range').replace(/Ensemble feels-like range/i,'Real Feel range');
+  document.querySelectorAll('.metric small').forEach(el=>{if(el.textContent.trim()==='FEELS HIGH')el.textContent='REAL FEEL HIGH';});
+  document.querySelectorAll('.head span').forEach(el=>{el.textContent=el.textContent.replace(/feels-like first/ig,'Real Feel first').replace(/max feels/ig,'Real Feel max');});
+  document.querySelectorAll('.zones .sub,.micro .sub,.hours .sub').forEach(el=>{el.textContent=el.textContent.replace(/^actual\s+/i,'Actual ').replace(/^air\s+/i,'Actual ');});
+  document.querySelectorAll('.dayMain').forEach(el=>{el.innerHTML=el.innerHTML.replace(/feels max/ig,'Real Feel max');});
+  const prob=document.querySelector('.section .card .sub');
+  document.querySelectorAll('.section .card .sub').forEach(el=>{el.textContent=el.textContent.replace(/feels-like range/ig,'Real Feel range');});
+  if(typeof advice!=='undefined'&&advice?.textContent)advice.textContent=advice.textContent.replace(/feels near/ig,'Real Feel near');
+}
+const wxTermObserver=new MutationObserver(()=>wxApplyTerminology());
+window.addEventListener('load',()=>{
+  if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+  wxApplyTerminology();
+  wxLoadSharedSkills().then(()=>{const h=document.getElementById('health');if(h&&h.dataset.sharedUpdated){const d=new Date(h.dataset.sharedUpdated);if(!Number.isNaN(d)){const age=Math.max(0,Math.round((Date.now()-d)/3600000));h.insertAdjacentHTML('beforeend',`<span> · shared calibration ${age}h old</span>`)}}});
+});
