@@ -14,8 +14,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: weather-short-backfill
-  cancel-in-progress: true
+  group: weather-data-writer
+  cancel-in-progress: false
 
 jobs:
   backfill:
@@ -26,6 +26,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Sync latest main
+        run: git pull --rebase origin main
       - name: Backfill 3h 6h 12h model skill
         run: python scripts/backfill_short.py
       - name: Verify backfill produced skill data
