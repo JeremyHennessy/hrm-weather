@@ -25,7 +25,9 @@ jobs:
           node --check v6-extra.js
           node --check v7-final.js
       - name: Python syntax
-        run: python -m py_compile scripts/collect.py
+        run: |
+          python -m py_compile scripts/collect.py
+          python -m py_compile scripts/backfill_short.py
       - name: Validate JSON
         run: |
           python -m json.tool manifest.webmanifest >/dev/null
