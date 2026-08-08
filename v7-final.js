@@ -20,17 +20,23 @@ const wxPriorLoad=load;
 load=async function(){await wxLoadSharedSkills();return wxPriorLoad()};
 refresh.onclick=load;
 
+let wxTermObserver=null,wxTermQueued=false;
+const wxReplaceText=(el,fn)=>{if(!el)return;const old=el.textContent,next=fn(old);if(next!==old)el.textContent=next};
 function wxApplyTerminology(){
-  const range=document.getElementById('range');
-  if(range)range.textContent=range.textContent.replace(/Likely feels-like range/i,'Real Feel range').replace(/Ensemble feels-like range/i,'Real Feel range');
-  document.querySelectorAll('.metric small').forEach(el=>{if(el.textContent.trim()==='FEELS HIGH')el.textContent='REAL FEEL HIGH';});
-  document.querySelectorAll('.head span').forEach(el=>{el.textContent=el.textContent.replace(/feels-like first/ig,'Real Feel first').replace(/max feels/ig,'Real Feel max');});
-  document.querySelectorAll('.zones .sub,.micro .sub,.hours .sub').forEach(el=>{el.textContent=el.textContent.replace(/^actual\s+/i,'Actual ').replace(/^air\s+/i,'Actual ');});
-  document.querySelectorAll('.dayMain').forEach(el=>{el.innerHTML=el.innerHTML.replace(/feels max/ig,'Real Feel max');});
-  document.querySelectorAll('.section .card .sub').forEach(el=>{el.textContent=el.textContent.replace(/feels-like range/ig,'Real Feel range');});
-  if(typeof advice!=='undefined'&&advice?.textContent)advice.textContent=advice.textContent.replace(/feels near/ig,'Real Feel near');
+  wxTermObserver?.disconnect();
+  try{
+    wxReplaceText(document.getElementById('range'),t=>t.replace(/Likely feels-like range/i,'Real Feel range').replace(/Ensemble feels-like range/i,'Real Feel range'));
+    document.querySelectorAll('.metric small').forEach(el=>{if(el.textContent.trim()==='FEELS HIGH')el.textContent='REAL FEEL HIGH'});
+    document.querySelectorAll('.head span').forEach(el=>wxReplaceText(el,t=>t.replace(/feels-like first/ig,'Real Feel first').replace(/max feels/ig,'Real Feel max')));
+    document.querySelectorAll('.zones .sub,.micro .sub,.hours .sub').forEach(el=>wxReplaceText(el,t=>t.replace(/^actual\s+/i,'Actual ').replace(/^air\s+/i,'Actual ')));
+    document.querySelectorAll('.dayMain').forEach(el=>{const old=el.innerHTML,next=old.replace(/feels max/ig,'Real Feel max');if(next!==old)el.innerHTML=next});
+    document.querySelectorAll('.section .card .sub').forEach(el=>wxReplaceText(el,t=>t.replace(/feels-like range/ig,'Real Feel range')));
+    if(typeof advice!=='undefined'&&advice)wxReplaceText(advice,t=>t.replace(/feels near/ig,'Real Feel near'));
+  }finally{
+    if(wxTermObserver)wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+  }
 }
-const wxTermObserver=new MutationObserver(()=>wxApplyTerminology());
+wxTermObserver=new MutationObserver(()=>{if(wxTermQueued)return;wxTermQueued=true;requestAnimationFrame(()=>{wxTermQueued=false;wxApplyTerminology()})});
 window.addEventListener('load',()=>{
   if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
   wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
