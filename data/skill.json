@@ -5,173 +5,481 @@
     "shediac": null
   },
   "skills": {
-    "hrm:gem_hrdps_continental:12": {
-      "bias": 0.24811111111111117,
-      "mae": 0.5594444444444442,
-      "n": 10,
+    "hrm:ecmwf_ifs025:12": {
+      "bias": 1.2088888888888887,
+      "mae": 1.426388888888889,
+      "n": 8,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605611+00:00"
+      "updated": "2026-08-08T21:08:51.966127+00:00"
+    },
+    "hrm:ecmwf_ifs025:3": {
+      "bias": 0.08472222222222392,
+      "mae": 0.6041666666666687,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966115+00:00"
+    },
+    "hrm:ecmwf_ifs025:6": {
+      "bias": 0.30555555555555447,
+      "mae": 0.6583333333333332,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966121+00:00"
+    },
+    "hrm:ecmwf_ifs025:all": {
+      "bias": 0.5330555555555557,
+      "mae": 0.8962962962962969,
+      "n": 24,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966472+00:00"
+    },
+    "hrm:gem_hrdps_continental:12": {
+      "bias": 0.7816666666666675,
+      "mae": 0.8650000000000008,
+      "n": 6,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966108+00:00"
     },
     "hrm:gem_hrdps_continental:3": {
-      "bias": -0.35308641975308536,
-      "mae": 0.5629629629629623,
-      "n": 9,
+      "bias": 0.05333333333333386,
+      "mae": 0.32888888888888845,
+      "n": 5,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605562+00:00"
+      "updated": "2026-08-08T21:08:51.966064+00:00"
     },
     "hrm:gem_hrdps_continental:6": {
-      "bias": -0.1500000000000014,
-      "mae": 0.5588888888888895,
-      "n": 10,
+      "bias": -0.2425925925925938,
+      "mae": 0.6685185185185188,
+      "n": 6,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605603+00:00"
+      "updated": "2026-08-08T21:08:51.966100+00:00"
     },
     "hrm:gem_hrdps_continental:all": {
-      "bias": -0.07574712643678175,
-      "mae": 0.5603448275862069,
-      "n": 29,
+      "bias": 0.20594771241830068,
+      "mae": 0.6379738562091506,
+      "n": 17,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329912+00:00"
+      "updated": "2026-08-08T21:08:51.966461+00:00"
     },
     "hrm:gfs_seamless:12": {
-      "bias": -0.35577777777777725,
-      "mae": 0.687777777777778,
-      "n": 5,
+      "bias": 0.3779012345679015,
+      "mae": 0.7749382716049382,
+      "n": 9,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605626+00:00"
+      "updated": "2026-08-08T21:08:51.966145+00:00"
     },
     "hrm:gfs_seamless:3": {
-      "bias": -0.5577777777777768,
-      "mae": 0.6333333333333329,
-      "n": 5,
+      "bias": 0.046913580246914596,
+      "mae": 0.38024691358024715,
+      "n": 9,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605617+00:00"
+      "updated": "2026-08-08T21:08:51.966134+00:00"
     },
     "hrm:gfs_seamless:6": {
-      "bias": -0.2577777777777797,
-      "mae": 0.4533333333333346,
-      "n": 5,
+      "bias": 0.3654320987654312,
+      "mae": 0.5950617283950612,
+      "n": 9,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605622+00:00"
+      "updated": "2026-08-08T21:08:51.966140+00:00"
     },
     "hrm:gfs_seamless:all": {
-      "bias": -0.3904444444444446,
-      "mae": 0.5914814814814818,
-      "n": 15,
+      "bias": 0.26341563786008243,
+      "mae": 0.5834156378600822,
+      "n": 27,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329930+00:00"
+      "updated": "2026-08-08T21:08:51.966478+00:00"
+    },
+    "hrm:icon_seamless:12": {
+      "bias": 0.2981111111111119,
+      "mae": 0.8661111111111118,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966162+00:00"
+    },
+    "hrm:icon_seamless:3": {
+      "bias": -0.7864197530864183,
+      "mae": 0.9370370370370362,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966151+00:00"
+    },
+    "hrm:icon_seamless:6": {
+      "bias": -0.3900000000000009,
+      "mae": 0.5566666666666673,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966156+00:00"
+    },
+    "hrm:icon_seamless:all": {
+      "bias": -0.27574712643678123,
+      "mae": 0.7814176245210731,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966484+00:00"
+    },
+    "hrm:ukmo_seamless:12": {
+      "bias": 0.683086419753087,
+      "mae": 0.7208641975308644,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966178+00:00"
+    },
+    "hrm:ukmo_seamless:3": {
+      "bias": 0.4638888888888899,
+      "mae": 0.5777777777777788,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966169+00:00"
+    },
+    "hrm:ukmo_seamless:6": {
+      "bias": 0.4234567901234565,
+      "mae": 0.6530864197530861,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966173+00:00"
+    },
+    "hrm:ukmo_seamless:all": {
+      "bias": 0.5257692307692312,
+      "mae": 0.6533760683760688,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966489+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:12": {
+      "bias": 1.3222222222222224,
+      "mae": 1.588888888888889,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966335+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:3": {
+      "bias": 0.125,
+      "mae": 0.7000000000000002,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966326+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:6": {
+      "bias": -0.25555555555555565,
+      "mae": 0.8333333333333337,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966330+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:all": {
+      "bias": 0.40769230769230774,
+      "mae": 1.053846153846154,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966557+00:00"
+    },
+    "lunenburg:gfs_seamless:12": {
+      "bias": 1.0222222222222221,
+      "mae": 1.4444444444444449,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966350+00:00"
+    },
+    "lunenburg:gfs_seamless:3": {
+      "bias": -0.125,
+      "mae": 0.6500000000000004,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966341+00:00"
+    },
+    "lunenburg:gfs_seamless:6": {
+      "bias": 0.19999999999999987,
+      "mae": 1.222222222222222,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966345+00:00"
+    },
+    "lunenburg:gfs_seamless:all": {
+      "bias": 0.3846153846153845,
+      "mae": 1.123076923076923,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966561+00:00"
+    },
+    "lunenburg:icon_seamless:12": {
+      "bias": 0.7111111111111106,
+      "mae": 0.9333333333333328,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966364+00:00"
+    },
+    "lunenburg:icon_seamless:3": {
+      "bias": -0.3000000000000007,
+      "mae": 0.9500000000000002,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966355+00:00"
+    },
+    "lunenburg:icon_seamless:6": {
+      "bias": -0.31111111111111156,
+      "mae": 1.0888888888888886,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966359+00:00"
+    },
+    "lunenburg:icon_seamless:all": {
+      "bias": 0.04615384615384558,
+      "mae": 0.9923076923076921,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966566+00:00"
+    },
+    "lunenburg:ukmo_seamless:12": {
+      "bias": 1.1299999999999997,
+      "mae": 1.35,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966378+00:00"
+    },
+    "lunenburg:ukmo_seamless:3": {
+      "bias": 0.011111111111111663,
+      "mae": 1.1444444444444437,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966369+00:00"
+    },
+    "lunenburg:ukmo_seamless:6": {
+      "bias": 0.1600000000000005,
+      "mae": 1.1599999999999997,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966373+00:00"
+    },
+    "lunenburg:ukmo_seamless:all": {
+      "bias": 0.44827586206896575,
+      "mae": 1.2206896551724136,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966571+00:00"
     },
     "moncton:ecmwf_ifs025:12": {
       "bias": 1.0399999999999998,
       "mae": 1.06,
       "n": 10,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605642+00:00"
+      "updated": "2026-08-08T21:08:51.966218+00:00"
     },
     "moncton:ecmwf_ifs025:3": {
       "bias": 0.7333333333333335,
       "mae": 0.9111111111111106,
       "n": 9,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605633+00:00"
+      "updated": "2026-08-08T21:08:51.966206+00:00"
     },
     "moncton:ecmwf_ifs025:6": {
       "bias": 1.2900000000000003,
       "mae": 1.4300000000000002,
       "n": 10,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605638+00:00"
+      "updated": "2026-08-08T21:08:51.966213+00:00"
     },
     "moncton:ecmwf_ifs025:all": {
       "bias": 1.0310344827586209,
       "mae": 1.1413793103448273,
       "n": 29,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329948+00:00"
+      "updated": "2026-08-08T21:08:51.966502+00:00"
     },
-    "moncton:gfs_seamless:12": {
-      "bias": 0.47777777777777786,
-      "mae": 0.8555555555555555,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605654+00:00"
-    },
-    "moncton:gfs_seamless:3": {
-      "bias": 0.5249999999999999,
-      "mae": 0.7999999999999994,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605646+00:00"
-    },
-    "moncton:gfs_seamless:6": {
-      "bias": 0.5444444444444438,
-      "mae": 0.7222222222222214,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605650+00:00"
-    },
-    "moncton:gfs_seamless:all": {
-      "bias": 0.5153846153846152,
-      "mae": 0.7923076923076918,
-      "n": 26,
-      "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329954+00:00"
-    },
-    "shediac:ecmwf_ifs025:12": {
-      "bias": 1.5399999999999998,
-      "mae": 1.5399999999999998,
-      "n": 5,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605667+00:00"
-    },
-    "shediac:ecmwf_ifs025:3": {
-      "bias": 1.2499999999999982,
-      "mae": 1.2499999999999982,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605660+00:00"
-    },
-    "shediac:ecmwf_ifs025:6": {
-      "bias": 1.5800000000000007,
-      "mae": 1.5800000000000007,
-      "n": 5,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605664+00:00"
-    },
-    "shediac:ecmwf_ifs025:all": {
-      "bias": 1.471428571428571,
-      "mae": 1.471428571428571,
-      "n": 14,
-      "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329968+00:00"
-    },
-    "shediac:gfs_seamless:12": {
-      "bias": 1.0699999999999998,
-      "mae": 1.27,
+    "moncton:gem_hrdps_continental:12": {
+      "bias": 0.8199999999999992,
+      "mae": 0.8799999999999993,
       "n": 10,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605679+00:00"
+      "updated": "2026-08-08T21:08:51.966200+00:00"
     },
-    "shediac:gfs_seamless:3": {
-      "bias": 0.8444444444444438,
-      "mae": 0.9333333333333331,
+    "moncton:gem_hrdps_continental:3": {
+      "bias": 0.5777777777777777,
+      "mae": 0.9777777777777771,
       "n": 9,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605671+00:00"
+      "updated": "2026-08-08T21:08:51.966182+00:00"
     },
-    "shediac:gfs_seamless:6": {
-      "bias": 1.1099999999999999,
-      "mae": 1.2099999999999997,
+    "moncton:gem_hrdps_continental:6": {
+      "bias": 0.7699999999999994,
+      "mae": 1.0499999999999998,
       "n": 10,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605676+00:00"
+      "updated": "2026-08-08T21:08:51.966187+00:00"
     },
-    "shediac:gfs_seamless:all": {
-      "bias": 1.0137931034482757,
-      "mae": 1.1448275862068964,
+    "moncton:gem_hrdps_continental:all": {
+      "bias": 0.7275862068965513,
+      "mae": 0.9689655172413789,
       "n": 29,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329973+00:00"
+      "updated": "2026-08-08T21:08:51.966495+00:00"
+    },
+    "moncton:gfs_seamless:12": {
+      "bias": 0.68,
+      "mae": 1.02,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966233+00:00"
+    },
+    "moncton:gfs_seamless:3": {
+      "bias": 0.8222222222222221,
+      "mae": 1.066666666666666,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966223+00:00"
+    },
+    "moncton:gfs_seamless:6": {
+      "bias": 0.7599999999999995,
+      "mae": 0.9199999999999993,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966228+00:00"
+    },
+    "moncton:gfs_seamless:all": {
+      "bias": 0.7517241379310342,
+      "mae": 0.9999999999999996,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966508+00:00"
+    },
+    "moncton:icon_seamless:12": {
+      "bias": 0.8599999999999998,
+      "mae": 0.8599999999999998,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966248+00:00"
+    },
+    "moncton:icon_seamless:3": {
+      "bias": 0.4333333333333328,
+      "mae": 0.9888888888888892,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966238+00:00"
+    },
+    "moncton:icon_seamless:6": {
+      "bias": 0.8000000000000004,
+      "mae": 0.8400000000000002,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966243+00:00"
+    },
+    "moncton:icon_seamless:all": {
+      "bias": 0.7068965517241378,
+      "mae": 0.8931034482758622,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966513+00:00"
+    },
+    "moncton:ukmo_seamless:12": {
+      "bias": 0.8,
+      "mae": 0.8799999999999997,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966263+00:00"
+    },
+    "moncton:ukmo_seamless:3": {
+      "bias": 1.4777777777777779,
+      "mae": 1.5222222222222221,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966254+00:00"
+    },
+    "moncton:ukmo_seamless:6": {
+      "bias": 1.8699999999999999,
+      "mae": 1.8699999999999999,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966259+00:00"
+    },
+    "moncton:ukmo_seamless:all": {
+      "bias": 1.3793103448275863,
+      "mae": 1.4206896551724137,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966518+00:00"
+    },
+    "shediac:ecmwf_ifs025:12": {
+      "bias": 1.177777777777778,
+      "mae": 1.177777777777778,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966294+00:00"
+    },
+    "shediac:ecmwf_ifs025:3": {
+      "bias": 0.46249999999999925,
+      "mae": 0.7624999999999986,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966284+00:00"
+    },
+    "shediac:ecmwf_ifs025:6": {
+      "bias": 1.1666666666666667,
+      "mae": 1.1666666666666667,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966289+00:00"
+    },
+    "shediac:ecmwf_ifs025:all": {
+      "bias": 0.9538461538461538,
+      "mae": 1.0461538461538458,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966532+00:00"
+    },
+    "shediac:gem_hrdps_continental:12": {
+      "bias": 1.2600000000000002,
+      "mae": 1.44,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966279+00:00"
+    },
+    "shediac:gem_hrdps_continental:3": {
+      "bias": 0.4222222222222219,
+      "mae": 1.0666666666666669,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966269+00:00"
+    },
+    "shediac:gem_hrdps_continental:6": {
+      "bias": 0.8200000000000001,
+      "mae": 1.1399999999999997,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966274+00:00"
+    },
+    "shediac:gem_hrdps_continental:all": {
+      "bias": 0.8482758620689655,
+      "mae": 1.2206896551724138,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966526+00:00"
+    },
+    "shediac:gfs_seamless:12": {
+      "bias": 0.5399999999999998,
+      "mae": 0.9399999999999998,
+      "n": 5,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966308+00:00"
+    },
+    "shediac:gfs_seamless:3": {
+      "bias": 0.6749999999999998,
+      "mae": 0.8750000000000009,
+      "n": 4,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966298+00:00"
+    },
+    "shediac:gfs_seamless:6": {
+      "bias": 0.5399999999999995,
+      "mae": 0.7399999999999995,
+      "n": 5,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966303+00:00"
+    },
+    "shediac:gfs_seamless:all": {
+      "bias": 0.5785714285714283,
+      "mae": 0.85,
+      "n": 14,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966537+00:00"
     },
     "shediac:icon_seamless:12": {
       "bias": 1.0599999999999994,
@@ -199,36 +507,176 @@
       "mae": 1.1999999999999995,
       "n": 29,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329977+00:00"
+      "updated": "2026-08-08T21:08:51.966544+00:00"
     },
     "shediac:ukmo_seamless:12": {
-      "bias": 1.05,
-      "mae": 1.05,
-      "n": 6,
+      "bias": 0.9,
+      "mae": 0.9,
+      "n": 5,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605703+00:00"
+      "updated": "2026-08-08T21:08:51.966320+00:00"
     },
     "shediac:ukmo_seamless:3": {
-      "bias": 1.866666666666666,
-      "mae": 1.866666666666666,
-      "n": 6,
+      "bias": 0.8800000000000004,
+      "mae": 1.36,
+      "n": 5,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605696+00:00"
+      "updated": "2026-08-08T21:08:51.966313+00:00"
     },
     "shediac:ukmo_seamless:6": {
-      "bias": 2.349999999999999,
-      "mae": 2.349999999999999,
-      "n": 6,
+      "bias": 1.4399999999999995,
+      "mae": 1.4399999999999995,
+      "n": 5,
       "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T20:28:49.605700+00:00"
+      "updated": "2026-08-08T21:08:51.966317+00:00"
     },
     "shediac:ukmo_seamless:all": {
-      "bias": 1.755555555555555,
-      "mae": 1.755555555555555,
-      "n": 18,
+      "bias": 1.0733333333333335,
+      "mae": 1.2333333333333334,
+      "n": 15,
       "source": "aggregate-leads",
-      "updated": "2026-08-08T20:49:08.329981+00:00"
+      "updated": "2026-08-08T21:08:51.966549+00:00"
+    },
+    "wolfville:ecmwf_ifs025:12": {
+      "bias": 0.9199999999999999,
+      "mae": 1.3199999999999998,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966406+00:00"
+    },
+    "wolfville:ecmwf_ifs025:3": {
+      "bias": 0.18888888888888802,
+      "mae": 0.6333333333333324,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966398+00:00"
+    },
+    "wolfville:ecmwf_ifs025:6": {
+      "bias": 0.7000000000000002,
+      "mae": 1.1199999999999997,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966402+00:00"
+    },
+    "wolfville:ecmwf_ifs025:all": {
+      "bias": 0.6172413793103445,
+      "mae": 1.0379310344827581,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966583+00:00"
+    },
+    "wolfville:gem_hrdps_continental:12": {
+      "bias": 1.0111111111111113,
+      "mae": 1.3000000000000003,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966392+00:00"
+    },
+    "wolfville:gem_hrdps_continental:3": {
+      "bias": 0.02499999999999991,
+      "mae": 0.5000000000000004,
+      "n": 8,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966383+00:00"
+    },
+    "wolfville:gem_hrdps_continental:6": {
+      "bias": 0.19999999999999987,
+      "mae": 1.0000000000000002,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966387+00:00"
+    },
+    "wolfville:gem_hrdps_continental:all": {
+      "bias": 0.4269230769230769,
+      "mae": 0.9500000000000004,
+      "n": 26,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966576+00:00"
+    },
+    "wolfville:gfs_seamless:12": {
+      "bias": 1.6428571428571423,
+      "mae": 1.8714285714285712,
+      "n": 7,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966419+00:00"
+    },
+    "wolfville:gfs_seamless:3": {
+      "bias": 0.6999999999999993,
+      "mae": 0.9333333333333336,
+      "n": 6,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966411+00:00"
+    },
+    "wolfville:gfs_seamless:6": {
+      "bias": 0.7714285714285722,
+      "mae": 0.8285714285714292,
+      "n": 7,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966415+00:00"
+    },
+    "wolfville:gfs_seamless:all": {
+      "bias": 1.055,
+      "mae": 1.225,
+      "n": 20,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966588+00:00"
+    },
+    "wolfville:icon_seamless:12": {
+      "bias": 1.0200000000000002,
+      "mae": 1.0200000000000002,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966432+00:00"
+    },
+    "wolfville:icon_seamless:3": {
+      "bias": -0.5444444444444443,
+      "mae": 1.1444444444444442,
+      "n": 9,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966423+00:00"
+    },
+    "wolfville:icon_seamless:6": {
+      "bias": -0.2,
+      "mae": 0.7600000000000001,
+      "n": 10,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966428+00:00"
+    },
+    "wolfville:icon_seamless:all": {
+      "bias": 0.113793103448276,
+      "mae": 0.9689655172413794,
+      "n": 29,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966592+00:00"
+    },
+    "wolfville:ukmo_seamless:12": {
+      "bias": 0.14285714285714235,
+      "mae": 0.5999999999999999,
+      "n": 7,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966444+00:00"
+    },
+    "wolfville:ukmo_seamless:3": {
+      "bias": -0.23333333333333459,
+      "mae": 0.8666666666666663,
+      "n": 6,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966436+00:00"
+    },
+    "wolfville:ukmo_seamless:6": {
+      "bias": -0.27142857142857074,
+      "mae": 0.6714285714285714,
+      "n": 7,
+      "source": "single-runs-eccc-10d",
+      "updated": "2026-08-08T21:08:51.966440+00:00"
+    },
+    "wolfville:ukmo_seamless:all": {
+      "bias": -0.1150000000000003,
+      "mae": 0.7049999999999998,
+      "n": 20,
+      "source": "aggregate-leads",
+      "updated": "2026-08-08T21:08:51.966596+00:00"
     }
   },
-  "updated_at": "2026-08-08T20:48:06.668512+00:00"
+  "updated_at": "2026-08-08T21:08:51.966599+00:00"
 }
