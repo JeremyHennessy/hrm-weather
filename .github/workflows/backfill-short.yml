@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/backfill-short.yml'
+      - 'scripts/backfill_short.py'
   schedule:
     - cron: '41 4 * * 0'
   workflow_dispatch:
@@ -14,11 +15,12 @@ permissions:
 
 concurrency:
   group: weather-short-backfill
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   backfill:
     runs-on: ubuntu-latest
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -31,12 +33,14 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          p=Path('data/skill.json')
-          d=json.loads(p.read_text())
+          d=json.loads(Path('data/skill.json').read_text())
           skills=d.get('skills',{})
           if not skills:
               raise SystemExit('Backfill produced no skill records')
-          print(f'Backfill produced {len(skills)} skill records')
+          leads={k.rsplit(':',1)[-1] for k in skills if not k.endswith(':all')}
+          if not ({'3','6','12'} & leads):
+              raise SystemExit('Backfill produced no short-lead records')
+          print(f'Backfill produced {len(skills)} skill records; short leads={sorted(leads)}')
           PY
       - name: Commit shared skill data
         run: |
@@ -47,5 +51,6 @@ jobs:
             echo "No skill changes"
           else
             git commit -m "Backfill short-lead forecast skill"
+            git pull --rebase origin main
             git push
           fi
