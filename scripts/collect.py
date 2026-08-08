@@ -7,9 +7,11 @@ ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'data'; DATA.mkdir(exist_ok=True)
 SKILL=DATA/'skill.json'; LEDGER=DATA/'ledger.json'
 LOCATIONS={
- 'hrm': {'lat':44.6488,'lon':-63.5752,'bbox':[-63.80,44.48,-63.42,44.84]},
- 'moncton': {'lat':46.0878,'lon':-64.7782,'bbox':[-64.95,45.98,-64.62,46.20]},
- 'shediac': {'lat':46.2198,'lon':-64.5411,'bbox':[-64.68,46.10,-64.40,46.34]},
+ 'hrm': {'lat':44.6822,'lon':-63.6012,'points':[(44.6488,-63.5752),(44.7318,-63.6619),(44.6661,-63.5676)],'bbox':[-63.80,44.48,-63.42,44.84]},
+ 'moncton': {'lat':46.0878,'lon':-64.7782,'points':[(46.0878,-64.7782)],'bbox':[-64.95,45.98,-64.62,46.20]},
+ 'shediac': {'lat':46.2198,'lon':-64.5411,'points':[(46.2198,-64.5411)],'bbox':[-64.68,46.10,-64.40,46.34]},
+ 'lunenburg': {'lat':44.377896,'lon':-64.309529,'points':[(44.377896,-64.309529)],'bbox':[-64.46,44.25,-64.15,44.50]},
+ 'wolfville': {'lat':45.0791,'lon':-64.4383,'points':[(45.091713,-64.359242),(45.067858,-64.460234),(45.077707,-64.495306)],'bbox':[-64.62,44.98,-64.22,45.20]},
 }
 MODELS=['gem_hrdps_continental','gem_regional','gem_seamless','ecmwf_ifs025','ecmwf_aifs025_single','gfs_seamless','icon_seamless','ukmo_seamless','meteofrance_seamless','jma_seamless','kma_seamless','bom_access_global','cma_grapes_global']
 LEADS=[3,6,12,24]
@@ -60,11 +62,21 @@ def eccc_temp(loc):
  vals=[r[2] for r in near]
  return {'temp':sum(vals)/len(vals),'station':' / '.join(r[3] for r in near),'time':latest.isoformat()}
 
-def forecast(loc,model):
- q={'latitude':loc['lat'],'longitude':loc['lon'],'timezone':'UTC','forecast_days':'2','temperature_unit':'celsius','hourly':'temperature_2m','models':model}
+def forecast_point(lat,lon,model):
+ q={'latitude':lat,'longitude':lon,'timezone':'UTC','forecast_days':'2','temperature_unit':'celsius','hourly':'temperature_2m','models':model}
  try:j=get_json('https://api.open-meteo.com/v1/forecast?'+urllib.parse.urlencode(q))
  except:return None
  h=j.get('hourly',{}); return dict(zip(h.get('time',[]),h.get('temperature_2m',[])))
+
+def forecast(loc,model):
+ rows=[forecast_point(lat,lon,model) for lat,lon in loc.get('points',[(loc['lat'],loc['lon'])])]
+ rows=[r for r in rows if r]
+ if not rows:return None
+ keys=set().union(*(r.keys() for r in rows)); out={}
+ for k in keys:
+  vals=[r.get(k) for r in rows if isinstance(r.get(k),(int,float))]
+  if vals:out[k]=sum(vals)/len(vals)
+ return out
 
 def add_skill(skills,key,error):
  s=skills.get(key,{'n':0,'mae':0.0,'bias':0.0}); n=s['n']
@@ -103,6 +115,6 @@ def main():
   for model in MODELS:aggregate(skills,lname,model)
  ledger=[e for e in ledger if datetime.fromisoformat(e['issued'])>now-timedelta(days=35)]
  state={'updated_at':now.isoformat(),'observations':obs,'skills':skills}; save(SKILL,state);save(LEDGER,ledger)
- print(f'skills={len(skills)} ledger={len(ledger)} fresh_obs={sum(1 for x in obs.values() if x)}')
+ print(f'skills={len(skills)} ledger={len(ledger)} fresh_obs={sum(1 for x in obs.values() if x)} locations={len(LOCATIONS)}')
 
 if __name__=='__main__':main()
