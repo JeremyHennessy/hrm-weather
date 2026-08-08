@@ -1,0 +1,54 @@
+name: Capture live UI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'app-v6.html'
+      - 'v4.css'
+      - 'v5b.js'
+      - 'v6-extra.js'
+      - 'v7-final.js'
+      - 'manifest.webmanifest'
+      - 'sw.js'
+      - 'scripts/capture-ui.mjs'
+      - '.github/workflows/screenshot-ui.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weather-ui-capture
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Wait for GitHub Pages deploy
+        run: sleep 25
+      - name: Capture live iPhone and desktop UI
+        run: node scripts/capture-ui.mjs
+      - name: Commit screenshots and report
+        if: always()
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add screenshots/live-iphone.png screenshots/hero-share-card.png screenshots/live-desktop.png screenshots/report.json || true
+          if git diff --cached --quiet; then
+            echo "No screenshot changes"
+          else
+            git commit -m "Update live UI screenshots"
+            git push
+          fi
