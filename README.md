@@ -29,7 +29,7 @@ Calibration has four layers:
 3. **Continuous shared learning** — `.github/workflows/collect-weather.yml` runs hourly, records +3h/+6h/+12h/+24h model forecasts, verifies matured forecasts against fresh ECCC observations, and updates `data/skill.json`.
 4. **Short-lead archive bootstrap** — `.github/workflows/backfill-short.yml` uses Open-Meteo Single Runs to backfill exact +3h/+6h/+12h skill for major models and refreshes the shared calibration weekly.
 
-The hourly learner now averages the same forecast points used by multi-point headlines such as HRM Core and Wolfville Area. Model combination applies learned warm/cold bias before weighting. Lead-specific MAE is preferred; the `all` fallback is a sample-weighted aggregate across lead times.
+The hourly learner averages the same forecast points used by multi-point headlines such as HRM Core and Wolfville Area. Model combination applies learned warm/cold bias before weighting. Lead-specific MAE is preferred; the `all` fallback is a sample-weighted aggregate across lead times.
 
 ## UI screenshot QA
 
