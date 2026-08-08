@@ -24,6 +24,7 @@ jobs:
           node --check v5b.js
           node --check v6-extra.js
           node --check v7-final.js
+          node --check scripts/capture-ui.mjs
       - name: Python syntax
         run: |
           python -m py_compile scripts/collect.py
@@ -35,7 +36,12 @@ jobs:
           python -m json.tool data/ledger.json >/dev/null
       - name: Verify app references
         run: |
-          grep -q 'v5b.js' app-v6.html
-          grep -q 'v6-extra.js' app-v6.html
-          grep -q 'v7-final.js' app-v6.html
-          grep -q 'app-v6.html' index.html
+          grep -q 'v5b.js' app.html
+          grep -q 'v6-extra.js' app.html
+          grep -q 'v7-final.js' app.html
+          grep -q 'apple-touch-icon.png' app.html
+          grep -q 'app.html' index.html
+          grep -q "L.lunenburg" v7-final.js
+          grep -q "L.wolfville" v7-final.js
+          test -f icons/weather-consensus.svg
+          test -f icons/apple-touch-icon.png
