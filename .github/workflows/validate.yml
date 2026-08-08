@@ -34,14 +34,18 @@ jobs:
           python -m json.tool manifest.webmanifest >/dev/null
           python -m json.tool data/skill.json >/dev/null
           python -m json.tool data/ledger.json >/dev/null
-      - name: Verify app references
+      - name: Verify app references and mobile shell
         run: |
+          grep -q 'viewport-fit=cover' app.html
           grep -q 'v5b.js' app.html
           grep -q 'v6-extra.js' app.html
           grep -q 'v7-final.js' app.html
           grep -q 'apple-touch-icon.png' app.html
           grep -q 'app.html' index.html
+          grep -q 'safe-area-inset-top' v7-final.js
+          grep -q 'safe-area-inset-bottom' v7-final.js
           grep -q "L.lunenburg" v7-final.js
           grep -q "L.wolfville" v7-final.js
+          grep -q '512x512' manifest.webmanifest
           test -f icons/weather-consensus.svg
           test -f icons/apple-touch-icon.png
