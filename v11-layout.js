@@ -19,7 +19,7 @@
      const orb=document.createElement('div');orb.className='confidenceOrb';orb.innerHTML='<strong>--%</strong><span>Forecast Confidence</span><small>model agreement</small>';hero.appendChild(orb);
    }
    if(!qs('#photoCredit')){
-     const f=all('.footer').at(-1);if(f){const c=document.createElement('div');c.id='photoCredit';c.className='photoCredit';c.innerHTML='Hero photo: Jcart1534 / Wikimedia Commons · CC BY-SA 3.0';f.insertAdjacentElement('afterend',c)}
+     const f=all('.footer').at(-1);if(f){const c=document.createElement('div');c.id='photoCredit';c.className='photoCredit';c.innerHTML='Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Peggys_Cove_Lighthouse,_NS.jpg" target="_blank" rel="noopener">Shawn M. Kent / Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/1.0/" target="_blank" rel="noopener">CC BY 1.0</a>';f.insertAdjacentElement('afterend',c)}
    }
  }
  function activeLocation(){
