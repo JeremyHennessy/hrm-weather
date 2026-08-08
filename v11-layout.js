@@ -2,6 +2,22 @@
  const qs=(s,r=document)=>r.querySelector(s), all=(s,r=document)=>[...r.querySelectorAll(s)];
  const byTitle=t=>all('.section').find(s=>qs('h2',s)?.textContent.trim()===t);
  const txt=(el,v)=>{if(el&&el.textContent!==v)el.textContent=v};
+ function addBottomNav(){
+   if(qs('#appNav'))return;
+   const nav=document.createElement('nav');nav.id='appNav';nav.className='appNav';nav.setAttribute('aria-label','App navigation');
+   nav.innerHTML='<button data-go="forecast" class="active"><span>⌂</span><b>Forecast</b></button><button data-go="models"><span>⌁</span><b>Models</b></button><button data-go="map"><span>▧</span><b>Map</b></button><button data-go="alerts"><span>△</span><b>Alerts</b></button><button data-go="accuracy"><span>◎</span><b>Accuracy</b></button>';
+   document.body.appendChild(nav);
+   nav.addEventListener('click',e=>{
+     const b=e.target.closest('button');if(!b)return;
+     let target=null;
+     if(b.dataset.go==='forecast')target=qs('.topbar');
+     if(b.dataset.go==='models')target=byTitle('Model consensus');
+     if(b.dataset.go==='map'||b.dataset.go==='alerts')target=byTitle('Official data');
+     if(b.dataset.go==='accuracy')target=byTitle('Accuracy engine');
+     target?.scrollIntoView({behavior:'smooth',block:'start'});
+     all('button',nav).forEach(x=>x.classList.toggle('active',x===b));
+   });
+ }
  function arrange(){
    const warn=qs('#warn'),hero=qs('.hero'),brief=qs('.dayBrief'); if(!warn||!hero)return;
    const glance=qs('#glance')?.closest('.section'),hourly=byTitle('Next 12 hours'),days=byTitle('7-day outlook');
@@ -21,13 +37,10 @@
    if(!qs('#photoCredit')){
      const f=all('.footer').at(-1);if(f){const c=document.createElement('div');c.id='photoCredit';c.className='photoCredit';c.innerHTML='Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Peggys_Cove_Lighthouse,_NS.jpg" target="_blank" rel="noopener">Shawn M. Kent / Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/1.0/" target="_blank" rel="noopener">CC BY 1.0</a>';f.insertAdjacentElement('afterend',c)}
    }
+   addBottomNav();
  }
- function activeLocation(){
-   const a=qs('.tab.active');return a?.textContent.replace(/^[^A-Za-z]+/,'').trim()||'Weather Consensus';
- }
- function syncHeader(){
-   const name=activeLocation();txt(qs('.brand h1'),name);txt(qs('.brandsub'),'Weather Consensus · Real Feel first');
- }
+ function activeLocation(){const a=qs('.tab.active');return a?.textContent.replace(/^[^A-Za-z]+/,'').trim()||'Weather Consensus'}
+ function syncHeader(){txt(qs('.brand h1'),activeLocation());txt(qs('.brandsub'),'Weather Consensus · Real Feel first')}
  function syncConfidence(){
    const orb=qs('.confidenceOrb');if(!orb)return;
    const u=parseFloat((qs('#uncertainty')?.textContent||'').replace(/[^0-9.]/g,''));
@@ -35,16 +48,8 @@
    let score=86;if(Number.isFinite(u)){score=u<=.6?95:u<=1?92:u<=1.5?88:u<=2.2?82:74}
    txt(qs('strong',orb),`${score}%`);txt(qs('small',orb),count?`agreement across ${count} models`:'model agreement');
  }
- function normalizeLabels(){
-   all('.hour b').forEach(el=>el.setAttribute('aria-label',`Real Feel ${el.textContent.trim()}`));
-   all('.dayTemps strong').forEach(el=>el.setAttribute('aria-label',`Real Feel maximum ${el.textContent.trim()}`));
- }
+ function normalizeLabels(){all('.hour b').forEach(el=>el.setAttribute('aria-label',`Real Feel ${el.textContent.trim()}`));all('.dayTemps strong').forEach(el=>el.setAttribute('aria-label',`Real Feel maximum ${el.textContent.trim()}`))}
  function refresh(){arrange();syncHeader();syncConfidence();normalizeLabels()}
- window.addEventListener('DOMContentLoaded',()=>{
-   refresh();[250,900,2200,5000].forEach(ms=>setTimeout(refresh,ms));
-   qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,50));
-   qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,50));
-   qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,50));
- });
+ window.addEventListener('DOMContentLoaded',()=>{refresh();[250,900,2200,5000].forEach(ms=>setTimeout(refresh,ms));qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,50))});
  window.addEventListener('load',refresh);
 })();
