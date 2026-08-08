@@ -44,7 +44,7 @@ jobs:
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add screenshots/live-iphone.png screenshots/hero-share-card.png screenshots/live-desktop.png screenshots/report.json || true
+          git add screenshots/live-iphone.png screenshots/hero-share-card.png screenshots/live-desktop.png screenshots/failure.png screenshots/report.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No screenshot changes"
           else
