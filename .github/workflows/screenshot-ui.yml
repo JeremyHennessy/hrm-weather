@@ -40,15 +40,15 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
-      - name: Serve current main build
-        run: |
-          python -m http.server 8000 >/tmp/weather-ui-http.log 2>&1 &
-          sleep 2
-          curl --fail --retry 5 --retry-delay 1 http://127.0.0.1:8000/app.html >/dev/null
-      - name: Capture iPhone and desktop UI with live weather APIs
+      - name: Serve and capture current main with live weather APIs
         env:
           WX_URL: http://127.0.0.1:8000/app.html
-        run: node scripts/capture-ui.mjs
+        run: |
+          python -m http.server 8000 >/tmp/weather-ui-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
+          curl --fail --retry 8 --retry-delay 1 http://127.0.0.1:8000/app.html >/dev/null
+          node scripts/capture-ui.mjs
       - name: Commit screenshots and report
         if: always()
         run: |
