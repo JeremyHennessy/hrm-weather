@@ -6,7 +6,6 @@ let wx8TouchStart=null;
 
 function wx8LocalDate(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Halifax',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
 function wx8PrettyDate(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Halifax',weekday:'long',month:'short',day:'numeric'}).format(new Date())}
-function wx8Num(v){return Number.isFinite(v)?v:null}
 function wx8Average(a){const x=a.filter(Number.isFinite);return x.length?x.reduce((s,v)=>s+v,0)/x.length:null}
 function wx8Round(v){return Number.isFinite(v)?`${Math.round(v)}°`:'--°'}
 function wx8At(d,date,hour){const key=`${date}T${String(hour).padStart(2,'0')}:00`;const i=(d.hourly?.time||[]).indexOf(key);return i>=0?i:null}
@@ -16,11 +15,7 @@ function wx8WeatherIcon(code){if(code===0)return'☀️';if([1,2].includes(code)
 function wx8Nav(){
   wx8OriginalNav();
   const entries=Object.entries(L),keys=entries.map(([k])=>k),activeIndex=Math.max(0,keys.indexOf(loc));
-  tabs.querySelectorAll('.tab').forEach(btn=>{
-    const k=btn.dataset.k,label=L[k]?.n||btn.textContent;
-    btn.innerHTML=`<span class="tabIcon" aria-hidden="true">${WX8_ICONS[k]||'●'}</span><span class="tabLabel">${label}</span>`;
-    btn.setAttribute('role','tab');btn.setAttribute('aria-selected',k===loc?'true':'false');
-  });
+  tabs.querySelectorAll('.tab').forEach(btn=>{const k=btn.dataset.k,label=L[k]?.n||btn.textContent;btn.innerHTML=`<span class="tabIcon" aria-hidden="true">${WX8_ICONS[k]||'●'}</span><span class="tabLabel">${label}</span>`;btn.setAttribute('role','tab');btn.setAttribute('aria-selected',k===loc?'true':'false')});
   const active=tabs.querySelector('.tab.active');requestAnimationFrame(()=>active?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}));
   if(window.locationDots)locationDots.innerHTML=entries.map(([k],i)=>`<span class="locationDot ${i===activeIndex?'active':''}"></span>`).join('');
   const move=step=>{const next=keys[(activeIndex+step+keys.length)%keys.length];if(next===loc)return;loc=next;localStorage.setItem('wx-loc',loc);nav();load()};
@@ -28,65 +23,17 @@ function wx8Nav(){
 }
 nav=wx8Nav;
 
-function wx8Verdict(x){
-  if(!x)return['Forecast unavailable',''];
-  if(x.rain>=65)return['Rain likely — bring a shell','caution'];
-  if(x.feel>=31)return['Hot — keep the walk easy','caution'];
-  if(x.wind>=36)return['Windy — exposed routes may feel rough','caution'];
-  if(x.rain<=25&&x.feel>=10&&x.feel<=27)return['Great window for a walk','good'];
-  if(x.rain<=40&&x.feel<=29)return['Pretty good outdoor window','good'];
-  return['Usable, but not the day’s best window',''];
-}
-function wx8SetRoutine(prefix,x){
-  const card=document.getElementById(prefix==='morning'?'morningRoutine':'eveningRoutine');
-  const v=wx8Verdict(x);card?.classList.remove('good','caution');if(v[1])card?.classList.add(v[1]);
-  const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val};
-  set(prefix+'Feel',wx8Round(x?.feel));set(prefix+'Actual',`Actual ${wx8Round(x?.air)}`);set(prefix+'Rain',`☂ ${Number.isFinite(x?.rain)?Math.round(x.rain):'--'}%`);set(prefix+'Wind',`↗ ${Number.isFinite(x?.wind)?Math.round(x.wind):'--'} km/h`);set(prefix+'Verdict',v[0]);
-}
-async function wx8Point(z){
-  const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:'America/Halifax',forecast_days:'2',temperature_unit:'celsius',wind_speed_unit:'kmh',hourly:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m'});
-  const c=new AbortController(),tm=setTimeout(()=>c.abort(),9000);
-  try{const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{signal:c.signal,cache:'no-store'});if(!r.ok)throw Error(r.status);return await r.json()}finally{clearTimeout(tm)}
-}
-function wx8Sample(ds,date,hour,half=false){
-  const rows=ds.map(d=>{
-    const a=wx8At(d,date,hour),b=half?wx8At(d,date,hour+1):null;if(a==null)return null;
-    const g=name=>half?wx8Interp(d.hourly?.[name]?.[a],b==null?null:d.hourly?.[name]?.[b]):d.hourly?.[name]?.[a];
-    return{feel:g('apparent_temperature'),air:g('temperature_2m'),rain:g('precipitation_probability'),wind:g('wind_speed_10m'),hum:g('relative_humidity_2m'),code:d.hourly?.weather_code?.[a]};
-  }).filter(Boolean);
-  if(!rows.length)return null;
-  return{feel:wx8Average(rows.map(x=>x.feel)),air:wx8Average(rows.map(x=>x.air)),rain:wx8Average(rows.map(x=>x.rain)),wind:wx8Average(rows.map(x=>x.wind)),hum:wx8Average(rows.map(x=>x.hum)),code:Math.round(wx8Average(rows.map(x=>x.code).filter(Number.isFinite))||0)};
-}
-function wx8DaySeries(ds,date){
-  const out=[];for(let h=0;h<24;h++){const x=wx8Sample(ds,date,h,false);if(x)out.push({...x,h})}return out;
-}
+function wx8Verdict(x){if(!x)return['Forecast unavailable',''];if(x.rain>=65)return['Rain likely — bring a shell','caution'];if(x.feel>=31)return['Hot — keep the walk easy','caution'];if(x.wind>=36)return['Windy — exposed routes may feel rough','caution'];if(x.rain<=25&&x.feel>=10&&x.feel<=27)return['Great window for a walk','good'];if(x.rain<=40&&x.feel<=29)return['Pretty good outdoor window','good'];return['Usable, but not the day’s best window','']}
+function wx8SetRoutine(prefix,x){const card=document.getElementById(prefix==='morning'?'morningRoutine':'eveningRoutine');const v=wx8Verdict(x);card?.classList.remove('good','caution');if(v[1])card?.classList.add(v[1]);const set=(id,val)=>{const e=document.getElementById(id);if(e)e.textContent=val};set(prefix+'Feel',wx8Round(x?.feel));set(prefix+'Actual',`Actual ${wx8Round(x?.air)}`);set(prefix+'Rain',`☂ ${Number.isFinite(x?.rain)?Math.round(x.rain):'--'}%`);set(prefix+'Wind',`↗ ${Number.isFinite(x?.wind)?Math.round(x.wind):'--'} km/h`);set(prefix+'Verdict',v[0])}
+async function wx8Point(z){const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:'America/Halifax',forecast_days:'2',temperature_unit:'celsius',wind_speed_unit:'kmh',hourly:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,weather_code,wind_speed_10m'});const c=new AbortController(),tm=setTimeout(()=>c.abort(),9000);try{const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{signal:c.signal,cache:'no-store'});if(!r.ok)throw Error(r.status);return await r.json()}finally{clearTimeout(tm)}}
+function wx8Sample(ds,date,hour,half=false){const rows=ds.map(d=>{const a=wx8At(d,date,hour),b=half?wx8At(d,date,hour+1):null;if(a==null)return null;const g=name=>half?wx8Interp(d.hourly?.[name]?.[a],b==null?null:d.hourly?.[name]?.[b]):d.hourly?.[name]?.[a];return{feel:g('apparent_temperature'),air:g('temperature_2m'),rain:g('precipitation_probability'),wind:g('wind_speed_10m'),hum:g('relative_humidity_2m'),code:d.hourly?.weather_code?.[a]}}).filter(Boolean);if(!rows.length)return null;return{feel:wx8Average(rows.map(x=>x.feel)),air:wx8Average(rows.map(x=>x.air)),rain:wx8Average(rows.map(x=>x.rain)),wind:wx8Average(rows.map(x=>x.wind)),hum:wx8Average(rows.map(x=>x.hum)),code:Math.round(wx8Average(rows.map(x=>x.code).filter(Number.isFinite))||0)}}
+function wx8DaySeries(ds,date){const out=[];for(let h=0;h<24;h++){const x=wx8Sample(ds,date,h,false);if(x)out.push({...x,h})}return out}
 function wx8HourText(h){if(h===0)return'midnight';if(h===12)return'noon';return h<12?`${h} a.m.`:`${h-12} p.m.`}
-function wx8BuildSummary(series,morning,evening){
-  if(!series.length)return'Weather summary unavailable right now.';
-  const peak=[...series].filter(x=>Number.isFinite(x.feel)).sort((a,b)=>b.feel-a.feel)[0];
-  const wet=[...series].filter(x=>Number.isFinite(x.rain)).sort((a,b)=>b.rain-a.rain)[0];
-  const hum=wx8Average(series.filter(x=>x.h>=12&&x.h<=18).map(x=>x.hum));
-  let opener=peak?.feel>=31?'A hot day overall.':peak?.feel>=26?'A warm day overall.':peak?.feel<=10?'A cool day overall.':'A fairly comfortable day overall.';
-  if(hum>=74)opener=opener.replace(/\.$/,'')+' with noticeable humidity.';
-  const peakText=peak?` Real Feel peaks near ${Math.round(peak.feel)}° around ${wx8HourText(peak.h)}.`:'';
-  const routine=morning&&evening?` Your 6:30 a.m. window is about ${Math.round(morning.feel)}° Real Feel; around 5 p.m. expect about ${Math.round(evening.feel)}°.`:'';
-  let rain='';if(wet&&wet.rain>=55)rain=` Rain risk is highest around ${wx8HourText(wet.h)} at roughly ${Math.round(wet.rain)}%.`;else if(wet&&wet.rain>=30)rain=` There is some rain risk today, topping out near ${Math.round(wet.rain)}%.`;else rain=' Rain is not a major concern today.';
-  return opener+peakText+routine+rain;
-}
-async function wx8Routine(){
-  const C=L[loc];if(!C)return;
-  const date=wx8LocalDate();if(window.dayBriefDate)dayBriefDate.textContent=wx8PrettyDate();
-  const points=await Promise.allSettled(C.core.map(wx8Point));const ds=points.filter(x=>x.status==='fulfilled').map(x=>x.value);if(!ds.length){if(window.daySummary)daySummary.textContent='Could not build the personal day summary right now.';return}
-  const morning=wx8Sample(ds,date,6,true),evening=wx8Sample(ds,date,17,false),series=wx8DaySeries(ds,date);
-  wx8SetRoutine('morning',morning);wx8SetRoutine('evening',evening);
-  if(window.daySummary)daySummary.textContent=wx8BuildSummary(series,morning,evening);
-  const nowHour=Number(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Halifax',hour:'2-digit',hourCycle:'h23'}).format(new Date()));const current=wx8Sample(ds,date,nowHour,false);if(current&&window.heroIcon)heroIcon.textContent=wx8WeatherIcon(current.code);
-}
+function wx8Period(text){return /[.!?]$/.test(text)?text:text+'.'}
+function wx8BuildSummary(series,morning,evening){if(!series.length)return'Weather summary unavailable right now.';const peak=[...series].filter(x=>Number.isFinite(x.feel)).sort((a,b)=>b.feel-a.feel)[0];const wet=[...series].filter(x=>Number.isFinite(x.rain)).sort((a,b)=>b.rain-a.rain)[0];const hum=wx8Average(series.filter(x=>x.h>=12&&x.h<=18).map(x=>x.hum));let opener=peak?.feel>=31?'A hot day overall.':peak?.feel>=26?'A warm day overall.':peak?.feel<=10?'A cool day overall.':'A fairly comfortable day overall.';if(hum>=74)opener=opener.replace(/\.$/,'')+' with noticeable humidity.';const peakText=peak?` Real Feel peaks near ${Math.round(peak.feel)}° around ${wx8Period(wx8HourText(peak.h))}`:'';const routine=morning&&evening?` Your 6:30 a.m. window is about ${Math.round(morning.feel)}° Real Feel; around 5 p.m. expect about ${Math.round(evening.feel)}°.`:'';let rain='';if(wet&&wet.rain>=55)rain=` Rain risk is highest around ${wx8HourText(wet.h)} at roughly ${Math.round(wet.rain)}%.`;else if(wet&&wet.rain>=30)rain=` There is some rain risk today, topping out near ${Math.round(wet.rain)}%.`;else rain=' Rain is not a major concern today.';return opener+peakText+routine+rain}
+async function wx8Routine(){const C=L[loc];if(!C)return;const date=wx8LocalDate();if(window.dayBriefDate)dayBriefDate.textContent=wx8PrettyDate();const points=await Promise.allSettled(C.core.map(wx8Point));const ds=points.filter(x=>x.status==='fulfilled').map(x=>x.value);if(!ds.length){if(window.daySummary)daySummary.textContent='Could not build the personal day summary right now.';return}const morning=wx8Sample(ds,date,6,true),evening=wx8Sample(ds,date,17,false),series=wx8DaySeries(ds,date);wx8SetRoutine('morning',morning);wx8SetRoutine('evening',evening);if(window.daySummary)daySummary.textContent=wx8BuildSummary(series,morning,evening);const nowHour=Number(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Halifax',hour:'2-digit',hourCycle:'h23'}).format(new Date()));const current=wx8Sample(ds,date,nowHour,false);if(current&&window.heroIcon)heroIcon.textContent=wx8WeatherIcon(current.code)}
 
-load=async function(){const routine=wx8Routine().catch(()=>{});const result=await wx8OriginalLoad();await routine;return result};
-if(window.refresh)refresh.onclick=load;
-
+load=async function(){const routine=wx8Routine().catch(()=>{});const result=await wx8OriginalLoad();await routine;return result};if(window.refresh)refresh.onclick=load;
 function wx8Swipe(){const target=document.querySelector('.hero');if(!target||target.dataset.swipeReady)return;target.dataset.swipeReady='1';target.addEventListener('touchstart',e=>{wx8TouchStart=e.changedTouches[0]?.clientX??null},{passive:true});target.addEventListener('touchend',e=>{if(wx8TouchStart==null)return;const dx=(e.changedTouches[0]?.clientX??wx8TouchStart)-wx8TouchStart;wx8TouchStart=null;if(Math.abs(dx)<55)return;const keys=Object.keys(L),i=keys.indexOf(loc),next=keys[(i+(dx<0?1:-1)+keys.length)%keys.length];loc=next;localStorage.setItem('wx-loc',loc);nav();load()},{passive:true})}
-
-window.addEventListener('load',()=>{nav();wx8Swipe();});
+window.addEventListener('load',()=>{nav();wx8Swipe()});
 })();
