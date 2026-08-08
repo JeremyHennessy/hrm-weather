@@ -1,3 +1,8 @@
+L.lunenburg={n:'Lunenburg',k:'LUNENBURG NS',s:'Lunenburg, Nova Scotia',core:[['Lunenburg',44.377896,-64.309529]],micro:[],bbox:[-64.46,44.25,-64.15,44.50]};
+L.wolfville={n:'Wolfville Area',k:'WOLFVILLE NS',s:'Wolfville · New Minas · Kentville',core:[['Wolfville',45.091713,-64.359242],['New Minas',45.067858,-64.460234],['Kentville',45.077707,-64.495306]],micro:[],bbox:[-64.62,44.98,-64.22,45.20]};
+const wxBaseRegimeFactor=regimeFactor;
+regimeFactor=function(id,lead,windDir){let f=wxBaseRegimeFactor(id,lead,windDir);if(loc==='lunenburg'&&Number.isFinite(windDir)&&windDir>=60&&windDir<=210&&id==='gem_hrdps_continental'&&lead<=12)f*=1.08;return f};
+
 let wxSharedSkills={};
 async function wxLoadSharedSkills(){try{const r=await fetch('./data/skill.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();wxSharedSkills=j.skills||j||{};const h=document.getElementById('health');if(h&&j.updated_at)h.dataset.sharedUpdated=j.updated_at}catch{}}
 const wxLocalGetSkills=getSkills;
@@ -20,7 +25,6 @@ function wxApplyTerminology(){
   document.querySelectorAll('.head span').forEach(el=>{el.textContent=el.textContent.replace(/feels-like first/ig,'Real Feel first').replace(/max feels/ig,'Real Feel max');});
   document.querySelectorAll('.zones .sub,.micro .sub,.hours .sub').forEach(el=>{el.textContent=el.textContent.replace(/^actual\s+/i,'Actual ').replace(/^air\s+/i,'Actual ');});
   document.querySelectorAll('.dayMain').forEach(el=>{el.innerHTML=el.innerHTML.replace(/feels max/ig,'Real Feel max');});
-  const prob=document.querySelector('.section .card .sub');
   document.querySelectorAll('.section .card .sub').forEach(el=>{el.textContent=el.textContent.replace(/feels-like range/ig,'Real Feel range');});
   if(typeof advice!=='undefined'&&advice?.textContent)advice.textContent=advice.textContent.replace(/feels near/ig,'Real Feel near');
 }
@@ -28,6 +32,8 @@ const wxTermObserver=new MutationObserver(()=>wxApplyTerminology());
 window.addEventListener('load',()=>{
   if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
   wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+  nav();
+  load();
   wxApplyTerminology();
   wxLoadSharedSkills().then(()=>{const h=document.getElementById('health');if(h&&h.dataset.sharedUpdated){const d=new Date(h.dataset.sharedUpdated);if(!Number.isNaN(d)){const age=Math.max(0,Math.round((Date.now()-d)/3600000));h.insertAdjacentHTML('beforeend',`<span> · shared calibration ${age}h old</span>`)}}});
 });
