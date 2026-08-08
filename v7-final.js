@@ -1,3 +1,5 @@
+(()=>{const s=document.createElement('style');s.id='wx-safe-area';s.textContent=`.app{padding-top:max(16px,calc(env(safe-area-inset-top) + 12px))!important;padding-left:max(13px,env(safe-area-inset-left))!important;padding-right:max(13px,env(safe-area-inset-right))!important;padding-bottom:max(64px,calc(env(safe-area-inset-bottom) + 28px))!important}body{min-height:100dvh}header{min-height:44px}@media(max-width:620px){.app{padding-top:max(18px,calc(env(safe-area-inset-top) + 12px))!important}.tabs{scroll-padding-inline:8px}}`;document.head.appendChild(s)})();
+
 L.lunenburg={n:'Lunenburg',k:'LUNENBURG NS',s:'Lunenburg, Nova Scotia',core:[['Lunenburg',44.377896,-64.309529]],micro:[],bbox:[-64.46,44.25,-64.15,44.50]};
 L.wolfville={n:'Wolfville Area',k:'WOLFVILLE NS',s:'Wolfville · New Minas · Kentville',core:[['Wolfville',45.091713,-64.359242],['New Minas',45.067858,-64.460234],['Kentville',45.077707,-64.495306]],micro:[],bbox:[-64.62,44.98,-64.22,45.20]};
 const wxBaseRegimeFactor=regimeFactor;
