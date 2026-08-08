@@ -1,32 +1,36 @@
 {
-  "captured_at": "2026-08-08T22:04:38.197Z",
+  "captured_at": "2026-08-08T22:07:03.719Z",
   "stage": "report",
   "fatal": null,
-  "url": "http://127.0.0.1:42473/app.html?shot=1786226670671",
-  "page_url": "http://127.0.0.1:42473/app.html?shot=1786226670671",
+  "url": "http://127.0.0.1:43047/app.html?shot=1786226814886",
+  "page_url": "http://127.0.0.1:43047/app.html?shot=1786226814886",
   "response_status": 200,
   "title": "Weather Consensus",
   "data_mode": "browser-live",
-  "console_errors": [
-    "Failed to load resource: the server responded with a status of 404 (Not Found)"
-  ],
+  "console_errors": [],
   "terminology_hits": [],
-  "missing_tabs": [],
-  "safe_area": {
-    "style": ".app{padding-top:max(16px,calc(env(safe-area-inset-top) + 12px))!important;padding-left:max(13px,env(safe-area-inset-left))!important;padding-right:max(13px,env(safe-area-inset-right))!important;padding-bottom:max(64px,calc(env(safe-area-inset-bottom) + 28px))!important}body{min-height:100dvh}header{min-height:44px}@media(max-width:620px){.app{padding-top:max(18px,calc(env(safe-area-inset-top) + 12px))!important}.tabs{scroll-padding-inline:8px}}",
-    "paddingTop": "16px",
-    "headerTop": -186
-  },
-  "real_feel": "26.7°",
-  "actual": "Actual 22.4°",
-  "tabs": [
+  "missing_tabs": [
     "HRM Core",
     "Moncton",
     "Shediac",
     "Lunenburg",
     "Wolfville Area"
   ],
-  "body_preview": "HRM CORE\nWeather Consensus\nLocal consensus · Real Feel first\nRefresh\n‹\nHRM Core\nMoncton\nShediac\nLunenburg\nWolfville Area\n›\nheat warning\nHalifax Metro and Halifax County West\nToday at a glance\nfast read\nNOW\n26.7° feels\nRAIN\n55%\nOUTLOOK\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%\nSUNSET\n8:30 p.m.\nRIGHT NOW\nHalifax Peninsula · Bedford · Dartmouth\n🌤️\n26.7°\nREAL FEEL\nActual 22.4°\nReal Feel range 23–26° · 80 members/location\nGreat outside\nOfficial observation unavailable — using model consensus\nREAL FEEL HIGH\n31.6°\nRAIN NOW\n55%\nWIND / GUST\n7 / 13\nUV INDEX\n0.1\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%.\nPERSONAL FORECAST\nYour day\ntoday\nBuilding today's weather summary…\n🌅\n6:30 A.M.Before-work walk\n--°Real FeelActual --°\n☂ --%↗ -- km/h\nChecking conditions…\n🌇\n5:00 P.M.After work\n--°Real FeelActual --°\n☂ --%↗ -- km/h\nChecking conditions…\nAcross HRM\nReal Feel first\nHalifax Peninsula\n26.9°\nActual 22.2° · rain 53%\nBedford\n26.4°\nActual 22.6° ·",
+  "safe_area": {
+    "style": ".app{padding-top:max(16px,calc(env(safe-area-inset-top) + 12px))!important;padding-left:max(13px,env(safe-area-inset-left))!important;padding-right:max(13px,env(safe-area-inset-right))!important;padding-bottom:max(64px,calc(env(safe-area-inset-bottom) + 28px))!important}body{min-height:100dvh}header{min-height:44px}@media(max-width:620px){.app{padding-top:max(18px,calc(env(safe-area-inset-top) + 12px))!important}.tabs{scroll-padding-inline:8px}}",
+    "paddingTop": "16px",
+    "headerTop": 16
+  },
+  "real_feel": "26.7°",
+  "actual": "Actual 22.4°",
+  "tabs": [
+    "◉HRM Core",
+    "⌂Moncton",
+    "⛵Shediac",
+    "⚓Lunenburg",
+    "🍃Wolfville Area"
+  ],
+  "body_preview": "HRM CORE\nWeather Consensus\nLocal consensus · Real Feel first\nRefresh\n‹\n◉\nHRM Core\n⌂\nMoncton\n⛵\nShediac\n⚓\nLunenburg\n🍃\nWolfville Area\n›\nheat warning\nHalifax Metro and Halifax County West\nToday at a glance\nfast read\nNOW\n26.7° feels\nRAIN\n55%\nOUTLOOK\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%\nSUNSET\n8:30 p.m.\nRIGHT NOW\nHalifax Peninsula · Bedford · Dartmouth\n🌤️\n26.7°\nREAL FEEL\nActual 22.4°\nReal Feel range 23–26° · 80 members/location\nGreat outside\nOfficial observation unavailable — using model consensus\nREAL FEEL HIGH\n31.6°\nRAIN NOW\n55%\nWIND / GUST\n7 / 13\nUV INDEX\n0.1\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%.\nPERSONAL FORECAST\nYour day\nSaturday, Aug 8\nA hot day overall with noticeable humidity. Real Feel peaks near 32° around 2 p.m.. Your 6:30 a.m. window is about 25° Real Feel; around 5 p.m. expect about 27°. Rain risk is highest around 7 p.m. at roughly 55%.\n🌅\n6:30 A.M.\nBefore-work walk\n25°REAL FEEL\nActual 22°\n☂ 3%\n↗ 2 km/h\nGreat",
   "requests": [
     {
       "path": "/app.html",
@@ -55,10 +59,6 @@
     {
       "path": "/v8-ui.js",
       "file": "/home/runner/work/hrm-weather/hrm-weather/v8-ui.js"
-    },
-    {
-      "error": "Error: ENOENT: no such file or directory, open '/home/runner/work/hrm-weather/hrm-weather/v8-ui.js'",
-      "path": "/v8-ui.js"
     },
     {
       "path": "/data/skill.json",
@@ -101,16 +101,16 @@
       "file": "/home/runner/work/hrm-weather/hrm-weather/v7-final.js"
     },
     {
+      "path": "/v8-ui.js",
+      "file": "/home/runner/work/hrm-weather/hrm-weather/v8-ui.js"
+    },
+    {
       "path": "/manifest.webmanifest",
       "file": "/home/runner/work/hrm-weather/hrm-weather/manifest.webmanifest"
     },
     {
       "path": "/icons/weather-consensus.svg",
       "file": "/home/runner/work/hrm-weather/hrm-weather/icons/weather-consensus.svg"
-    },
-    {
-      "path": "/icons/apple-touch-icon.png",
-      "file": "/home/runner/work/hrm-weather/hrm-weather/icons/apple-touch-icon.png"
     }
   ]
 }
