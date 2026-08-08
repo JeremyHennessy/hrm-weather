@@ -25,6 +25,7 @@ jobs:
           node --check v6-extra.js
           node --check v7-final.js
           node --check v8-ui.js
+          node --check v11-layout.js
           node --check scripts/capture-ui.mjs
       - name: Python syntax
         run: |
@@ -42,15 +43,19 @@ jobs:
           grep -q 'v6-extra.js' app.html
           grep -q 'v7-final.js' app.html
           grep -q 'v8-ui.js' app.html
-          grep -q 'weather-consensus.svg' app.html
+          grep -q 'v11-reference.css' app.html
+          grep -q 'v11-layout.js' app.html
           grep -q 'morningRoutine' app.html
           grep -q 'eveningRoutine' app.html
           grep -q '6:30 A.M.' app.html
           grep -q '5:00 P.M.' app.html
+          grep -q 'Real Feel' app.html
           grep -q 'app.html' index.html
           grep -q 'safe-area-inset-top' v7-final.js
           grep -q 'safe-area-inset-bottom' v7-final.js
           grep -q "L.lunenburg" v7-final.js
           grep -q "L.wolfville" v7-final.js
-          grep -q 'v8-ui.js' sw.js
-          test -f icons/weather-consensus.svg
+          grep -q 'v11-layout.js' sw.js
+          test -f icons/apple-touch-icon.png
+          test -f icons/icon-192.png
+          test -f icons/icon-512.png
