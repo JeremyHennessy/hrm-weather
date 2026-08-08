@@ -32,14 +32,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - name: Install Playwright
         run: |
           npm init -y >/dev/null 2>&1
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
-      - name: Wait for GitHub Pages deploy
-        run: sleep 25
-      - name: Capture live iPhone and desktop UI
+      - name: Serve current main build
+        run: |
+          python -m http.server 8000 >/tmp/weather-ui-http.log 2>&1 &
+          sleep 2
+          curl --fail --retry 5 --retry-delay 1 http://127.0.0.1:8000/app.html >/dev/null
+      - name: Capture iPhone and desktop UI with live weather APIs
+        env:
+          WX_URL: http://127.0.0.1:8000/app.html
         run: node scripts/capture-ui.mjs
       - name: Commit screenshots and report
         if: always()
@@ -51,5 +59,6 @@ jobs:
             echo "No screenshot changes"
           else
             git commit -m "Update live UI screenshots"
+            git pull --rebase origin main
             git push
           fi
