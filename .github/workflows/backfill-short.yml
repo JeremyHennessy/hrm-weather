@@ -1,0 +1,35 @@
+name: Backfill short-lead skill
+
+on:
+  schedule:
+    - cron: '41 4 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weather-short-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Backfill 3h 6h 12h model skill
+        run: python scripts/backfill_short.py
+      - name: Commit shared skill data
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/skill.json
+          if git diff --cached --quiet; then
+            echo "No skill changes"
+          else
+            git commit -m "Backfill short-lead forecast skill"
+            git push
+          fi
