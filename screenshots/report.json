@@ -1,22 +1,24 @@
 {
-  "captured_at": "2026-08-08T21:46:14.024Z",
+  "captured_at": "2026-08-08T22:04:38.197Z",
   "stage": "report",
   "fatal": null,
-  "url": "http://127.0.0.1:42873/app.html?shot=1786225566977",
-  "page_url": "http://127.0.0.1:42873/app.html?shot=1786225566977",
+  "url": "http://127.0.0.1:42473/app.html?shot=1786226670671",
+  "page_url": "http://127.0.0.1:42473/app.html?shot=1786226670671",
   "response_status": 200,
   "title": "Weather Consensus",
   "data_mode": "browser-live",
-  "console_errors": [],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
   "terminology_hits": [],
   "missing_tabs": [],
   "safe_area": {
     "style": ".app{padding-top:max(16px,calc(env(safe-area-inset-top) + 12px))!important;padding-left:max(13px,env(safe-area-inset-left))!important;padding-right:max(13px,env(safe-area-inset-right))!important;padding-bottom:max(64px,calc(env(safe-area-inset-bottom) + 28px))!important}body{min-height:100dvh}header{min-height:44px}@media(max-width:620px){.app{padding-top:max(18px,calc(env(safe-area-inset-top) + 12px))!important}.tabs{scroll-padding-inline:8px}}",
     "paddingTop": "16px",
-    "headerTop": 16
+    "headerTop": -186
   },
-  "real_feel": "27.6°",
-  "actual": "Actual 22.6°",
+  "real_feel": "26.7°",
+  "actual": "Actual 22.4°",
   "tabs": [
     "HRM Core",
     "Moncton",
@@ -24,7 +26,7 @@
     "Lunenburg",
     "Wolfville Area"
   ],
-  "body_preview": "HRM CORE\nWeather Consensus\nRefresh\nHRM Core\nMoncton\nShediac\nLunenburg\nWolfville Area\nheat warning\nHalifax Metro and Halifax County West\nToday at a glance\nfast read\nNOW\n27.6° feels\nRAIN\n51%\nOUTLOOK\nBetter around 1 a.m. — Real Feel near 22° with rain chance around 19%\nSUNSET\n8:30 p.m.\nHalifax Peninsula · Bedford · Dartmouth\n27.6°\nActual 22.6°\nReal Feel range 24–28° · 80 members/location\nPretty good outside\nOfficial observation unavailable — using model consensus\n🌤️\nREAL FEEL HIGH\n31.6°\nRAIN NOW\n51%\nWIND / GUST\n7 / 12\nUV INDEX\n0.2\nBetter around 1 a.m. — Real Feel near 22° with rain chance around 19%.\nAcross HRM\nReal Feel first\nHalifax Peninsula\n27.6°\nActual 22.4° · rain 50%\nBedford\n27.5°\nActual 22.8° · rain 53%\nDartmouth\n27.6°\nActual 22.5° · rain 50%\nHRM microclimates\ncontext only · not headline average\nClayton Park\n27.1°\nActual 23.5°\nLower Sackville\n27.4°\nActual 23.7°\nEastern Passage\n24.9°\nActual 21.3°\nNext 12 hours\nrain timing · model agreement\n6 p.m.\n🌧️\n28°\nActual 23°\n☂ 51% · 0.4mm\n5",
+  "body_preview": "HRM CORE\nWeather Consensus\nLocal consensus · Real Feel first\nRefresh\n‹\nHRM Core\nMoncton\nShediac\nLunenburg\nWolfville Area\n›\nheat warning\nHalifax Metro and Halifax County West\nToday at a glance\nfast read\nNOW\n26.7° feels\nRAIN\n55%\nOUTLOOK\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%\nSUNSET\n8:30 p.m.\nRIGHT NOW\nHalifax Peninsula · Bedford · Dartmouth\n🌤️\n26.7°\nREAL FEEL\nActual 22.4°\nReal Feel range 23–26° · 80 members/location\nGreat outside\nOfficial observation unavailable — using model consensus\nREAL FEEL HIGH\n31.6°\nRAIN NOW\n55%\nWIND / GUST\n7 / 13\nUV INDEX\n0.1\nBetter around 10 p.m. — Real Feel near 23° with rain chance around 26%.\nPERSONAL FORECAST\nYour day\ntoday\nBuilding today's weather summary…\n🌅\n6:30 A.M.Before-work walk\n--°Real FeelActual --°\n☂ --%↗ -- km/h\nChecking conditions…\n🌇\n5:00 P.M.After work\n--°Real FeelActual --°\n☂ --%↗ -- km/h\nChecking conditions…\nAcross HRM\nReal Feel first\nHalifax Peninsula\n26.9°\nActual 22.2° · rain 53%\nBedford\n26.4°\nActual 22.6° ·",
   "requests": [
     {
       "path": "/app.html",
@@ -33,6 +35,10 @@
     {
       "path": "/v4.css",
       "file": "/home/runner/work/hrm-weather/hrm-weather/v4.css"
+    },
+    {
+      "path": "/icons/weather-consensus.svg",
+      "file": "/home/runner/work/hrm-weather/hrm-weather/icons/weather-consensus.svg"
     },
     {
       "path": "/v5b.js",
@@ -45,6 +51,14 @@
     {
       "path": "/v7-final.js",
       "file": "/home/runner/work/hrm-weather/hrm-weather/v7-final.js"
+    },
+    {
+      "path": "/v8-ui.js",
+      "file": "/home/runner/work/hrm-weather/hrm-weather/v8-ui.js"
+    },
+    {
+      "error": "Error: ENOENT: no such file or directory, open '/home/runner/work/hrm-weather/hrm-weather/v8-ui.js'",
+      "path": "/v8-ui.js"
     },
     {
       "path": "/data/skill.json",
