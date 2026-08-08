@@ -12,6 +12,8 @@ Permanent app URL: `https://jeremyhennessy.github.io/hrm-weather/`
 - **Lunenburg:** Town of Lunenburg.
 - **Wolfville Area:** equal-location view of Wolfville + New Minas + Kentville.
 
+Coordinates for the new Nova Scotia locations are based on official Canadian Geographical Names Database place records.
+
 ## Forecast stack
 
 The app combines multiple deterministic model products including Canadian GEM/HRDPS, ECMWF, GFS, ICON, UKMO, Météo-France, JMA, KMA, BOM and CMA products when available. Failed providers degrade gracefully rather than blocking the forecast.
