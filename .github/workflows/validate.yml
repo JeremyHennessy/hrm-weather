@@ -84,15 +84,18 @@ jobs:
           grep -q '__wxAtomicRenderInstalled' request-manager.js
           grep -q 'requestKind' request-manager.js
           grep -q 'api.weather.gc.ca' request-manager.js
-          grep -q "kind==='eccc'?4000:10000" request-manager.js
+          grep -q "kind==='eccc'?4000:7000" request-manager.js
+          grep -q 'serverModelSkips' request-manager.js
+          grep -q 'isClientModelRequest' request-manager.js
           ! grep -q 'document.write' request-manager.js
           grep -q 'wx-engine-v3-startup' startup-fallback.js
+          grep -q 'forecast feeds · Engine 3 server consensus' accuracy-v3.js
           grep -q 'accuracy-v2.js' scene-images.js
           grep -q 'accuracy-v3.js' deep-ui.js
           grep -q 'daily-card-fix.js' deep-ui.js
           grep -q 'accuracy-v3.js' sw.js
           grep -q 'daily-card-fix.js' sw.js
-          grep -q 'weather-consensus-v48' sw.js
+          grep -q 'weather-consensus-v49' sw.js
           grep -q 'startup-fallback.js' sw.js
           grep -q '__wxPaintStaticStartup' v7-final.js
           grep -q 'Same-origin static startup path' v7-final.js
