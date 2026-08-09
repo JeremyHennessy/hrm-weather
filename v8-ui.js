@@ -2,6 +2,12 @@
 const WX8_ICONS={hrm:'◉',moncton:'⌂',shediac:'⛵',lunenburg:'⚓',wolfville:'🍃'};
 const wx8OriginalNav=nav;
 const wx8OriginalLoad=load;
+const wx8OriginalRender=render;
+// Do not paint the temporary base-feed state. A refresh now keeps the previous
+// complete forecast visible and swaps the UI only after model consensus is ready.
+// This prevents condition/advice text from visibly oscillating during collection.
+render=function(base,mods,official,alertData,loading){if(loading)return;return wx8OriginalRender(base,mods,official,alertData,false)};
+window.__wxAtomicForecastRender=true;
 let wx8TouchStart=null;
 function wx8LocalDate(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Halifax',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
 function wx8NextDate(date){const [y,m,d]=date.split('-').map(Number);return new Date(Date.UTC(y,m-1,d)+86400000).toISOString().slice(0,10)}
