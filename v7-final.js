@@ -5,11 +5,13 @@ L.wolfville={n:'Wolfville Area',k:'WOLFVILLE NS',s:'Wolfville · New Minas · Ke
 const wxBaseRegimeFactor=regimeFactor;
 regimeFactor=function(id,lead,windDir){let f=wxBaseRegimeFactor(id,lead,windDir);if(loc==='lunenburg'&&Number.isFinite(windDir)&&windDir>=60&&windDir<=210&&id==='gem_hrdps_continental'&&lead<=12)f*=1.08;return f};
 
-// Progressive startup: v5b.js has already launched all base-zone requests. Ask
-// for the primary zone again; request-manager deduplicates this against the
-// in-flight request, then paint as soon as that one response is available rather
-// than waiting for every HRM zone plus ECCC. Full consensus replaces it later.
-(()=>{const startupToken=token,z=L[loc]?.core?.[0];if(!z)return;baseQ(z).then(b=>{if(startupToken!==token||window.__wxInitialForecastShown)return;render([b],[],null,[],true)}).catch(()=>{})})();
+// Same-origin static startup path. This is deliberately independent of
+// Open-Meteo/ECCC browser requests so rate limiting can never leave the app at --°.
+(()=>{if(document.querySelector('script[data-wx-static-startup]'))return;const s=document.createElement('script');s.src='./startup-fallback.js?v=1';s.async=true;s.dataset.wxStaticStartup='1';document.head.appendChild(s)})();
+
+// Progressive live enrichment: if the primary live feed answers quickly, it can
+// replace the static startup state without waiting for every model/zone request.
+(()=>{const startupToken=token,z=L[loc]?.core?.[0];if(!z)return;baseQ(z).then(b=>{if(startupToken!==token)return;render([b],[],null,[],true)}).catch(()=>{})})();
 
 let wxSharedSkills={};
 async function wxLoadSharedSkills(){try{const r=await fetch('./data/skill.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();wxSharedSkills=j.skills||j||{};const h=document.getElementById('health');if(h&&j.updated_at)h.dataset.sharedUpdated=j.updated_at}catch{}}
@@ -23,7 +25,7 @@ function wxMergeAllLeadSkills(){const s=getSkills();for(const m of M){const rows
 const wxBaseBacktest=runHistoricalBacktest;
 runHistoricalBacktest=async function(days=90){await wxBaseBacktest(days);wxMergeAllLeadSkills();if(typeof wxScorecard==='function')wxScorecard()};
 const wxPriorLoad=load;
-load=function(){wxLoadSharedSkills();return wxPriorLoad()};
+load=function(){window.__wxPaintStaticStartup?.();wxLoadSharedSkills();return wxPriorLoad()};
 refresh.onclick=load;
 
 let wxTermObserver=null,wxTermQueued=false;
@@ -46,9 +48,8 @@ wxTermObserver=new MutationObserver(()=>{if(wxTermQueued)return;wxTermQueued=tru
 window.addEventListener('load',()=>{
   if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
   wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
-  // v5b.js has already started the weather request. Refresh navigation only so
-  // Lunenburg/Wolfville appear without launching a second competing load().
   nav();
+  window.__wxPaintStaticStartup?.();
   wxApplyTerminology();
   wxLoadSharedSkills().then(()=>{const h=document.getElementById('health');if(h&&h.dataset.sharedUpdated){const d=new Date(h.dataset.sharedUpdated);if(!Number.isNaN(d)){const age=Math.max(0,Math.round((Date.now()-d)/3600000));h.insertAdjacentHTML('beforeend',`<span> · shared calibration ${age}h old</span>`)}}});
 });
