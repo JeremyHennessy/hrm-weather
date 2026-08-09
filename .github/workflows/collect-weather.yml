@@ -14,6 +14,7 @@ on:
       - 'scripts/accuracy_engine_v3_publish.py'
       - 'scripts/real_feel_engine.py'
       - 'scripts/eccc_observation_mesh_v2.py'
+      - 'scripts/solar_context_v2.py'
       - '.github/workflows/collect-weather.yml'
   schedule:
     - cron: '17 * * * *'
@@ -38,7 +39,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/accuracy_engine_v3_publish.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/accuracy_engine_v3_publish.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -61,7 +62,11 @@ jobs:
 
           assert v2.get('version') == '2.0', 'wrong V2 version'
           assert v3.get('version') == '3.0', 'wrong V3 version'
-          assert shadow.get('version') == '1.0', 'wrong V3 shadow verification version'
+          assert shadow.get('version') == '1.1', 'wrong V3 prospective verification version'
+          if 'real_feel_scores' not in shadow:
+              raise SystemExit('prospective Real Feel score store missing')
+          if not any((r.get('real_feel_candidates') or {}).get('calibrated') is not None for r in shadow.get('forecasts', [])):
+              raise SystemExit('issue-time Real Feel candidates were not stored')
           a2=v2.get('architecture') or {}
           assert a2.get('family_aware_weighting') is True
           assert a2.get('bias_correction') is True
@@ -94,6 +99,8 @@ jobs:
               raise SystemExit('HRM ECCC observation mesh unavailable')
           if hrm.get('station_count',0) < 1:
               raise SystemExit('HRM ECCC observation mesh contains no stations')
+          if hrm.get('wind_station_count',0) < 1:
+              raise SystemExit('HRM observed wind unavailable')
           for name,obs in observations.items():
               if not obs: continue
               stamp=obs.get('time')
@@ -112,6 +119,9 @@ jobs:
               rf=h1.get('real_feel_engine') or {}
               if rf.get('method') != 'physics-plus-local-verified-residual':
                   raise SystemExit(f'{name}: Real Feel engine metadata missing')
+              inputs=rf.get('inputs') or {}
+              if inputs.get('shortwave_radiation') is None or inputs.get('cloud_cover') is None:
+                  raise SystemExit(f'{name}: solar/cloud context missing')
               if 'adaptive_skill' not in h1:
                   raise SystemExit(f'{name}: missing adaptive skill diagnostics')
               pop=(hours.get('6') or {}).get('precipitation_probability')
@@ -123,7 +133,7 @@ jobs:
           for name,h in health.items():
               if h.get('deterministic_models',0) < 3:
                   raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
-          print('Accuracy Engines 2.0 + 3.0 + walk-forward + calibrated Real Feel production validation passed')
+          print('Accuracy Engines 2.0 + 3.0 + prospective Real Feel verification production validation passed')
           PY
       - name: Commit updated skill data
         run: |
