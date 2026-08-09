@@ -18,6 +18,7 @@ try{
     deadline(10500,'Real Feel did not render within 10 seconds')
   ]);
   await page.waitForFunction(()=>{const b=document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'';return /^\d+%$/.test(b)},{timeout:6000});
+  await page.waitForTimeout(500);
   const confidenceSamples=[];
   for(let i=0;i<4;i++){
     confidenceSamples.push(await page.locator('.wxConfidenceStable b').textContent());
@@ -42,6 +43,13 @@ try{
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
   if(state.confidenceOwner!=='engine3-locked')throw new Error(`Forecast Confidence owner is not locked: ${state.confidenceOwner||'missing'}`);
+  if(state.serverConsensusFresh){
+    if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
+    if(/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Intentional server skips reported as failures: ${state.warn}`);
+    const air=Number(state.actual.match(/-?\d+(?:\.\d+)?/)?.[0]);
+    const feel=Number(state.feels.match(/-?\d+(?:\.\d+)?/)?.[0]);
+    if(Number.isFinite(air)&&Number.isFinite(feel)&&Math.abs(air)<0.1&&feel>10)throw new Error(`Bogus Actual temperature survived UI guard: ${state.actual}`);
+  }
 }catch(err){
   exitCode=1;
   let state=null;
@@ -49,6 +57,7 @@ try{
     readyState:document.readyState,
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
+    modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
     confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
     updated:document.querySelector('#updated')?.textContent?.trim()||'',
