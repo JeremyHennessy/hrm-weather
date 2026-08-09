@@ -42,6 +42,13 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Capture current main with live weather APIs
         run: node scripts/capture-ui.mjs
+      - name: Upload screenshots for visual review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots
+          path: screenshots/
+          retention-days: 7
       - name: Commit screenshots and report
         if: always()
         run: |
