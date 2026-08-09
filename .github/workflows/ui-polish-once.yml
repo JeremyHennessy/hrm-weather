@@ -1,0 +1,60 @@
+name: Apply UI polish once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ui-polish-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Update routine card and bottom navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          css = Path('v11-reference.css')
+          s = css.read_text()
+          start = s.index('.tomorrowRoutine{')
+          end = s.index('\n.sectionHour', start)
+          replacement = r'''.tomorrowRoutine{grid-column:1/-1!important;min-height:150px!important;display:grid!important;grid-template-columns:minmax(0,1fr) 178px!important;grid-template-rows:auto auto 1fr!important;column-gap:18px!important;row-gap:7px!important;align-items:start!important;padding:16px 18px!important;background:linear-gradient(145deg,rgba(12,54,84,.72),rgba(4,31,52,.84))!important;position:relative!important}.tomorrowRoutine .routineIcon{position:absolute!important;right:18px!important;top:16px!important;font-size:24px!important}.tomorrowRoutine .routineTitle{grid-column:1!important;grid-row:1!important;padding-right:8px!important}.tomorrowRoutine .routineTitle small{font-size:9px!important}.tomorrowRoutine .routineTitle b{font-size:16px!important;margin-top:3px!important}.tomorrowRoutine .routineTemps{grid-column:2!important;grid-row:1/4!important;margin:0!important;padding:25px 34px 0 0!important;text-align:left!important;align-self:center!important}.tomorrowRoutine .routineTemps strong{font-size:52px!important;display:inline-block!important}.tomorrowRoutine .routineTemps span{display:inline-block!important;margin-left:6px!important;vertical-align:12px!important}.tomorrowRoutine .routineTemps em{display:block!important;margin-top:4px!important;font-size:10px!important}.tomorrowRoutine .routineMeta{grid-column:1!important;grid-row:2!important;display:flex!important;gap:14px!important;margin-top:4px!important;font-size:10px!important}.tomorrowRoutine .routineVerdict{grid-column:1!important;grid-row:3!important;align-self:end!important;margin-top:6px!important;font-size:11px!important;color:#eef6fa!important}@media(max-width:430px){.tomorrowRoutine{grid-template-columns:minmax(0,1fr) 132px!important;column-gap:10px!important;min-height:142px!important;padding:14px 15px!important}.tomorrowRoutine .routineTemps{padding-right:24px!important}.tomorrowRoutine .routineTemps strong{font-size:44px!important}.tomorrowRoutine .routineIcon{right:14px!important;top:14px!important;font-size:21px!important}}'''
+          s = s[:start] + replacement + s[end:]
+          css.write_text(s)
+
+          js = Path('v11-layout.js')
+          t = js.read_text()
+          old = ".appNav{position:fixed;z-index:60;left:50%;transform:translateX(-50%);bottom:max(8px,env(safe-area-inset-bottom));width:min(690px,calc(100% - 18px));height:66px;padding:7px 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border:1px solid rgba(222,242,252,.16);border-radius:22px;background:rgba(3,28,48,.86);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 16px 45px rgba(0,8,18,.36)}.appNav button{border:0;background:transparent;color:#9fb5c3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:15px;font:inherit}.appNav button svg{width:21px;height:21px}.appNav button b{font-size:8px;font-weight:500}.appNav button.active{color:#b6a5ff;background:rgba(116,82,229,.16)}.appNav button.active svg{filter:drop-shadow(0 0 8px rgba(145,111,255,.5))}@media(min-width:800px){.appNav{bottom:14px}}"
+          new = ".appNav{position:fixed;z-index:60;left:50%;transform:translateX(-50%);bottom:max(7px,env(safe-area-inset-bottom));width:min(620px,calc(100% - 28px));height:54px;padding:4px 6px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;border:1px solid rgba(222,242,252,.12);border-radius:18px;background:rgba(3,25,43,.74);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%);box-shadow:0 10px 30px rgba(0,8,18,.24)}.appNav button{border:0;background:transparent;color:#93aab8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:12px;font:inherit;transition:color .16s ease,background .16s ease}.appNav button svg{width:18px;height:18px}.appNav button b{font-size:7px;font-weight:520;letter-spacing:.01em}.appNav button.active{color:#eef7fb;background:rgba(255,255,255,.075)}.appNav button.active svg{filter:none}@media(min-width:800px){.appNav{bottom:12px}}"
+          if old not in t:
+              raise SystemExit('Bottom-nav source string not found')
+          js.write_text(t.replace(old,new,1))
+
+          sw = Path('sw.js')
+          w = sw.read_text()
+          w = re.sub(r"weather-consensus-v\d+", "weather-consensus-v29", w, count=1)
+          sw.write_text(w)
+          PY
+      - name: Validate edited files
+        run: |
+          node --check v11-layout.js
+          grep -q 'grid-template-columns:minmax(0,1fr) 178px' v11-reference.css
+          grep -q 'height:54px' v11-layout.js
+          grep -q 'weather-consensus-v29' sw.js
+      - name: Commit polish
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add v11-reference.css v11-layout.js sw.js
+          git commit -m "Polish tomorrow walk card and bottom navigation"
+          git pull --rebase origin main
+          git push
