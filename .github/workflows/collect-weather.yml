@@ -9,6 +9,7 @@ on:
       - 'scripts/accuracy_engine_v2_runner.py'
       - 'scripts/accuracy_engine_v3.py'
       - 'scripts/accuracy_engine_v3_pooling.py'
+      - 'scripts/accuracy_engine_v3_verify.py'
       - 'scripts/accuracy_engine_v3_publish.py'
       - 'scripts/eccc_observation_mesh_v2.py'
       - '.github/workflows/collect-weather.yml'
@@ -35,7 +36,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_publish.py scripts/eccc_observation_mesh_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_publish.py scripts/eccc_observation_mesh_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -53,10 +54,12 @@ jobs:
           skill=json.loads(Path('data/skill.json').read_text())
           v2=json.loads(Path('data/engine-v2.json').read_text())
           v3=json.loads(Path('data/engine-v3.json').read_text())
+          shadow=json.loads(Path('data/v3-verification.json').read_text())
           now=datetime.now(timezone.utc)
 
           assert v2.get('version') == '2.0', 'wrong V2 version'
           assert v3.get('version') == '3.0', 'wrong V3 version'
+          assert shadow.get('version') == '1.0', 'wrong V3 shadow verification version'
           a2=v2.get('architecture') or {}
           assert a2.get('family_aware_weighting') is True
           assert a2.get('bias_correction') is True
@@ -69,6 +72,11 @@ jobs:
                   raise SystemExit(f'V3 missing {required} layer')
           if not (v3.get('collector') or {}).get('lead_pooling'):
               raise SystemExit('V3 pooled training is not enabled')
+          verification=v3.get('verification') or {}
+          if verification.get('mode') != 'shadow-out-of-sample':
+              raise SystemExit('V3 shadow verification not active')
+          if verification.get('minimum_samples_before_adaptation',0) < 5:
+              raise SystemExit('V3 adaptive weighting threshold is too low')
 
           observations=skill.get('observations') or {}
           hrm=observations.get('hrm')
@@ -86,8 +94,11 @@ jobs:
           for name,c in (v3.get('consensus') or {}).items():
               hours=c.get('hours') or {}
               if not hours: raise SystemExit(f'{name}: missing V3 consensus hours')
-              if not isinstance((hours.get('1') or {}).get('temperature_2m'), (int,float)):
+              h1=hours.get('1') or {}
+              if not isinstance(h1.get('temperature_2m'), (int,float)):
                   raise SystemExit(f'{name}: missing V3 +1h temperature')
+              if 'adaptive_skill' not in h1:
+                  raise SystemExit(f'{name}: missing adaptive skill diagnostics')
               pop=(hours.get('6') or {}).get('precipitation_probability')
               if pop is not None and not (0 <= pop <= 100):
                   raise SystemExit(f'{name}: invalid calibrated precipitation probability {pop}')
@@ -97,13 +108,13 @@ jobs:
           for name,h in health.items():
               if h.get('deterministic_models',0) < 3:
                   raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
-          print('Accuracy Engines 2.0 + 3.0 production validation passed')
+          print('Accuracy Engines 2.0 + 3.0 + shadow verification production validation passed')
           PY
       - name: Commit updated skill data
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/run-history-v2.json
+          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/v3-verification.json data/run-history-v2.json
           if git diff --cached --quiet; then
             echo "No data changes"
           else
