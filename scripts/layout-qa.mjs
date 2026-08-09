@@ -27,13 +27,13 @@ async function inspect(device){
   const result=await page.evaluate(({name,width,height})=>{
     const r=el=>{if(!el)return null;const x=el.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}};
     const intersects=(a,b,pad=1)=>a&&b&&a.left<b.right-pad&&a.right>b.left+pad&&a.top<b.bottom-pad&&a.bottom>b.top+pad;
-    const visible=el=>{const s=getComputedStyle(el),x=el.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)!==0&&x.width>1&&x.height>1};
+    const visible=el=>{if(!el)return false;const s=getComputedStyle(el),x=el.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity)!==0&&x.width>1&&x.height>1};
     const issues=[];const html=document.documentElement,body=document.body,app=document.querySelector('.app');
     if(Math.max(html.scrollWidth,body.scrollWidth)>innerWidth+2)issues.push(`document horizontal overflow ${Math.max(html.scrollWidth,body.scrollWidth)}>${innerWidth}`);
     for(const el of document.querySelectorAll('.app>header,.locationNav,.hero,.dayBrief,.section,.footer')){
       if(!visible(el))continue;const x=r(el);if(x.left<-2||x.right>innerWidth+2)issues.push(`viewport escape ${el.className||el.tagName} ${JSON.stringify(x)}`);
     }
-    const hero=r(document.querySelector('.hero')),summary=r(document.querySelector('#daySummary')),orb=r(document.querySelector('.confidenceOrb')),place=r(document.querySelector('#place')),icon=r(document.querySelector('#heroIcon')),temp=r(document.querySelector('.heroTemp'));
+    const hero=r(document.querySelector('.hero')),summary=r(document.querySelector('#daySummary')),orb=r(document.querySelector('.confidenceOrb')),place=r(document.querySelector('#place')),icon=r(document.querySelector('#heroIcon')),temp=r(document.querySelector('.heroTemp')),metrics=r(document.querySelector('.metrics')),uvEl=document.querySelector('#uvGuidance'),uv=visible(uvEl)?r(uvEl):null;
     if(!hero||!summary||!orb)issues.push('missing hero/summary/confidence geometry');
     else{
       if(orb.width<104||orb.height<104)issues.push(`confidence shrunk ${orb.width}x${orb.height}`);
@@ -43,6 +43,8 @@ async function inspect(device){
       if(intersects(icon,orb,3))issues.push('weather icon overlaps confidence');
       if(summary.left<hero.left+10||summary.right>hero.right-10)issues.push('summary edge clipping');
       if(temp&&temp.right>hero.right-8)issues.push('hero temperature escapes card');
+      if(uv&&metrics&&intersects(uv,metrics,4))issues.push('UV guidance overlaps hero metrics');
+      if(uv&&(uv.left<hero.left+10||uv.right>hero.right-10))issues.push('UV guidance edge clipping');
     }
     const top=r(document.querySelector('.topbar')),nav=r(document.querySelector('.locationNav'));if(intersects(top,nav))issues.push('header overlaps location nav');
     const buttons=[...document.querySelectorAll('.locationNav button,.topbar button')].filter(visible).map(el=>({name:el.id||el.textContent.trim(),box:r(el)}));
@@ -50,13 +52,13 @@ async function inspect(device){
     const cards=[...document.querySelectorAll('.routineGrid>.routineCard,.zones>.card,.accuracy>.stat,.micro>.card')].filter(visible);
     for(const card of cards){const x=r(card);if(x.width<70)issues.push(`card too narrow ${card.className} ${x.width}`);if(x.left<-2||x.right>innerWidth+2)issues.push(`card escapes viewport ${card.className}`)}
     const clipped=[];
-    for(const el of document.querySelectorAll('h1,h2,.place,.actual,.range,.outside,.obsline,.callout,.routineTitle b,.routineVerdict,.zt,.sub,.stat b,.metric b,.metric small')){
+    for(const el of document.querySelectorAll('h1,h2,.place,.actual,.range,.outside,.obsline,.callout,.uvGuidance,.routineTitle b,.routineVerdict,.zt,.sub,.stat b,.metric b,.metric small')){
       if(!visible(el))continue;const s=getComputedStyle(el);if(['auto','scroll'].includes(s.overflowX))continue;if(el.closest('#hours,#days,#models,.chips,.tabs'))continue;
       if(el.scrollWidth>el.clientWidth+3&&s.whiteSpace!=='nowrap')clipped.push(`${el.className||el.id||el.tagName}:${el.scrollWidth}>${el.clientWidth}`);
     }
     if(clipped.length)issues.push(`text clipping ${clipped.slice(0,8).join(', ')}`);
     const routine=[...document.querySelectorAll('.routineGrid>.routineCard')].filter(visible).map(r);for(let i=0;i<routine.length;i++)for(let j=i+1;j<routine.length;j++)if(intersects(routine[i],routine[j],2))issues.push(`routine cards overlap ${i}/${j}`);
-    return{name,width,height,innerWidth,scrollWidth:Math.max(html.scrollWidth,body.scrollWidth),app:r(app),hero,summary,orb,place,icon,issues};
+    return{name,width,height,innerWidth,scrollWidth:Math.max(html.scrollWidth,body.scrollWidth),app:r(app),hero,summary,orb,place,icon,uv,metrics,issues};
   },device);
   await page.screenshot({path:`screenshots/layout-${device.name}-${device.width}x${device.height}.png`,fullPage:true});return result;
 }
