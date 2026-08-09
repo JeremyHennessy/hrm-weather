@@ -15,6 +15,8 @@ import accuracy_engine_v2 as core
 
 MIN_PROMOTION_SAMPLES=12
 PROMOTION_MARGIN=0.02
+SAFETY_RELATIVE_DEGRADATION=0.20
+SAFETY_ABSOLUTE_DEGRADATION_C=0.25
 HALF_LIFE_DAYS=14.0
 MODEL_STATE=core.DATA/'model-set-state.json'
 
@@ -83,6 +85,13 @@ def gate(state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]:
     return {'status':'learning','samples':0}
 
 
+def production_safety(state:dict[str,Any],loc:str,lead:int)->dict[str,Any]:
+    scores=state.get('scores',{});v3s=scores.get(f'{loc}:{lead}:all:final_v3') or {};v2s=scores.get(f'{loc}:{lead}:all:v2') or {};n=min(int(v3s.get('n',0)),int(v2s.get('n',0)));v3m=core.safe_float(v3s.get('mae'));v2m=core.safe_float(v2s.get('mae'))
+    if n<MIN_PROMOTION_SAMPLES or v3m is None or v2m is None:return {'active':False,'samples':n}
+    rel=(v3m-v2m)/max(0.05,v2m);absolute=v3m-v2m;active=rel>SAFETY_RELATIVE_DEGRADATION and absolute>SAFETY_ABSOLUTE_DEGRADATION_C
+    return {'active':active,'samples':n,'v3_mae':v3m,'v2_mae':v2m,'relative_degradation':rel,'absolute_degradation_c':absolute,'fallback':'v2' if active else None}
+
+
 def _fingerprint()->str:
     payload=[{'id':m[0],'family':m[3],'weight':m[4]} for m in core.MODELS];return hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()[:16]
 
@@ -106,12 +115,15 @@ def hrm_microclimate()->dict[str,Any]:
 
 
 def apply(engine:dict[str,Any],state:dict[str,Any])->None:
-    locations={};promoted=0
+    locations={};promoted=0;safety_fallbacks={}
     for loc,payload in (engine.get('consensus') or {}).items():
-        regime=((payload.get('regime') or {}).get('name')) or 'unknown';locations[loc]={}
+        regime=((payload.get('regime') or {}).get('name')) or 'unknown';locations[loc]={};safety_fallbacks[loc]={}
         for lead_s,h in (payload.get('hours') or {}).items():
-            lead=int(lead_s);w=((h.get('component_weighting') or {}).get('weights') or {});c=candidate(w,h.get('components') or {},state,loc,lead,regime);g=gate(state,loc,lead,regime);c['gate']=g;h['engine31_challenger']=c
-            if c.get('available') and g.get('status')=='promotion-approved':h['temperature_2m']=c['temperature_2m'];h['engine31_promoted']=True;promoted+=1
+            lead=int(lead_s);safety=production_safety(state,loc,lead);safety_fallbacks[loc][lead_s]=safety;components=h.get('components') or {};v2temp=core.safe_float(components.get('v2_consensus'))
+            if safety.get('active') and v2temp is not None:h['temperature_2m']=v2temp;h['production_safety_fallback']='v2'
+            else:h['production_safety_fallback']=None
+            w=((h.get('component_weighting') or {}).get('weights') or {});c=candidate(w,components,state,loc,lead,regime);g=gate(state,loc,lead,regime);c['gate']=g;h['engine31_challenger']=c
+            if not safety.get('active') and c.get('available') and g.get('status')=='promotion-approved':h['temperature_2m']=c['temperature_2m'];h['engine31_promoted']=True;promoted+=1
             else:h['engine31_promoted']=False
             locations[loc][lead_s]=c
     v2=core.load(core.ENGINE,{})
@@ -119,4 +131,4 @@ def apply(engine:dict[str,Any],state:dict[str,Any])->None:
     try:micro=hrm_microclimate()
     except Exception as exc:micro={'available':False,'error':type(exc).__name__}
     engine['microclimate_intelligence']={'hrm':micro}
-    engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'model_set_watch':model_set_watch(),'locations':locations}
+    engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'safety_fallbacks':safety_fallbacks,'model_set_watch':model_set_watch(),'locations':locations}
