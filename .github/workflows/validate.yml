@@ -95,7 +95,9 @@ jobs:
           grep -q 'daily-card-fix.js' deep-ui.js
           grep -q 'accuracy-v3.js' sw.js
           grep -q 'daily-card-fix.js' sw.js
-          grep -q 'weather-consensus-v49' sw.js
+          grep -q 'weather-consensus-v50' sw.js
+          grep -q "dataset.readable==='1'" daily-card-fix.js
+          grep -q 'requestAnimationFrame' daily-card-fix.js
           grep -q 'startup-fallback.js' sw.js
           grep -q '__wxPaintStaticStartup' v7-final.js
           grep -q 'Same-origin static startup path' v7-final.js
