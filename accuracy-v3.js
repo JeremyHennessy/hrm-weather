@@ -7,8 +7,14 @@
   function atLead(lead){
     const hs=V3?.consensus?.[locKey()]?.hours||{},keys=Object.keys(hs).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
     if(!keys.length)return null;
+    const min=keys[0],max=keys[keys.length-1];
+    // V3 is trained/published only through its explicit lead horizon. Do not reuse
+    // the last calibrated point for days 4–7; those correctly fall back to the raw
+    // daily forecast until V3 gains longer-horizon training.
+    if(lead<min||lead>max)return null;
     if(hs[String(lead)])return hs[String(lead)];
-    let lo=keys.filter(x=>x<=lead).pop(),hi=keys.find(x=>x>=lead);if(lo===undefined)lo=hi;if(hi===undefined)hi=lo;
+    const lo=keys.filter(x=>x<=lead).pop(),hi=keys.find(x=>x>=lead);
+    if(lo===undefined||hi===undefined)return null;
     const a=hs[String(lo)]||{},b=hs[String(hi)]||{};if(lo===hi)return a;
     const f=(lead-lo)/(hi-lo),interp=(x,y)=>finite(x)&&finite(y)?Number(x)+(Number(y)-Number(x))*f:(finite(x)?Number(x):(finite(y)?Number(y):null));
     return{temperature_2m:interp(a.temperature_2m,b.temperature_2m),precipitation_probability:interp(a.precipitation_probability,b.precipitation_probability)};
