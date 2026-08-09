@@ -49,9 +49,11 @@ jobs:
           python -m json.tool data/ledger.json >/dev/null
           python -m json.tool data/engine-v2.json >/dev/null
       - name: Verify Engine 3 architecture
+        env:
+          PYTHONPATH: scripts
         run: |
           python - <<'PY'
-          from scripts import accuracy_engine_v3 as v3
+          import accuracy_engine_v3 as v3
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos)
           assert callable(v3.analog_predict)
