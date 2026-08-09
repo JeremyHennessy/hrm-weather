@@ -3,18 +3,19 @@
 
 Builds a regime-aware, lead-aware, time-decayed challenger on top of the stable
 Engine 3 forecast. It never silently replaces production: promotion requires
-prospective OOS evidence against final_v3. The candidate is stored in shadow
-verification so it can earn authority over time.
+paired prospective OOS evidence against final_v3. The candidate is stored in
+shadow verification so it can earn authority over time.
 """
 from __future__ import annotations
 import hashlib
 import json
 from typing import Any
-
 import accuracy_engine_v2 as core
 
 MIN_PROMOTION_SAMPLES=12
 PROMOTION_MARGIN=0.02
+MIN_PROMOTION_WIN_RATE=0.55
+MIN_EFFECTIVE_WEIGHT=7.0
 SAFETY_RELATIVE_DEGRADATION=0.20
 SAFETY_ABSOLUTE_DEGRADATION_C=0.25
 HALF_LIFE_DAYS=14.0
@@ -45,11 +46,25 @@ def _recent_mae(state:dict[str,Any],loc:str,lead:int,regime:str,layer:str)->dict
     now=core.utcnow();num=den=0.0;n=0
     for row in state.get('forecasts',[]):
         if not row.get('scored') or row.get('loc')!=loc or int(row.get('lead',-1))!=lead:continue
-        if regime not in {'unknown','all'} and row.get('regime') not in {regime,None}:continue
+        if regime not in {'unknown','all'} and row.get('regime')!=regime:continue
         actual=core.safe_float(row.get('actual_temperature'));pred=core.safe_float((row.get('temperature_candidates') or {}).get(layer));issued=core.parse_stamp(row.get('issued'))
         if actual is None or pred is None or not issued:continue
         age=max(0.0,(now-issued).total_seconds()/86400.0);w=0.5**(age/HALF_LIFE_DAYS);num+=abs(pred-actual)*w;den+=w;n+=1
     return {'mae':num/den,'n':n,'effective_weight':den} if den>0 and n>=6 else None
+
+
+def _paired_recent(state:dict[str,Any],loc:str,lead:int,regime:str,challenger:str,champion:str)->dict[str,Any]|None:
+    now=core.utcnow();cnum=bnum=den=wins=0.0;n=0
+    for row in state.get('forecasts',[]):
+        if not row.get('scored') or row.get('loc')!=loc or int(row.get('lead',-1))!=lead:continue
+        if regime not in {'unknown','all'} and row.get('regime')!=regime:continue
+        actual=core.safe_float(row.get('actual_temperature'));issued=core.parse_stamp(row.get('issued'));cand=row.get('temperature_candidates') or {}
+        c=core.safe_float(cand.get(challenger));b=core.safe_float(cand.get(champion))
+        if actual is None or c is None or b is None or not issued:continue
+        age=max(0.0,(now-issued).total_seconds()/86400.0);w=0.5**(age/HALF_LIFE_DAYS);ce=abs(c-actual);be=abs(b-actual)
+        cnum+=ce*w;bnum+=be*w;wins+=(1.0 if ce<be else 0.5 if ce==be else 0.0)*w;den+=w;n+=1
+    if not den:return None
+    return {'samples':n,'effective_weight':den,'challenger_mae':cnum/den,'champion_mae':bnum/den,'paired_win_rate':wins/den,'half_life_days':HALF_LIFE_DAYS}
 
 
 def _skill_mod(state:dict[str,Any],loc:str,lead:int,regime:str,available:set[str])->dict[str,float]:
@@ -72,24 +87,23 @@ def candidate(base_weights:dict[str,float],components:dict[str,Any],state:dict[s
 
 
 def gate(state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]:
-    scores=state.get('scores',{})
+    best_learning=None
     for suffix in [regime,'all']:
-        c=scores.get(f'{loc}:{lead}:{suffix}:engine31');b=scores.get(f'{loc}:{lead}:{suffix}:final_v3')
-        if not c or not b:continue
-        n=min(int(c.get('n',0)),int(b.get('n',0)));cm=core.safe_float(c.get('mae'));bm=core.safe_float(b.get('mae'))
-        if cm is None or bm is None:continue
-        if n<MIN_PROMOTION_SAMPLES:return {'status':'learning','samples':n,'challenger_mae':cm,'champion_mae':bm}
-        ratio=cm/max(0.05,bm)
-        if ratio<=1-PROMOTION_MARGIN:return {'status':'promotion-approved','samples':n,'skill_ratio':ratio,'challenger_mae':cm,'champion_mae':bm}
-        return {'status':'hold-champion','samples':n,'skill_ratio':ratio,'challenger_mae':cm,'champion_mae':bm}
-    return {'status':'learning','samples':0}
+        s=_paired_recent(state,loc,lead,suffix,'engine31','final_v3')
+        if not s:continue
+        ratio=float(s['challenger_mae'])/max(0.05,float(s['champion_mae']));base={**s,'skill_ratio':ratio,'source':f'paired-decayed:{suffix}'}
+        if int(s['samples'])<MIN_PROMOTION_SAMPLES or float(s['effective_weight'])<MIN_EFFECTIVE_WEIGHT:
+            best_learning={**base,'status':'learning'};continue
+        if ratio<=1-PROMOTION_MARGIN and float(s['paired_win_rate'])>=MIN_PROMOTION_WIN_RATE:return {**base,'status':'promotion-approved'}
+        return {**base,'status':'hold-champion'}
+    return best_learning or {'status':'learning','samples':0,'source':'insufficient-paired-oos-evidence'}
 
 
 def production_safety(state:dict[str,Any],loc:str,lead:int)->dict[str,Any]:
-    scores=state.get('scores',{});v3s=scores.get(f'{loc}:{lead}:all:final_v3') or {};v2s=scores.get(f'{loc}:{lead}:all:v2') or {};n=min(int(v3s.get('n',0)),int(v2s.get('n',0)));v3m=core.safe_float(v3s.get('mae'));v2m=core.safe_float(v2s.get('mae'))
-    if n<MIN_PROMOTION_SAMPLES or v3m is None or v2m is None:return {'active':False,'samples':n}
-    rel=(v3m-v2m)/max(0.05,v2m);absolute=v3m-v2m;active=rel>SAFETY_RELATIVE_DEGRADATION and absolute>SAFETY_ABSOLUTE_DEGRADATION_C
-    return {'active':active,'samples':n,'v3_mae':v3m,'v2_mae':v2m,'relative_degradation':rel,'absolute_degradation_c':absolute,'fallback':'v2' if active else None}
+    s=_paired_recent(state,loc,lead,'all','final_v3','v2')
+    if not s or int(s['samples'])<MIN_PROMOTION_SAMPLES or float(s['effective_weight'])<MIN_EFFECTIVE_WEIGHT:return {'active':False,'samples':int((s or {}).get('samples',0)),'effective_weight':float((s or {}).get('effective_weight',0.0))}
+    v3m=float(s['challenger_mae']);v2m=max(0.05,float(s['champion_mae']));rel=(v3m-v2m)/v2m;absolute=v3m-v2m;active=rel>SAFETY_RELATIVE_DEGRADATION and absolute>SAFETY_ABSOLUTE_DEGRADATION_C
+    return {'active':active,'samples':s['samples'],'effective_weight':s['effective_weight'],'v3_mae':v3m,'v2_mae':v2m,'relative_degradation':rel,'absolute_degradation_c':absolute,'paired_win_rate':s['paired_win_rate'],'half_life_days':HALF_LIFE_DAYS,'fallback':'v2' if active else None}
 
 
 def _fingerprint()->str:
@@ -131,4 +145,4 @@ def apply(engine:dict[str,Any],state:dict[str,Any])->None:
     try:micro=hrm_microclimate()
     except Exception as exc:micro={'available':False,'error':type(exc).__name__}
     engine['microclimate_intelligence']={'hrm':micro}
-    engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'safety_fallbacks':safety_fallbacks,'model_set_watch':model_set_watch(),'locations':locations}
+    engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'minimum_promotion_win_rate':MIN_PROMOTION_WIN_RATE,'minimum_effective_weight':MIN_EFFECTIVE_WEIGHT,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'safety_fallbacks':safety_fallbacks,'model_set_watch':model_set_watch(),'locations':locations}
