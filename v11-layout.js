@@ -1,57 +1,198 @@
 (()=>{
- const qs=(s,r=document)=>r.querySelector(s), all=(s,r=document)=>[...r.querySelectorAll(s)];
- const byTitle=t=>all('.section').find(s=>qs('h2',s)?.textContent.trim()===t);
- const txt=(el,v)=>{if(el&&el.textContent!==v)el.textContent=v};
- function addStructuralStyles(){
-   if(qs('#v11StructuralFixes'))return;
-   const st=document.createElement('style');st.id='v11StructuralFixes';st.textContent=`
-   .brandline{position:relative}.brandline:after{content:'⌄';font-size:12px;color:#c4d7e1;margin-left:5px}.locationPicker{position:absolute;inset:-8px -24px;opacity:0;cursor:pointer;width:calc(100% + 48px);height:calc(100% + 16px)}
-   @media(max-width:620px){.locationNav,.locationDots{display:none!important}.hero{margin-left:-10px!important;margin-right:-10px!important;border-left:0!important;border-right:0!important;border-radius:0 0 28px 28px!important;background-position:20% center!important}.glanceSection>.head{margin-left:2px!important}}
-   .sectionDays .days{display:grid!important;grid-template-columns:repeat(7,minmax(82px,1fr))!important;gap:0!important;overflow-x:auto!important;scrollbar-width:none}.sectionDays .days::-webkit-scrollbar{display:none}.sectionDays .v11Day{min-width:82px!important;min-height:132px!important;padding:7px 6px!important;border:0!important;border-right:1px solid rgba(255,255,255,.10)!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important}.sectionDays .v11Day:last-child{border-right:0!important}.v11DayName{font-size:10px!important;color:#f0f6f9!important}.v11DayWx{font-size:24px;line-height:1.25;margin:7px 0 5px}.v11DayRF{font-size:20px!important;line-height:1!important;color:#fff}.v11DayRFLabel{font-size:7px;color:#8bdcff;margin-top:3px;text-transform:uppercase;letter-spacing:.05em}.v11DayActual{font-size:8px;color:#afc2cd;margin-top:6px;white-space:nowrap}.v11DayRain{font-size:8px;color:#b9cddd;margin-top:5px;white-space:nowrap}
-   .hero .callout{display:none!important}.heroSummary{max-width:60%!important;display:block!important;display:-webkit-box!important;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden!important}.heroWeatherArt{position:relative!important;width:86px;height:70px;margin-top:26px!important;margin-right:3px!important;font-size:0!important;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}.heroWeatherArt .wxSun{position:absolute;width:39px;height:39px;border-radius:50%;right:5px;top:0;background:linear-gradient(145deg,#ffe86a,#ffab00);box-shadow:0 0 22px rgba(255,185,0,.34)}.heroWeatherArt .wxCloud{position:absolute;left:5px;bottom:4px;width:70px;height:31px;border-radius:20px;background:linear-gradient(180deg,#fff,#d7e2e8)}.heroWeatherArt .wxCloud:before,.heroWeatherArt .wxCloud:after{content:'';position:absolute;border-radius:50%;background:inherit}.heroWeatherArt .wxCloud:before{width:38px;height:38px;left:10px;bottom:9px}.heroWeatherArt .wxCloud:after{width:31px;height:31px;right:7px;bottom:11px}.heroWeatherArt.wx-sun .wxCloud{display:none}.heroWeatherArt.wx-cloud .wxSun,.heroWeatherArt.wx-rain .wxSun,.heroWeatherArt.wx-fog .wxSun,.heroWeatherArt.wx-storm .wxSun{display:none}.heroWeatherArt .wxDrops{display:none;position:absolute;left:18px;bottom:-12px;width:5px;height:11px;border-radius:6px;background:#72d9ff;box-shadow:20px 3px 0 #72d9ff,40px -1px 0 #72d9ff;transform:rotate(15deg)}.heroWeatherArt.wx-rain .wxDrops,.heroWeatherArt.wx-storm .wxDrops{display:block}.heroWeatherArt .wxFog{display:none;position:absolute;left:8px;right:8px;bottom:-9px;height:2px;background:#e5f2f7;box-shadow:0 7px 0 rgba(229,242,247,.75),0 14px 0 rgba(229,242,247,.5)}.heroWeatherArt.wx-fog .wxFog{display:block}
-   .sectionDeep{opacity:.91}.sectionDeep>.head{margin-top:4px!important}.sectionDeep>.head h2{font-weight:590!important}.sectionDeep .card{border-radius:18px!important}.photoCredit{padding-bottom:78px}
-   `;document.head.appendChild(st);
- }
- function addLocationPicker(){
-   const line=qs('.brandline');if(!line)return;let sel=qs('.locationPicker',line);
-   const tabs=all('.tab');if(!tabs.length)return;
-   if(!sel){sel=document.createElement('select');sel.className='locationPicker';sel.setAttribute('aria-label','Choose forecast location');line.appendChild(sel);sel.addEventListener('change',()=>{const tab=all('.tab').find(t=>t.textContent.replace(/^[^A-Za-z]+/,'').trim()===sel.value);tab?.click()})}
-   const names=tabs.map(t=>t.textContent.replace(/^[^A-Za-z]+/,'').trim());if(sel.options.length!==names.length){sel.innerHTML=names.map(n=>`<option value="${n}">${n}</option>`).join('')}
-   sel.value=activeLocation();
- }
- function svgIcon(kind){
-   const common='viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
-   const p={forecast:'<path d="M3 11 12 3l9 8v9h-6v-6H9v6H3z"/>',models:'<path d="M4 20v-6m6 6V8m6 12V4m4 16H2"/>',map:'<path d="m3 6 5-2 8 2 5-2v14l-5 2-8-2-5 2zM8 4v14m8-12v14"/>',alerts:'<path d="M12 3 2.8 20h18.4zM12 9v5m0 3h.01"/>',accuracy:'<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>'};return `<svg ${common}>${p[kind]}</svg>`
- }
- function addBottomNav(){
-   if(!qs('#v11BottomNavStyle')){const st=document.createElement('style');st.id='v11BottomNavStyle';st.textContent='.appNav{position:fixed;z-index:60;left:50%;transform:translateX(-50%);bottom:max(8px,env(safe-area-inset-bottom));width:min(690px,calc(100% - 18px));height:66px;padding:7px 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border:1px solid rgba(222,242,252,.16);border-radius:22px;background:rgba(3,28,48,.86);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 16px 45px rgba(0,8,18,.36)}.appNav button{border:0;background:transparent;color:#9fb5c3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:15px;font:inherit}.appNav button svg{width:21px;height:21px}.appNav button b{font-size:8px;font-weight:500}.appNav button.active{color:#b6a5ff;background:rgba(116,82,229,.16)}.appNav button.active svg{filter:drop-shadow(0 0 8px rgba(145,111,255,.5))}@media(min-width:800px){.appNav{bottom:14px}}';document.head.appendChild(st)}
-   if(qs('#appNav'))return;
-   const nav=document.createElement('nav');nav.id='appNav';nav.className='appNav';nav.setAttribute('aria-label','App navigation');
-   nav.innerHTML=`<button data-go="forecast" class="active">${svgIcon('forecast')}<b>Forecast</b></button><button data-go="models">${svgIcon('models')}<b>Models</b></button><button data-go="map">${svgIcon('map')}<b>Map</b></button><button data-go="alerts">${svgIcon('alerts')}<b>Alerts</b></button><button data-go="accuracy">${svgIcon('accuracy')}<b>Accuracy</b></button>`;
-   document.body.appendChild(nav);
-   nav.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;let target=null;if(b.dataset.go==='forecast')target=qs('.topbar');if(b.dataset.go==='models')target=byTitle('Model consensus');if(b.dataset.go==='map'||b.dataset.go==='alerts')target=byTitle('Official data');if(b.dataset.go==='accuracy')target=byTitle('Accuracy engine');target?.scrollIntoView({behavior:'smooth',block:'start'});all('button',nav).forEach(x=>x.classList.toggle('active',x===b))});
- }
- function arrange(){
-   addStructuralStyles();
-   const warn=qs('#warn'),hero=qs('.hero'),brief=qs('.dayBrief'); if(!warn||!hero)return;
-   const glance=qs('#glance')?.closest('.section'),hourly=byTitle('Next 12 hours'),days=byTitle('7-day outlook');
-   if(glance)glance.classList.add('glanceSection'); if(hourly)hourly.classList.add('sectionHour'); if(days)days.classList.add('sectionDays');
-   const primary=new Set([glance,hero,brief,hourly,days].filter(Boolean));all('.section').forEach(s=>s.classList.toggle('sectionDeep',!primary.has(s)));
-   let anchor=warn;for(const n of [glance,hero,brief,hourly,days].filter(Boolean)){if(anchor.nextElementSibling!==n)anchor.insertAdjacentElement('afterend',n);anchor=n}
-   const summary=qs('#daySummary');if(summary&&summary.parentElement!==hero){summary.classList.add('heroSummary');hero.querySelector('.callout')?.insertAdjacentElement('afterend',summary)}
-   if(!hero.querySelector('.confidenceOrb')){const orb=document.createElement('div');orb.className='confidenceOrb';orb.innerHTML='<strong>--%</strong><span>Forecast Confidence</span><small>model agreement</small>';hero.appendChild(orb)}
-   if(!qs('#photoCredit')){const f=all('.footer').at(-1);if(f){const c=document.createElement('div');c.id='photoCredit';c.className='photoCredit';c.innerHTML='Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Peggys_Cove_Lighthouse,_NS.jpg" target="_blank" rel="noopener">Shawn M. Kent / Wikimedia Commons</a> · <a href="https://creativecommons.org/licenses/by/1.0/" target="_blank" rel="noopener">CC BY 1.0</a>';f.insertAdjacentElement('afterend',c)}}
-   addBottomNav();addLocationPicker();
- }
- function activeLocation(){const a=qs('.tab.active');return a?.textContent.replace(/^[^A-Za-z]+/,'').trim()||'Weather Consensus'}
- function syncHeader(){const map={'HRM Core':'Halifax, NS','Moncton':'Moncton, NB','Shediac':'Shediac, NB','Lunenburg':'Lunenburg, NS','Wolfville Area':'Wolfville, NS'};const raw=activeLocation();txt(qs('.brand h1'),map[raw]||raw);txt(qs('.brandsub'),'Weather Consensus · Real Feel first');const sel=qs('.locationPicker');if(sel)sel.value=raw}
- function syncConfidence(){const orb=qs('.confidenceOrb');if(!orb)return;const u=parseFloat((qs('#uncertainty')?.textContent||'').replace(/[^0-9.]/g,''));const count=all('#models .model').length||parseInt((qs('#modelCount')?.textContent||'').match(/\d+/)?.[0]||'0',10);let score=86;if(Number.isFinite(u)){score=u<=.6?95:u<=1?92:u<=1.5?88:u<=2.2?82:74}txt(qs('strong',orb),`${score}%`);txt(qs('small',orb),count?`agreement across ${count} models`:'model agreement')}
- function syncHeroWeatherArt(){const el=qs('#heroIcon');if(!el)return;const raw=(el.dataset.wxRaw||el.textContent||'').trim();if(!raw||raw==='--')return;if(!el.dataset.wxRaw)el.dataset.wxRaw=raw;let kind='partly';if(raw.includes('☀'))kind='sun';else if(raw.includes('🌧')||raw.includes('🌦'))kind='rain';else if(raw.includes('⛈'))kind='storm';else if(raw.includes('🌫'))kind='fog';else if(raw.includes('☁'))kind='cloud';el.className=`icon heroWeatherArt wx-${kind}`;el.setAttribute('aria-label',kind==='partly'?'Partly cloudy':kind);el.innerHTML='<span class="wxSun"></span><span class="wxCloud"></span><i class="wxDrops"></i><i class="wxFog"></i>'}
- function compactSummary(){const s=qs('.heroSummary');if(!s)return;const current=s.textContent.trim();if(!current||current.includes('Building')||current.includes('Could not'))return;if(current===s.dataset.short)return;const first=current.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim()||current;const m=current.match(/6:30 a\.m\.[^\d-]*?(\d+)°[^;]*;[^\d]*5 p\.m\.[^\d-]*?(\d+)°/i);const rain=current.match(/Rain risk is highest around ([^.]+)\./i);let short=first;if(m)short+=` 6:30 a.m. ${m[1]}° Real Feel · 5 p.m. ${m[2]}°.`;if(rain)short+=` Rain risk peaks around ${rain[1]}.`;s.dataset.short=short;s.textContent=short}
- function enhanceForecastPanels(){
-   all('.hour').forEach(h=>{const sub=qs('.sub',h);if(sub&&/^air\s/i.test(sub.textContent))sub.textContent=sub.textContent.replace(/^air\s*/i,'Actual ');const b=qs('b',h);if(b)b.setAttribute('aria-label',`Real Feel ${b.textContent.trim()}`)});
-   all('#days .day').forEach(d=>{if(d.classList.contains('v11Day'))return;const name=qs(':scope>b',d)?.textContent?.trim()||'';const main=qs('.dayMain',d)?.textContent||'';const rf=main.match(/feels max\s*(-?\d+(?:\.\d+)?)°/i)?.[1];const rain=main.match(/☂\s*(\d+(?:\.\d+)?)%/)?.[1];const mm=main.match(/·\s*(\d+(?:\.\d+)?)mm/)?.[1];const emoji=main.match(/[☀☁🌤🌥⛅🌦🌧🌨⛈🌫️]+/)?.[0]||'⛅️';const hi=qs('.dayTemps strong',d)?.textContent?.trim()||'--°';const lo=(qs('.dayTemps small',d)?.textContent||'').match(/-?\d+(?:\.\d+)?°/)?.[0]||'--°';if(!rf)return;d.classList.add('v11Day');d.innerHTML=`<small class="v11DayName">${name}</small><div class="v11DayWx">${emoji}</div><strong class="v11DayRF">${rf}°</strong><span class="v11DayRFLabel">Real Feel</span><span class="v11DayActual">Actual ${hi} / ${lo}</span><span class="v11DayRain">☂ ${rain||'--'}%${mm?` · ${mm}mm`:''}</span>`});
- }
- function refresh(){arrange();syncHeader();syncConfidence();syncHeroWeatherArt();compactSummary();enhanceForecastPanels()}
- window.addEventListener('DOMContentLoaded',()=>{refresh();[250,900,2200,5000,9000].forEach(ms=>setTimeout(refresh,ms));qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,80));qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,80));qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,80))});window.addEventListener('load',refresh);
+  const qs=(s,r=document)=>r.querySelector(s), all=(s,r=document)=>[...r.querySelectorAll(s)];
+  const byTitle=t=>all('.section').find(s=>qs('h2',s)?.textContent.trim()===t);
+  const txt=(el,v)=>{if(el&&el.textContent!==v)el.textContent=v};
+
+  const SCENES={
+    'HRM Core':{
+      title:'Halifax, NS',
+      file:'Halifax Waterfront in Nova Scotia (April 2024).jpg',
+      position:'46% center',
+      credit:'Daeva Trạc / Wikimedia Commons · CC BY-SA 4.0',
+      page:'https://commons.wikimedia.org/wiki/File:Halifax_Waterfront_in_Nova_Scotia_(April_2024).jpg'
+    },
+    'Moncton':{
+      title:'Moncton, NB',
+      file:'View of the Moncton, New Brunswick skyline (cropped).jpg',
+      position:'50% center',
+      credit:'Quintin Soloviev / Wikimedia Commons · CC BY 4.0',
+      page:'https://commons.wikimedia.org/wiki/File:View_of_the_Moncton,_New_Brunswick_skyline_(cropped).jpg'
+    },
+    'Shediac':{
+      title:'Shediac, NB',
+      file:'162 - Parlee Beach NB.JPG',
+      position:'50% center',
+      credit:'Share Bear / Wikimedia Commons · Public domain',
+      page:'https://commons.wikimedia.org/wiki/File:162_-_Parlee_Beach_NB.JPG'
+    },
+    'Lunenburg':{
+      title:'Lunenburg, NS',
+      file:'Waterfront, Lunenburg, Nova Scotia (3615251943).jpg',
+      position:'52% center',
+      credit:'CP Hoffman / Wikimedia Commons · CC BY-SA 2.0',
+      page:'https://commons.wikimedia.org/wiki/File:Waterfront,_Lunenburg,_Nova_Scotia_(3615251943).jpg'
+    },
+    'Wolfville Area':{
+      title:'Wolfville, NS',
+      file:'Wolfville, Nova Scotia (22131661151).jpg',
+      position:'50% 54%',
+      credit:'Christine Rondeau / Wikimedia Commons · CC BY 2.0',
+      page:'https://commons.wikimedia.org/wiki/File:Wolfville,_Nova_Scotia_(22131661151).jpg'
+    }
+  };
+
+  function addStructuralStyles(){
+    if(qs('#v11StructuralFixes'))return;
+    const st=document.createElement('style');
+    st.id='v11StructuralFixes';
+    st.textContent=`
+      .brandline{position:relative}.brandline:after{content:'⌄';font-size:12px;color:#c4d7e1;margin-left:5px}.locationPicker{position:absolute;inset:-8px -24px;opacity:0;cursor:pointer;width:calc(100% + 48px);height:calc(100% + 16px)}
+      @media(max-width:620px){.locationNav,.locationDots{display:none!important}.hero{margin-left:-10px!important;margin-right:-10px!important;border-left:0!important;border-right:0!important;border-radius:0 0 28px 28px!important}.glanceSection>.head{margin-left:2px!important}}
+      .sectionDays .days{display:grid!important;grid-template-columns:repeat(7,minmax(82px,1fr))!important;gap:0!important;overflow-x:auto!important;scrollbar-width:none}.sectionDays .days::-webkit-scrollbar{display:none}.sectionDays .v11Day{min-width:82px!important;min-height:132px!important;padding:7px 6px!important;border:0!important;border-right:1px solid rgba(255,255,255,.10)!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important}.sectionDays .v11Day:last-child{border-right:0!important}.v11DayName{font-size:10px!important;color:#f0f6f9!important}.v11DayWx{font-size:24px;line-height:1.25;margin:7px 0 5px}.v11DayRF{font-size:20px!important;line-height:1!important;color:#fff}.v11DayRFLabel{font-size:7px;color:#8bdcff;margin-top:3px;text-transform:uppercase;letter-spacing:.05em}.v11DayActual{font-size:8px;color:#afc2cd;margin-top:6px;white-space:nowrap}.v11DayRain{font-size:8px;color:#b9cddd;margin-top:5px;white-space:nowrap}
+      .hero .callout{display:none!important}.heroSummary{max-width:60%!important;display:block!important;display:-webkit-box!important;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden!important}
+      .heroWeatherArt{position:relative!important;width:86px;height:70px;margin-top:26px!important;margin-right:3px!important;font-size:0!important;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}.heroWeatherArt .wxSun{position:absolute;width:39px;height:39px;border-radius:50%;right:5px;top:0;background:linear-gradient(145deg,#ffe86a,#ffab00);box-shadow:0 0 22px rgba(255,185,0,.34)}.heroWeatherArt .wxCloud{position:absolute;left:5px;bottom:4px;width:70px;height:31px;border-radius:20px;background:linear-gradient(180deg,#fff,#d7e2e8)}.heroWeatherArt .wxCloud:before,.heroWeatherArt .wxCloud:after{content:'';position:absolute;border-radius:50%;background:inherit}.heroWeatherArt .wxCloud:before{width:38px;height:38px;left:10px;bottom:9px}.heroWeatherArt .wxCloud:after{width:31px;height:31px;right:7px;bottom:11px}.heroWeatherArt.wx-sun .wxCloud{display:none}.heroWeatherArt.wx-cloud .wxSun,.heroWeatherArt.wx-rain .wxSun,.heroWeatherArt.wx-fog .wxSun,.heroWeatherArt.wx-storm .wxSun,.heroWeatherArt.wx-snow .wxSun{display:none}.heroWeatherArt .wxDrops{display:none;position:absolute;left:18px;bottom:-12px;width:5px;height:11px;border-radius:6px;background:#72d9ff;box-shadow:20px 3px 0 #72d9ff,40px -1px 0 #72d9ff;transform:rotate(15deg)}.heroWeatherArt.wx-rain .wxDrops,.heroWeatherArt.wx-storm .wxDrops{display:block}.heroWeatherArt .wxFog{display:none;position:absolute;left:8px;right:8px;bottom:-9px;height:2px;background:#e5f2f7;box-shadow:0 7px 0 rgba(229,242,247,.75),0 14px 0 rgba(229,242,247,.5)}.heroWeatherArt.wx-fog .wxFog{display:block}.heroWeatherArt .wxSnow{display:none;position:absolute;left:18px;bottom:-7px;font-size:18px;line-height:1;color:#fff;text-shadow:20px 4px 0 #fff,40px -1px 0 #fff}.heroWeatherArt.wx-snow .wxSnow{display:block}
+      .hero[data-daypart='night'] .heroWeatherArt .wxSun{background:radial-gradient(circle at 38% 38%,#f4f4ff 0 45%,#b9c5e8 47% 100%);box-shadow:0 0 24px rgba(205,215,255,.28)}
+      .heroSceneBadge{position:absolute;right:17px;top:17px;z-index:3;padding:5px 8px;border:1px solid rgba(255,255,255,.15);border-radius:999px;background:rgba(2,24,42,.27);backdrop-filter:blur(12px);font-size:8px;color:#d9e8ef;letter-spacing:.03em;text-transform:capitalize}
+      .sectionDeep{opacity:.91}.sectionDeep>.head{margin-top:4px!important}.sectionDeep>.head h2{font-weight:590!important}.sectionDeep .card{border-radius:18px!important}.photoCredit{padding-bottom:78px}
+    `;
+    document.head.appendChild(st);
+  }
+
+  function activeLocation(){
+    const a=qs('.tab.active');
+    return a?.textContent.replace(/^[^A-Za-z]+/,'').trim()||'HRM Core';
+  }
+
+  function addLocationPicker(){
+    const line=qs('.brandline'),tabs=all('.tab');if(!line||!tabs.length)return;
+    let sel=qs('.locationPicker',line);
+    if(!sel){
+      sel=document.createElement('select');sel.className='locationPicker';sel.setAttribute('aria-label','Choose forecast location');line.appendChild(sel);
+      sel.addEventListener('change',()=>{const tab=all('.tab').find(t=>t.textContent.replace(/^[^A-Za-z]+/,'').trim()===sel.value);tab?.click()});
+    }
+    const names=tabs.map(t=>t.textContent.replace(/^[^A-Za-z]+/,'').trim());
+    if(sel.options.length!==names.length)sel.innerHTML=names.map(n=>`<option value="${n}">${n}</option>`).join('');
+    sel.value=activeLocation();
+  }
+
+  function svgIcon(kind){
+    const common='viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
+    const p={forecast:'<path d="M3 11 12 3l9 8v9h-6v-6H9v6H3z"/>',models:'<path d="M4 20v-6m6 6V8m6 12V4m4 16H2"/>',map:'<path d="m3 6 5-2 8 2 5-2v14l-5 2-8-2-5 2zM8 4v14m8-12v14"/>',alerts:'<path d="M12 3 2.8 20h18.4zM12 9v5m0 3h.01"/>',accuracy:'<circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-5"/>'};
+    return `<svg ${common}>${p[kind]}</svg>`;
+  }
+
+  function addBottomNav(){
+    if(!qs('#v11BottomNavStyle')){
+      const st=document.createElement('style');st.id='v11BottomNavStyle';st.textContent='.appNav{position:fixed;z-index:60;left:50%;transform:translateX(-50%);bottom:max(8px,env(safe-area-inset-bottom));width:min(690px,calc(100% - 18px));height:66px;padding:7px 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border:1px solid rgba(222,242,252,.16);border-radius:22px;background:rgba(3,28,48,.86);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);box-shadow:0 16px 45px rgba(0,8,18,.36)}.appNav button{border:0;background:transparent;color:#9fb5c3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:15px;font:inherit}.appNav button svg{width:21px;height:21px}.appNav button b{font-size:8px;font-weight:500}.appNav button.active{color:#b6a5ff;background:rgba(116,82,229,.16)}.appNav button.active svg{filter:drop-shadow(0 0 8px rgba(145,111,255,.5))}@media(min-width:800px){.appNav{bottom:14px}}';document.head.appendChild(st);
+    }
+    if(qs('#appNav'))return;
+    const nav=document.createElement('nav');nav.id='appNav';nav.className='appNav';nav.setAttribute('aria-label','App navigation');
+    nav.innerHTML=`<button data-go="forecast" class="active">${svgIcon('forecast')}<b>Forecast</b></button><button data-go="models">${svgIcon('models')}<b>Models</b></button><button data-go="map">${svgIcon('map')}<b>Map</b></button><button data-go="alerts">${svgIcon('alerts')}<b>Alerts</b></button><button data-go="accuracy">${svgIcon('accuracy')}<b>Accuracy</b></button>`;
+    document.body.appendChild(nav);
+    nav.addEventListener('click',e=>{
+      const b=e.target.closest('button');if(!b)return;let target=null;
+      if(b.dataset.go==='forecast')target=qs('.topbar');if(b.dataset.go==='models')target=byTitle('Model consensus');if(b.dataset.go==='map'||b.dataset.go==='alerts')target=byTitle('Official data');if(b.dataset.go==='accuracy')target=byTitle('Accuracy engine');
+      target?.scrollIntoView({behavior:'smooth',block:'start'});all('button',nav).forEach(x=>x.classList.toggle('active',x===b));
+    });
+  }
+
+  function arrange(){
+    addStructuralStyles();
+    const warn=qs('#warn'),hero=qs('.hero'),brief=qs('.dayBrief');if(!warn||!hero)return;
+    const glance=qs('#glance')?.closest('.section'),hourly=byTitle('Next 12 hours'),days=byTitle('7-day outlook');
+    if(glance)glance.classList.add('glanceSection');if(hourly)hourly.classList.add('sectionHour');if(days)days.classList.add('sectionDays');
+    const primary=new Set([glance,hero,brief,hourly,days].filter(Boolean));all('.section').forEach(s=>s.classList.toggle('sectionDeep',!primary.has(s)));
+    let anchor=warn;for(const n of [glance,hero,brief,hourly,days].filter(Boolean)){if(anchor.nextElementSibling!==n)anchor.insertAdjacentElement('afterend',n);anchor=n}
+    const summary=qs('#daySummary');if(summary&&summary.parentElement!==hero){summary.classList.add('heroSummary');hero.querySelector('.callout')?.insertAdjacentElement('afterend',summary)}
+    if(!hero.querySelector('.confidenceOrb')){const orb=document.createElement('div');orb.className='confidenceOrb';orb.innerHTML='<strong>--%</strong><span>Forecast Confidence</span><small>model agreement</small>';hero.appendChild(orb)}
+    if(!hero.querySelector('.heroSceneBadge')){const badge=document.createElement('div');badge.className='heroSceneBadge';hero.appendChild(badge)}
+    addBottomNav();addLocationPicker();
+  }
+
+  function syncHeader(){
+    const raw=activeLocation(),scene=SCENES[raw]||SCENES['HRM Core'];
+    txt(qs('.brand h1'),scene.title);txt(qs('.brandsub'),'Weather Consensus · Real Feel first');const sel=qs('.locationPicker');if(sel)sel.value=raw;
+  }
+
+  function syncConfidence(){
+    const orb=qs('.confidenceOrb');if(!orb)return;
+    const u=parseFloat((qs('#uncertainty')?.textContent||'').replace(/[^0-9.]/g,''));const count=all('#models .model').length||parseInt((qs('#modelCount')?.textContent||'').match(/\d+/)?.[0]||'0',10);let score=86;
+    if(Number.isFinite(u))score=u<=.6?95:u<=1?92:u<=1.5?88:u<=2.2?82:74;
+    txt(qs('strong',orb),`${score}%`);txt(qs('small',orb),count?`agreement across ${count} models`:'model agreement');
+  }
+
+  function weatherKind(raw){
+    if(/[🌨❄]/.test(raw))return'snow';if(raw.includes('⛈'))return'storm';if(/[🌧🌦]/.test(raw))return'rain';if(raw.includes('🌫'))return'fog';if(raw.includes('☁'))return'cloud';if(raw.includes('☀'))return'sun';return'partly';
+  }
+
+  function heroRawWeather(){
+    const el=qs('#heroIcon');if(!el)return'partly';
+    const rendered=el.querySelector('.wxCloud,.wxSun');
+    if(!rendered){const r=(el.textContent||'').trim();if(r)el.dataset.wxRaw=r}
+    return el.dataset.wxRaw||'partly';
+  }
+
+  function daypart(){
+    const hour=Number(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Halifax',hour:'2-digit',hour12:false}).format(new Date()));
+    if(hour>=5&&hour<8)return'dawn';if(hour>=8&&hour<18)return'day';if(hour>=18&&hour<21)return'dusk';return'night';
+  }
+
+  function sceneGradient(part,kind){
+    const time={
+      dawn:'linear-gradient(180deg,rgba(22,42,64,.12) 0%,rgba(131,73,73,.13) 35%,rgba(3,25,43,.82) 77%,rgba(2,19,34,.97) 100%)',
+      day:'linear-gradient(180deg,rgba(0,28,51,.04) 0%,rgba(0,27,48,.12) 34%,rgba(2,25,43,.74) 72%,rgba(2,22,39,.97) 100%)',
+      dusk:'linear-gradient(180deg,rgba(25,23,56,.10) 0%,rgba(116,58,83,.15) 38%,rgba(4,23,43,.82) 75%,rgba(2,18,34,.98) 100%)',
+      night:'linear-gradient(180deg,rgba(0,7,24,.34) 0%,rgba(0,14,31,.46) 38%,rgba(1,17,32,.88) 74%,rgba(0,12,25,.99) 100%)'
+    }[part];
+    const weather={
+      sun:'linear-gradient(110deg,rgba(255,198,92,.05),rgba(17,91,133,.03) 56%,transparent)',
+      partly:'linear-gradient(110deg,rgba(110,174,207,.06),rgba(30,72,103,.06) 58%,transparent)',
+      cloud:'linear-gradient(110deg,rgba(90,111,126,.20),rgba(35,58,75,.11) 58%,transparent)',
+      fog:'linear-gradient(110deg,rgba(211,225,230,.25),rgba(89,112,124,.18) 60%,transparent)',
+      rain:'linear-gradient(110deg,rgba(17,65,96,.34),rgba(10,37,62,.18) 60%,transparent)',
+      storm:'linear-gradient(110deg,rgba(22,26,58,.44),rgba(7,22,42,.27) 60%,transparent)',
+      snow:'linear-gradient(110deg,rgba(218,232,239,.30),rgba(101,132,150,.16) 60%,transparent)'
+    }[kind]||'linear-gradient(transparent,transparent)';
+    return `${time},${weather}`;
+  }
+
+  function syncScene(){
+    const hero=qs('.hero');if(!hero)return;
+    const rawLoc=activeLocation(),scene=SCENES[rawLoc]||SCENES['HRM Core'],kind=weatherKind(heroRawWeather()),part=daypart();
+    const fileUrl=`https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(scene.file)}?width=1600`;
+    hero.dataset.daypart=part;hero.dataset.condition=kind;hero.dataset.location=rawLoc;
+    hero.style.setProperty('background-image',`${sceneGradient(part,kind)},url("${fileUrl}")`,'important');hero.style.setProperty('background-position',scene.position,'important');
+    const badge=qs('.heroSceneBadge',hero);if(badge)badge.textContent=`${kind==='partly'?'partly cloudy':kind} · ${part}`;
+    let c=qs('#photoCredit');if(!c){const f=all('.footer').at(-1);if(f){c=document.createElement('div');c.id='photoCredit';c.className='photoCredit';f.insertAdjacentElement('afterend',c)}}
+    if(c)c.innerHTML=`Hero photo: <a href="${scene.page}" target="_blank" rel="noopener">${scene.credit}</a> · scene treatment varies with local weather and time`;
+  }
+
+  function syncHeroWeatherArt(){
+    const el=qs('#heroIcon');if(!el)return;
+    const rendered=el.querySelector('.wxCloud,.wxSun');let raw=rendered?(el.dataset.wxRaw||''):(el.textContent||'').trim();if(!raw)return;if(!rendered)el.dataset.wxRaw=raw;
+    const kind=weatherKind(raw);el.className=`icon heroWeatherArt wx-${kind}`;el.setAttribute('aria-label',kind==='partly'?'Partly cloudy':kind);
+    el.innerHTML='<span class="wxSun"></span><span class="wxCloud"></span><i class="wxDrops"></i><i class="wxFog"></i><i class="wxSnow">✦</i>';
+  }
+
+  function compactSummary(){
+    const s=qs('.heroSummary');if(!s)return;const current=s.textContent.trim();if(!current||current.includes('Building')||current.includes('Could not')||current===s.dataset.short)return;
+    const first=current.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim()||current;const m=current.match(/6:30 a\.m\.[^\d-]*?(\d+)°[^;]*;[^\d]*5 p\.m\.[^\d-]*?(\d+)°/i);const rain=current.match(/Rain risk is highest around ([^.]+)\./i);let short=first;
+    if(m)short+=` 6:30 a.m. ${m[1]}° Real Feel · 5 p.m. ${m[2]}°.`;if(rain)short+=` Rain risk peaks around ${rain[1]}.`;s.dataset.short=short;s.textContent=short;
+  }
+
+  function enhanceForecastPanels(){
+    all('.hour').forEach(h=>{const sub=qs('.sub',h);if(sub&&/^air\s/i.test(sub.textContent))sub.textContent=sub.textContent.replace(/^air\s*/i,'Actual ');const b=qs('b',h);if(b)b.setAttribute('aria-label',`Real Feel ${b.textContent.trim()}`)});
+    all('#days .day').forEach(d=>{
+      if(d.classList.contains('v11Day'))return;const name=qs(':scope>b',d)?.textContent?.trim()||'',main=qs('.dayMain',d)?.textContent||'';const rf=main.match(/(?:feels|Real Feel) max\s*(-?\d+(?:\.\d+)?)°/i)?.[1],rain=main.match(/☂\s*(\d+(?:\.\d+)?)%/)?.[1],mm=main.match(/·\s*(\d+(?:\.\d+)?)mm/)?.[1],emoji=main.match(/[☀☁🌤🌥⛅🌦🌧🌨⛈🌫️❄]+/)?.[0]||'⛅️',hi=qs('.dayTemps strong',d)?.textContent?.trim()||'--°',lo=(qs('.dayTemps small',d)?.textContent||'').match(/-?\d+(?:\.\d+)?°/)?.[0]||'--°';if(!rf)return;
+      d.classList.add('v11Day');d.innerHTML=`<small class="v11DayName">${name}</small><div class="v11DayWx">${emoji}</div><strong class="v11DayRF">${rf}°</strong><span class="v11DayRFLabel">Real Feel</span><span class="v11DayActual">Actual ${hi} / ${lo}</span><span class="v11DayRain">☂ ${rain||'--'}%${mm?` · ${mm}mm`:''}</span>`;
+    });
+  }
+
+  function refresh(){arrange();syncHeader();syncConfidence();syncHeroWeatherArt();syncScene();compactSummary();enhanceForecastPanels()}
+  window.addEventListener('DOMContentLoaded',()=>{
+    refresh();[250,900,2200,5000,9000].forEach(ms=>setTimeout(refresh,ms));
+    qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,80));qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,80));qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,80));
+  });
+  window.addEventListener('load',refresh);
+  setInterval(()=>{syncScene();syncConfidence()},60000);
 })();
