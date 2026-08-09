@@ -2,10 +2,8 @@
 """Prospective shadow verification for Accuracy Engine 3.0.
 
 Scores forecasts only after their target time against the ECCC observation mesh.
-Tracks temperature MAE, precipitation Brier score, and Real Feel MAE/bias for:
-- Weather Consensus calibrated Real Feel
-- the uncalibrated physical Real Feel baseline
-- provider apparent temperature
+Tracks temperature MAE, precipitation Brier score, Real Feel MAE/bias, and the
+reliability of the single Engine-3 Forecast Confidence value.
 """
 from __future__ import annotations
 from datetime import timedelta
@@ -25,11 +23,17 @@ def _stat_update(s:dict[str,Any],error:float)->None:
 def _brier_update(s:dict[str,Any],probability_pct:float,wet:bool)->None:
     p=max(0.0,min(1.0,probability_pct/100.0));b=(p-(1.0 if wet else 0.0))**2;n=int(s.get("n",0));s["brier"]=(float(s.get("brier",0.0))*n+b)/(n+1);s["n"]=n+1;s["updated_at"]=core.iso(core.utcnow())
 
+def _confidence_bin(value:float)->str:
+    lo=int(max(0,min(90,(value//10)*10)));return f"{lo}-{lo+9}"
+
+def _confidence_update(s:dict[str,Any],issued_pct:float,hit:bool)->None:
+    n=int(s.get("n",0));hits=int(s.get("hits",0))+int(hit);s["forecast_mean"]=(float(s.get("forecast_mean",0.0))*n+issued_pct/100.0)/(n+1);s["n"]=n+1;s["hits"]=hits;s["hit_rate"]=hits/(n+1);s["calibration_error"]=s["hit_rate"]-s["forecast_mean"];s["updated_at"]=core.iso(core.utcnow())
+
 def _keys(loc:str,lead:int,regime:str,layer:str)->list[str]:
     return [f"{loc}:{_bucket(lead)}:{regime}:{layer}",f"{loc}:{_bucket(lead)}:all:{layer}",f"{loc}:all:all:{layer}"]
 
 def score_due(state:dict[str,Any],observations:dict[str,Any])->int:
-    now=core.utcnow();scores=state.setdefault("scores",{});precip_scores=state.setdefault("precip_scores",{});rf_scores=state.setdefault("real_feel_scores",{});scored=0
+    now=core.utcnow();scores=state.setdefault("scores",{});precip_scores=state.setdefault("precip_scores",{});rf_scores=state.setdefault("real_feel_scores",{});confidence_scores=state.setdefault("confidence_scores",{});scored=0
     for row in state.setdefault("forecasts",[]):
         if row.get("scored"):continue
         target=core.parse_stamp(row.get("target"))
@@ -42,6 +46,9 @@ def score_due(state:dict[str,Any],observations:dict[str,Any])->int:
                 p=core.safe_float(pred)
                 if p is None:continue
                 for key in _keys(str(row["loc"]),int(row["lead"]),str(row.get("regime","unknown")),layer):_stat_update(scores.setdefault(key,{}),p-actual)
+            issued_conf=row.get("issued_confidence") or {};conf=core.safe_float(issued_conf.get("value"));tol=core.safe_float(issued_conf.get("tolerance_c"));final=core.safe_float((row.get("temperature_candidates") or {}).get("final_v3"))
+            if conf is not None and tol is not None and final is not None:
+                hit=abs(final-actual)<=tol;bin_key=_confidence_bin(conf);_confidence_update(confidence_scores.setdefault(bin_key,{}),conf,hit);row["confidence_hit"]=hit;row["confidence_bin"]=bin_key
         precip_actual=core.safe_float(values.get("precipitation"))
         if precip_actual is not None:
             wet=precip_actual>=core.PRECIP_THRESHOLD
@@ -50,9 +57,6 @@ def score_due(state:dict[str,Any],observations:dict[str,Any])->int:
                 if p is None:continue
                 for key in _keys(str(row["loc"]),int(row["lead"]),str(row.get("regime","unknown")),layer):_brier_update(precip_scores.setdefault(key,{}),p,wet)
 
-        # Observed-derived Real Feel. Temperature/RH are required. SWOB wind and
-        # global solar are used when present; issue-time context is a transparent
-        # fallback so missing optional sensors do not fabricate observations.
         rh=core.safe_float(values.get("relative_humidity_2m"));wind=core.safe_float(values.get("wind_speed_10m"));solar=core.safe_float(values.get("shortwave_radiation"));ctx=row.get("real_feel_context") or {}
         observed_rf=None;rf_policy=None
         if actual is not None and rh is not None:
@@ -96,17 +100,18 @@ def add_current_forecasts(state:dict[str,Any],engine:dict[str,Any])->int:
             if ident in existing:continue
             comps=h.get("components") or {};v2=core.safe_float(comps.get("v2_consensus"));nudge=core.safe_float(comps.get("observation_nudge"));temp_candidates={"v2":v2,"mos":core.safe_float(comps.get("mos")),"analog":core.safe_float(comps.get("analog")),"final_v3":core.safe_float(h.get("temperature_2m"))}
             if v2 is not None and nudge is not None:temp_candidates["nudge"]=v2+max(-1.5,min(1.5,nudge*0.65))
-            rfe=h.get("real_feel_engine") or {};inputs=rfe.get("inputs") or {}
+            rfe=h.get("real_feel_engine") or {};inputs=rfe.get("inputs") or {};fc=h.get("forecast_confidence") or {}
             state["forecasts"].append({
                 "loc":loc,"lead":lead,"regime":regime,"issued":core.iso(issued),"target":h.get("target"),
                 "temperature_candidates":temp_candidates,
                 "precip_candidates":{"raw":core.safe_float(h.get("raw_precipitation_probability")),"calibrated":core.safe_float(h.get("precipitation_probability"))},
                 "real_feel_candidates":{"calibrated":core.safe_float(h.get("real_feel")),"physical":core.safe_float(rfe.get("physical_real_feel")),"provider_apparent":core.safe_float(inputs.get("provider_apparent_temperature"))},
                 "real_feel_context":{"wind_speed_10m":core.safe_float(inputs.get("wind_speed_10m")),"shortwave_radiation":core.safe_float(inputs.get("shortwave_radiation")),"cloud_cover":core.safe_float(inputs.get("cloud_cover")),"uv_index":core.safe_float(inputs.get("uv_index"))},
+                "issued_confidence":{"value":core.safe_float(fc.get("value")),"tolerance_c":core.safe_float(fc.get("tolerance_c")),"method":fc.get("method")},
                 "scored":False,
             });existing.add(ident);added+=1
     return added
 
-def load_state()->dict[str,Any]:return core.load(VERIFY,{"version":"1.1","updated_at":None,"scores":{},"precip_scores":{},"real_feel_scores":{},"forecasts":[]})
+def load_state()->dict[str,Any]:return core.load(VERIFY,{"version":"1.2","updated_at":None,"scores":{},"precip_scores":{},"real_feel_scores":{},"confidence_scores":{},"forecasts":[]})
 def save_state(state:dict[str,Any])->None:
-    state["version"]="1.1";core.save(VERIFY,state)
+    state["version"]="1.2";state.setdefault("confidence_scores",{});core.save(VERIFY,state)
