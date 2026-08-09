@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+// Diagnostic trigger: verify current main after the refreshed collector without changing production code.
 
 const base=process.env.WX_URL||'https://jeremyhennessy.github.io/hrm-weather/app.html';
 const url=`${base}${base.includes('?')?'&':'?'}smoke=${Date.now()}`;
