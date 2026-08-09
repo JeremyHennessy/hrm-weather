@@ -37,13 +37,15 @@ def evaluate_rows(rows: list[dict[str, Any]]) -> dict[str, Any]:
     rows = sorted(rows, key=lambda r: r.get("dt") or core.utcnow())[-MAX_CASES:]
     stats: dict[str, dict[str, Any]] = {k: {} for k in ["v2", "mos", "analog", "v3_reconstructed"]}
     evaluated = 0
-    for i, row in enumerate(rows):
-        prior = rows[:i]
+    for row in rows:
         actual = core.safe_float(row.get("actual"))
         fam = row.get("families") or {}
         dt = row.get("dt")
         if actual is None or not dt or len(fam) < 2:
             continue
+        # Strict leakage barrier: pooled forecasts for the same target timestamp
+        # are never allowed into the held-out case's training set.
+        prior = [r for r in rows if r.get("dt") is not None and r.get("dt") < dt]
 
         v2p = _v2_proxy(row)
         if v2p is not None:
