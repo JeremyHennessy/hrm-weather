@@ -1,0 +1,57 @@
+name: Engine 3 retrospective backtest
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/engine3_retro_backtest.py'
+      - 'scripts/accuracy_engine_v3.py'
+      - 'scripts/accuracy_engine_v3_walkforward.py'
+      - 'data/ledger.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: engine3-retro-backtest
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run strict hindcast
+        env:
+          PYTHONPATH: scripts
+        run: |
+          python -m py_compile scripts/engine3_retro_backtest.py
+          python scripts/engine3_retro_backtest.py
+          python -m json.tool data/backtest-v3.json >/dev/null
+      - name: Validate no-lookahead report
+        run: |
+          python - <<'PY'
+          import json
+          j=json.load(open('data/backtest-v3.json'))
+          assert j.get('leakage_policy') == 'strictly-earlier-targets-only'
+          assert (j.get('overall') or {}).get('v2',{}).get('n',0) > 0
+          assert (j.get('overall') or {}).get('engine3_reconstructed',{}).get('n',0) > 0
+          print('Strict Engine 3 retrospective backtest validated')
+          PY
+      - name: Commit backtest report
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/backtest-v3.json
+          if git diff --cached --quiet; then
+            echo "Backtest unchanged"
+          else
+            git commit -m "Update Engine 3 retrospective backtest"
+            git pull --rebase origin main
+            git push
+          fi
