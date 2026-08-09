@@ -1,12 +1,418 @@
 {
   "observations": {
-    "hrm": null,
-    "lunenburg": null,
-    "moncton": null,
-    "shediac": null,
-    "wolfville": null
+    "hrm": {
+      "collection": "swob-realtime",
+      "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+      "station": "HALIFAX DOCKYARD / HALIFAX WINDSOR PARK / SHEARWATER RCS",
+      "station_count": 8,
+      "stations": [
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 0.7309203086771027,
+          "lat": 44.655354,
+          "lon": -63.575908,
+          "precipitation": null,
+          "relative_humidity_2m": 97.0,
+          "station": "HALIFAX DOCKYARD",
+          "temperature_2m": 19.6,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.9227008479750113,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 2.750507296327102,
+          "lat": 44.656926,
+          "lon": -63.608042,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 100.0,
+          "station": "HALIFAX WINDSOR PARK",
+          "temperature_2m": 19.5,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.8176689731097703,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.027991265833333334,
+          "distance_km": 4.981788023468788,
+          "lat": 44.63592,
+          "lon": -63.51489,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 100.0,
+          "station": "SHEARWATER RCS",
+          "temperature_2m": 19.2,
+          "time": "2026-08-09T05:06:00+00:00",
+          "weight": 0.723821291421139,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 4.8239568149733305,
+          "lat": 44.627497,
+          "lon": -63.522088,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 100.0,
+          "station": "SHEARWATER JETTY",
+          "temperature_2m": 19.1,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.7001805296753277,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 6.150292404980393,
+          "lat": 44.6024,
+          "lon": -63.5329,
+          "precipitation": null,
+          "relative_humidity_2m": 100.0,
+          "station": "MCNABS ISLAND (AUT)",
+          "temperature_2m": 19.5,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.6314314858702055,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 7.074672516237647,
+          "lat": 44.587727,
+          "lon": -63.550143,
+          "precipitation": 0.2,
+          "relative_humidity_2m": 100.0,
+          "station": "HALIFAX KOOTENAY",
+          "temperature_2m": 19.0,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.5876766549455184,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 7.857396549617851,
+          "lat": 44.706111,
+          "lon": -63.633333,
+          "precipitation": null,
+          "relative_humidity_2m": 100.0,
+          "station": "BEDFORD BASIN",
+          "temperature_2m": 20.0,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.5533804189210326,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.12799126583333334,
+          "distance_km": 12.685297541909069,
+          "lat": 44.745547,
+          "lon": -63.660246,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 98.0,
+          "station": "BEDFORD RANGE",
+          "temperature_2m": 20.0,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.39118744822320245,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        }
+      ],
+      "temp": 19.457488573062292,
+      "time": "2026-08-09T05:06:00+00:00",
+      "values": {
+        "precipitation": 0.03649559304105233,
+        "relative_humidity_2m": 99.33362505865027,
+        "temperature_2m": 19.457488573062292,
+        "wind_gusts_10m": null,
+        "wind_speed_10m": null
+      }
+    },
+    "lunenburg": {
+      "collection": "swob-realtime",
+      "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+      "station": "LUNENBURG",
+      "station_count": 1,
+      "stations": [
+        {
+          "age_hours": 0.12871831888888888,
+          "distance_km": 2.194888387888291,
+          "lat": 44.360682,
+          "lon": -64.296016,
+          "precipitation": null,
+          "relative_humidity_2m": 98.0,
+          "station": "LUNENBURG",
+          "temperature_2m": 18.5,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.8489919238526388,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        }
+      ],
+      "temp": 18.5,
+      "time": "2026-08-09T05:00:00+00:00",
+      "values": {
+        "precipitation": null,
+        "relative_humidity_2m": 98.0,
+        "temperature_2m": 18.5,
+        "wind_gusts_10m": null,
+        "wind_speed_10m": null
+      }
+    },
+    "moncton": {
+      "collection": "swob-realtime",
+      "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+      "station": "Moncton/Greater Moncton Romeo Le",
+      "station_count": 1,
+      "stations": [
+        {
+          "age_hours": 0.12819235083333333,
+          "distance_km": 8.29891547501511,
+          "lat": 46.1161,
+          "lon": -64.6786,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 98.0,
+          "station": "Moncton/Greater Moncton Romeo Le",
+          "temperature_2m": 19.8,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.5350782041786365,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        }
+      ],
+      "temp": 19.8,
+      "time": "2026-08-09T05:00:00+00:00",
+      "values": {
+        "precipitation": 0.0,
+        "relative_humidity_2m": 98.0,
+        "temperature_2m": 19.8,
+        "wind_gusts_10m": null,
+        "wind_speed_10m": null
+      }
+    },
+    "shediac": {
+      "collection": "swob-realtime",
+      "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+      "station": "Moncton/Greater Moncton Romeo Le",
+      "station_count": 1,
+      "stations": [
+        {
+          "age_hours": 0.1284751038888889,
+          "distance_km": 15.6550109182535,
+          "lat": 46.1161,
+          "lon": -64.6786,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 98.0,
+          "station": "Moncton/Greater Moncton Romeo Le",
+          "temperature_2m": 19.8,
+          "time": "2026-08-09T05:00:00+00:00",
+          "weight": 0.3235548856870563,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        }
+      ],
+      "temp": 19.8,
+      "time": "2026-08-09T05:00:00+00:00",
+      "values": {
+        "precipitation": 0.0,
+        "relative_humidity_2m": 98.0,
+        "temperature_2m": 19.8,
+        "wind_gusts_10m": null,
+        "wind_speed_10m": null
+      }
+    },
+    "wolfville": {
+      "collection": "swob-realtime",
+      "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+      "station": "KENTVILLE CDA / South Alton",
+      "station_count": 2,
+      "stations": [
+        {
+          "age_hours": 0.012207550555555556,
+          "distance_km": 3.3534283259845368,
+          "lat": 45.067305,
+          "lon": -64.477603,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 100.0,
+          "station": "KENTVILLE CDA",
+          "temperature_2m": 20.8,
+          "time": "2026-08-09T05:07:00+00:00",
+          "weight": 0.8252170277153789,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 1.0060964394444445,
+          "distance_km": 11.05056600786515,
+          "lat": 45.009,
+          "lon": -64.538,
+          "precipitation": 0.5,
+          "relative_humidity_2m": null,
+          "station": "South Alton",
+          "temperature_2m": 20.1,
+          "time": "2026-08-09T04:07:22+00:00",
+          "weight": 0.29360817224215147,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        }
+      ],
+      "temp": 20.616302206477556,
+      "time": "2026-08-09T05:07:00+00:00",
+      "values": {
+        "precipitation": 0.1312127096588889,
+        "relative_humidity_2m": 100.0,
+        "temperature_2m": 20.616302206477556,
+        "wind_gusts_10m": null,
+        "wind_speed_10m": null
+      }
+    }
   },
   "skills": {
+    "hrm:cma_grapes_global:3": {
+      "bias": -1.0574885730622938,
+      "mae": 1.0574885730622938,
+      "mse": 1.1182820821573263,
+      "n": 1,
+      "rmse": 1.0574885730622938,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945177+00:00"
+    },
+    "hrm:cma_grapes_global:6": {
+      "bias": -0.7324885730622928,
+      "mae": 0.7324885730622928,
+      "mse": 0.5371645096668338,
+      "n": 2,
+      "rmse": 0.7329150767086415,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943374+00:00"
+    },
+    "hrm:cma_grapes_global:all": {
+      "bias": -0.8408219063956265,
+      "mae": 0.8408219063956265,
+      "mse": 0.7308703671636646,
+      "n": 3,
+      "rmse": 0.8549095666581726,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945180+00:00"
+    },
+    "hrm:cma_grapes_global:temperature_2m:3": {
+      "bias": -1.0574885730622938,
+      "mae": 1.0574885730622938,
+      "mse": 1.1182820821573263,
+      "n": 1,
+      "rmse": 1.0574885730622938,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945163+00:00"
+    },
+    "hrm:cma_grapes_global:temperature_2m:3:unknown": {
+      "bias": -1.0574885730622938,
+      "mae": 1.0574885730622938,
+      "mse": 1.1182820821573263,
+      "n": 1,
+      "rmse": 1.0574885730622938,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945170+00:00"
+    },
+    "hrm:cma_grapes_global:temperature_2m:6": {
+      "bias": -0.7324885730622928,
+      "mae": 0.7324885730622928,
+      "mse": 0.5371645096668338,
+      "n": 2,
+      "rmse": 0.7329150767086415,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943362+00:00"
+    },
+    "hrm:cma_grapes_global:temperature_2m:6:unknown": {
+      "bias": -0.7324885730622928,
+      "mae": 0.7324885730622928,
+      "mse": 0.5371645096668338,
+      "n": 2,
+      "rmse": 0.7329150767086415,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943368+00:00"
+    },
+    "hrm:cma_grapes_global:temperature_2m:all": {
+      "bias": -0.8408219063956265,
+      "mae": 0.8408219063956265,
+      "mse": 0.7308703671636646,
+      "n": 3,
+      "rmse": 0.8549095666581726,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945167+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:3": {
+      "bias": 0.14251142693770902,
+      "mae": 0.14251142693770902,
+      "mse": 0.020309506807821974,
+      "n": 1,
+      "rmse": 0.14251142693770902,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944986+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:6": {
+      "bias": 0.20917809360437545,
+      "mae": 0.20917809360437545,
+      "mse": 0.04486658595507184,
+      "n": 2,
+      "rmse": 0.21181734101596084,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943186+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:all": {
+      "bias": 0.1869558713821533,
+      "mae": 0.1869558713821533,
+      "mse": 0.036680892905988555,
+      "n": 3,
+      "rmse": 0.19152256500472353,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944990+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:temperature_2m:3": {
+      "bias": 0.14251142693770902,
+      "mae": 0.14251142693770902,
+      "mse": 0.020309506807821974,
+      "n": 1,
+      "rmse": 0.14251142693770902,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944973+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:temperature_2m:3:unknown": {
+      "bias": 0.14251142693770902,
+      "mae": 0.14251142693770902,
+      "mse": 0.020309506807821974,
+      "n": 1,
+      "rmse": 0.14251142693770902,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944979+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:temperature_2m:6": {
+      "bias": 0.20917809360437545,
+      "mae": 0.20917809360437545,
+      "mse": 0.04486658595507184,
+      "n": 2,
+      "rmse": 0.21181734101596084,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943173+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:temperature_2m:6:unknown": {
+      "bias": 0.20917809360437545,
+      "mae": 0.20917809360437545,
+      "mse": 0.04486658595507184,
+      "n": 2,
+      "rmse": 0.21181734101596084,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943180+00:00"
+    },
+    "hrm:ecmwf_aifs025_single:temperature_2m:all": {
+      "bias": 0.1869558713821533,
+      "mae": 0.1869558713821533,
+      "mse": 0.036680892905988555,
+      "n": 3,
+      "rmse": 0.19152256500472353,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944976+00:00"
+    },
     "hrm:ecmwf_ifs025:12": {
       "bias": 1.2088888888888887,
       "mae": 1.426388888888889,
@@ -15,25 +421,220 @@
       "updated": "2026-08-08T21:08:51.966127+00:00"
     },
     "hrm:ecmwf_ifs025:3": {
-      "bias": 0.08472222222222392,
-      "mae": 0.6041666666666687,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966115+00:00"
+      "bias": 0.09484694867209242,
+      "mae": 0.5565753437338211,
+      "mse": 0.0034357088571977433,
+      "n": 9,
+      "rmse": 0.05861492009034682,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944954+00:00"
     },
     "hrm:ecmwf_ifs025:6": {
-      "bias": 0.30555555555555447,
-      "mae": 0.6583333333333332,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966121+00:00"
+      "bias": 0.2612800631653183,
+      "mae": 0.5435022853875413,
+      "mse": 0.0014310791774622207,
+      "n": 10,
+      "rmse": 0.03782960715447916,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943155+00:00"
     },
     "hrm:ecmwf_ifs025:all": {
-      "bias": 0.5330555555555557,
-      "mae": 0.8962962962962969,
-      "n": 24,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360661+00:00"
+      "bias": 0.4865753437338195,
+      "mae": 0.8094560021700339,
+      "mse": 0.0016752656107185888,
+      "n": 27,
+      "rmse": 0.04093000868212208,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944957+00:00"
+    },
+    "hrm:ecmwf_ifs025:temperature_2m:3": {
+      "bias": 0.17584476027104046,
+      "mae": 0.17584476027104046,
+      "mse": 0.03092137971477969,
+      "n": 1,
+      "rmse": 0.17584476027104046,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944940+00:00"
+    },
+    "hrm:ecmwf_ifs025:temperature_2m:3:unknown": {
+      "bias": 0.17584476027104046,
+      "mae": 0.17584476027104046,
+      "mse": 0.03092137971477969,
+      "n": 1,
+      "rmse": 0.17584476027104046,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944946+00:00"
+    },
+    "hrm:ecmwf_ifs025:temperature_2m:6": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943142+00:00"
+    },
+    "hrm:ecmwf_ifs025:temperature_2m:6:unknown": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943148+00:00"
+    },
+    "hrm:ecmwf_ifs025:temperature_2m:all": {
+      "bias": 0.11473364915992927,
+      "mae": 0.11473364915992927,
+      "mse": 0.015077390496467299,
+      "n": 3,
+      "rmse": 0.12279002604636624,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944943+00:00"
+    },
+    "hrm:family:canada:temperature_2m:3": {
+      "bias": 0.7536225380488174,
+      "mae": 0.7536225380488174,
+      "mse": 0.5978234730650178,
+      "n": 3,
+      "rmse": 0.7731904507073388,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944918+00:00"
+    },
+    "hrm:family:canada:temperature_2m:6": {
+      "bias": 0.9147336491599294,
+      "mae": 0.9147336491599294,
+      "mse": 0.9054104884116135,
+      "n": 6,
+      "rmse": 0.9515306029821707,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943120+00:00"
+    },
+    "hrm:family:cma:temperature_2m:3": {
+      "bias": -1.0574885730622938,
+      "mae": 1.0574885730622938,
+      "mse": 1.1182820821573263,
+      "n": 1,
+      "rmse": 1.0574885730622938,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945173+00:00"
+    },
+    "hrm:family:cma:temperature_2m:6": {
+      "bias": -0.7324885730622928,
+      "mae": 0.7324885730622928,
+      "mse": 0.5371645096668338,
+      "n": 2,
+      "rmse": 0.7329150767086415,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943371+00:00"
+    },
+    "hrm:family:dwd:temperature_2m:3": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 1,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945046+00:00"
+    },
+    "hrm:family:dwd:temperature_2m:6": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 2,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943246+00:00"
+    },
+    "hrm:family:ecmwf:temperature_2m:3": {
+      "bias": 0.15917809360437474,
+      "mae": 0.15917809360437474,
+      "mse": 0.02561544326130083,
+      "n": 2,
+      "rmse": 0.16004825291549055,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944983+00:00"
+    },
+    "hrm:family:ecmwf:temperature_2m:6": {
+      "bias": 0.14667809360437456,
+      "mae": 0.14667809360437456,
+      "mse": 0.026010990921191475,
+      "n": 4,
+      "rmse": 0.1612792327647657,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943182+00:00"
+    },
+    "hrm:family:jma:temperature_2m:3": {
+      "bias": -0.9908219063956274,
+      "mae": 0.9908219063956274,
+      "mse": 0.9817280501934654,
+      "n": 1,
+      "rmse": 0.9908219063956274,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945141+00:00"
+    },
+    "hrm:family:jma:temperature_2m:6": {
+      "bias": -1.0241552397289606,
+      "mae": 1.0241552397289606,
+      "mse": 1.050005066175396,
+      "n": 2,
+      "rmse": 1.0246975486334473,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943340+00:00"
+    },
+    "hrm:family:meteofrance:temperature_2m:3": {
+      "bias": 0.09251142693770475,
+      "mae": 0.09251142693770475,
+      "mse": 0.008558364114050285,
+      "n": 1,
+      "rmse": 0.09251142693770475,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945110+00:00"
+    },
+    "hrm:family:meteofrance:temperature_2m:6": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943309+00:00"
+    },
+    "hrm:family:noaa:temperature_2m:3": {
+      "bias": 0.009178093604376159,
+      "mae": 0.009178093604376159,
+      "mse": 8.423740221069055e-05,
+      "n": 1,
+      "rmse": 0.009178093604376159,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945014+00:00"
+    },
+    "hrm:family:noaa:temperature_2m:6": {
+      "bias": -0.607488573062291,
+      "mae": 0.607488573062291,
+      "mse": 0.39154236640125806,
+      "n": 2,
+      "rmse": 0.6257334627469255,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943214+00:00"
+    },
+    "hrm:family:ukmo:temperature_2m:3": {
+      "bias": 0.6425114269377055,
+      "mae": 0.6425114269377055,
+      "mse": 0.4128209337455264,
+      "n": 1,
+      "rmse": 0.6425114269377055,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945078+00:00"
+    },
+    "hrm:family:ukmo:temperature_2m:6": {
+      "bias": 0.7925114269377076,
+      "mae": 0.7925114269377076,
+      "mse": 0.6350188062712856,
+      "n": 2,
+      "rmse": 0.7968806725421853,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943278+00:00"
     },
     "hrm:gem_hrdps_continental:12": {
       "bias": 0.7816666666666675,
@@ -43,25 +644,220 @@
       "updated": "2026-08-08T21:08:51.966108+00:00"
     },
     "hrm:gem_hrdps_continental:3": {
-      "bias": 0.05333333333333386,
-      "mae": 0.32888888888888845,
-      "n": 5,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966064+00:00"
+      "bias": 0.19041857115628483,
+      "mae": 0.42004820078591365,
+      "mse": 0.12785067401570585,
+      "n": 6,
+      "rmse": 0.3575621260923839,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944857+00:00"
     },
     "hrm:gem_hrdps_continental:6": {
-      "bias": -0.2425925925925938,
-      "mae": 0.6685185185185188,
-      "n": 6,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966100+00:00"
+      "bias": 0.08285007895664798,
+      "mae": 0.7661834122899824,
+      "mse": 0.28886733627062644,
+      "n": 8,
+      "rmse": 0.5374637999629617,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943061+00:00"
     },
     "hrm:gem_hrdps_continental:all": {
-      "bias": 0.20594771241830068,
-      "mae": 0.6379738562091506,
-      "n": 17,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360643+00:00"
+      "bias": 0.32476560292954487,
+      "mae": 0.6919878251517673,
+      "mse": 0.15390213671296232,
+      "n": 20,
+      "rmse": 0.39230362821794335,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944860+00:00"
+    },
+    "hrm:gem_hrdps_continental:temperature_2m:3": {
+      "bias": 0.8758447602710397,
+      "mae": 0.8758447602710397,
+      "mse": 0.767104044094235,
+      "n": 1,
+      "rmse": 0.8758447602710397,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944843+00:00"
+    },
+    "hrm:gem_hrdps_continental:temperature_2m:3:unknown": {
+      "bias": 0.8758447602710397,
+      "mae": 0.8758447602710397,
+      "mse": 0.767104044094235,
+      "n": 1,
+      "rmse": 0.8758447602710397,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944850+00:00"
+    },
+    "hrm:gem_hrdps_continental:temperature_2m:6": {
+      "bias": 1.0591780936043733,
+      "mae": 1.0591780936043733,
+      "mse": 1.1554693450825058,
+      "n": 2,
+      "rmse": 1.0749275999259233,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943047+00:00"
+    },
+    "hrm:gem_hrdps_continental:temperature_2m:6:unknown": {
+      "bias": 1.0591780936043733,
+      "mae": 1.0591780936043733,
+      "mse": 1.1554693450825058,
+      "n": 2,
+      "rmse": 1.0749275999259233,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943054+00:00"
+    },
+    "hrm:gem_hrdps_continental:temperature_2m:all": {
+      "bias": 0.9980669824932621,
+      "mae": 0.9980669824932621,
+      "mse": 1.0260142447530822,
+      "n": 3,
+      "rmse": 1.0129236124965604,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944847+00:00"
+    },
+    "hrm:gem_regional:3": {
+      "bias": 0.5091780936043726,
+      "mae": 0.5091780936043726,
+      "mse": 0.25926233100658325,
+      "n": 1,
+      "rmse": 0.5091780936043726,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944889+00:00"
+    },
+    "hrm:gem_regional:6": {
+      "bias": 0.6258447602710415,
+      "mae": 0.6258447602710415,
+      "mse": 0.4052927750698291,
+      "n": 2,
+      "rmse": 0.6366260873305688,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943092+00:00"
+    },
+    "hrm:gem_regional:all": {
+      "bias": 0.5869558713821519,
+      "mae": 0.5869558713821519,
+      "mse": 0.3566159603820805,
+      "n": 3,
+      "rmse": 0.5971733084976927,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944893+00:00"
+    },
+    "hrm:gem_regional:temperature_2m:3": {
+      "bias": 0.5091780936043726,
+      "mae": 0.5091780936043726,
+      "mse": 0.25926233100658325,
+      "n": 1,
+      "rmse": 0.5091780936043726,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944876+00:00"
+    },
+    "hrm:gem_regional:temperature_2m:3:unknown": {
+      "bias": 0.5091780936043726,
+      "mae": 0.5091780936043726,
+      "mse": 0.25926233100658325,
+      "n": 1,
+      "rmse": 0.5091780936043726,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944883+00:00"
+    },
+    "hrm:gem_regional:temperature_2m:6": {
+      "bias": 0.6258447602710415,
+      "mae": 0.6258447602710415,
+      "mse": 0.4052927750698291,
+      "n": 2,
+      "rmse": 0.6366260873305688,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943080+00:00"
+    },
+    "hrm:gem_regional:temperature_2m:6:unknown": {
+      "bias": 0.6258447602710415,
+      "mae": 0.6258447602710415,
+      "mse": 0.4052927750698291,
+      "n": 2,
+      "rmse": 0.6366260873305688,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943086+00:00"
+    },
+    "hrm:gem_regional:temperature_2m:all": {
+      "bias": 0.5869558713821519,
+      "mae": 0.5869558713821519,
+      "mse": 0.3566159603820805,
+      "n": 3,
+      "rmse": 0.5971733084976927,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944880+00:00"
+    },
+    "hrm:gem_seamless:3": {
+      "bias": 0.8758447602710397,
+      "mae": 0.8758447602710397,
+      "mse": 0.767104044094235,
+      "n": 1,
+      "rmse": 0.8758447602710397,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944921+00:00"
+    },
+    "hrm:gem_seamless:6": {
+      "bias": 1.0591780936043733,
+      "mae": 1.0591780936043733,
+      "mse": 1.1554693450825058,
+      "n": 2,
+      "rmse": 1.0749275999259233,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943123+00:00"
+    },
+    "hrm:gem_seamless:all": {
+      "bias": 0.9980669824932621,
+      "mae": 0.9980669824932621,
+      "mse": 1.0260142447530822,
+      "n": 3,
+      "rmse": 1.0129236124965604,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944924+00:00"
+    },
+    "hrm:gem_seamless:temperature_2m:3": {
+      "bias": 0.8758447602710397,
+      "mae": 0.8758447602710397,
+      "mse": 0.767104044094235,
+      "n": 1,
+      "rmse": 0.8758447602710397,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944908+00:00"
+    },
+    "hrm:gem_seamless:temperature_2m:3:unknown": {
+      "bias": 0.8758447602710397,
+      "mae": 0.8758447602710397,
+      "mse": 0.767104044094235,
+      "n": 1,
+      "rmse": 0.8758447602710397,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944915+00:00"
+    },
+    "hrm:gem_seamless:temperature_2m:6": {
+      "bias": 1.0591780936043733,
+      "mae": 1.0591780936043733,
+      "mse": 1.1554693450825058,
+      "n": 2,
+      "rmse": 1.0749275999259233,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943111+00:00"
+    },
+    "hrm:gem_seamless:temperature_2m:6:unknown": {
+      "bias": 1.0591780936043733,
+      "mae": 1.0591780936043733,
+      "mse": 1.1554693450825058,
+      "n": 2,
+      "rmse": 1.0749275999259233,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943117+00:00"
+    },
+    "hrm:gem_seamless:temperature_2m:all": {
+      "bias": 0.9980669824932621,
+      "mae": 0.9980669824932621,
+      "mse": 1.0260142447530822,
+      "n": 3,
+      "rmse": 1.0129236124965604,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944911+00:00"
     },
     "hrm:gfs_seamless:12": {
       "bias": 0.31811111111111146,
@@ -71,25 +867,76 @@
       "updated": "2026-08-08T21:20:16.748400+00:00"
     },
     "hrm:gfs_seamless:3": {
-      "bias": 0.046913580246914596,
-      "mae": 0.38024691358024715,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748373+00:00"
+      "bias": 0.043140031582660755,
+      "mae": 0.34314003158266004,
+      "mse": 8.423740221069055e-06,
+      "n": 10,
+      "rmse": 0.0029023680368053008,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945018+00:00"
     },
     "hrm:gfs_seamless:6": {
-      "bias": 0.30999999999999905,
-      "mae": 0.5544444444444441,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748394+00:00"
+      "bias": 0.15708523782295072,
+      "mae": 0.5632851325474185,
+      "mse": 0.06525706106687634,
+      "n": 12,
+      "rmse": 0.25545461645246564,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943217+00:00"
     },
     "hrm:gfs_seamless:all": {
-      "bias": 0.23114942528735644,
-      "mae": 0.5572796934865899,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360669+00:00"
+      "bias": 0.17179794627541034,
+      "mae": 0.5432895734637521,
+      "mse": 0.02447403031889771,
+      "n": 32,
+      "rmse": 0.1564417793266802,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945022+00:00"
+    },
+    "hrm:gfs_seamless:temperature_2m:3": {
+      "bias": 0.009178093604376159,
+      "mae": 0.009178093604376159,
+      "mse": 8.423740221069055e-05,
+      "n": 1,
+      "rmse": 0.009178093604376159,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945005+00:00"
+    },
+    "hrm:gfs_seamless:temperature_2m:3:unknown": {
+      "bias": 0.009178093604376159,
+      "mae": 0.009178093604376159,
+      "mse": 8.423740221069055e-05,
+      "n": 1,
+      "rmse": 0.009178093604376159,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945011+00:00"
+    },
+    "hrm:gfs_seamless:temperature_2m:6": {
+      "bias": -0.607488573062291,
+      "mae": 0.607488573062291,
+      "mse": 0.39154236640125806,
+      "n": 2,
+      "rmse": 0.6257334627469255,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943205+00:00"
+    },
+    "hrm:gfs_seamless:temperature_2m:6:unknown": {
+      "bias": -0.607488573062291,
+      "mae": 0.607488573062291,
+      "mse": 0.39154236640125806,
+      "n": 2,
+      "rmse": 0.6257334627469255,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943211+00:00"
+    },
+    "hrm:gfs_seamless:temperature_2m:all": {
+      "bias": -0.40193301750673527,
+      "mae": 0.4080517465763194,
+      "mse": 0.2610563234015756,
+      "n": 3,
+      "rmse": 0.5109367117379369,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945008+00:00"
     },
     "hrm:icon_seamless:12": {
       "bias": 0.2981111111111119,
@@ -99,25 +946,220 @@
       "updated": "2026-08-08T21:20:16.748414+00:00"
     },
     "hrm:icon_seamless:3": {
-      "bias": -0.7864197530864183,
-      "mae": 0.9370370370370362,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748405+00:00"
+      "bias": -0.7368599684173389,
+      "mae": 0.8724155239728951,
+      "mse": 0.00845773812395854,
+      "n": 10,
+      "rmse": 0.0919659617682463,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945050+00:00"
     },
     "hrm:icon_seamless:6": {
-      "bias": -0.3900000000000009,
-      "mae": 0.5566666666666673,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748410+00:00"
+      "bias": -0.37347031773260486,
+      "mae": 0.5123592066214936,
+      "mse": 0.014096230206597568,
+      "n": 12,
+      "rmse": 0.11872754611545532,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943250+00:00"
     },
     "hrm:icon_seamless:all": {
-      "bias": -0.27574712643678123,
-      "mae": 0.7814176245210731,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360675+00:00"
+      "bias": -0.2771603870579228,
+      "mae": 0.7354242759468123,
+      "mse": 0.007929129491211133,
+      "n": 32,
+      "rmse": 0.08904565958659148,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945053+00:00"
+    },
+    "hrm:icon_seamless:temperature_2m:3": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 1,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945036+00:00"
+    },
+    "hrm:icon_seamless:temperature_2m:3:unknown": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 1,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945043+00:00"
+    },
+    "hrm:icon_seamless:temperature_2m:6": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 2,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943237+00:00"
+    },
+    "hrm:icon_seamless:temperature_2m:6:unknown": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 2,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943243+00:00"
+    },
+    "hrm:icon_seamless:temperature_2m:all": {
+      "bias": -0.29082190639562455,
+      "mae": 0.29082190639562455,
+      "mse": 0.08457738123958541,
+      "n": 3,
+      "rmse": 0.29082190639562455,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945040+00:00"
+    },
+    "hrm:jma_seamless:3": {
+      "bias": -0.9908219063956274,
+      "mae": 0.9908219063956274,
+      "mse": 0.9817280501934654,
+      "n": 1,
+      "rmse": 0.9908219063956274,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945145+00:00"
+    },
+    "hrm:jma_seamless:6": {
+      "bias": -1.0241552397289606,
+      "mae": 1.0241552397289606,
+      "mse": 1.050005066175396,
+      "n": 2,
+      "rmse": 1.0246975486334473,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943343+00:00"
+    },
+    "hrm:jma_seamless:all": {
+      "bias": -1.0130441286178495,
+      "mae": 1.0130441286178495,
+      "mse": 1.0272460608480858,
+      "n": 3,
+      "rmse": 1.0135314799492345,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945149+00:00"
+    },
+    "hrm:jma_seamless:temperature_2m:3": {
+      "bias": -0.9908219063956274,
+      "mae": 0.9908219063956274,
+      "mse": 0.9817280501934654,
+      "n": 1,
+      "rmse": 0.9908219063956274,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945132+00:00"
+    },
+    "hrm:jma_seamless:temperature_2m:3:unknown": {
+      "bias": -0.9908219063956274,
+      "mae": 0.9908219063956274,
+      "mse": 0.9817280501934654,
+      "n": 1,
+      "rmse": 0.9908219063956274,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945138+00:00"
+    },
+    "hrm:jma_seamless:temperature_2m:6": {
+      "bias": -1.0241552397289606,
+      "mae": 1.0241552397289606,
+      "mse": 1.050005066175396,
+      "n": 2,
+      "rmse": 1.0246975486334473,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943331+00:00"
+    },
+    "hrm:jma_seamless:temperature_2m:6:unknown": {
+      "bias": -1.0241552397289606,
+      "mae": 1.0241552397289606,
+      "mse": 1.050005066175396,
+      "n": 2,
+      "rmse": 1.0246975486334473,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943337+00:00"
+    },
+    "hrm:jma_seamless:temperature_2m:all": {
+      "bias": -1.0130441286178495,
+      "mae": 1.0130441286178495,
+      "mse": 1.0272460608480858,
+      "n": 3,
+      "rmse": 1.0135314799492345,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945135+00:00"
+    },
+    "hrm:meteofrance_seamless:3": {
+      "bias": 0.09251142693770475,
+      "mae": 0.09251142693770475,
+      "mse": 0.008558364114050285,
+      "n": 1,
+      "rmse": 0.09251142693770475,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945113+00:00"
+    },
+    "hrm:meteofrance_seamless:6": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943312+00:00"
+    },
+    "hrm:meteofrance_seamless:all": {
+      "bias": 0.0869558713821507,
+      "mae": 0.0869558713821507,
+      "mse": 0.007623051962890831,
+      "n": 3,
+      "rmse": 0.08731009084230087,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945117+00:00"
+    },
+    "hrm:meteofrance_seamless:temperature_2m:3": {
+      "bias": 0.09251142693770475,
+      "mae": 0.09251142693770475,
+      "mse": 0.008558364114050285,
+      "n": 1,
+      "rmse": 0.09251142693770475,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945100+00:00"
+    },
+    "hrm:meteofrance_seamless:temperature_2m:3:unknown": {
+      "bias": 0.09251142693770475,
+      "mae": 0.09251142693770475,
+      "mse": 0.008558364114050285,
+      "n": 1,
+      "rmse": 0.09251142693770475,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945107+00:00"
+    },
+    "hrm:meteofrance_seamless:temperature_2m:6": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943300+00:00"
+    },
+    "hrm:meteofrance_seamless:temperature_2m:6:unknown": {
+      "bias": 0.08417809360437367,
+      "mae": 0.08417809360437367,
+      "mse": 0.007155395887311103,
+      "n": 2,
+      "rmse": 0.08458957315952778,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943306+00:00"
+    },
+    "hrm:meteofrance_seamless:temperature_2m:all": {
+      "bias": 0.0869558713821507,
+      "mae": 0.0869558713821507,
+      "mse": 0.007623051962890831,
+      "n": 3,
+      "rmse": 0.08731009084230087,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945103+00:00"
     },
     "hrm:ukmo_seamless:12": {
       "bias": 0.7081111111111117,
@@ -127,25 +1169,220 @@
       "updated": "2026-08-08T21:20:16.748428+00:00"
     },
     "hrm:ukmo_seamless:3": {
-      "bias": 0.3691358024691367,
-      "mae": 0.5567901234567911,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748419+00:00"
+      "bias": 0.39647336491599355,
+      "mae": 0.5653622538048826,
+      "mse": 0.041282093374552645,
+      "n": 10,
+      "rmse": 0.2031799531808014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945082+00:00"
     },
     "hrm:ukmo_seamless:6": {
-      "bias": 0.4199999999999994,
-      "mae": 0.626666666666666,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748423+00:00"
+      "bias": 0.48208523782295076,
+      "mae": 0.6543074600451729,
+      "mse": 0.10583646771188093,
+      "n": 12,
+      "rmse": 0.32532517226904056,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943281+00:00"
     },
     "hrm:ukmo_seamless:all": {
-      "bias": 0.5035632183908049,
-      "mae": 0.6447892720306515,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360682+00:00"
+      "bias": 0.5259646129420769,
+      "mae": 0.653950724053188,
+      "mse": 0.05258932957150305,
+      "n": 32,
+      "rmse": 0.22932363500412042,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945085+00:00"
+    },
+    "hrm:ukmo_seamless:temperature_2m:3": {
+      "bias": 0.6425114269377055,
+      "mae": 0.6425114269377055,
+      "mse": 0.4128209337455264,
+      "n": 1,
+      "rmse": 0.6425114269377055,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945069+00:00"
+    },
+    "hrm:ukmo_seamless:temperature_2m:3:unknown": {
+      "bias": 0.6425114269377055,
+      "mae": 0.6425114269377055,
+      "mse": 0.4128209337455264,
+      "n": 1,
+      "rmse": 0.6425114269377055,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945075+00:00"
+    },
+    "hrm:ukmo_seamless:temperature_2m:6": {
+      "bias": 0.7925114269377076,
+      "mae": 0.7925114269377076,
+      "mse": 0.6350188062712856,
+      "n": 2,
+      "rmse": 0.7968806725421853,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943269+00:00"
+    },
+    "hrm:ukmo_seamless:temperature_2m:6:unknown": {
+      "bias": 0.7925114269377076,
+      "mae": 0.7925114269377076,
+      "mse": 0.6350188062712856,
+      "n": 2,
+      "rmse": 0.7968806725421853,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943275+00:00"
+    },
+    "hrm:ukmo_seamless:temperature_2m:all": {
+      "bias": 0.7425114269377069,
+      "mae": 0.7425114269377069,
+      "mse": 0.5609528487626992,
+      "n": 3,
+      "rmse": 0.7489678556271285,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945072+00:00"
+    },
+    "lunenburg:cma_grapes_global:3": {
+      "bias": -0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946185+00:00"
+    },
+    "lunenburg:cma_grapes_global:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.3000000000000007,
+      "mse": 0.13000000000000014,
+      "n": 2,
+      "rmse": 0.3605551275463991,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944453+00:00"
+    },
+    "lunenburg:cma_grapes_global:all": {
+      "bias": 0.06666666666666643,
+      "mae": 0.2666666666666669,
+      "mse": 0.09999999999999999,
+      "n": 3,
+      "rmse": 0.31622776601683794,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946188+00:00"
+    },
+    "lunenburg:cma_grapes_global:temperature_2m:3": {
+      "bias": -0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946171+00:00"
+    },
+    "lunenburg:cma_grapes_global:temperature_2m:3:unknown": {
+      "bias": -0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946178+00:00"
+    },
+    "lunenburg:cma_grapes_global:temperature_2m:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.3000000000000007,
+      "mse": 0.13000000000000014,
+      "n": 2,
+      "rmse": 0.3605551275463991,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944440+00:00"
+    },
+    "lunenburg:cma_grapes_global:temperature_2m:6:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.3000000000000007,
+      "mse": 0.13000000000000014,
+      "n": 2,
+      "rmse": 0.3605551275463991,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944446+00:00"
+    },
+    "lunenburg:cma_grapes_global:temperature_2m:all": {
+      "bias": 0.06666666666666643,
+      "mae": 0.2666666666666669,
+      "mse": 0.09999999999999999,
+      "n": 3,
+      "rmse": 0.31622776601683794,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946175+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:3": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 1,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946019+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:6": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 2,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944266+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:all": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 3,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946022+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:temperature_2m:3": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 1,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946005+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:temperature_2m:3:unknown": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 1,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946012+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:temperature_2m:6": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 2,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944253+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:temperature_2m:6:unknown": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 2,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944259+00:00"
+    },
+    "lunenburg:ecmwf_aifs025_single:temperature_2m:all": {
+      "bias": 1.6999999999999993,
+      "mae": 1.6999999999999993,
+      "mse": 2.8899999999999975,
+      "n": 3,
+      "rmse": 1.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946009+00:00"
     },
     "lunenburg:ecmwf_ifs025:12": {
       "bias": 1.35,
@@ -155,25 +1392,211 @@
       "updated": "2026-08-08T21:20:16.748586+00:00"
     },
     "lunenburg:ecmwf_ifs025:3": {
-      "bias": 0.16666666666666666,
-      "mae": 0.6777777777777779,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748578+00:00"
+      "bias": 0.33999999999999986,
+      "mae": 0.8,
+      "mse": 0.36099999999999943,
+      "n": 10,
+      "rmse": 0.6008327554319915,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945987+00:00"
     },
     "lunenburg:ecmwf_ifs025:6": {
-      "bias": -0.18999999999999986,
-      "mae": 0.7900000000000006,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748582+00:00"
+      "bias": 0.05000000000000012,
+      "mae": 0.8666666666666671,
+      "mse": 0.2641666666666666,
+      "n": 12,
+      "rmse": 0.5139714648369758,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944235+00:00"
     },
     "lunenburg:ecmwf_ifs025:all": {
-      "bias": 0.45172413793103455,
-      "mae": 1.0310344827586209,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360782+00:00"
+      "bias": 0.546875,
+      "mae": 1.0718750000000001,
+      "mse": 0.2118749999999998,
+      "n": 32,
+      "rmse": 0.460298815988049,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945990+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:temperature_2m:3": {
+      "bias": 1.8999999999999986,
+      "mae": 1.8999999999999986,
+      "mse": 3.6099999999999945,
+      "n": 1,
+      "rmse": 1.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945973+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:temperature_2m:3:unknown": {
+      "bias": 1.8999999999999986,
+      "mae": 1.8999999999999986,
+      "mse": 3.6099999999999945,
+      "n": 1,
+      "rmse": 1.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945980+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:temperature_2m:6": {
+      "bias": 1.25,
+      "mae": 1.25,
+      "mse": 1.5849999999999995,
+      "n": 2,
+      "rmse": 1.258967831201417,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944223+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:temperature_2m:6:unknown": {
+      "bias": 1.25,
+      "mae": 1.25,
+      "mse": 1.5849999999999995,
+      "n": 2,
+      "rmse": 1.258967831201417,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944229+00:00"
+    },
+    "lunenburg:ecmwf_ifs025:temperature_2m:all": {
+      "bias": 1.4666666666666661,
+      "mae": 1.4666666666666661,
+      "mse": 2.259999999999998,
+      "n": 3,
+      "rmse": 1.5033296378372902,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945977+00:00"
+    },
+    "lunenburg:family:canada:temperature_2m:3": {
+      "bias": 0.39999999999999974,
+      "mae": 0.39999999999999974,
+      "mse": 0.24000000000000019,
+      "n": 3,
+      "rmse": 0.4898979485566358,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945951+00:00"
+    },
+    "lunenburg:family:canada:temperature_2m:6": {
+      "bias": 0.4666666666666662,
+      "mae": 0.4666666666666662,
+      "mse": 0.2799999999999999,
+      "n": 6,
+      "rmse": 0.529150262212918,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944201+00:00"
+    },
+    "lunenburg:family:cma:temperature_2m:3": {
+      "bias": -0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946181+00:00"
+    },
+    "lunenburg:family:cma:temperature_2m:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.3000000000000007,
+      "mse": 0.13000000000000014,
+      "n": 2,
+      "rmse": 0.3605551275463991,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944449+00:00"
+    },
+    "lunenburg:family:dwd:temperature_2m:3": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946079+00:00"
+    },
+    "lunenburg:family:dwd:temperature_2m:6": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 2,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944324+00:00"
+    },
+    "lunenburg:family:ecmwf:temperature_2m:3": {
+      "bias": 1.799999999999999,
+      "mae": 1.799999999999999,
+      "mse": 3.249999999999996,
+      "n": 2,
+      "rmse": 1.8027756377319935,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946015+00:00"
+    },
+    "lunenburg:family:ecmwf:temperature_2m:6": {
+      "bias": 1.4749999999999996,
+      "mae": 1.4749999999999996,
+      "mse": 2.2374999999999985,
+      "n": 4,
+      "rmse": 1.4958275301651587,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944262+00:00"
+    },
+    "lunenburg:family:jma:temperature_2m:3": {
+      "bias": 2.8999999999999986,
+      "mae": 2.8999999999999986,
+      "mse": 8.409999999999991,
+      "n": 1,
+      "rmse": 2.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946149+00:00"
+    },
+    "lunenburg:family:jma:temperature_2m:6": {
+      "bias": 2.8499999999999996,
+      "mae": 2.8499999999999996,
+      "mse": 8.124999999999998,
+      "n": 2,
+      "rmse": 2.850438562747845,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944418+00:00"
+    },
+    "lunenburg:family:meteofrance:temperature_2m:3": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946111+00:00"
+    },
+    "lunenburg:family:meteofrance:temperature_2m:6": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944386+00:00"
+    },
+    "lunenburg:family:noaa:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946048+00:00"
+    },
+    "lunenburg:family:noaa:temperature_2m:6": {
+      "bias": 1.25,
+      "mae": 1.25,
+      "mse": 1.625,
+      "n": 2,
+      "rmse": 1.2747548783981961,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944293+00:00"
+    },
+    "lunenburg:family:ukmo:temperature_2m:6": {
+      "bias": 1.6500000000000004,
+      "mae": 1.6500000000000004,
+      "mse": 2.745000000000001,
+      "n": 2,
+      "rmse": 1.6568041525780894,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944355+00:00"
     },
     "lunenburg:gem_hrdps_continental:12": {
       "bias": 0.7624999999999997,
@@ -183,25 +1606,220 @@
       "updated": "2026-08-08T21:20:16.748573+00:00"
     },
     "lunenburg:gem_hrdps_continental:3": {
-      "bias": -0.285714285714286,
-      "mae": 0.685714285714287,
-      "n": 7,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748565+00:00"
+      "bias": -0.2250000000000003,
+      "mae": 0.6250000000000011,
+      "mse": 0.0049999999999999645,
+      "n": 8,
+      "rmse": 0.0707106781186545,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945892+00:00"
     },
     "lunenburg:gem_hrdps_continental:6": {
-      "bias": 0.125,
-      "mae": 0.20000000000000018,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748569+00:00"
+      "bias": 0.15999999999999978,
+      "mae": 0.21999999999999992,
+      "mse": 0.019999999999999858,
+      "n": 10,
+      "rmse": 0.141421356237309,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944142+00:00"
     },
     "lunenburg:gem_hrdps_continental:all": {
-      "bias": 0.22173913043478244,
-      "mae": 0.6043478260869568,
-      "n": 23,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360773+00:00"
+      "bias": 0.22692307692307667,
+      "mae": 0.5653846153846156,
+      "mse": 0.009230769230769164,
+      "n": 26,
+      "rmse": 0.09607689228305193,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945895+00:00"
+    },
+    "lunenburg:gem_hrdps_continental:temperature_2m:3": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945878+00:00"
+    },
+    "lunenburg:gem_hrdps_continental:temperature_2m:3:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945885+00:00"
+    },
+    "lunenburg:gem_hrdps_continental:temperature_2m:6": {
+      "bias": 0.29999999999999893,
+      "mae": 0.29999999999999893,
+      "mse": 0.09999999999999928,
+      "n": 2,
+      "rmse": 0.3162277660168368,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944130+00:00"
+    },
+    "lunenburg:gem_hrdps_continental:temperature_2m:6:unknown": {
+      "bias": 0.29999999999999893,
+      "mae": 0.29999999999999893,
+      "mse": 0.09999999999999928,
+      "n": 2,
+      "rmse": 0.3162277660168368,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944136+00:00"
+    },
+    "lunenburg:gem_hrdps_continental:temperature_2m:all": {
+      "bias": 0.2666666666666657,
+      "mae": 0.2666666666666657,
+      "mse": 0.07999999999999942,
+      "n": 3,
+      "rmse": 0.282842712474618,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945881+00:00"
+    },
+    "lunenburg:gem_regional:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945923+00:00"
+    },
+    "lunenburg:gem_regional:6": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 2,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944174+00:00"
+    },
+    "lunenburg:gem_regional:all": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 3,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945926+00:00"
+    },
+    "lunenburg:gem_regional:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945910+00:00"
+    },
+    "lunenburg:gem_regional:temperature_2m:3:unknown": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945917+00:00"
+    },
+    "lunenburg:gem_regional:temperature_2m:6": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 2,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944161+00:00"
+    },
+    "lunenburg:gem_regional:temperature_2m:6:unknown": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 2,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944167+00:00"
+    },
+    "lunenburg:gem_regional:temperature_2m:all": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 3,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945913+00:00"
+    },
+    "lunenburg:gem_seamless:3": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945954+00:00"
+    },
+    "lunenburg:gem_seamless:6": {
+      "bias": 0.29999999999999893,
+      "mae": 0.29999999999999893,
+      "mse": 0.09999999999999928,
+      "n": 2,
+      "rmse": 0.3162277660168368,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944205+00:00"
+    },
+    "lunenburg:gem_seamless:all": {
+      "bias": 0.2666666666666657,
+      "mae": 0.2666666666666657,
+      "mse": 0.07999999999999942,
+      "n": 3,
+      "rmse": 0.282842712474618,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945958+00:00"
+    },
+    "lunenburg:gem_seamless:temperature_2m:3": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945941+00:00"
+    },
+    "lunenburg:gem_seamless:temperature_2m:3:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945948+00:00"
+    },
+    "lunenburg:gem_seamless:temperature_2m:6": {
+      "bias": 0.29999999999999893,
+      "mae": 0.29999999999999893,
+      "mse": 0.09999999999999928,
+      "n": 2,
+      "rmse": 0.3162277660168368,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944192+00:00"
+    },
+    "lunenburg:gem_seamless:temperature_2m:6:unknown": {
+      "bias": 0.29999999999999893,
+      "mae": 0.29999999999999893,
+      "mse": 0.09999999999999928,
+      "n": 2,
+      "rmse": 0.3162277660168368,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944198+00:00"
+    },
+    "lunenburg:gem_seamless:temperature_2m:all": {
+      "bias": 0.2666666666666657,
+      "mae": 0.2666666666666657,
+      "mse": 0.07999999999999942,
+      "n": 3,
+      "rmse": 0.282842712474618,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945945+00:00"
     },
     "lunenburg:gfs_seamless:12": {
       "bias": 0.4999999999999993,
@@ -211,25 +1829,76 @@
       "updated": "2026-08-08T21:20:16.748597+00:00"
     },
     "lunenburg:gfs_seamless:3": {
-      "bias": 0.35000000000000053,
-      "mae": 0.7000000000000002,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748590+00:00"
+      "bias": 0.44000000000000056,
+      "mae": 0.7200000000000003,
+      "mse": 0.12800000000000022,
+      "n": 5,
+      "rmse": 0.3577708763999667,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946052+00:00"
     },
     "lunenburg:gfs_seamless:6": {
-      "bias": 0.6799999999999994,
-      "mae": 1.08,
-      "n": 5,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748594+00:00"
+      "bias": 0.8428571428571424,
+      "mae": 1.1285714285714286,
+      "mse": 0.4642857142857143,
+      "n": 7,
+      "rmse": 0.6813851438692469,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944296+00:00"
     },
     "lunenburg:gfs_seamless:all": {
-      "bias": 0.5214285714285711,
-      "mae": 1.0357142857142858,
-      "n": 14,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360788+00:00"
+      "bias": 0.6235294117647057,
+      "mae": 1.0470588235294118,
+      "mse": 0.22882352941176476,
+      "n": 17,
+      "rmse": 0.4783550244449877,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946055+00:00"
+    },
+    "lunenburg:gfs_seamless:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946038+00:00"
+    },
+    "lunenburg:gfs_seamless:temperature_2m:3:unknown": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946044+00:00"
+    },
+    "lunenburg:gfs_seamless:temperature_2m:6": {
+      "bias": 1.25,
+      "mae": 1.25,
+      "mse": 1.625,
+      "n": 2,
+      "rmse": 1.2747548783981961,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944284+00:00"
+    },
+    "lunenburg:gfs_seamless:temperature_2m:6:unknown": {
+      "bias": 1.25,
+      "mae": 1.25,
+      "mse": 1.625,
+      "n": 2,
+      "rmse": 1.2747548783981961,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944290+00:00"
+    },
+    "lunenburg:gfs_seamless:temperature_2m:all": {
+      "bias": 1.1000000000000003,
+      "mae": 1.1000000000000003,
+      "mse": 1.296666666666667,
+      "n": 3,
+      "rmse": 1.1387127235025818,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946041+00:00"
     },
     "lunenburg:icon_seamless:12": {
       "bias": 0.6111111111111107,
@@ -239,25 +1908,220 @@
       "updated": "2026-08-08T21:20:16.748609+00:00"
     },
     "lunenburg:icon_seamless:3": {
-      "bias": -0.4000000000000006,
-      "mae": 0.9777777777777779,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748601+00:00"
+      "bias": -0.25000000000000033,
+      "mae": 0.9900000000000002,
+      "mse": 0.1210000000000003,
+      "n": 10,
+      "rmse": 0.34785054261852216,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946083+00:00"
     },
     "lunenburg:icon_seamless:6": {
-      "bias": -0.3333333333333337,
-      "mae": 1.1111111111111107,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748606+00:00"
+      "bias": -0.0727272727272728,
+      "mae": 1.1090909090909091,
+      "mse": 0.22000000000000056,
+      "n": 11,
+      "rmse": 0.46904157598234353,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944327+00:00"
     },
     "lunenburg:icon_seamless:all": {
-      "bias": -0.04074074074074119,
-      "mae": 0.9740740740740739,
-      "n": 27,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360793+00:00"
+      "bias": 0.07333333333333307,
+      "mae": 0.9866666666666666,
+      "mse": 0.1210000000000003,
+      "n": 30,
+      "rmse": 0.34785054261852216,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946086+00:00"
+    },
+    "lunenburg:icon_seamless:temperature_2m:3": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946070+00:00"
+    },
+    "lunenburg:icon_seamless:temperature_2m:3:unknown": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946076+00:00"
+    },
+    "lunenburg:icon_seamless:temperature_2m:6": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 2,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944315+00:00"
+    },
+    "lunenburg:icon_seamless:temperature_2m:6:unknown": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 2,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944321+00:00"
+    },
+    "lunenburg:icon_seamless:temperature_2m:all": {
+      "bias": 1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 3,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946073+00:00"
+    },
+    "lunenburg:jma_seamless:3": {
+      "bias": 2.8999999999999986,
+      "mae": 2.8999999999999986,
+      "mse": 8.409999999999991,
+      "n": 1,
+      "rmse": 2.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946153+00:00"
+    },
+    "lunenburg:jma_seamless:6": {
+      "bias": 2.8499999999999996,
+      "mae": 2.8499999999999996,
+      "mse": 8.124999999999998,
+      "n": 2,
+      "rmse": 2.850438562747845,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944422+00:00"
+    },
+    "lunenburg:jma_seamless:all": {
+      "bias": 2.866666666666666,
+      "mae": 2.866666666666666,
+      "mse": 8.219999999999997,
+      "n": 3,
+      "rmse": 2.8670542373662897,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946156+00:00"
+    },
+    "lunenburg:jma_seamless:temperature_2m:3": {
+      "bias": 2.8999999999999986,
+      "mae": 2.8999999999999986,
+      "mse": 8.409999999999991,
+      "n": 1,
+      "rmse": 2.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946140+00:00"
+    },
+    "lunenburg:jma_seamless:temperature_2m:3:unknown": {
+      "bias": 2.8999999999999986,
+      "mae": 2.8999999999999986,
+      "mse": 8.409999999999991,
+      "n": 1,
+      "rmse": 2.8999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946146+00:00"
+    },
+    "lunenburg:jma_seamless:temperature_2m:6": {
+      "bias": 2.8499999999999996,
+      "mae": 2.8499999999999996,
+      "mse": 8.124999999999998,
+      "n": 2,
+      "rmse": 2.850438562747845,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944409+00:00"
+    },
+    "lunenburg:jma_seamless:temperature_2m:6:unknown": {
+      "bias": 2.8499999999999996,
+      "mae": 2.8499999999999996,
+      "mse": 8.124999999999998,
+      "n": 2,
+      "rmse": 2.850438562747845,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944415+00:00"
+    },
+    "lunenburg:jma_seamless:temperature_2m:all": {
+      "bias": 2.866666666666666,
+      "mae": 2.866666666666666,
+      "mse": 8.219999999999997,
+      "n": 3,
+      "rmse": 2.8670542373662897,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946143+00:00"
+    },
+    "lunenburg:meteofrance_seamless:3": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946121+00:00"
+    },
+    "lunenburg:meteofrance_seamless:6": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944390+00:00"
+    },
+    "lunenburg:meteofrance_seamless:all": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 2,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946125+00:00"
+    },
+    "lunenburg:meteofrance_seamless:temperature_2m:3": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946101+00:00"
+    },
+    "lunenburg:meteofrance_seamless:temperature_2m:3:unknown": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946107+00:00"
+    },
+    "lunenburg:meteofrance_seamless:temperature_2m:6": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944376+00:00"
+    },
+    "lunenburg:meteofrance_seamless:temperature_2m:6:unknown": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 1,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944383+00:00"
+    },
+    "lunenburg:meteofrance_seamless:temperature_2m:all": {
+      "bias": -1.0,
+      "mae": 1.0,
+      "mse": 1.0,
+      "n": 2,
+      "rmse": 1.0,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946104+00:00"
     },
     "lunenburg:ukmo_seamless:12": {
       "bias": 1.1299999999999997,
@@ -274,18 +2138,193 @@
       "updated": "2026-08-08T21:20:16.748613+00:00"
     },
     "lunenburg:ukmo_seamless:6": {
-      "bias": 0.1600000000000005,
-      "mae": 1.1599999999999997,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748618+00:00"
+      "bias": 0.4083333333333338,
+      "mae": 1.2416666666666665,
+      "mse": 0.4575000000000002,
+      "n": 12,
+      "rmse": 0.6763874629234343,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944358+00:00"
     },
     "lunenburg:ukmo_seamless:all": {
-      "bias": 0.44827586206896575,
-      "mae": 1.2206896551724136,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360798+00:00"
+      "bias": 0.5258064516129035,
+      "mae": 1.2483870967741932,
+      "mse": 0.17709677419354844,
+      "n": 31,
+      "rmse": 0.4208286755837207,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944361+00:00"
+    },
+    "lunenburg:ukmo_seamless:temperature_2m:6": {
+      "bias": 1.6500000000000004,
+      "mae": 1.6500000000000004,
+      "mse": 2.745000000000001,
+      "n": 2,
+      "rmse": 1.6568041525780894,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944346+00:00"
+    },
+    "lunenburg:ukmo_seamless:temperature_2m:6:unknown": {
+      "bias": 1.6500000000000004,
+      "mae": 1.6500000000000004,
+      "mse": 2.745000000000001,
+      "n": 2,
+      "rmse": 1.6568041525780894,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944352+00:00"
+    },
+    "lunenburg:ukmo_seamless:temperature_2m:all": {
+      "bias": 1.6500000000000004,
+      "mae": 1.6500000000000004,
+      "mse": 2.745000000000001,
+      "n": 2,
+      "rmse": 1.6568041525780894,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944349+00:00"
+    },
+    "moncton:cma_grapes_global:3": {
+      "bias": -1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945498+00:00"
+    },
+    "moncton:cma_grapes_global:6": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943719+00:00"
+    },
+    "moncton:cma_grapes_global:all": {
+      "bias": -0.2500000000000018,
+      "mae": 0.8499999999999996,
+      "mse": 0.7850000000000003,
+      "n": 2,
+      "rmse": 0.8860022573334677,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945502+00:00"
+    },
+    "moncton:cma_grapes_global:temperature_2m:3": {
+      "bias": -1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945485+00:00"
+    },
+    "moncton:cma_grapes_global:temperature_2m:3:unknown": {
+      "bias": -1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945491+00:00"
+    },
+    "moncton:cma_grapes_global:temperature_2m:6": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943706+00:00"
+    },
+    "moncton:cma_grapes_global:temperature_2m:6:unknown": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943712+00:00"
+    },
+    "moncton:cma_grapes_global:temperature_2m:all": {
+      "bias": -0.2500000000000018,
+      "mae": 0.8499999999999996,
+      "mse": 0.7850000000000003,
+      "n": 2,
+      "rmse": 0.8860022573334677,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945488+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:3": {
+      "bias": 0.3000000000000007,
+      "mae": 0.3000000000000007,
+      "mse": 0.09000000000000043,
+      "n": 1,
+      "rmse": 0.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945337+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:6": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.22499999999999892,
+      "n": 2,
+      "rmse": 0.4743416490252558,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943533+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:all": {
+      "bias": 0.39999999999999974,
+      "mae": 0.39999999999999974,
+      "mse": 0.1799999999999994,
+      "n": 3,
+      "rmse": 0.42426406871192784,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945344+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:temperature_2m:3": {
+      "bias": 0.3000000000000007,
+      "mae": 0.3000000000000007,
+      "mse": 0.09000000000000043,
+      "n": 1,
+      "rmse": 0.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945324+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:temperature_2m:3:unknown": {
+      "bias": 0.3000000000000007,
+      "mae": 0.3000000000000007,
+      "mse": 0.09000000000000043,
+      "n": 1,
+      "rmse": 0.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945331+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:temperature_2m:6": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.22499999999999892,
+      "n": 2,
+      "rmse": 0.4743416490252558,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943520+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:temperature_2m:6:unknown": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.22499999999999892,
+      "n": 2,
+      "rmse": 0.4743416490252558,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943526+00:00"
+    },
+    "moncton:ecmwf_aifs025_single:temperature_2m:all": {
+      "bias": 0.39999999999999974,
+      "mae": 0.39999999999999974,
+      "mse": 0.1799999999999994,
+      "n": 3,
+      "rmse": 0.42426406871192784,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945328+00:00"
     },
     "moncton:ecmwf_ifs025:12": {
       "bias": 1.0399999999999998,
@@ -295,25 +2334,211 @@
       "updated": "2026-08-08T21:20:16.748456+00:00"
     },
     "moncton:ecmwf_ifs025:3": {
-      "bias": 0.7333333333333335,
-      "mae": 0.9111111111111106,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748447+00:00"
+      "bias": 0.68,
+      "mae": 0.8399999999999995,
+      "mse": 0.0039999999999999715,
+      "n": 10,
+      "rmse": 0.06324555320336736,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945306+00:00"
     },
     "moncton:ecmwf_ifs025:6": {
-      "bias": 1.2900000000000003,
-      "mae": 1.4300000000000002,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748452+00:00"
+      "bias": 1.1666666666666672,
+      "mae": 1.2833333333333334,
+      "mse": 0.06083333333333346,
+      "n": 12,
+      "rmse": 0.24664414311581262,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943501+00:00"
     },
     "moncton:ecmwf_ifs025:all": {
-      "bias": 1.0310344827586209,
-      "mae": 1.1413793103448273,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360706+00:00"
+      "bias": 0.9750000000000004,
+      "mae": 1.0749999999999997,
+      "mse": 0.02406250000000004,
+      "n": 32,
+      "rmse": 0.15512092057488583,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945309+00:00"
+    },
+    "moncton:ecmwf_ifs025:temperature_2m:3": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945292+00:00"
+    },
+    "moncton:ecmwf_ifs025:temperature_2m:3:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.039999999999999716,
+      "n": 1,
+      "rmse": 0.1999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945298+00:00"
+    },
+    "moncton:ecmwf_ifs025:temperature_2m:6": {
+      "bias": 0.5500000000000007,
+      "mae": 0.5500000000000007,
+      "mse": 0.36500000000000077,
+      "n": 2,
+      "rmse": 0.6041522986797292,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943489+00:00"
+    },
+    "moncton:ecmwf_ifs025:temperature_2m:6:unknown": {
+      "bias": 0.5500000000000007,
+      "mae": 0.5500000000000007,
+      "mse": 0.36500000000000077,
+      "n": 2,
+      "rmse": 0.6041522986797292,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943495+00:00"
+    },
+    "moncton:ecmwf_ifs025:temperature_2m:all": {
+      "bias": 0.43333333333333357,
+      "mae": 0.43333333333333357,
+      "mse": 0.2566666666666671,
+      "n": 3,
+      "rmse": 0.5066228051190226,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945295+00:00"
+    },
+    "moncton:family:canada:temperature_2m:3": {
+      "bias": 0.9666666666666662,
+      "mae": 0.9666666666666662,
+      "mse": 1.076666666666666,
+      "n": 3,
+      "rmse": 1.037625494418225,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945270+00:00"
+    },
+    "moncton:family:canada:temperature_2m:6": {
+      "bias": 1.0599999999999994,
+      "mae": 1.0599999999999994,
+      "mse": 1.221999999999999,
+      "n": 5,
+      "rmse": 1.1054410884348378,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943466+00:00"
+    },
+    "moncton:family:cma:temperature_2m:3": {
+      "bias": -1.1000000000000014,
+      "mae": 1.1000000000000014,
+      "mse": 1.210000000000003,
+      "n": 1,
+      "rmse": 1.1000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945495+00:00"
+    },
+    "moncton:family:cma:temperature_2m:6": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943715+00:00"
+    },
+    "moncton:family:dwd:temperature_2m:3": {
+      "bias": 0.3999999999999986,
+      "mae": 0.3999999999999986,
+      "mse": 0.15999999999999887,
+      "n": 1,
+      "rmse": 0.3999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945401+00:00"
+    },
+    "moncton:family:dwd:temperature_2m:6": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.20499999999999943,
+      "n": 2,
+      "rmse": 0.4527692569068702,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943591+00:00"
+    },
+    "moncton:family:ecmwf:temperature_2m:3": {
+      "bias": 0.25,
+      "mae": 0.25,
+      "mse": 0.06500000000000007,
+      "n": 2,
+      "rmse": 0.25495097567963937,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945334+00:00"
+    },
+    "moncton:family:ecmwf:temperature_2m:6": {
+      "bias": 0.5,
+      "mae": 0.5,
+      "mse": 0.2949999999999999,
+      "n": 4,
+      "rmse": 0.5431390245600106,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943529+00:00"
+    },
+    "moncton:family:jma:temperature_2m:6": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943684+00:00"
+    },
+    "moncton:family:meteofrance:temperature_2m:3": {
+      "bias": 1.3000000000000007,
+      "mae": 1.3000000000000007,
+      "mse": 1.690000000000002,
+      "n": 1,
+      "rmse": 1.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945463+00:00"
+    },
+    "moncton:family:meteofrance:temperature_2m:6": {
+      "bias": 1.4000000000000004,
+      "mae": 1.4000000000000004,
+      "mse": 1.970000000000001,
+      "n": 2,
+      "rmse": 1.4035668847618203,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943653+00:00"
+    },
+    "moncton:family:noaa:temperature_2m:3": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945370+00:00"
+    },
+    "moncton:family:noaa:temperature_2m:6": {
+      "bias": 1.3999999999999986,
+      "mae": 1.3999999999999986,
+      "mse": 1.999999999999996,
+      "n": 2,
+      "rmse": 1.4142135623730936,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943560+00:00"
+    },
+    "moncton:family:ukmo:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945432+00:00"
+    },
+    "moncton:family:ukmo:temperature_2m:6": {
+      "bias": 0.40000000000000036,
+      "mae": 0.40000000000000036,
+      "mse": 0.1700000000000002,
+      "n": 2,
+      "rmse": 0.4123105625617663,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943622+00:00"
     },
     "moncton:gem_hrdps_continental:12": {
       "bias": 0.8199999999999992,
@@ -323,25 +2548,220 @@
       "updated": "2026-08-08T21:20:16.748441+00:00"
     },
     "moncton:gem_hrdps_continental:3": {
-      "bias": 0.5777777777777777,
-      "mae": 0.9777777777777771,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748432+00:00"
+      "bias": 0.5899999999999999,
+      "mae": 0.9499999999999993,
+      "mse": 0.0489999999999999,
+      "n": 10,
+      "rmse": 0.22135943621178633,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945210+00:00"
     },
     "moncton:gem_hrdps_continental:6": {
-      "bias": 0.7699999999999994,
-      "mae": 1.0499999999999998,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748437+00:00"
+      "bias": 0.7999999999999994,
+      "mae": 1.0333333333333332,
+      "mse": 0.16083333333333308,
+      "n": 12,
+      "rmse": 0.40104031385053185,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943406+00:00"
     },
     "moncton:gem_hrdps_continental:all": {
-      "bias": 0.7275862068965513,
-      "mae": 0.9689655172413789,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360696+00:00"
+      "bias": 0.7406249999999995,
+      "mae": 0.9593749999999995,
+      "mse": 0.07562499999999989,
+      "n": 32,
+      "rmse": 0.2749999999999998,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945213+00:00"
+    },
+    "moncton:gem_hrdps_continental:temperature_2m:3": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 1,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945195+00:00"
+    },
+    "moncton:gem_hrdps_continental:temperature_2m:3:unknown": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 1,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945202+00:00"
+    },
+    "moncton:gem_hrdps_continental:temperature_2m:6": {
+      "bias": 0.9499999999999993,
+      "mae": 0.9499999999999993,
+      "mse": 0.9649999999999987,
+      "n": 2,
+      "rmse": 0.9823441352194244,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943393+00:00"
+    },
+    "moncton:gem_hrdps_continental:temperature_2m:6:unknown": {
+      "bias": 0.9499999999999993,
+      "mae": 0.9499999999999993,
+      "mse": 0.9649999999999987,
+      "n": 2,
+      "rmse": 0.9823441352194244,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943399+00:00"
+    },
+    "moncton:gem_hrdps_continental:temperature_2m:all": {
+      "bias": 0.8666666666666659,
+      "mae": 0.8666666666666659,
+      "mse": 0.8066666666666654,
+      "n": 3,
+      "rmse": 0.898146239020498,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945199+00:00"
+    },
+    "moncton:gem_regional:3": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945241+00:00"
+    },
+    "moncton:gem_regional:6": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943438+00:00"
+    },
+    "moncton:gem_regional:all": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 2,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945245+00:00"
+    },
+    "moncton:gem_regional:temperature_2m:3": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945228+00:00"
+    },
+    "moncton:gem_regional:temperature_2m:3:unknown": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945234+00:00"
+    },
+    "moncton:gem_regional:temperature_2m:6": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943424+00:00"
+    },
+    "moncton:gem_regional:temperature_2m:6:unknown": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 1,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943431+00:00"
+    },
+    "moncton:gem_regional:temperature_2m:all": {
+      "bias": 1.5,
+      "mae": 1.5,
+      "mse": 2.25,
+      "n": 2,
+      "rmse": 1.5,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945231+00:00"
+    },
+    "moncton:gem_seamless:3": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 1,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945274+00:00"
+    },
+    "moncton:gem_seamless:6": {
+      "bias": 0.9499999999999993,
+      "mae": 0.9499999999999993,
+      "mse": 0.9649999999999987,
+      "n": 2,
+      "rmse": 0.9823441352194244,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943470+00:00"
+    },
+    "moncton:gem_seamless:all": {
+      "bias": 0.8666666666666659,
+      "mae": 0.8666666666666659,
+      "mse": 0.8066666666666654,
+      "n": 3,
+      "rmse": 0.898146239020498,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945277+00:00"
+    },
+    "moncton:gem_seamless:temperature_2m:3": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 1,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945260+00:00"
+    },
+    "moncton:gem_seamless:temperature_2m:3:unknown": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 1,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945266+00:00"
+    },
+    "moncton:gem_seamless:temperature_2m:6": {
+      "bias": 0.9499999999999993,
+      "mae": 0.9499999999999993,
+      "mse": 0.9649999999999987,
+      "n": 2,
+      "rmse": 0.9823441352194244,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943457+00:00"
+    },
+    "moncton:gem_seamless:temperature_2m:6:unknown": {
+      "bias": 0.9499999999999993,
+      "mae": 0.9499999999999993,
+      "mse": 0.9649999999999987,
+      "n": 2,
+      "rmse": 0.9823441352194244,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943463+00:00"
+    },
+    "moncton:gem_seamless:temperature_2m:all": {
+      "bias": 0.8666666666666659,
+      "mae": 0.8666666666666659,
+      "mse": 0.8066666666666654,
+      "n": 3,
+      "rmse": 0.898146239020498,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945263+00:00"
     },
     "moncton:gfs_seamless:12": {
       "bias": 0.68,
@@ -351,25 +2771,76 @@
       "updated": "2026-08-08T21:20:16.748469+00:00"
     },
     "moncton:gfs_seamless:3": {
-      "bias": 0.8222222222222221,
-      "mae": 1.066666666666666,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748460+00:00"
+      "bias": 0.7999999999999996,
+      "mae": 1.0199999999999991,
+      "mse": 0.03599999999999974,
+      "n": 10,
+      "rmse": 0.18973665961010208,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945374+00:00"
     },
     "moncton:gfs_seamless:6": {
-      "bias": 0.7599999999999995,
-      "mae": 0.9199999999999993,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748464+00:00"
+      "bias": 0.8666666666666659,
+      "mae": 0.9999999999999991,
+      "mse": 0.33333333333333265,
+      "n": 12,
+      "rmse": 0.5773502691896252,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943563+00:00"
     },
     "moncton:gfs_seamless:all": {
-      "bias": 0.7517241379310342,
-      "mae": 0.9999999999999996,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360714+00:00"
+      "bias": 0.7874999999999996,
+      "mae": 1.0124999999999993,
+      "mse": 0.13624999999999968,
+      "n": 32,
+      "rmse": 0.3691205765058346,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945377+00:00"
+    },
+    "moncton:gfs_seamless:temperature_2m:3": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945360+00:00"
+    },
+    "moncton:gfs_seamless:temperature_2m:3:unknown": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945366+00:00"
+    },
+    "moncton:gfs_seamless:temperature_2m:6": {
+      "bias": 1.3999999999999986,
+      "mae": 1.3999999999999986,
+      "mse": 1.999999999999996,
+      "n": 2,
+      "rmse": 1.4142135623730936,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943551+00:00"
+    },
+    "moncton:gfs_seamless:temperature_2m:6:unknown": {
+      "bias": 1.3999999999999986,
+      "mae": 1.3999999999999986,
+      "mse": 1.999999999999996,
+      "n": 2,
+      "rmse": 1.4142135623730936,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943557+00:00"
+    },
+    "moncton:gfs_seamless:temperature_2m:all": {
+      "bias": 1.1333333333333317,
+      "mae": 1.1333333333333317,
+      "mse": 1.4533333333333298,
+      "n": 3,
+      "rmse": 1.2055427546683402,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945363+00:00"
     },
     "moncton:icon_seamless:12": {
       "bias": 0.8599999999999998,
@@ -379,25 +2850,193 @@
       "updated": "2026-08-08T21:20:16.748482+00:00"
     },
     "moncton:icon_seamless:3": {
-      "bias": 0.4333333333333328,
-      "mae": 0.9888888888888892,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748473+00:00"
+      "bias": 0.4299999999999994,
+      "mae": 0.93,
+      "mse": 0.015999999999999886,
+      "n": 10,
+      "rmse": 0.12649110640673472,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945405+00:00"
     },
     "moncton:icon_seamless:6": {
-      "bias": 0.8000000000000004,
-      "mae": 0.8400000000000002,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748478+00:00"
+      "bias": 0.7416666666666668,
+      "mae": 0.775,
+      "mse": 0.034166666666666574,
+      "n": 12,
+      "rmse": 0.18484227510682336,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943594+00:00"
     },
     "moncton:icon_seamless:all": {
-      "bias": 0.7068965517241378,
-      "mae": 0.8931034482758622,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360719+00:00"
+      "bias": 0.6812499999999998,
+      "mae": 0.85,
+      "mse": 0.01781249999999993,
+      "n": 32,
+      "rmse": 0.1334634781503911,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945408+00:00"
+    },
+    "moncton:icon_seamless:temperature_2m:3": {
+      "bias": 0.3999999999999986,
+      "mae": 0.3999999999999986,
+      "mse": 0.15999999999999887,
+      "n": 1,
+      "rmse": 0.3999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945391+00:00"
+    },
+    "moncton:icon_seamless:temperature_2m:3:unknown": {
+      "bias": 0.3999999999999986,
+      "mae": 0.3999999999999986,
+      "mse": 0.15999999999999887,
+      "n": 1,
+      "rmse": 0.3999999999999986,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945398+00:00"
+    },
+    "moncton:icon_seamless:temperature_2m:6": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.20499999999999943,
+      "n": 2,
+      "rmse": 0.4527692569068702,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943582+00:00"
+    },
+    "moncton:icon_seamless:temperature_2m:6:unknown": {
+      "bias": 0.4499999999999993,
+      "mae": 0.4499999999999993,
+      "mse": 0.20499999999999943,
+      "n": 2,
+      "rmse": 0.4527692569068702,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943588+00:00"
+    },
+    "moncton:icon_seamless:temperature_2m:all": {
+      "bias": 0.4333333333333324,
+      "mae": 0.4333333333333324,
+      "mse": 0.18999999999999925,
+      "n": 3,
+      "rmse": 0.4358898943540665,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945395+00:00"
+    },
+    "moncton:jma_seamless:6": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943688+00:00"
+    },
+    "moncton:jma_seamless:all": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943691+00:00"
+    },
+    "moncton:jma_seamless:temperature_2m:6": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943675+00:00"
+    },
+    "moncton:jma_seamless:temperature_2m:6:unknown": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943681+00:00"
+    },
+    "moncton:jma_seamless:temperature_2m:all": {
+      "bias": 0.24999999999999822,
+      "mae": 0.24999999999999822,
+      "mse": 0.08499999999999922,
+      "n": 2,
+      "rmse": 0.29154759474226366,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943678+00:00"
+    },
+    "moncton:meteofrance_seamless:3": {
+      "bias": 1.3000000000000007,
+      "mae": 1.3000000000000007,
+      "mse": 1.690000000000002,
+      "n": 1,
+      "rmse": 1.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945467+00:00"
+    },
+    "moncton:meteofrance_seamless:6": {
+      "bias": 1.4000000000000004,
+      "mae": 1.4000000000000004,
+      "mse": 1.970000000000001,
+      "n": 2,
+      "rmse": 1.4035668847618203,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943656+00:00"
+    },
+    "moncton:meteofrance_seamless:all": {
+      "bias": 1.3666666666666671,
+      "mae": 1.3666666666666671,
+      "mse": 1.876666666666668,
+      "n": 3,
+      "rmse": 1.3699148392023017,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945470+00:00"
+    },
+    "moncton:meteofrance_seamless:temperature_2m:3": {
+      "bias": 1.3000000000000007,
+      "mae": 1.3000000000000007,
+      "mse": 1.690000000000002,
+      "n": 1,
+      "rmse": 1.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945454+00:00"
+    },
+    "moncton:meteofrance_seamless:temperature_2m:3:unknown": {
+      "bias": 1.3000000000000007,
+      "mae": 1.3000000000000007,
+      "mse": 1.690000000000002,
+      "n": 1,
+      "rmse": 1.3000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945460+00:00"
+    },
+    "moncton:meteofrance_seamless:temperature_2m:6": {
+      "bias": 1.4000000000000004,
+      "mae": 1.4000000000000004,
+      "mse": 1.970000000000001,
+      "n": 2,
+      "rmse": 1.4035668847618203,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943644+00:00"
+    },
+    "moncton:meteofrance_seamless:temperature_2m:6:unknown": {
+      "bias": 1.4000000000000004,
+      "mae": 1.4000000000000004,
+      "mse": 1.970000000000001,
+      "n": 2,
+      "rmse": 1.4035668847618203,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943650+00:00"
+    },
+    "moncton:meteofrance_seamless:temperature_2m:all": {
+      "bias": 1.3666666666666671,
+      "mae": 1.3666666666666671,
+      "mse": 1.876666666666668,
+      "n": 3,
+      "rmse": 1.3699148392023017,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945457+00:00"
     },
     "moncton:ukmo_seamless:12": {
       "bias": 0.8,
@@ -407,25 +3046,220 @@
       "updated": "2026-08-08T21:20:16.748494+00:00"
     },
     "moncton:ukmo_seamless:3": {
-      "bias": 1.4777777777777779,
-      "mae": 1.5222222222222221,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748486+00:00"
+      "bias": 1.3399999999999999,
+      "mae": 1.3799999999999997,
+      "mse": 0.0009999999999999573,
+      "n": 10,
+      "rmse": 0.03162277660168312,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945436+00:00"
     },
     "moncton:ukmo_seamless:6": {
-      "bias": 1.8699999999999999,
-      "mae": 1.8699999999999999,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748490+00:00"
+      "bias": 1.625,
+      "mae": 1.625,
+      "mse": 0.028333333333333367,
+      "n": 12,
+      "rmse": 0.16832508230603474,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943626+00:00"
     },
     "moncton:ukmo_seamless:all": {
-      "bias": 1.3793103448275863,
-      "mae": 1.4206896551724137,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360725+00:00"
+      "bias": 1.2781249999999997,
+      "mae": 1.3156249999999998,
+      "mse": 0.0109375,
+      "n": 32,
+      "rmse": 0.10458250331675945,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945439+00:00"
+    },
+    "moncton:ukmo_seamless:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945423+00:00"
+    },
+    "moncton:ukmo_seamless:temperature_2m:3:unknown": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945429+00:00"
+    },
+    "moncton:ukmo_seamless:temperature_2m:6": {
+      "bias": 0.40000000000000036,
+      "mae": 0.40000000000000036,
+      "mse": 0.1700000000000002,
+      "n": 2,
+      "rmse": 0.4123105625617663,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943613+00:00"
+    },
+    "moncton:ukmo_seamless:temperature_2m:6:unknown": {
+      "bias": 0.40000000000000036,
+      "mae": 0.40000000000000036,
+      "mse": 0.1700000000000002,
+      "n": 2,
+      "rmse": 0.4123105625617663,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943619+00:00"
+    },
+    "moncton:ukmo_seamless:temperature_2m:all": {
+      "bias": 0.29999999999999954,
+      "mae": 0.29999999999999954,
+      "mse": 0.11666666666666665,
+      "n": 3,
+      "rmse": 0.3415650255319866,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945426+00:00"
+    },
+    "shediac:cma_grapes_global:3": {
+      "bias": -1.6000000000000014,
+      "mae": 1.6000000000000014,
+      "mse": 2.5600000000000045,
+      "n": 1,
+      "rmse": 1.6000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945859+00:00"
+    },
+    "shediac:cma_grapes_global:6": {
+      "bias": -0.34999999999999964,
+      "mae": 0.34999999999999964,
+      "mse": 0.14499999999999985,
+      "n": 2,
+      "rmse": 0.3807886552931952,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944111+00:00"
+    },
+    "shediac:cma_grapes_global:all": {
+      "bias": -0.7666666666666669,
+      "mae": 0.7666666666666669,
+      "mse": 0.9500000000000014,
+      "n": 3,
+      "rmse": 0.9746794344808971,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945863+00:00"
+    },
+    "shediac:cma_grapes_global:temperature_2m:3": {
+      "bias": -1.6000000000000014,
+      "mae": 1.6000000000000014,
+      "mse": 2.5600000000000045,
+      "n": 1,
+      "rmse": 1.6000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945846+00:00"
+    },
+    "shediac:cma_grapes_global:temperature_2m:3:unknown": {
+      "bias": -1.6000000000000014,
+      "mae": 1.6000000000000014,
+      "mse": 2.5600000000000045,
+      "n": 1,
+      "rmse": 1.6000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945853+00:00"
+    },
+    "shediac:cma_grapes_global:temperature_2m:6": {
+      "bias": -0.34999999999999964,
+      "mae": 0.34999999999999964,
+      "mse": 0.14499999999999985,
+      "n": 2,
+      "rmse": 0.3807886552931952,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944099+00:00"
+    },
+    "shediac:cma_grapes_global:temperature_2m:6:unknown": {
+      "bias": -0.34999999999999964,
+      "mae": 0.34999999999999964,
+      "mse": 0.14499999999999985,
+      "n": 2,
+      "rmse": 0.3807886552931952,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944105+00:00"
+    },
+    "shediac:cma_grapes_global:temperature_2m:all": {
+      "bias": -0.7666666666666669,
+      "mae": 0.7666666666666669,
+      "mse": 0.9500000000000014,
+      "n": 3,
+      "rmse": 0.9746794344808971,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945849+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:3": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945653+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:6": {
+      "bias": 0.5499999999999989,
+      "mae": 0.5499999999999989,
+      "mse": 0.3049999999999987,
+      "n": 2,
+      "rmse": 0.5522680508593619,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943925+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:all": {
+      "bias": 0.5666666666666652,
+      "mae": 0.5666666666666652,
+      "mse": 0.32333333333333164,
+      "n": 3,
+      "rmse": 0.5686240703077312,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945656+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:temperature_2m:3": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945640+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:temperature_2m:3:unknown": {
+      "bias": 0.5999999999999979,
+      "mae": 0.5999999999999979,
+      "mse": 0.35999999999999743,
+      "n": 1,
+      "rmse": 0.5999999999999979,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945646+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:temperature_2m:6": {
+      "bias": 0.5499999999999989,
+      "mae": 0.5499999999999989,
+      "mse": 0.3049999999999987,
+      "n": 2,
+      "rmse": 0.5522680508593619,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943912+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:temperature_2m:6:unknown": {
+      "bias": 0.5499999999999989,
+      "mae": 0.5499999999999989,
+      "mse": 0.3049999999999987,
+      "n": 2,
+      "rmse": 0.5522680508593619,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943918+00:00"
+    },
+    "shediac:ecmwf_aifs025_single:temperature_2m:all": {
+      "bias": 0.5666666666666652,
+      "mae": 0.5666666666666652,
+      "mse": 0.32333333333333164,
+      "n": 3,
+      "rmse": 0.5686240703077312,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945643+00:00"
     },
     "shediac:ecmwf_ifs025:12": {
       "bias": 1.177777777777778,
@@ -435,25 +3269,211 @@
       "updated": "2026-08-08T21:08:51.966294+00:00"
     },
     "shediac:ecmwf_ifs025:3": {
-      "bias": 0.46249999999999925,
-      "mae": 0.7624999999999986,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966284+00:00"
+      "bias": 0.42222222222222133,
+      "mae": 0.6888888888888874,
+      "mse": 0.0011111111111110636,
+      "n": 9,
+      "rmse": 0.03333333333333262,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945623+00:00"
     },
     "shediac:ecmwf_ifs025:6": {
-      "bias": 1.1666666666666667,
-      "mae": 1.1666666666666667,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966289+00:00"
+      "bias": 1.0818181818181818,
+      "mae": 1.0818181818181818,
+      "mse": 0.09636363636363612,
+      "n": 11,
+      "rmse": 0.3104249287084337,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943894+00:00"
     },
     "shediac:ecmwf_ifs025:all": {
-      "bias": 0.9538461538461538,
-      "mae": 1.0461538461538458,
-      "n": 26,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360745+00:00"
+      "bias": 0.9068965517241377,
+      "mae": 0.9896551724137926,
+      "mse": 0.036896551724137826,
+      "n": 29,
+      "rmse": 0.19208475140973014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945626+00:00"
+    },
+    "shediac:ecmwf_ifs025:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945610+00:00"
+    },
+    "shediac:ecmwf_ifs025:temperature_2m:3:unknown": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945616+00:00"
+    },
+    "shediac:ecmwf_ifs025:temperature_2m:6": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.5299999999999987,
+      "n": 2,
+      "rmse": 0.7280109889280509,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943881+00:00"
+    },
+    "shediac:ecmwf_ifs025:temperature_2m:6:unknown": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.5299999999999987,
+      "n": 2,
+      "rmse": 0.7280109889280509,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943887+00:00"
+    },
+    "shediac:ecmwf_ifs025:temperature_2m:all": {
+      "bias": 0.49999999999999883,
+      "mae": 0.49999999999999883,
+      "mse": 0.35666666666666563,
+      "n": 3,
+      "rmse": 0.597215762238963,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945613+00:00"
+    },
+    "shediac:family:canada:temperature_2m:3": {
+      "bias": 0.33333333333333215,
+      "mae": 0.33333333333333215,
+      "mse": 0.22000000000000008,
+      "n": 3,
+      "rmse": 0.46904157598234303,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945588+00:00"
+    },
+    "shediac:family:canada:temperature_2m:6": {
+      "bias": 0.43333333333333296,
+      "mae": 0.43333333333333296,
+      "mse": 0.3066666666666669,
+      "n": 6,
+      "rmse": 0.5537749241945386,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943858+00:00"
+    },
+    "shediac:family:cma:temperature_2m:3": {
+      "bias": -1.6000000000000014,
+      "mae": 1.6000000000000014,
+      "mse": 2.5600000000000045,
+      "n": 1,
+      "rmse": 1.6000000000000014,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945856+00:00"
+    },
+    "shediac:family:cma:temperature_2m:6": {
+      "bias": -0.34999999999999964,
+      "mae": 0.34999999999999964,
+      "mse": 0.14499999999999985,
+      "n": 2,
+      "rmse": 0.3807886552931952,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944108+00:00"
+    },
+    "shediac:family:dwd:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945712+00:00"
+    },
+    "shediac:family:dwd:temperature_2m:6": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943984+00:00"
+    },
+    "shediac:family:ecmwf:temperature_2m:3": {
+      "bias": 0.34999999999999787,
+      "mae": 0.34999999999999787,
+      "mse": 0.1849999999999985,
+      "n": 2,
+      "rmse": 0.4301162633521296,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945649+00:00"
+    },
+    "shediac:family:ecmwf:temperature_2m:6": {
+      "bias": 0.6249999999999991,
+      "mae": 0.6249999999999991,
+      "mse": 0.4174999999999987,
+      "n": 4,
+      "rmse": 0.6461423991660032,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943921+00:00"
+    },
+    "shediac:family:jma:temperature_2m:3": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945822+00:00"
+    },
+    "shediac:family:jma:temperature_2m:6": {
+      "bias": -1.7763568394002505e-15,
+      "mae": 0.09999999999999964,
+      "mse": 0.009999999999999929,
+      "n": 2,
+      "rmse": 0.09999999999999964,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944077+00:00"
+    },
+    "shediac:family:meteofrance:temperature_2m:6": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944046+00:00"
+    },
+    "shediac:family:noaa:temperature_2m:3": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945680+00:00"
+    },
+    "shediac:family:noaa:temperature_2m:6": {
+      "bias": 0.14999999999999858,
+      "mae": 0.14999999999999858,
+      "mse": 0.024999999999999644,
+      "n": 2,
+      "rmse": 0.15811388300841783,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943953+00:00"
+    },
+    "shediac:family:ukmo:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945743+00:00"
+    },
+    "shediac:family:ukmo:temperature_2m:6": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 2,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944015+00:00"
     },
     "shediac:gem_hrdps_continental:12": {
       "bias": 1.2600000000000002,
@@ -463,25 +3483,220 @@
       "updated": "2026-08-08T21:20:16.748507+00:00"
     },
     "shediac:gem_hrdps_continental:3": {
-      "bias": 0.4222222222222219,
-      "mae": 1.0666666666666669,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748499+00:00"
+      "bias": 0.3899999999999995,
+      "mae": 0.97,
+      "mse": 0.0009999999999999573,
+      "n": 10,
+      "rmse": 0.03162277660168312,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945529+00:00"
     },
     "shediac:gem_hrdps_continental:6": {
-      "bias": 0.8200000000000001,
-      "mae": 1.1399999999999997,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748503+00:00"
+      "bias": 0.7166666666666667,
+      "mae": 0.9833333333333331,
+      "mse": 0.008333333333333333,
+      "n": 12,
+      "rmse": 0.09128709291752768,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943786+00:00"
     },
     "shediac:gem_hrdps_continental:all": {
-      "bias": 0.8482758620689655,
-      "mae": 1.2206896551724138,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360737+00:00"
+      "bias": 0.7843749999999999,
+      "mae": 1.1218749999999997,
+      "mse": 0.003437499999999987,
+      "n": 32,
+      "rmse": 0.05863019699779276,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945532+00:00"
+    },
+    "shediac:gem_hrdps_continental:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945516+00:00"
+    },
+    "shediac:gem_hrdps_continental:temperature_2m:3:unknown": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945523+00:00"
+    },
+    "shediac:gem_hrdps_continental:temperature_2m:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.05,
+      "n": 2,
+      "rmse": 0.22360679774997896,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943738+00:00"
+    },
+    "shediac:gem_hrdps_continental:temperature_2m:6:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.05,
+      "n": 2,
+      "rmse": 0.22360679774997896,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943745+00:00"
+    },
+    "shediac:gem_hrdps_continental:temperature_2m:all": {
+      "bias": 0.1666666666666655,
+      "mae": 0.1666666666666655,
+      "mse": 0.03666666666666653,
+      "n": 3,
+      "rmse": 0.19148542155126727,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945520+00:00"
+    },
+    "shediac:gem_regional:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945561+00:00"
+    },
+    "shediac:gem_regional:6": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943829+00:00"
+    },
+    "shediac:gem_regional:all": {
+      "bias": 0.8666666666666671,
+      "mae": 0.8666666666666671,
+      "mse": 0.7600000000000007,
+      "n": 3,
+      "rmse": 0.8717797887081351,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945564+00:00"
+    },
+    "shediac:gem_regional:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945548+00:00"
+    },
+    "shediac:gem_regional:temperature_2m:3:unknown": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945554+00:00"
+    },
+    "shediac:gem_regional:temperature_2m:6": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943816+00:00"
+    },
+    "shediac:gem_regional:temperature_2m:6:unknown": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943823+00:00"
+    },
+    "shediac:gem_regional:temperature_2m:all": {
+      "bias": 0.8666666666666671,
+      "mae": 0.8666666666666671,
+      "mse": 0.7600000000000007,
+      "n": 3,
+      "rmse": 0.8717797887081351,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945551+00:00"
+    },
+    "shediac:gem_seamless:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945592+00:00"
+    },
+    "shediac:gem_seamless:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.05,
+      "n": 2,
+      "rmse": 0.22360679774997896,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943862+00:00"
+    },
+    "shediac:gem_seamless:all": {
+      "bias": 0.1666666666666655,
+      "mae": 0.1666666666666655,
+      "mse": 0.03666666666666653,
+      "n": 3,
+      "rmse": 0.19148542155126727,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945595+00:00"
+    },
+    "shediac:gem_seamless:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945579+00:00"
+    },
+    "shediac:gem_seamless:temperature_2m:3:unknown": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945585+00:00"
+    },
+    "shediac:gem_seamless:temperature_2m:6": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.05,
+      "n": 2,
+      "rmse": 0.22360679774997896,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943849+00:00"
+    },
+    "shediac:gem_seamless:temperature_2m:6:unknown": {
+      "bias": 0.1999999999999993,
+      "mae": 0.1999999999999993,
+      "mse": 0.05,
+      "n": 2,
+      "rmse": 0.22360679774997896,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943856+00:00"
+    },
+    "shediac:gem_seamless:temperature_2m:all": {
+      "bias": 0.1666666666666655,
+      "mae": 0.1666666666666655,
+      "mse": 0.03666666666666653,
+      "n": 3,
+      "rmse": 0.19148542155126727,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945582+00:00"
     },
     "shediac:gfs_seamless:12": {
       "bias": 1.0699999999999998,
@@ -491,25 +3706,76 @@
       "updated": "2026-08-08T21:20:16.748521+00:00"
     },
     "shediac:gfs_seamless:3": {
-      "bias": 0.8444444444444438,
-      "mae": 0.9333333333333331,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748513+00:00"
+      "bias": 0.7499999999999993,
+      "mae": 0.85,
+      "mse": 0.0010000000000000284,
+      "n": 10,
+      "rmse": 0.03162277660168424,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945684+00:00"
     },
     "shediac:gfs_seamless:6": {
-      "bias": 1.1099999999999999,
-      "mae": 1.2099999999999997,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748517+00:00"
+      "bias": 0.9499999999999996,
+      "mae": 1.033333333333333,
+      "mse": 0.004166666666666608,
+      "n": 12,
+      "rmse": 0.06454972243678983,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943957+00:00"
     },
     "shediac:gfs_seamless:all": {
-      "bias": 1.0137931034482757,
-      "mae": 1.1448275862068964,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360751+00:00"
+      "bias": 0.9249999999999997,
+      "mae": 1.05,
+      "mse": 0.0018749999999999867,
+      "n": 32,
+      "rmse": 0.04330127018922178,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945688+00:00"
+    },
+    "shediac:gfs_seamless:temperature_2m:3": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945671+00:00"
+    },
+    "shediac:gfs_seamless:temperature_2m:3:unknown": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945677+00:00"
+    },
+    "shediac:gfs_seamless:temperature_2m:6": {
+      "bias": 0.14999999999999858,
+      "mae": 0.14999999999999858,
+      "mse": 0.024999999999999644,
+      "n": 2,
+      "rmse": 0.15811388300841783,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943944+00:00"
+    },
+    "shediac:gfs_seamless:temperature_2m:6:unknown": {
+      "bias": 0.14999999999999858,
+      "mae": 0.14999999999999858,
+      "mse": 0.024999999999999644,
+      "n": 2,
+      "rmse": 0.15811388300841783,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943951+00:00"
+    },
+    "shediac:gfs_seamless:temperature_2m:all": {
+      "bias": 0.06666666666666525,
+      "mae": 0.13333333333333286,
+      "mse": 0.019999999999999858,
+      "n": 3,
+      "rmse": 0.141421356237309,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945674+00:00"
     },
     "shediac:icon_seamless:12": {
       "bias": 1.0599999999999994,
@@ -519,25 +3785,193 @@
       "updated": "2026-08-08T21:20:16.748533+00:00"
     },
     "shediac:icon_seamless:3": {
-      "bias": 0.8777777777777777,
-      "mae": 1.1222222222222216,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748525+00:00"
+      "bias": 0.8699999999999999,
+      "mae": 1.0899999999999994,
+      "mse": 0.06400000000000011,
+      "n": 10,
+      "rmse": 0.25298221281347055,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945716+00:00"
     },
     "shediac:icon_seamless:6": {
-      "bias": 1.4099999999999995,
-      "mae": 1.4099999999999995,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748529+00:00"
+      "bias": 1.3249999999999995,
+      "mae": 1.3249999999999995,
+      "mse": 0.13666666666666674,
+      "n": 12,
+      "rmse": 0.3696845502136473,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943988+00:00"
     },
     "shediac:icon_seamless:all": {
-      "bias": 1.1241379310344823,
-      "mae": 1.1999999999999995,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360757+00:00"
+      "bias": 1.0999999999999996,
+      "mae": 1.1687499999999993,
+      "mse": 0.07125000000000006,
+      "n": 32,
+      "rmse": 0.2669269563007829,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945719+00:00"
+    },
+    "shediac:icon_seamless:temperature_2m:3": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945703+00:00"
+    },
+    "shediac:icon_seamless:temperature_2m:3:unknown": {
+      "bias": 0.8000000000000007,
+      "mae": 0.8000000000000007,
+      "mse": 0.6400000000000011,
+      "n": 1,
+      "rmse": 0.8000000000000007,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945709+00:00"
+    },
+    "shediac:icon_seamless:temperature_2m:6": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943975+00:00"
+    },
+    "shediac:icon_seamless:temperature_2m:6:unknown": {
+      "bias": 0.9000000000000004,
+      "mae": 0.9000000000000004,
+      "mse": 0.8200000000000005,
+      "n": 2,
+      "rmse": 0.905538513813742,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.943981+00:00"
+    },
+    "shediac:icon_seamless:temperature_2m:all": {
+      "bias": 0.8666666666666671,
+      "mae": 0.8666666666666671,
+      "mse": 0.7600000000000007,
+      "n": 3,
+      "rmse": 0.8717797887081351,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945706+00:00"
+    },
+    "shediac:jma_seamless:3": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945826+00:00"
+    },
+    "shediac:jma_seamless:6": {
+      "bias": -1.7763568394002505e-15,
+      "mae": 0.09999999999999964,
+      "mse": 0.009999999999999929,
+      "n": 2,
+      "rmse": 0.09999999999999964,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944080+00:00"
+    },
+    "shediac:jma_seamless:all": {
+      "bias": -0.03333333333333499,
+      "mae": 0.10000000000000024,
+      "mse": 0.010000000000000049,
+      "n": 3,
+      "rmse": 0.10000000000000024,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945829+00:00"
+    },
+    "shediac:jma_seamless:temperature_2m:3": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945810+00:00"
+    },
+    "shediac:jma_seamless:temperature_2m:3:unknown": {
+      "bias": -0.10000000000000142,
+      "mae": 0.10000000000000142,
+      "mse": 0.010000000000000285,
+      "n": 1,
+      "rmse": 0.10000000000000142,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945819+00:00"
+    },
+    "shediac:jma_seamless:temperature_2m:6": {
+      "bias": -1.7763568394002505e-15,
+      "mae": 0.09999999999999964,
+      "mse": 0.009999999999999929,
+      "n": 2,
+      "rmse": 0.09999999999999964,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944067+00:00"
+    },
+    "shediac:jma_seamless:temperature_2m:6:unknown": {
+      "bias": -1.7763568394002505e-15,
+      "mae": 0.09999999999999964,
+      "mse": 0.009999999999999929,
+      "n": 2,
+      "rmse": 0.09999999999999964,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944074+00:00"
+    },
+    "shediac:jma_seamless:temperature_2m:all": {
+      "bias": -0.03333333333333499,
+      "mae": 0.10000000000000024,
+      "mse": 0.010000000000000049,
+      "n": 3,
+      "rmse": 0.10000000000000024,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945815+00:00"
+    },
+    "shediac:meteofrance_seamless:6": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944049+00:00"
+    },
+    "shediac:meteofrance_seamless:all": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944052+00:00"
+    },
+    "shediac:meteofrance_seamless:temperature_2m:6": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944037+00:00"
+    },
+    "shediac:meteofrance_seamless:temperature_2m:6:unknown": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944043+00:00"
+    },
+    "shediac:meteofrance_seamless:temperature_2m:all": {
+      "bias": 1.6499999999999986,
+      "mae": 1.6499999999999986,
+      "mse": 2.724999999999995,
+      "n": 2,
+      "rmse": 1.6507574019219162,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944040+00:00"
     },
     "shediac:ukmo_seamless:12": {
       "bias": 1.03,
@@ -547,25 +3981,220 @@
       "updated": "2026-08-08T21:20:16.748562+00:00"
     },
     "shediac:ukmo_seamless:3": {
-      "bias": 1.333333333333333,
-      "mae": 1.5999999999999994,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748552+00:00"
+      "bias": 1.2099999999999995,
+      "mae": 1.4499999999999993,
+      "mse": 0.0009999999999999573,
+      "n": 10,
+      "rmse": 0.03162277660168312,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945747+00:00"
     },
     "shediac:ukmo_seamless:6": {
-      "bias": 1.8899999999999995,
-      "mae": 1.8899999999999995,
-      "n": 10,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748558+00:00"
+      "bias": 1.6916666666666662,
+      "mae": 1.6916666666666662,
+      "mse": 0.0816666666666665,
+      "n": 12,
+      "rmse": 0.2857738033247038,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944018+00:00"
     },
     "shediac:ukmo_seamless:all": {
-      "bias": 1.4206896551724133,
-      "mae": 1.5034482758620689,
-      "n": 29,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360762+00:00"
+      "bias": 1.3343749999999996,
+      "mae": 1.4093749999999998,
+      "mse": 0.030937499999999923,
+      "n": 32,
+      "rmse": 0.1758905909933784,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945750+00:00"
+    },
+    "shediac:ukmo_seamless:temperature_2m:3": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945733+00:00"
+    },
+    "shediac:ukmo_seamless:temperature_2m:3:unknown": {
+      "bias": 0.09999999999999787,
+      "mae": 0.09999999999999787,
+      "mse": 0.009999999999999573,
+      "n": 1,
+      "rmse": 0.09999999999999787,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945740+00:00"
+    },
+    "shediac:ukmo_seamless:temperature_2m:6": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 2,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944006+00:00"
+    },
+    "shediac:ukmo_seamless:temperature_2m:6:unknown": {
+      "bias": 0.6999999999999993,
+      "mae": 0.6999999999999993,
+      "mse": 0.489999999999999,
+      "n": 2,
+      "rmse": 0.6999999999999993,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944012+00:00"
+    },
+    "shediac:ukmo_seamless:temperature_2m:all": {
+      "bias": 0.49999999999999883,
+      "mae": 0.49999999999999883,
+      "mse": 0.3299999999999992,
+      "n": 3,
+      "rmse": 0.5744562646538022,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.945737+00:00"
+    },
+    "wolfville:cma_grapes_global:3": {
+      "bias": -2.116302206477556,
+      "mae": 2.116302206477556,
+      "mse": 4.478735029141772,
+      "n": 1,
+      "rmse": 2.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946533+00:00"
+    },
+    "wolfville:cma_grapes_global:6": {
+      "bias": -1.5163022064775582,
+      "mae": 1.5163022064775582,
+      "mse": 2.2991723813687117,
+      "n": 2,
+      "rmse": 1.5163022064775582,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944826+00:00"
+    },
+    "wolfville:cma_grapes_global:all": {
+      "bias": -1.7163022064775575,
+      "mae": 1.7163022064775575,
+      "mse": 3.0256932639597323,
+      "n": 3,
+      "rmse": 1.7394520010508288,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946536+00:00"
+    },
+    "wolfville:cma_grapes_global:temperature_2m:3": {
+      "bias": -2.116302206477556,
+      "mae": 2.116302206477556,
+      "mse": 4.478735029141772,
+      "n": 1,
+      "rmse": 2.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946521+00:00"
+    },
+    "wolfville:cma_grapes_global:temperature_2m:3:unknown": {
+      "bias": -2.116302206477556,
+      "mae": 2.116302206477556,
+      "mse": 4.478735029141772,
+      "n": 1,
+      "rmse": 2.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946527+00:00"
+    },
+    "wolfville:cma_grapes_global:temperature_2m:6": {
+      "bias": -1.5163022064775582,
+      "mae": 1.5163022064775582,
+      "mse": 2.2991723813687117,
+      "n": 2,
+      "rmse": 1.5163022064775582,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944813+00:00"
+    },
+    "wolfville:cma_grapes_global:temperature_2m:6:unknown": {
+      "bias": -1.5163022064775582,
+      "mae": 1.5163022064775582,
+      "mse": 2.2991723813687117,
+      "n": 2,
+      "rmse": 1.5163022064775582,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944819+00:00"
+    },
+    "wolfville:cma_grapes_global:temperature_2m:all": {
+      "bias": -1.7163022064775575,
+      "mae": 1.7163022064775575,
+      "mse": 3.0256932639597323,
+      "n": 3,
+      "rmse": 1.7394520010508288,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946524+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:3": {
+      "bias": 0.21703112685577608,
+      "mae": 0.21703112685577608,
+      "mse": 0.04710251002428797,
+      "n": 1,
+      "rmse": 0.21703112685577608,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946342+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:6": {
+      "bias": 0.25036446018911107,
+      "mae": 0.25036446018911107,
+      "mse": 0.0637934740368962,
+      "n": 2,
+      "rmse": 0.2525737002082683,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944610+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:all": {
+      "bias": 0.23925334907799942,
+      "mae": 0.23925334907799942,
+      "mse": 0.05822981936602679,
+      "n": 3,
+      "rmse": 0.24130855634648926,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946346+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:temperature_2m:3": {
+      "bias": 0.21703112685577608,
+      "mae": 0.21703112685577608,
+      "mse": 0.04710251002428797,
+      "n": 1,
+      "rmse": 0.21703112685577608,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946329+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:temperature_2m:3:unknown": {
+      "bias": 0.21703112685577608,
+      "mae": 0.21703112685577608,
+      "mse": 0.04710251002428797,
+      "n": 1,
+      "rmse": 0.21703112685577608,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946336+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:temperature_2m:6": {
+      "bias": 0.25036446018911107,
+      "mae": 0.25036446018911107,
+      "mse": 0.0637934740368962,
+      "n": 2,
+      "rmse": 0.2525737002082683,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944598+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:temperature_2m:6:unknown": {
+      "bias": 0.25036446018911107,
+      "mae": 0.25036446018911107,
+      "mse": 0.0637934740368962,
+      "n": 2,
+      "rmse": 0.2525737002082683,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944604+00:00"
+    },
+    "wolfville:ecmwf_aifs025_single:temperature_2m:all": {
+      "bias": 0.23925334907799942,
+      "mae": 0.23925334907799942,
+      "mse": 0.05822981936602679,
+      "n": 3,
+      "rmse": 0.24130855634648926,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946333+00:00"
     },
     "wolfville:ecmwf_ifs025:12": {
       "bias": 1.0,
@@ -575,25 +4204,220 @@
       "updated": "2026-08-08T21:20:16.748641+00:00"
     },
     "wolfville:ecmwf_ifs025:3": {
-      "bias": 0.0999999999999992,
-      "mae": 0.5999999999999992,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748635+00:00"
+      "bias": 0.19078123631730767,
+      "mae": 0.6352256807617521,
+      "mse": 0.0934384541802637,
+      "n": 9,
+      "rmse": 0.3056770422852585,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946311+00:00"
     },
     "wolfville:ecmwf_ifs025:6": {
-      "bias": 0.6555555555555556,
-      "mae": 1.1222222222222218,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748638+00:00"
+      "bias": 0.7333995988222625,
+      "mae": 1.115217780640444,
+      "mse": 0.21398198321552944,
+      "n": 11,
+      "rmse": 0.4625818665009789,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944579+00:00"
     },
     "wolfville:ecmwf_ifs025:all": {
-      "bias": 0.6038461538461536,
-      "mae": 1.0730769230769228,
-      "n": 26,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360818+00:00"
+      "bias": 0.6477388522034709,
+      "mae": 1.0684285073758846,
+      "mse": 0.11016372079286886,
+      "n": 29,
+      "rmse": 0.3319092056464672,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946314+00:00"
+    },
+    "wolfville:ecmwf_ifs025:temperature_2m:3": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8409460876223732,
+      "n": 1,
+      "rmse": 0.9170311268557754,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946297+00:00"
+    },
+    "wolfville:ecmwf_ifs025:temperature_2m:3:unknown": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8409460876223732,
+      "n": 1,
+      "rmse": 0.9170311268557754,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946304+00:00"
+    },
+    "wolfville:ecmwf_ifs025:temperature_2m:6": {
+      "bias": 1.0836977935224432,
+      "mae": 1.0836977935224432,
+      "mse": 1.176900907685412,
+      "n": 2,
+      "rmse": 1.0848506384223646,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944567+00:00"
+    },
+    "wolfville:ecmwf_ifs025:temperature_2m:6:unknown": {
+      "bias": 1.0836977935224432,
+      "mae": 1.0836977935224432,
+      "mse": 1.176900907685412,
+      "n": 2,
+      "rmse": 1.0848506384223646,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944573+00:00"
+    },
+    "wolfville:ecmwf_ifs025:temperature_2m:all": {
+      "bias": 1.0281422379668872,
+      "mae": 1.0281422379668872,
+      "mse": 1.064915967664399,
+      "n": 3,
+      "rmse": 1.0319476574247355,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946301+00:00"
+    },
+    "wolfville:family:canada:temperature_2m:3": {
+      "bias": 0.6225866824113323,
+      "mae": 0.6225866824113323,
+      "mse": 0.3932314610665664,
+      "n": 3,
+      "rmse": 0.6270817020664583,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946275+00:00"
+    },
+    "wolfville:family:canada:temperature_2m:6": {
+      "bias": 0.8170311268557763,
+      "mae": 0.8170311268557763,
+      "mse": 0.7142065289178857,
+      "n": 6,
+      "rmse": 0.8451074067347213,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944544+00:00"
+    },
+    "wolfville:family:cma:temperature_2m:3": {
+      "bias": -2.116302206477556,
+      "mae": 2.116302206477556,
+      "mse": 4.478735029141772,
+      "n": 1,
+      "rmse": 2.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946530+00:00"
+    },
+    "wolfville:family:cma:temperature_2m:6": {
+      "bias": -1.5163022064775582,
+      "mae": 1.5163022064775582,
+      "mse": 2.2991723813687117,
+      "n": 2,
+      "rmse": 1.5163022064775582,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944822+00:00"
+    },
+    "wolfville:family:dwd:temperature_2m:3": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946402+00:00"
+    },
+    "wolfville:family:dwd:temperature_2m:6": {
+      "bias": -0.9329688731442225,
+      "mae": 0.9329688731442225,
+      "mse": 0.8840420293671116,
+      "n": 2,
+      "rmse": 0.9402350926056268,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944668+00:00"
+    },
+    "wolfville:family:ecmwf:temperature_2m:3": {
+      "bias": 0.5670311268557757,
+      "mae": 0.5670311268557757,
+      "mse": 0.4440242988233306,
+      "n": 2,
+      "rmse": 0.6663514829452476,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946339+00:00"
+    },
+    "wolfville:family:ecmwf:temperature_2m:6": {
+      "bias": 0.6670311268557771,
+      "mae": 0.6670311268557771,
+      "mse": 0.6203471908611541,
+      "n": 4,
+      "rmse": 0.7876212229626333,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944607+00:00"
+    },
+    "wolfville:family:jma:temperature_2m:3": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946499+00:00"
+    },
+    "wolfville:family:jma:temperature_2m:6": {
+      "bias": 0.80036446018911,
+      "mae": 0.80036446018911,
+      "mse": 0.64752771357825,
+      "n": 2,
+      "rmse": 0.8046910671669284,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944788+00:00"
+    },
+    "wolfville:family:meteofrance:temperature_2m:3": {
+      "bias": 1.383697793522444,
+      "mae": 1.383697793522444,
+      "mse": 1.91461958379888,
+      "n": 1,
+      "rmse": 1.383697793522444,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946468+00:00"
+    },
+    "wolfville:family:meteofrance:temperature_2m:6": {
+      "bias": 1.4003644601891096,
+      "mae": 1.4003644601891096,
+      "mse": 1.9612983991385142,
+      "n": 2,
+      "rmse": 1.4004636372068053,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944730+00:00"
+    },
+    "wolfville:family:noaa:temperature_2m:3": {
+      "bias": 0.5836977935224432,
+      "mae": 0.5836977935224432,
+      "mse": 0.3407031141629688,
+      "n": 1,
+      "rmse": 0.5836977935224432,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946370+00:00"
+    },
+    "wolfville:family:noaa:temperature_2m:6": {
+      "bias": 0.3670311268557782,
+      "mae": 0.3670311268557782,
+      "mse": 0.23498962585879998,
+      "n": 2,
+      "rmse": 0.4847572855138951,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944638+00:00"
+    },
+    "wolfville:family:ukmo:temperature_2m:3": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946434+00:00"
+    },
+    "wolfville:family:ukmo:temperature_2m:6": {
+      "bias": -0.7496355398108889,
+      "mae": 0.7496355398108889,
+      "mse": 0.5797312203253404,
+      "n": 2,
+      "rmse": 0.7614008276363642,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944699+00:00"
     },
     "wolfville:gem_hrdps_continental:12": {
       "bias": 1.7399999999999998,
@@ -603,25 +4427,220 @@
       "updated": "2026-08-08T21:20:16.748631+00:00"
     },
     "wolfville:gem_hrdps_continental:3": {
-      "bias": 0.27500000000000036,
-      "mae": 0.27500000000000036,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748624+00:00"
+      "bias": 0.3634062253711555,
+      "mae": 0.3634062253711555,
+      "mse": 0.10282672737601281,
+      "n": 5,
+      "rmse": 0.3206660683265581,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946217+00:00"
     },
     "wolfville:gem_hrdps_continental:6": {
-      "bias": 1.1200000000000003,
-      "mae": 1.1200000000000003,
-      "n": 5,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748628+00:00"
+      "bias": 1.0620088933873646,
+      "mae": 1.0620088933873646,
+      "mse": 0.2516988821778208,
+      "n": 7,
+      "rmse": 0.5016960057423427,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944485+00:00"
     },
     "wolfville:gem_hrdps_continental:all": {
-      "bias": 1.1,
-      "mae": 1.1,
-      "n": 14,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360810+00:00"
+      "bias": 1.055946669445137,
+      "mae": 1.055946669445137,
+      "mse": 0.1338838713014594,
+      "n": 17,
+      "rmse": 0.365901450258754,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946220+00:00"
+    },
+    "wolfville:gem_hrdps_continental:temperature_2m:3": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946203+00:00"
+    },
+    "wolfville:gem_hrdps_continental:temperature_2m:3:unknown": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946210+00:00"
+    },
+    "wolfville:gem_hrdps_continental:temperature_2m:6": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8809460876223729,
+      "n": 2,
+      "rmse": 0.9385872829004093,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944472+00:00"
+    },
+    "wolfville:gem_hrdps_continental:temperature_2m:6:unknown": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8809460876223729,
+      "n": 2,
+      "rmse": 0.9385872829004093,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944479+00:00"
+    },
+    "wolfville:gem_hrdps_continental:temperature_2m:all": {
+      "bias": 0.8503644601891089,
+      "mae": 0.8503644601891089,
+      "mse": 0.7586752707082699,
+      "n": 3,
+      "rmse": 0.8710196729743077,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946207+00:00"
+    },
+    "wolfville:gem_regional:3": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 1,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946248+00:00"
+    },
+    "wolfville:gem_regional:6": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 2,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944517+00:00"
+    },
+    "wolfville:gem_regional:all": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 3,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946251+00:00"
+    },
+    "wolfville:gem_regional:temperature_2m:3": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 1,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946235+00:00"
+    },
+    "wolfville:gem_regional:temperature_2m:3:unknown": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 1,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946241+00:00"
+    },
+    "wolfville:gem_regional:temperature_2m:6": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 2,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944504+00:00"
+    },
+    "wolfville:gem_regional:temperature_2m:6:unknown": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 2,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944510+00:00"
+    },
+    "wolfville:gem_regional:temperature_2m:all": {
+      "bias": 0.6170311268557782,
+      "mae": 0.6170311268557782,
+      "mse": 0.3807274115089115,
+      "n": 3,
+      "rmse": 0.6170311268557782,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946238+00:00"
+    },
+    "wolfville:gem_seamless:3": {
+      "bias": 0.5336977935224425,
+      "mae": 0.5336977935224425,
+      "mse": 0.2848333348107237,
+      "n": 1,
+      "rmse": 0.5336977935224425,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946279+00:00"
+    },
+    "wolfville:gem_seamless:6": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8809460876223729,
+      "n": 2,
+      "rmse": 0.9385872829004093,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944548+00:00"
+    },
+    "wolfville:gem_seamless:all": {
+      "bias": 0.7892533490779977,
+      "mae": 0.7892533490779977,
+      "mse": 0.6822418366851565,
+      "n": 3,
+      "rmse": 0.8259793197684531,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946282+00:00"
+    },
+    "wolfville:gem_seamless:temperature_2m:3": {
+      "bias": 0.5336977935224425,
+      "mae": 0.5336977935224425,
+      "mse": 0.2848333348107237,
+      "n": 1,
+      "rmse": 0.5336977935224425,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946266+00:00"
+    },
+    "wolfville:gem_seamless:temperature_2m:3:unknown": {
+      "bias": 0.5336977935224425,
+      "mae": 0.5336977935224425,
+      "mse": 0.2848333348107237,
+      "n": 1,
+      "rmse": 0.5336977935224425,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946272+00:00"
+    },
+    "wolfville:gem_seamless:temperature_2m:6": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8809460876223729,
+      "n": 2,
+      "rmse": 0.9385872829004093,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944535+00:00"
+    },
+    "wolfville:gem_seamless:temperature_2m:6:unknown": {
+      "bias": 0.9170311268557754,
+      "mae": 0.9170311268557754,
+      "mse": 0.8809460876223729,
+      "n": 2,
+      "rmse": 0.9385872829004093,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944541+00:00"
+    },
+    "wolfville:gem_seamless:temperature_2m:all": {
+      "bias": 0.7892533490779977,
+      "mae": 0.7892533490779977,
+      "mse": 0.6822418366851565,
+      "n": 3,
+      "rmse": 0.8259793197684531,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946269+00:00"
     },
     "wolfville:gfs_seamless:12": {
       "bias": 1.4250000000000007,
@@ -631,25 +4650,76 @@
       "updated": "2026-08-08T21:20:16.748650+00:00"
     },
     "wolfville:gfs_seamless:3": {
-      "bias": 1.0999999999999988,
-      "mae": 1.0999999999999988,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748644+00:00"
+      "bias": 0.9967395587044876,
+      "mae": 0.9967395587044876,
+      "mse": 0.06814062283259376,
+      "n": 5,
+      "rmse": 0.2610375889265639,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946374+00:00"
     },
     "wolfville:gfs_seamless:6": {
-      "bias": 0.8499999999999996,
-      "mae": 0.8499999999999996,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748647+00:00"
+      "bias": 0.6890103756185925,
+      "mae": 0.6890103756185925,
+      "mse": 0.07832987528626666,
+      "n": 6,
+      "rmse": 0.2798747492830796,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944641+00:00"
     },
     "wolfville:gfs_seamless:all": {
-      "bias": 1.1249999999999998,
-      "mae": 1.1249999999999998,
-      "n": 12,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360824+00:00"
+      "bias": 0.9878506698156,
+      "mae": 0.9878506698156,
+      "mse": 0.054045491058704584,
+      "n": 15,
+      "rmse": 0.2324768613404452,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946377+00:00"
+    },
+    "wolfville:gfs_seamless:temperature_2m:3": {
+      "bias": 0.5836977935224432,
+      "mae": 0.5836977935224432,
+      "mse": 0.3407031141629688,
+      "n": 1,
+      "rmse": 0.5836977935224432,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946361+00:00"
+    },
+    "wolfville:gfs_seamless:temperature_2m:3:unknown": {
+      "bias": 0.5836977935224432,
+      "mae": 0.5836977935224432,
+      "mse": 0.3407031141629688,
+      "n": 1,
+      "rmse": 0.5836977935224432,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946367+00:00"
+    },
+    "wolfville:gfs_seamless:temperature_2m:6": {
+      "bias": 0.3670311268557782,
+      "mae": 0.3670311268557782,
+      "mse": 0.23498962585879998,
+      "n": 2,
+      "rmse": 0.4847572855138951,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944628+00:00"
+    },
+    "wolfville:gfs_seamless:temperature_2m:6:unknown": {
+      "bias": 0.3670311268557782,
+      "mae": 0.3670311268557782,
+      "mse": 0.23498962585879998,
+      "n": 2,
+      "rmse": 0.4847572855138951,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944635+00:00"
+    },
+    "wolfville:gfs_seamless:temperature_2m:all": {
+      "bias": 0.4392533490779999,
+      "mae": 0.4392533490779999,
+      "mse": 0.27022745529352293,
+      "n": 3,
+      "rmse": 0.5198340651530283,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946364+00:00"
     },
     "wolfville:icon_seamless:12": {
       "bias": 1.2250000000000005,
@@ -659,25 +4729,220 @@
       "updated": "2026-08-08T21:20:16.748656+00:00"
     },
     "wolfville:icon_seamless:3": {
-      "bias": -0.5444444444444443,
-      "mae": 1.1444444444444442,
-      "n": 9,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:08:51.966423+00:00"
+      "bias": -0.6016302206477555,
+      "mae": 1.1416302206477553,
+      "mse": 0.12461306161866603,
+      "n": 10,
+      "rmse": 0.3530057529540645,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946406+00:00"
     },
     "wolfville:icon_seamless:6": {
-      "bias": -0.04999999999999982,
-      "mae": 0.2999999999999998,
-      "n": 4,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748653+00:00"
+      "bias": -0.3443229577147407,
+      "mae": 0.5109896243814074,
+      "mse": 0.2946806764557039,
+      "n": 6,
+      "rmse": 0.5428449838173913,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944672+00:00"
     },
     "wolfville:icon_seamless:all": {
-      "bias": -0.011764705882352691,
-      "mae": 0.9647058823529411,
-      "n": 17,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360829+00:00"
+      "bias": -0.15911199763829983,
+      "mae": 0.9691119976383,
+      "mse": 0.15071073374604418,
+      "n": 20,
+      "rmse": 0.388214803615272,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946410+00:00"
+    },
+    "wolfville:icon_seamless:temperature_2m:3": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946393+00:00"
+    },
+    "wolfville:icon_seamless:temperature_2m:3:unknown": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946399+00:00"
+    },
+    "wolfville:icon_seamless:temperature_2m:6": {
+      "bias": -0.9329688731442225,
+      "mae": 0.9329688731442225,
+      "mse": 0.8840420293671116,
+      "n": 2,
+      "rmse": 0.9402350926056268,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944659+00:00"
+    },
+    "wolfville:icon_seamless:temperature_2m:6:unknown": {
+      "bias": -0.9329688731442225,
+      "mae": 0.9329688731442225,
+      "mse": 0.8840420293671116,
+      "n": 2,
+      "rmse": 0.9402350926056268,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944666+00:00"
+    },
+    "wolfville:icon_seamless:temperature_2m:all": {
+      "bias": -0.9940799842553337,
+      "mae": 0.9940799842553337,
+      "mse": 1.0047382249736279,
+      "n": 3,
+      "rmse": 1.002366312768754,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946396+00:00"
+    },
+    "wolfville:jma_seamless:3": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946503+00:00"
+    },
+    "wolfville:jma_seamless:6": {
+      "bias": 0.80036446018911,
+      "mae": 0.80036446018911,
+      "mse": 0.64752771357825,
+      "n": 2,
+      "rmse": 0.8046910671669284,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944792+00:00"
+    },
+    "wolfville:jma_seamless:all": {
+      "bias": 0.772586682411332,
+      "mae": 0.772586682411332,
+      "mse": 0.6030630213455214,
+      "n": 3,
+      "rmse": 0.7765713240556346,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946506+00:00"
+    },
+    "wolfville:jma_seamless:temperature_2m:3": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946490+00:00"
+    },
+    "wolfville:jma_seamless:temperature_2m:3:unknown": {
+      "bias": 0.7170311268557761,
+      "mae": 0.7170311268557761,
+      "mse": 0.5141336368800641,
+      "n": 1,
+      "rmse": 0.7170311268557761,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946496+00:00"
+    },
+    "wolfville:jma_seamless:temperature_2m:6": {
+      "bias": 0.80036446018911,
+      "mae": 0.80036446018911,
+      "mse": 0.64752771357825,
+      "n": 2,
+      "rmse": 0.8046910671669284,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944777+00:00"
+    },
+    "wolfville:jma_seamless:temperature_2m:6:unknown": {
+      "bias": 0.80036446018911,
+      "mae": 0.80036446018911,
+      "mse": 0.64752771357825,
+      "n": 2,
+      "rmse": 0.8046910671669284,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944785+00:00"
+    },
+    "wolfville:jma_seamless:temperature_2m:all": {
+      "bias": 0.772586682411332,
+      "mae": 0.772586682411332,
+      "mse": 0.6030630213455214,
+      "n": 3,
+      "rmse": 0.7765713240556346,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946493+00:00"
+    },
+    "wolfville:meteofrance_seamless:3": {
+      "bias": 1.383697793522444,
+      "mae": 1.383697793522444,
+      "mse": 1.91461958379888,
+      "n": 1,
+      "rmse": 1.383697793522444,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946471+00:00"
+    },
+    "wolfville:meteofrance_seamless:6": {
+      "bias": 1.4003644601891096,
+      "mae": 1.4003644601891096,
+      "mse": 1.9612983991385142,
+      "n": 2,
+      "rmse": 1.4004636372068053,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944733+00:00"
+    },
+    "wolfville:meteofrance_seamless:all": {
+      "bias": 1.3948089046335543,
+      "mae": 1.3948089046335543,
+      "mse": 1.9457387940253028,
+      "n": 3,
+      "rmse": 1.3948974134413263,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946475+00:00"
+    },
+    "wolfville:meteofrance_seamless:temperature_2m:3": {
+      "bias": 1.383697793522444,
+      "mae": 1.383697793522444,
+      "mse": 1.91461958379888,
+      "n": 1,
+      "rmse": 1.383697793522444,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946458+00:00"
+    },
+    "wolfville:meteofrance_seamless:temperature_2m:3:unknown": {
+      "bias": 1.383697793522444,
+      "mae": 1.383697793522444,
+      "mse": 1.91461958379888,
+      "n": 1,
+      "rmse": 1.383697793522444,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946465+00:00"
+    },
+    "wolfville:meteofrance_seamless:temperature_2m:6": {
+      "bias": 1.4003644601891096,
+      "mae": 1.4003644601891096,
+      "mse": 1.9612983991385142,
+      "n": 2,
+      "rmse": 1.4004636372068053,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944721+00:00"
+    },
+    "wolfville:meteofrance_seamless:temperature_2m:6:unknown": {
+      "bias": 1.4003644601891096,
+      "mae": 1.4003644601891096,
+      "mse": 1.9612983991385142,
+      "n": 2,
+      "rmse": 1.4004636372068053,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944727+00:00"
+    },
+    "wolfville:meteofrance_seamless:temperature_2m:all": {
+      "bias": 1.3948089046335543,
+      "mae": 1.3948089046335543,
+      "mse": 1.9457387940253028,
+      "n": 3,
+      "rmse": 1.3948974134413263,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946462+00:00"
     },
     "wolfville:ukmo_seamless:12": {
       "bias": -0.10000000000000053,
@@ -687,27 +4952,78 @@
       "updated": "2026-08-08T21:20:16.748666+00:00"
     },
     "wolfville:ukmo_seamless:3": {
-      "bias": -0.3000000000000005,
-      "mae": 0.9249999999999996,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748659+00:00"
+      "bias": -0.39070024516417334,
+      "mae": 0.9462558007197281,
+      "mse": 0.13845895735407338,
+      "n": 9,
+      "rmse": 0.3721007354925187,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946437+00:00"
     },
     "wolfville:ukmo_seamless:6": {
-      "bias": -0.049999999999999156,
-      "mae": 0.675,
-      "n": 8,
-      "source": "single-runs-eccc-10d",
-      "updated": "2026-08-08T21:20:16.748663+00:00"
+      "bias": -0.1899271079621771,
+      "mae": 0.6899271079621778,
+      "mse": 0.11594624406506808,
+      "n": 10,
+      "rmse": 0.3405088017439022,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944702+00:00"
     },
     "wolfville:ukmo_seamless:all": {
-      "bias": -0.15000000000000005,
-      "mae": 0.6999999999999998,
-      "n": 24,
-      "source": "aggregate-leads",
-      "updated": "2026-08-09T04:39:49.360834+00:00"
+      "bias": -0.23020641800367908,
+      "mae": 0.7190953068925678,
+      "mse": 0.08909603914212375,
+      "n": 27,
+      "rmse": 0.2984895963716721,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946443+00:00"
+    },
+    "wolfville:ukmo_seamless:temperature_2m:3": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946424+00:00"
+    },
+    "wolfville:ukmo_seamless:temperature_2m:3:unknown": {
+      "bias": -1.116302206477556,
+      "mae": 1.116302206477556,
+      "mse": 1.2461306161866603,
+      "n": 1,
+      "rmse": 1.116302206477556,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946431+00:00"
+    },
+    "wolfville:ukmo_seamless:temperature_2m:6": {
+      "bias": -0.7496355398108889,
+      "mae": 0.7496355398108889,
+      "mse": 0.5797312203253404,
+      "n": 2,
+      "rmse": 0.7614008276363642,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944690+00:00"
+    },
+    "wolfville:ukmo_seamless:temperature_2m:6:unknown": {
+      "bias": -0.7496355398108889,
+      "mae": 0.7496355398108889,
+      "mse": 0.5797312203253404,
+      "n": 2,
+      "rmse": 0.7614008276363642,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.944696+00:00"
+    },
+    "wolfville:ukmo_seamless:temperature_2m:all": {
+      "bias": -0.8718577620331113,
+      "mae": 0.8718577620331113,
+      "mse": 0.8018643522791137,
+      "n": 3,
+      "rmse": 0.8954687891150164,
+      "source": "github-actions-eccc-v2",
+      "updated": "2026-08-09T05:07:46.946428+00:00"
     }
   },
-  "updated_at": "2026-08-09T05:03:17.546957+00:00",
+  "updated_at": "2026-08-09T05:07:40.756887+00:00",
   "version": 2
 }
