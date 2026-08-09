@@ -4,6 +4,21 @@ A **Real Feel-first**, locally calibrated weather PWA for **HRM Core, Moncton, S
 
 Permanent app URL: `https://jeremyhennessy.github.io/hrm-weather/`
 
+## Production source of truth
+
+The live app has one production dependency path. Do not infer that a file is obsolete from its version-like filename alone.
+
+- `app.html` — live application shell and ordered legacy core scripts.
+- `startup-fallback.js` → `request-manager.js` → `v5b.js` → `v6-extra.js` → `v7-final.js` → `v8-ui.js` → `v11-layout.js` → `scene-images.js` — active browser startup chain.
+- `scene-images.js` — **sole dynamic module bootstrap**. Critical UI/Engine modules must be imported here once only; do not add nested duplicate imports in other modules.
+- `deep-ui.js` — deep-section styling/classes only; it must not bootstrap other modules.
+- `accuracy-v2.js`, `accuracy-v3.js`, `atomic-render.js`, `daily-card-fix.js`, `forecast-confidence.js`, `forecast-ui-guard.js`, `uv-guidance.js`, `forecast-insights.js`, `weather-icons.js` — active production modules loaded by `scene-images.js`.
+- `scripts/collect.py` — canonical server collector entry point. It installs ECCC/solar/Engine 3.1 adapters and runs Engine 2 then Engine 3.
+- `data/engine-v3.json` — authoritative server forecast snapshot used by the browser when fresh.
+- `data/skill.json`, `data/ledger.json`, `data/v3-verification.json`, `data/run-history-v2.json`, `data/model-set-state.json` — active learning/verification state.
+
+One-off UI mutation workflows, temporary importers, superseded background SVGs, and experimental 90-day/multi-cycle backtests have been removed. The canonical retrospective model test is `.github/workflows/backtest-v3.yml`.
+
 ## Locations
 
 - **HRM Core:** Halifax Peninsula + Bedford + Dartmouth. Clayton Park, Lower Sackville, and Eastern Passage remain microclimate context only.
@@ -52,8 +67,11 @@ Open the permanent URL in Safari and choose **Share → Add to Home Screen**.
 
 - `collect-weather.yml` — hourly shared learner; stale observations are rejected.
 - `backfill-short.yml` — weekly short-range historical skill refresh, also triggered when the backfill code changes.
+- `backtest-v3.yml` — canonical retrospective Engine 3 ledger + 21-day archive test.
 - `validate.yml` — syntax, JSON, and critical app-reference validation.
+- `release-guard.yml` — release skill/startup safety checks.
 - `screenshot-ui.yml` — deployed browser rendering and screenshot QA.
+- `generate-icons.yml` — regenerates PNG PWA icons only when the source SVG changes or on manual dispatch.
 
 ## Data / safety
 
