@@ -5,6 +5,7 @@ import accuracy_engine_v3_publish as pub
 import accuracy_engine_v3_verify as verify
 import accuracy_engine_v2 as core
 import engine31_policy as policy
+import rain_timing_verifier as rain_timing
 
 _INSTALLED=False
 
@@ -18,6 +19,7 @@ def install()->None:
     def apply_with_engine31(engine,state,walk):
         original_apply(engine,state,walk)
         policy.apply(engine,state)
+        engine['rain_timing_verification']=rain_timing.build(state)
 
     def add_with_engine31(state,engine):
         before={(r.get('loc'),int(r.get('lead',-1)),r.get('issued')) for r in state.get('forecasts',[])}
