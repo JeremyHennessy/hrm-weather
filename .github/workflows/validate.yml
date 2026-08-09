@@ -31,7 +31,7 @@ jobs:
             scripts/precipitation_walkforward.py scripts/forecast_confidence_engine.py \
             scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py \
             scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py scripts/release_guard.py \
-            scripts/engine3_retro_backtest.py scripts/archive_backtest_v3.py
+            scripts/engine3_retro_backtest.py scripts/archive_backtest_v3.py scripts/archive_backtest_90d.py
       - name: Validate data and architecture
         env:
           PYTHONPATH: scripts
@@ -48,10 +48,12 @@ jobs:
           import precipitation_walkforward as precip
           import forecast_confidence_engine as conf
           import real_feel_engine as rf
+          import archive_backtest_90d as bt90
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
           assert pooling.nearby_leads(3) == {1,3,6}
+          assert bt90.DAYS == 90 and callable(bt90.classify_regime) and callable(bt90.breakdown)
           assert rf.physical_real_feel(28,80,5)['value'] > rf.physical_real_feel(28,35,5)['value']
           assert rf.physical_real_feel(-5,35,30)['value'] < -5
           PY
@@ -72,6 +74,8 @@ jobs:
           test -f scripts/forecast_confidence_engine.py
           test -f scripts/release_guard.py
           test -f scripts/archive_backtest_v3.py
+          test -f scripts/archive_backtest_90d.py
+          test -f .github/workflows/backtest-90d.yml
           test -f icons/apple-touch-icon.png
           test -f icons/icon-192.png
           test -f icons/icon-512.png
