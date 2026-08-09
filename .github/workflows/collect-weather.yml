@@ -7,6 +7,7 @@ on:
       - 'scripts/collect.py'
       - 'scripts/accuracy_engine_v2.py'
       - 'scripts/accuracy_engine_v2_runner.py'
+      - 'scripts/eccc_observation_mesh_v2.py'
       - '.github/workflows/collect-weather.yml'
   schedule:
     - cron: '17 * * * *'
@@ -31,7 +32,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/eccc_observation_mesh_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -58,7 +59,14 @@ jobs:
           assert arch.get('parallel_collection') is True
           assert {'nowcast','learned_local','raw_ensemble'} <= set(arch.get('engines') or [])
 
-          for name,obs in (skill.get('observations') or {}).items():
+          observations=skill.get('observations') or {}
+          hrm=observations.get('hrm')
+          if not hrm or not isinstance(hrm.get('temp'), (int,float)):
+              raise SystemExit('HRM ECCC observation mesh unavailable')
+          if hrm.get('station_count',0) < 1:
+              raise SystemExit('HRM ECCC observation mesh contains no stations')
+
+          for name,obs in observations.items():
               if not obs:
                   continue
               stamp=obs.get('time')
@@ -71,6 +79,8 @@ jobs:
           for name,c in (engine.get('consensus') or {}).items():
               if not (c.get('hours') or {}):
                   raise SystemExit(f'{name}: missing v2 consensus hours')
+          if not isinstance((engine.get('consensus') or {}).get('hrm',{}).get('hours',{}).get('1',{}).get('components',{}).get('nowcast'), (int,float)):
+              raise SystemExit('HRM +1h nowcast component is not observation-anchored')
 
           health=engine.get('source_health') or {}
           if not health:
