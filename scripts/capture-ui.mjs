@@ -28,12 +28,12 @@ async function captureLocationScenes(){
   const hero=page.locator('.hero').first();
   for(const name of expected){
     await page.evaluate(location=>{const s=document.querySelector('.locationPicker');if(!s)return;s.value=location;s.dispatchEvent(new Event('change',{bubbles:true}))},name);
-    await page.waitForTimeout(450);
+    await page.waitForTimeout(2200);
     const info=await page.evaluate(()=>{const h=document.querySelector('.hero'),title=document.querySelector('.brand h1')?.textContent?.trim()||'',style=h?getComputedStyle(h):null;return{location:h?.dataset.location||'',condition:h?.dataset.condition||'',daypart:h?.dataset.daypart||'',background:style?.backgroundImage||'',title}});
     sceneChecks.push(info);
     if(await hero.count())await hero.screenshot({path:`screenshots/scene-${name.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.png`});
   }
-  await page.evaluate(()=>{const s=document.querySelector('.locationPicker');if(s){s.value='HRM Core';s.dispatchEvent(new Event('change',{bubbles:true}))}});await page.waitForTimeout(500);
+  await page.evaluate(()=>{const s=document.querySelector('.locationPicker');if(s){s.value='HRM Core';s.dispatchEvent(new Event('change',{bubbles:true}))}});await page.waitForTimeout(2200);
 }
 
 try{
