@@ -27,6 +27,8 @@ try{
   if(new Set(confidenceSamples).size!==1)throw new Error(`Forecast Confidence changed during one revision: ${confidenceSamples.join(' -> ')}`);
   const state=await Promise.race([page.evaluate(()=>({
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
+    realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
+    realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
     morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
     updated:document.querySelector('#updated')?.textContent?.trim()||'',
@@ -44,6 +46,7 @@ try{
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
   if(state.confidenceOwner!=='engine3-locked')throw new Error(`Forecast Confidence owner is not locked: ${state.confidenceOwner||'missing'}`);
   if(state.serverConsensusFresh){
+    if(state.realFeelOwner!=='engine3-calibrated'||state.realFeelDataset!=='1')throw new Error(`Headline Real Feel is not owned by calibrated Engine 3: owner=${state.realFeelOwner||'missing'} dataset=${state.realFeelDataset||'missing'}`);
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
     if(/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Intentional server skips reported as failures: ${state.warn}`);
     const air=Number(state.actual.match(/-?\d+(?:\.\d+)?/)?.[0]);
@@ -56,6 +59,8 @@ try{
   try{state=await Promise.race([page.evaluate(()=>({
     readyState:document.readyState,
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
+    realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
+    realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
