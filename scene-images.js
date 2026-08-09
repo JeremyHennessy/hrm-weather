@@ -1,3 +1,4 @@
+import('./weather-icons.js?v=20').catch(()=>{});
 (()=>{
   const scenes={
     'HRM Core':{
