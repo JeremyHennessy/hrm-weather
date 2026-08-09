@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/collect.py'
+      - 'scripts/accuracy_engine_v2.py'
       - '.github/workflows/collect-weather.yml'
   schedule:
     - cron: '17 * * * *'
@@ -20,7 +21,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,17 +29,33 @@ jobs:
           python-version: '3.12'
       - name: Sync latest main
         run: git pull --rebase origin main
+      - name: Validate collector syntax
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py
       - name: Collect and verify forecasts
+        env:
+          PIRATE_WEATHER_API_KEY: ${{ secrets.PIRATE_WEATHER_API_KEY }}
+          TOMORROW_API_KEY: ${{ secrets.TOMORROW_API_KEY }}
+          METEOBLUE_API_KEY: ${{ secrets.METEOBLUE_API_KEY }}
         run: python scripts/collect.py
-      - name: Verify stale observations are rejected
+      - name: Validate Accuracy Engine 2.0 output
         run: |
           python - <<'PY'
           import json
           from datetime import datetime, timezone, timedelta
           from pathlib import Path
-          d=json.loads(Path('data/skill.json').read_text())
+
+          skill=json.loads(Path('data/skill.json').read_text())
+          engine=json.loads(Path('data/engine-v2.json').read_text())
           now=datetime.now(timezone.utc)
-          for name,obs in (d.get('observations') or {}).items():
+
+          assert engine.get('version') == '2.0', 'wrong engine version'
+          arch=engine.get('architecture') or {}
+          assert arch.get('family_aware_weighting') is True
+          assert arch.get('bias_correction') is True
+          assert arch.get('run_stability') is True
+          assert {'nowcast','learned_local','raw_ensemble'} <= set(arch.get('engines') or [])
+
+          for name,obs in (skill.get('observations') or {}).items():
               if not obs:
                   continue
               stamp=obs.get('time')
@@ -47,13 +64,18 @@ jobs:
               dt=datetime.fromisoformat(stamp.replace('Z','+00:00'))
               if now-dt > timedelta(hours=6):
                   raise SystemExit(f'{name}: stale observation {stamp}')
-          print('Observation freshness check passed')
+
+          for name,c in (engine.get('consensus') or {}).items():
+              if not (c.get('hours') or {}):
+                  raise SystemExit(f'{name}: missing v2 consensus hours')
+
+          print('Accuracy Engine 2.0 validation passed')
           PY
       - name: Commit updated skill data
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/skill.json data/ledger.json
+          git add data/skill.json data/ledger.json data/engine-v2.json data/run-history-v2.json
           if git diff --cached --quiet; then
             echo "No data changes"
           else

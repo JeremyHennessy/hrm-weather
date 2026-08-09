@@ -1,0 +1,19 @@
+{
+  "version": "2.0",
+  "updated_at": null,
+  "architecture": {
+    "engines": ["nowcast", "learned_local", "raw_ensemble"],
+    "family_aware_weighting": true,
+    "bias_correction": true,
+    "run_stability": true,
+    "regime_conditioning": true,
+    "metrics": ["MAE", "bias", "RMSE", "Brier", "CRPS", "run-change MAE"]
+  },
+  "consensus": {},
+  "observations": {},
+  "nowcast": {},
+  "regimes": {},
+  "stability": {},
+  "source_health": {},
+  "benchmarks": {}
+}
