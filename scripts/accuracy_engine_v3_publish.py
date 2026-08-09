@@ -7,13 +7,15 @@ from concurrent.futures import ThreadPoolExecutor
 import accuracy_engine_v2 as core
 import accuracy_engine_v3 as v3
 import accuracy_engine_v3_verify as verify
+import accuracy_engine_v3_walkforward as walkforward
+import real_feel_engine as realfeel
 from accuracy_engine_v3_pooling import install as install_v3_pooling
 
 install_v3_pooling()
 
 
 def apply_adaptive_verification(engine: dict, state: dict) -> None:
-    """Reblend V3 using measured out-of-sample skill of each added layer."""
+    """Reblend V3 using measured prospective out-of-sample skill of each added layer."""
     summary = {}
     for loc, payload in (engine.get("consensus") or {}).items():
         regime = ((payload.get("regime") or {}).get("name")) or "unknown"
@@ -60,12 +62,44 @@ def apply_adaptive_verification(engine: dict, state: dict) -> None:
             loc_summary[lead_s] = h["adaptive_skill"]
         summary[loc] = loc_summary
     engine["verification"] = {
-        "mode": "shadow-out-of-sample",
+        "mode": "prospective-shadow-out-of-sample",
         "minimum_samples_before_adaptation": verify.MIN_ADAPT_SAMPLES,
         "adaptive_layers": ["mos", "analog", "observation_nudge", "precipitation_calibration"],
         "scores": state.get("scores", {}),
         "precip_scores": state.get("precip_scores", {}),
         "adaptive_status": summary,
+    }
+
+
+def apply_real_feel(engine: dict, ledger: list[dict], forecasts: dict, regimes: dict) -> None:
+    """Attach the locally calibrated Real Feel forecast after final V3 temperature blending."""
+    ready = 0
+    for loc, payload in (engine.get("consensus") or {}).items():
+        regime = ((regimes.get(loc) or {}).get("name")) or "unknown"
+        for lead_s, h in (payload.get("hours") or {}).items():
+            lead = int(lead_s)
+            target = core.parse_stamp(h.get("target"))
+            if not target:
+                continue
+            result = realfeel.predict(
+                ledger,
+                forecasts.get(loc, {}),
+                loc,
+                lead,
+                target,
+                regime,
+                corrected_temp=core.safe_float(h.get("temperature_2m")),
+            )
+            h["real_feel_engine"] = result
+            if result.get("available"):
+                h["real_feel"] = result.get("real_feel")
+                ready += 1
+    engine["real_feel"] = {
+        "version": "1.0",
+        "method": "humidex/wind-chill physics + bounded radiant-load proxy + verified local residual calibration",
+        "forecast_points_ready": ready,
+        "calibration_minimum_samples": realfeel.MIN_LOCAL_SAMPLES,
+        "maximum_local_correction_c": realfeel.MAX_CORRECTION,
     }
 
 
@@ -104,6 +138,14 @@ def main() -> None:
 
     engine = v3.build_engine_v3(v2_engine, ledger, forecasts, observations, regimes)
     apply_adaptive_verification(engine, verification)
+
+    # Historical walk-forward scores never train on the held-out target. The
+    # prospective shadow verifier remains authoritative for the exact deployed blend.
+    engine["walk_forward_verification"] = walkforward.build(ledger)
+
+    # Real Feel is derived only after adaptive V3 has finalized air temperature.
+    apply_real_feel(engine, ledger, forecasts, regimes)
+
     shadow_added = verify.add_current_forecasts(verification, engine)
     verify.save_state(verification)
 
@@ -128,6 +170,7 @@ def main() -> None:
     print(
         f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} "
         f"verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} "
+        f"realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} "
         f"shadow_scored={shadow_scored} shadow_added={shadow_added}"
     )
 
