@@ -1,5 +1,6 @@
-/* Contextual UV protection overlay. Health Canada / ECCC guidance is surfaced
-   only when UV protection is useful (UV Index >= 3). */
+/* Contextual UV protection overlay bootstrap. The richer forecast-insights
+   module becomes the sole writer once loaded so sunscreen guidance never flips
+   between two independent renderers. */
 (()=>{
   const finite=v=>Number.isFinite(Number(v));
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
@@ -31,6 +32,7 @@
     return el;
   }
   function paint(){
+    if(typeof window.WXRefreshForecastInsights==='function'){window.WXRefreshForecastInsights();return true}
     const el=ensure();if(!el)return false;const uv=uvValue(),g=guidance(uv),hero=document.querySelector('.hero');
     if(!g){el.hidden=true;hero?.classList.remove('uvGuidanceActive');return true}
     const rounded=Math.round(uv*10)/10;el.innerHTML=`<b>UV ${rounded} · ${g.level}</b> · ${g.text}<span>${g.detail}</span>`;el.hidden=false;hero?.classList.add('uvGuidanceActive');return true;
