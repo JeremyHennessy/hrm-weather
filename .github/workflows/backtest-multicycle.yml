@@ -1,0 +1,51 @@
+name: Engine 3 multi-cycle backtest
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/archive_backtest_multicycle.py'
+      - '.github/workflows/backtest-multicycle.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: engine3-multicycle-backtest
+  cancel-in-progress: true
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run strict four-cycle hindcast
+        env:
+          PYTHONPATH: scripts
+        run: |
+          python -m py_compile scripts/archive_backtest_multicycle.py
+          python scripts/archive_backtest_multicycle.py
+          python -m json.tool data/archive-backtest-multicycle.json >/dev/null
+      - name: Validate four-cycle report
+        run: |
+          python - <<'PY'
+          import json
+          j=json.load(open('data/archive-backtest-multicycle.json'))
+          assert j.get('cycles_z') == [0,6,12,18]
+          assert j.get('leakage_policy') == 'strictly-earlier-targets-only-even-across-cycles'
+          assert j.get('archive_success_rate') == 1.0, (j.get('archive_failures'),j.get('failure_examples'))
+          assert (j.get('overall') or {}).get('v2',{}).get('n',0) > 500
+          assert all(str(x) in (j.get('by_cycle') or {}) for x in [0,6,12,18])
+          print('Four-cycle Engine 3 hindcast validated')
+          PY
+      - name: Commit multi-cycle report
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/archive-backtest-multicycle.json
+          if git diff --cached --quiet; then echo "Multi-cycle report unchanged"; else git commit -m "Update multi-cycle Engine 3 backtest"; git pull --rebase origin main; git push; fi
