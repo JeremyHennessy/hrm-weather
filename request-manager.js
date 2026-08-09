@@ -1,3 +1,4 @@
+document.write('<script src="./startup-fallback.js?v=2" data-wx-static-startup="1"><\/script>');
 (()=>{
 /* Startup/render + bounded weather networking. This file loads before v5b.js. */
 function installStableRenderer(){
