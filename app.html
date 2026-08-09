@@ -7,14 +7,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Weather Consensus">
-<link rel="manifest" href="manifest.webmanifest?v=18">
+<link rel="manifest" href="manifest.webmanifest?v=19">
 <link rel="icon" href="icons/weather-consensus.svg?v=16" type="image/svg+xml">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png?v=16">
 <title>Weather Consensus</title>
 <link rel="stylesheet" href="v4.css?v=10">
-<link rel="stylesheet" href="v11-reference.css?v=17">
+<link rel="stylesheet" href="v11-reference.css?v=19">
 <style>
-.alertBox{display:none;padding:12px 14px;border:1px solid #8c5f42;background:#321f16aa;color:#ffe2ca}.alertBox b{display:block;margin-bottom:3px}.obsline{font-size:11px}.range{font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.linkbtn{display:inline-block;text-decoration:none;border:1px solid var(--line);background:#0c2a3e;color:#dff2fc;border-radius:999px;padding:8px 10px;font-size:11px}.accuracy{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{border:1px solid var(--line);border-radius:15px;padding:10px}.stat small{display:block;color:var(--muted);font-size:9px}.stat b{font-size:18px}.micro{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.micro .card{padding:11px}.micro .zt{font-size:25px}.badge{display:inline-block;margin-top:5px;border:1px solid var(--line);border-radius:999px;padding:4px 7px;font-size:9px;color:#d8edf9}.rainagree{font-size:10px;color:#bcd4e2}.official{border-color:#3b6a85}#alerts+#warn{margin-bottom:0}@media(max-width:620px){.accuracy,.micro{grid-template-columns:1fr}}
+.alertBox{display:none;padding:12px 14px;border:1px solid #8c5f42;background:#321f16aa;color:#ffe2ca}.alertBox b{display:block;margin-bottom:3px}.obsline{font-size:11px}.range{font-size:12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.linkbtn{display:inline-block;text-decoration:none;border:1px solid var(--line);background:#0c2a3e;color:#dff2fc;border-radius:999px;padding:8px 10px;font-size:11px}.accuracy{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{border:1px solid var(--line);border-radius:15px;padding:10px}.stat small{display:block;color:var(--muted);font-size:9px}.stat b{font-size:18px}.micro{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.micro .card{padding:11px}.micro .zt{font-size:25px}.badge{display:inline-block;margin-top:5px;border:1px solid var(--line);border-radius:999px;padding:4px 7px;font-size:9px;color:#d8edf9}.rainagree{font-size:10px;color:#bcd4e2}.official{border-color:#3b6a85}#alerts+#warn{margin-bottom:0}
+/* Forecast readability: Real Feel dominant, Actual secondary, no squeezed labels. */
+.sectionHour .hours{overflow-x:auto!important;scroll-snap-type:x proximity}.sectionHour .hour{min-width:88px!important;padding:7px 9px 10px!important;scroll-snap-align:start}.sectionHour .hour b{font-size:24px!important;line-height:1.1!important}.sectionHour .hour .sub{font-size:9px!important;line-height:1.25!important;white-space:nowrap!important;margin-top:4px!important}.sectionHour .hour .wx{font-size:25px!important;margin:5px 0!important}
+.sectionDays .days{grid-template-columns:repeat(7,minmax(96px,1fr))!important;overflow-x:auto!important;scroll-snap-type:x proximity!important}.sectionDays .v11Day{min-width:96px!important;min-height:142px!important;padding:8px 8px 10px!important;scroll-snap-align:start}.v11DayName{font-size:11px!important;font-weight:600!important}.v11DayWx{font-size:27px!important;margin:8px 0 7px!important}.v11DayRF{font-size:25px!important;font-weight:570!important;line-height:1!important}.v11DayRFLabel{display:none!important}.v11DayActual{font-size:9px!important;line-height:1.25!important;color:#b8cbd5!important;margin-top:7px!important;white-space:nowrap!important}.v11DayRain{font-size:9px!important;line-height:1.2!important;margin-top:7px!important;white-space:nowrap!important;color:#c7d9e4!important}
+@media(max-width:620px){.accuracy,.micro{grid-template-columns:1fr}.sectionHour,.sectionDays{padding-left:10px!important;padding-right:10px!important}}
 </style>
 </head>
 <body><div class="app">
@@ -34,5 +38,5 @@
 <section class="section"><div class="head"><h2>Model consensus</h2><span id="modelCount">connecting…</span></div><div id="chips" class="chips"></div><details><summary>Show individual models and learned skill</summary><div id="models" class="models"></div></details></section>
 <div id="updated" class="footer"></div><div class="footer">Weather Consensus · locally calibrated experimental forecast. Environment Canada alerts remain authoritative for hazardous weather.</div>
 </div>
-<script src="v5b.js?v=5"></script><script src="v6-extra.js?v=3"></script><script src="v7-final.js?v=5"></script><script src="v8-ui.js?v=2"></script><script src="v11-layout.js?v=18"></script>
+<script src="v5b.js?v=5"></script><script src="v6-extra.js?v=3"></script><script src="v7-final.js?v=5"></script><script src="v8-ui.js?v=2"></script><script src="v11-layout.js?v=18"></script><script src="scene-images.js?v=19"></script>
 </body></html>
