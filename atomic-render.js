@@ -1,4 +1,4 @@
-/* Keep one complete forecast on screen while refreshes run, and apply V3 PoP calibration. */
+/* Keep startup responsive, preserve completed forecasts during refresh, and apply V3 PoP calibration. */
 (()=>{
   function patchProbabilities(base){
     if(typeof window.WXCalibratedPop!=='function'||!Array.isArray(base))return;
@@ -20,15 +20,26 @@
   }
   function install(){
     if(typeof window.render!=='function'){setTimeout(install,10);return}
-    if(window.__wxAtomicRenderInstalled)return;window.__wxAtomicRenderInstalled=true;
+    if(window.__wxAtomicRenderInstalled)return;
+    window.__wxAtomicRenderInstalled=true;
     const original=window.render;
+    let hasComplete=false;
+    let initialPartialShown=false;
     window.render=function(base,mods,official,alerts,loading){
-      // The old first-stage render painted a temporary base-provider forecast and
-      // then replaced it with model consensus seconds later. Keep the existing
-      // complete forecast (or skeleton on first launch) until consensus is ready.
-      if(loading===true)return;
+      if(loading===true){
+        // On first launch, show useful base weather immediately instead of leaving
+        // the entire app in its skeleton state while dozens of model feeds load.
+        // After a complete forecast exists, suppress partial refresh paints so the
+        // visible forecast stays stable until the new consensus is ready.
+        if(hasComplete||initialPartialShown)return;
+        initialPartialShown=true;
+        return original(base,mods,official,alerts,true);
+      }
       patchProbabilities(base);
-      return original(base,mods,official,alerts,false);
+      const result=original(base,mods,official,alerts,false);
+      hasComplete=true;
+      window.__wxHasCompleteForecast=true;
+      return result;
     };
   }
   install();
