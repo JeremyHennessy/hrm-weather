@@ -847,11 +847,11 @@
     "promotion_margin": 0.02
   },
   "collector": {
-    "deterministic_forecasts": 61,
+    "deterministic_forecasts": 63,
     "lead_pooling": true,
     "shadow_forecasts_added": 35,
     "shadow_forecasts_scored": 0,
-    "shadow_history_rows": 700,
+    "shadow_history_rows": 735,
     "training_ledger_rows": 23845,
     "verified_ledger_rows": 4759
   },
@@ -919,7 +919,7 @@
               "status": "active"
             }
           },
-          "analog_distance": 1.1137152777777783,
+          "analog_distance": 1.1063368055555562,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -968,10 +968,10 @@
             }
           },
           "components": {
-            "analog": 23.131344543417875,
-            "mos": 23.072886093105563,
-            "observation_nudge": -1.4197979095941784,
-            "v2_consensus": 23.70290606200449
+            "analog": 23.157525525245948,
+            "mos": 23.093969756487397,
+            "observation_nudge": -1.3937709210542473,
+            "v2_consensus": 23.723582650887558
           },
           "forecast_confidence": {
             "historical_cases": 15,
@@ -991,9 +991,9 @@
           "mos_samples": 17,
           "mos_training_mae": 0.14198265587776338,
           "precip_calibration_samples": 60,
-          "precipitation_probability": 49.53636363636363,
-          "raw_precipitation_probability": 51.0,
-          "real_feel": 30.160475694536615,
+          "precipitation_probability": 49.798863636363635,
+          "raw_precipitation_probability": 51.291666666666664,
+          "real_feel": 30.207814812397263,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1005,13 +1005,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 58.489583333333336,
-              "provider_apparent_temperature": 28.449305555555554,
-              "relative_humidity_2m": 79.59027777777779,
-              "shortwave_radiation": 494.4761904761904,
-              "temperature_2m": 22.747773905218036,
+              "cloud_cover": 57.9375,
+              "provider_apparent_temperature": 28.505555555555556,
+              "relative_humidity_2m": 79.51736111111111,
+              "shortwave_radiation": 493.6190476190476,
+              "temperature_2m": 22.782878165607638,
               "uv_index": 1.5666666666666667,
-              "wind_speed_10m": 9.2625
+              "wind_speed_10m": 9.145833333333332
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -1030,12 +1030,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.746600052311056,
-            "real_feel": 30.160475694536615,
-            "solar_adjustment": 1.2056666666666664
+            "physical_real_feel": 30.793939170171704,
+            "real_feel": 30.207814812397263,
+            "solar_adjustment": 1.2026666666666666
           },
           "target": "2026-08-09T19:00:00+00:00",
-          "temperature_2m": 22.747773905218036,
+          "temperature_2m": 22.782878165607638,
           "v2_uncertainty": 3.0282336373994743
         },
         "12": {
@@ -1086,7 +1086,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 0.9305989583333327,
+          "analog_distance": 0.9613281249999992,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -1120,9 +1120,9 @@
             }
           },
           "components": {
-            "analog": 19.613893393614575,
-            "mos": 19.572770426199767,
-            "observation_nudge": -0.09076464370611018,
+            "analog": 19.62808166641304,
+            "mos": 19.58948275088076,
+            "observation_nudge": -0.0891007939951009,
             "v2_consensus": 18.8812777215924
           },
           "forecast_confidence": {
@@ -1145,7 +1145,7 @@
           "precip_calibration_samples": 16,
           "precipitation_probability": 26.166666666666668,
           "raw_precipitation_probability": 26.166666666666668,
-          "real_feel": 24.620344557733606,
+          "real_feel": 24.63358666791725,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1155,13 +1155,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 40.611111111111114,
-              "provider_apparent_temperature": 21.968055555555555,
-              "relative_humidity_2m": 96.3125,
+              "cloud_cover": 41.142361111111114,
+              "provider_apparent_temperature": 22.00347222222222,
+              "relative_humidity_2m": 96.29166666666667,
               "shortwave_radiation": -0.38095238095238093,
-              "temperature_2m": 19.079820304977556,
+              "temperature_2m": 19.086546268127453,
               "uv_index": 0.0,
-              "wind_speed_10m": 6.147222222222222
+              "wind_speed_10m": 6.088888888888889
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -1180,12 +1180,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 24.857689344559656,
-            "real_feel": 24.620344557733606,
+            "physical_real_feel": 24.8709314547433,
+            "real_feel": 24.63358666791725,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T06:00:00+00:00",
-          "temperature_2m": 19.079820304977556,
+          "temperature_2m": 19.086546268127453,
           "v2_uncertainty": 1.3437727664185044
         },
         "24": {
@@ -1248,7 +1248,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.004518905521580919,
+            "observation_nudge": -0.004436067322265049,
             "v2_consensus": 26.92448542009814
           },
           "forecast_confidence": {
@@ -1271,7 +1271,7 @@
           "precip_calibration_samples": 4,
           "precipitation_probability": 17.187037037037033,
           "raw_precipitation_probability": 17.166666666666664,
-          "real_feel": 34.082901240556644,
+          "real_feel": 34.043403707432844,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1281,13 +1281,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 54.05555555555556,
-              "provider_apparent_temperature": 29.624305555555555,
-              "relative_humidity_2m": 54.19444444444444,
-              "shortwave_radiation": 735.0507936507937,
-              "temperature_2m": 26.921548131509113,
+              "cloud_cover": 53.78472222222222,
+              "provider_apparent_temperature": 29.661805555555556,
+              "relative_humidity_2m": 53.97569444444444,
+              "shortwave_radiation": 736.3484126984127,
+              "temperature_2m": 26.921601976338668,
               "uv_index": 6.116666666666667,
-              "wind_speed_10m": 11.015277777777778
+              "wind_speed_10m": 10.884027777777778
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -1306,12 +1306,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.17721284466783,
-            "real_feel": 34.082901240556644,
-            "solar_adjustment": 2.047677777777778
+            "physical_real_feel": 34.13771531154403,
+            "real_feel": 34.043403707432844,
+            "solar_adjustment": 2.052219444444445
           },
           "target": "2026-08-10T18:00:00+00:00",
-          "temperature_2m": 26.921548131509113,
+          "temperature_2m": 26.921601976338668,
           "v2_uncertainty": 3.844778695195345
         },
         "3": {
@@ -1364,7 +1364,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.276171875,
+          "analog_distance": 1.2954427083333329,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -1410,10 +1410,10 @@
             }
           },
           "components": {
-            "analog": 23.007182348652343,
-            "mos": 23.054322086273245,
-            "observation_nudge": -0.8611509627647748,
-            "v2_consensus": 24.152951765183737
+            "analog": 23.018908258633,
+            "mos": 23.06243027339677,
+            "observation_nudge": -0.8453647962353172,
+            "v2_consensus": 24.1585516746729
           },
           "forecast_confidence": {
             "historical_cases": 18,
@@ -1433,9 +1433,9 @@
           "mos_samples": 24,
           "mos_training_mae": 0.12245289853413273,
           "precip_calibration_samples": 72,
-          "precipitation_probability": 41.32777777777778,
-          "raw_precipitation_probability": 43.583333333333336,
-          "real_feel": 30.152727201298028,
+          "precipitation_probability": 40.677777777777784,
+          "raw_precipitation_probability": 42.833333333333336,
+          "real_feel": 30.177450512323098,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1445,13 +1445,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 40.895833333333336,
-              "provider_apparent_temperature": 28.254166666666666,
-              "relative_humidity_2m": 79.45138888888889,
-              "shortwave_radiation": 355.72301587301587,
-              "temperature_2m": 23.111343697225152,
+              "cloud_cover": 42.041666666666664,
+              "provider_apparent_temperature": 28.2875,
+              "relative_humidity_2m": 79.48263888888889,
+              "shortwave_radiation": 352.4611111111111,
+              "temperature_2m": 23.128846282076893,
               "uv_index": 3.0499999999999994,
-              "wind_speed_10m": 8.765972222222222
+              "wind_speed_10m": 8.649305555555555
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -1470,12 +1470,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.881884741787335,
-            "real_feel": 30.152727201298028,
-            "solar_adjustment": 0.7200305555555555
+            "physical_real_feel": 30.906608052812405,
+            "real_feel": 30.177450512323098,
+            "solar_adjustment": 0.7086138888888889
           },
           "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 23.111343697225152,
+          "temperature_2m": 23.128846282076893,
           "v2_uncertainty": 2.8214637299824465
         },
         "48": {
@@ -1538,7 +1538,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.120124689776833e-05,
+            "observation_nudge": -1.0995911530902995e-05,
             "v2_consensus": 22.231103887436856
           },
           "forecast_confidence": {
@@ -1559,9 +1559,9 @@
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 54.833333333333336,
-          "raw_precipitation_probability": 54.833333333333336,
-          "real_feel": 29.972355714079047,
+          "precipitation_probability": 54.54166666666667,
+          "raw_precipitation_probability": 54.54166666666667,
+          "real_feel": 29.97192954327329,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1571,13 +1571,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 56.375,
-              "provider_apparent_temperature": 25.148958333333333,
-              "relative_humidity_2m": 77.91666666666667,
-              "shortwave_radiation": 604.8361111111111,
-              "temperature_2m": 22.231096606626373,
+              "cloud_cover": 55.90625,
+              "provider_apparent_temperature": 25.176041666666666,
+              "relative_humidity_2m": 77.79166666666667,
+              "shortwave_radiation": 610.1694444444444,
+              "temperature_2m": 22.23109674009436,
               "uv_index": 6.650000000000001,
-              "wind_speed_10m": 13.070833333333335
+              "wind_speed_10m": 13.025
             },
             "local_correction": {
               "calibration_population": "none",
@@ -1588,12 +1588,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.972355714079047,
-            "real_feel": 29.972355714079047,
-            "solar_adjustment": 1.5919263888888888
+            "physical_real_feel": 29.97192954327329,
+            "real_feel": 29.97192954327329,
+            "solar_adjustment": 1.6105930555555552
           },
           "target": "2026-08-11T18:00:00+00:00",
-          "temperature_2m": 22.231096606626373,
+          "temperature_2m": 22.23109674009436,
           "v2_uncertainty": 3.076453036828621
         },
         "6": {
@@ -1645,7 +1645,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.0797743055555555,
+          "analog_distance": 2.052777777777778,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -1691,9 +1691,9 @@
             }
           },
           "components": {
-            "analog": 21.258924208706418,
-            "mos": 21.179312695366672,
-            "observation_nudge": -0.4067789116708026,
+            "analog": 21.13780926931609,
+            "mos": 21.22910647032637,
+            "observation_nudge": -0.3993220546062871,
             "v2_consensus": 21.664322430226697
           },
           "forecast_confidence": {
@@ -1714,9 +1714,9 @@
           "mos_samples": 22,
           "mos_training_mae": 0.13838621387274005,
           "precip_calibration_samples": 36,
-          "precipitation_probability": 7.1383040935672515,
-          "raw_precipitation_probability": 8.833333333333334,
-          "real_feel": 27.943791807760462,
+          "precipitation_probability": 7.059137426900584,
+          "raw_precipitation_probability": 8.708333333333334,
+          "real_feel": 27.92280856627174,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1726,13 +1726,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 28.364583333333336,
-              "provider_apparent_temperature": 25.63125,
-              "relative_humidity_2m": 89.90277777777779,
-              "shortwave_radiation": 5.571428571428571,
-              "temperature_2m": 21.235903685094126,
+              "cloud_cover": 30.072916666666668,
+              "provider_apparent_temperature": 25.697916666666668,
+              "relative_humidity_2m": 89.82986111111111,
+              "shortwave_radiation": 5.583333333333334,
+              "temperature_2m": 21.230062939747114,
               "uv_index": 0.05000000000000001,
-              "wind_speed_10m": 5.850694444444445
+              "wind_speed_10m": 5.821527777777778
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -1751,12 +1751,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 28.40718926169862,
-            "real_feel": 27.943791807760462,
+            "physical_real_feel": 28.386206020209897,
+            "real_feel": 27.92280856627174,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T00:00:00+00:00",
-          "temperature_2m": 21.235903685094126,
+          "temperature_2m": 21.230062939747114,
           "v2_uncertainty": 1.737613583008924
         },
         "72": {
@@ -1819,7 +1819,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -2.7765115129220542e-08,
+            "observation_nudge": -2.725613964165651e-08,
             "v2_consensus": 24.067079468626865
           },
           "forecast_confidence": {
@@ -1842,7 +1842,7 @@
           "precip_calibration_samples": 0,
           "precipitation_probability": 7.166666666666667,
           "raw_precipitation_probability": 7.166666666666667,
-          "real_feel": 29.42345301686283,
+          "real_feel": 29.416404546222083,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -1852,13 +1852,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 29.96875,
-              "provider_apparent_temperature": 26.038541666666667,
-              "relative_humidity_2m": 50.354166666666664,
-              "shortwave_radiation": 920.6472222222222,
-              "temperature_2m": 24.06707945057954,
+              "cloud_cover": 29.833333333333332,
+              "provider_apparent_temperature": 26.03125,
+              "relative_humidity_2m": 50.3125,
+              "shortwave_radiation": 921.9805555555555,
+              "temperature_2m": 24.067079450910374,
               "uv_index": 1.7666666666666666,
-              "wind_speed_10m": 13.445833333333333
+              "wind_speed_10m": 13.467708333333334
             },
             "local_correction": {
               "calibration_population": "none",
@@ -1869,12 +1869,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.42345301686283,
-            "real_feel": 29.42345301686283,
+            "physical_real_feel": 29.416404546222083,
+            "real_feel": 29.416404546222083,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T18:00:00+00:00",
-          "temperature_2m": 24.06707945057954,
+          "temperature_2m": 24.067079450910374,
           "v2_uncertainty": 4.367507679431665
         }
       },
@@ -1882,9 +1882,9 @@
         "name": "offshore",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.7000000000000455,
-        "relative_humidity": 85.72461437053883,
-        "wind_direction": 250.0,
-        "wind_speed": 10.070358176563897
+        "relative_humidity": 85.43721876752358,
+        "wind_direction": 255.0,
+        "wind_speed": 10.044570936795388
       }
     },
     "lunenburg": {
@@ -1948,7 +1948,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.415104166666667,
+          "analog_distance": 1.4338541666666669,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -1997,10 +1997,10 @@
             }
           },
           "components": {
-            "analog": 21.865790417001524,
-            "mos": 21.466132236256204,
-            "observation_nudge": -2.0540870653508296,
-            "v2_consensus": 22.96920360549833
+            "analog": 21.885299745542067,
+            "mos": 21.490270372377605,
+            "observation_nudge": -2.031372042511246,
+            "v2_consensus": 23.11391179152359
           },
           "forecast_confidence": {
             "historical_cases": 15,
@@ -2014,7 +2014,7 @@
               "samples": 0
             },
             "tolerance_c": 1.0,
-            "uncertainty_prior": 0.8635087506351665,
+            "uncertainty_prior": 0.8659074401983345,
             "value": 50
           },
           "mos_samples": 17,
@@ -2022,7 +2022,7 @@
           "precip_calibration_samples": 0,
           "precipitation_probability": 46.75,
           "raw_precipitation_probability": 46.75,
-          "real_feel": 26.411696806450554,
+          "real_feel": 26.539587294357485,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2034,13 +2034,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 32.42857142857143,
-              "provider_apparent_temperature": 28.8125,
-              "relative_humidity_2m": 80.0625,
-              "shortwave_radiation": 533.7666666666667,
-              "temperature_2m": 20.9717485557773,
+              "cloud_cover": 32.125,
+              "provider_apparent_temperature": 28.795833333333334,
+              "relative_humidity_2m": 79.79166666666667,
+              "shortwave_radiation": 533.5380952380953,
+              "temperature_2m": 21.070275092035423,
               "uv_index": 2.15,
-              "wind_speed_10m": 8.83125
+              "wind_speed_10m": 8.929166666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -2059,13 +2059,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 27.885833837339693,
-            "real_feel": 26.411696806450554,
-            "solar_adjustment": 1.3431833333333334
+            "physical_real_feel": 28.013724325246624,
+            "real_feel": 26.539587294357485,
+            "solar_adjustment": 1.3423833333333335
           },
           "target": "2026-08-09T19:00:00+00:00",
-          "temperature_2m": 20.9717485557773,
-          "v2_uncertainty": 1.3532166581977796
+          "temperature_2m": 21.070275092035423,
+          "v2_uncertainty": 1.3212341306888717
         },
         "12": {
           "adaptive_skill": {
@@ -2113,7 +2113,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.9142857142857146,
+          "analog_distance": 1.9120535714285718,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -2147,10 +2147,10 @@
             }
           },
           "components": {
-            "analog": 18.962441497826248,
-            "mos": 19.28497099467136,
-            "observation_nudge": -0.13131339282024113,
-            "v2_consensus": 17.8010769939447
+            "analog": 18.955392286654057,
+            "mos": 19.266765487405472,
+            "observation_nudge": -0.129861269992845,
+            "v2_consensus": 18.05352581819509
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -2164,15 +2164,15 @@
               "samples": 0
             },
             "tolerance_c": 1.8,
-            "uncertainty_prior": 0.8547672181320528,
-            "value": 85
+            "uncertainty_prior": 0.8393730634949601,
+            "value": 84
           },
           "mos_samples": 12,
           "mos_training_mae": 0.13388428865866095,
           "precip_calibration_samples": 0,
           "precipitation_probability": 0.0,
           "raw_precipitation_probability": 0.0,
-          "real_feel": 22.123661905295716,
+          "real_feel": 22.453818700201566,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2182,13 +2182,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 45.285714285714285,
-              "provider_apparent_temperature": 22.15625,
+              "cloud_cover": 42.625,
+              "provider_apparent_temperature": 22.125,
               "relative_humidity_2m": 92.3125,
-              "shortwave_radiation": -0.6666666666666666,
-              "temperature_2m": 18.200674492691803,
+              "shortwave_radiation": -0.38095238095238093,
+              "temperature_2m": 18.35775677371811,
               "uv_index": 0.0,
-              "wind_speed_10m": 8.3625
+              "wind_speed_10m": 8.483333333333334
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -2207,13 +2207,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 22.4976888404707,
-            "real_feel": 22.123661905295716,
+            "physical_real_feel": 22.82784563537655,
+            "real_feel": 22.453818700201566,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T06:00:00+00:00",
-          "temperature_2m": 18.200674492691803,
-          "v2_uncertainty": 1.4697704249059618
+          "temperature_2m": 18.35775677371811,
+          "v2_uncertainty": 1.6750258200671988
         },
         "24": {
           "adaptive_skill": {
@@ -2275,8 +2275,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.006537708865957519,
-            "v2_consensus": 26.548342853815527
+            "observation_nudge": -0.006465411927471412,
+            "v2_consensus": 26.505323314910164
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -2290,7 +2290,7 @@
               "samples": 0
             },
             "tolerance_c": 2.2,
-            "uncertainty_prior": 0.8229680981740063,
+            "uncertainty_prior": 0.8208541572627731,
             "value": 82
           },
           "mos_samples": 5,
@@ -2298,7 +2298,7 @@
           "precip_calibration_samples": 0,
           "precipitation_probability": 1.75,
           "raw_precipitation_probability": 1.75,
-          "real_feel": 32.859870345504206,
+          "real_feel": 32.83628140332241,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2308,13 +2308,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 55.214285714285715,
-              "provider_apparent_temperature": 30.400000000000002,
-              "relative_humidity_2m": 51.375,
-              "shortwave_radiation": 748.0666666666666,
-              "temperature_2m": 26.544093343052655,
+              "cloud_cover": 50.645833333333336,
+              "provider_apparent_temperature": 30.34166666666667,
+              "relative_humidity_2m": 51.395833333333336,
+              "shortwave_radiation": 759.7476190476191,
+              "temperature_2m": 26.50112079715731,
               "uv_index": 5.85,
-              "wind_speed_10m": 9.675
+              "wind_speed_10m": 9.891666666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -2333,13 +2333,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.049642550387304,
-            "real_feel": 32.859870345504206,
-            "solar_adjustment": 2.093233333333333
+            "physical_real_feel": 33.02605360820551,
+            "real_feel": 32.83628140332241,
+            "solar_adjustment": 2.134116666666667
           },
           "target": "2026-08-10T18:00:00+00:00",
-          "temperature_2m": 26.544093343052655,
-          "v2_uncertainty": 1.6937586910132492
+          "temperature_2m": 26.50112079715731,
+          "v2_uncertainty": 1.7219445698296914
         },
         "3": {
           "adaptive_skill": {
@@ -2391,7 +2391,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.5893229166666665,
+          "analog_distance": 1.6164062499999998,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -2437,10 +2437,10 @@
             }
           },
           "components": {
-            "analog": 22.330115637763193,
-            "mos": 21.948027025367303,
-            "observation_nudge": -1.2458667828544259,
-            "v2_consensus": 24.025117843783754
+            "analog": 22.36479753374116,
+            "mos": 21.99237623810779,
+            "observation_nudge": -1.2320894250661454,
+            "v2_consensus": 24.130852645173675
           },
           "forecast_confidence": {
             "historical_cases": 18,
@@ -2454,7 +2454,7 @@
               "samples": 0
             },
             "tolerance_c": 1.2,
-            "uncertainty_prior": 0.8639739618487047,
+            "uncertainty_prior": 0.8557274570377408,
             "value": 84
           },
           "mos_samples": 24,
@@ -2462,7 +2462,7 @@
           "precip_calibration_samples": 0,
           "precipitation_probability": 27.25,
           "raw_precipitation_probability": 27.25,
-          "real_feel": 27.435861287323355,
+          "real_feel": 27.474295359924206,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2472,13 +2472,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 27.142857142857142,
-              "provider_apparent_temperature": 28.9875,
-              "relative_humidity_2m": 75.4375,
-              "shortwave_radiation": 391.0833333333333,
-              "temperature_2m": 22.376988667545877,
+              "cloud_cover": 26.645833333333332,
+              "provider_apparent_temperature": 28.983333333333334,
+              "relative_humidity_2m": 75.08333333333333,
+              "shortwave_radiation": 375.42857142857144,
+              "temperature_2m": 22.463669872895377,
               "uv_index": 3.15,
-              "wind_speed_10m": 6.8875
+              "wind_speed_10m": 6.985416666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -2497,13 +2497,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.094253048504378,
-            "real_feel": 27.435861287323355,
-            "solar_adjustment": 0.8437916666666666
+            "physical_real_feel": 29.132687121105228,
+            "real_feel": 27.474295359924206,
+            "solar_adjustment": 0.789
           },
           "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 22.376988667545877,
-          "v2_uncertainty": 1.3470138420172706
+          "temperature_2m": 22.463669872895377,
+          "v2_uncertainty": 1.4569672394967894
         },
         "48": {
           "adaptive_skill": {
@@ -2565,8 +2565,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.620536008190315e-05,
-            "v2_consensus": 23.320733839836706
+            "observation_nudge": -1.6026153888264398e-05,
+            "v2_consensus": 22.57440754388885
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -2576,19 +2576,19 @@
             "method": "bayesian empirical coverage + prospective reliability calibration",
             "prospective_reliability": {
               "available": false,
-              "bin": "60-69",
+              "bin": "70-79",
               "samples": 0
             },
             "tolerance_c": 2.8,
-            "uncertainty_prior": 0.663118986445024,
-            "value": 66
+            "uncertainty_prior": 0.7375403153053737,
+            "value": 74
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 40.75,
           "raw_precipitation_probability": 40.75,
-          "real_feel": 31.11225111490594,
+          "real_feel": 29.87451181682529,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2598,11 +2598,11 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 55.57142857142857,
+              "cloud_cover": 52.125,
               "provider_apparent_temperature": 27.925,
               "relative_humidity_2m": 71.125,
-              "shortwave_radiation": 703.6,
-              "temperature_2m": 23.32072330635265,
+              "shortwave_radiation": 709.5,
+              "temperature_2m": 22.574397126888822,
               "uv_index": 3.5,
               "wind_speed_10m": 10.84375
             },
@@ -2615,13 +2615,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 31.11225111490594,
-            "real_feel": 31.11225111490594,
-            "solar_adjustment": 1.9376000000000002
+            "physical_real_feel": 29.87451181682529,
+            "real_feel": 29.87451181682529,
+            "solar_adjustment": 1.95825
           },
           "target": "2026-08-11T18:00:00+00:00",
-          "temperature_2m": 23.32072330635265,
-          "v2_uncertainty": 3.4250801807330125
+          "temperature_2m": 22.574397126888822,
+          "v2_uncertainty": 2.43279579592835
         },
         "6": {
           "adaptive_skill": {
@@ -2671,7 +2671,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.2877976190476197,
+          "analog_distance": 2.276339285714286,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -2717,10 +2717,10 @@
             }
           },
           "components": {
-            "analog": 20.81819235045888,
-            "mos": 20.065393110828012,
-            "observation_nudge": -0.5885057973914835,
-            "v2_consensus": 21.674006545971867
+            "analog": 20.831411880629425,
+            "mos": 20.116617776432058,
+            "observation_nudge": -0.5819978343871539,
+            "v2_consensus": 22.194123507786813
           },
           "forecast_confidence": {
             "historical_cases": 3,
@@ -2734,15 +2734,15 @@
               "samples": 0
             },
             "tolerance_c": 1.5,
-            "uncertainty_prior": 0.8433187062069027,
-            "value": 70
+            "uncertainty_prior": 0.8683302362755138,
+            "value": 72
           },
           "mos_samples": 20,
           "mos_training_mae": 0.2446653896644854,
           "precip_calibration_samples": 0,
           "precipitation_probability": 31.0,
           "raw_precipitation_probability": 31.0,
-          "real_feel": 25.998930787100623,
+          "real_feel": 26.532424764860597,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2752,13 +2752,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 10.5,
-              "provider_apparent_temperature": 26.08125,
-              "relative_humidity_2m": 84.8125,
-              "shortwave_radiation": 6.95,
-              "temperature_2m": 20.83222223079615,
+              "cloud_cover": 9.5625,
+              "provider_apparent_temperature": 26.025,
+              "relative_humidity_2m": 84.3125,
+              "shortwave_radiation": 7.1000000000000005,
+              "temperature_2m": 21.180266920141246,
               "uv_index": 0.05,
-              "wind_speed_10m": 7.03125
+              "wind_speed_10m": 7.33125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -2777,13 +2777,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 26.972007774924364,
-            "real_feel": 25.998930787100623,
+            "physical_real_feel": 27.50550175268434,
+            "real_feel": 26.532424764860597,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T00:00:00+00:00",
-          "temperature_2m": 20.83222223079615,
-          "v2_uncertainty": 1.6224172505746293
+          "temperature_2m": 21.180266920141246,
+          "v2_uncertainty": 1.2889301829931499
         },
         "72": {
           "adaptive_skill": {
@@ -2845,8 +2845,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -4.0169071576679545e-08,
-            "v2_consensus": 24.464348624197406
+            "observation_nudge": -3.97248638341254e-08,
+            "v2_consensus": 23.71677783812393
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -2860,15 +2860,15 @@
               "samples": 0
             },
             "tolerance_c": 3.2,
-            "uncertainty_prior": 0.7253293162571388,
-            "value": 73
+            "uncertainty_prior": 0.7788382875395075,
+            "value": 78
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 35.25,
           "raw_precipitation_probability": 35.25,
-          "real_feel": 29.185688439097113,
+          "real_feel": 28.093051374399145,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -2878,11 +2878,11 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 22.5,
+              "cloud_cover": 20.1875,
               "provider_apparent_temperature": 26.85625,
               "relative_humidity_2m": 45.5,
-              "shortwave_radiation": 1096.58,
-              "temperature_2m": 24.464348598087508,
+              "shortwave_radiation": 1056.1499999999999,
+              "temperature_2m": 23.71677781230277,
               "uv_index": 6.7,
               "wind_speed_10m": 13.78125
             },
@@ -2895,21 +2895,21 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.185688439097113,
-            "real_feel": 29.185688439097113,
+            "physical_real_feel": 28.093051374399145,
+            "real_feel": 28.093051374399145,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T18:00:00+00:00",
-          "temperature_2m": 24.464348598087508,
-          "v2_uncertainty": 2.195609116571482
+          "temperature_2m": 23.71677781230277,
+          "v2_uncertainty": 1.4821561661399014
         }
       },
       "regime": {
-        "name": "frontal",
-        "precipitation": 0.2,
-        "pressure_tendency_3h": -0.8999999999999773,
+        "name": "marine_mixed",
+        "precipitation": 0.0,
+        "pressure_tendency_3h": -0.6000000000000227,
         "relative_humidity": 91.0,
-        "wind_direction": 194.0,
+        "wind_direction": 217.0,
         "wind_speed": 17.8
       }
     },
@@ -2974,7 +2974,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.5418898809523807,
+          "analog_distance": 1.466145833333333,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -3023,10 +3023,10 @@
             }
           },
           "components": {
-            "analog": 25.668249567974236,
-            "mos": 25.740115604321318,
-            "observation_nudge": -0.5808555840407591,
-            "v2_consensus": 25.182898346520368
+            "analog": 25.74229899668295,
+            "mos": 25.589986181494176,
+            "observation_nudge": -0.9832359886276482,
+            "v2_consensus": 24.882898346520367
           },
           "forecast_confidence": {
             "historical_cases": 15,
@@ -3046,9 +3046,9 @@
           "mos_samples": 17,
           "mos_training_mae": 0.3230269797615069,
           "precip_calibration_samples": 46,
-          "precipitation_probability": 51.26481481481481,
-          "raw_precipitation_probability": 51.5,
-          "real_feel": 34.015582665810705,
+          "precipitation_probability": 55.46666666666667,
+          "raw_precipitation_probability": 56.0,
+          "real_feel": 33.33328330270691,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3060,13 +3060,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 70.85714285714286,
-              "provider_apparent_temperature": 29.4375,
-              "relative_humidity_2m": 76.75,
-              "shortwave_radiation": 399.0444444444445,
-              "temperature_2m": 25.061987669595872,
+              "cloud_cover": 66.0,
+              "provider_apparent_temperature": 29.55,
+              "relative_humidity_2m": 76.5,
+              "shortwave_radiation": 435.7285714285714,
+              "temperature_2m": 24.641623508958446,
               "uv_index": 5.4,
-              "wind_speed_10m": 5.170833333333333
+              "wind_speed_10m": 4.91875
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -3085,12 +3085,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.08902788983996,
-            "real_feel": 34.015582665810705,
-            "solar_adjustment": 0.8716555555555557
+            "physical_real_feel": 33.40672852673617,
+            "real_feel": 33.33328330270691,
+            "solar_adjustment": 1.0000499999999999
           },
           "target": "2026-08-09T19:00:00+00:00",
-          "temperature_2m": 25.061987669595872,
+          "temperature_2m": 24.641623508958446,
           "v2_uncertainty": 1.902543357425639
         },
         "12": {
@@ -3141,7 +3141,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.0252604166666663,
+          "analog_distance": 1.0399925595238095,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -3175,9 +3175,9 @@
             }
           },
           "components": {
-            "analog": 19.88139813882997,
-            "mos": 19.546746928799145,
-            "observation_nudge": -0.037132855157698715,
+            "analog": 19.869766433936398,
+            "mos": 19.52609061165503,
+            "observation_nudge": -0.06285617381442819,
             "v2_consensus": 19.558276032565736
           },
           "forecast_confidence": {
@@ -3198,9 +3198,9 @@
           "mos_samples": 14,
           "mos_training_mae": 0.24274772052093244,
           "precip_calibration_samples": 16,
-          "precipitation_probability": 27.955555555555556,
-          "raw_precipitation_probability": 28.0,
-          "real_feel": 25.9592600664578,
+          "precipitation_probability": 33.75555555555555,
+          "raw_precipitation_probability": 34.0,
+          "real_feel": 25.870438608269605,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3210,13 +3210,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 32.04761904761905,
-              "provider_apparent_temperature": 22.241666666666667,
-              "relative_humidity_2m": 96.83333333333333,
-              "shortwave_radiation": 0.8333333333333334,
-              "temperature_2m": 19.585121080297462,
+              "cloud_cover": 24.8125,
+              "provider_apparent_temperature": 22.2125,
+              "relative_humidity_2m": 96.5625,
+              "shortwave_radiation": 1.0714285714285714,
+              "temperature_2m": 19.562397744247537,
               "uv_index": 0.0,
-              "wind_speed_10m": 9.791666666666666
+              "wind_speed_10m": 9.71875
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -3235,12 +3235,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 26.12075739002698,
-            "real_feel": 25.9592600664578,
+            "physical_real_feel": 26.031935931838785,
+            "real_feel": 25.870438608269605,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T06:00:00+00:00",
-          "temperature_2m": 19.585121080297462,
+          "temperature_2m": 19.562397744247537,
           "v2_uncertainty": 1.47236109762733
         },
         "24": {
@@ -3303,7 +3303,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.0018487359984303352,
+            "observation_nudge": -0.0031294246230412757,
             "v2_consensus": 27.863148676491214
           },
           "forecast_confidence": {
@@ -3324,9 +3324,9 @@
           "mos_samples": 7,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
-          "precipitation_probability": 2.0,
-          "raw_precipitation_probability": 2.0,
-          "real_feel": 33.7421194016369,
+          "precipitation_probability": 2.6666666666666665,
+          "raw_precipitation_probability": 2.6666666666666665,
+          "real_feel": 33.806232169858106,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3336,13 +3336,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 66.76190476190476,
-              "provider_apparent_temperature": 28.945833333333333,
-              "relative_humidity_2m": 45.666666666666664,
-              "shortwave_radiation": 693.1999999999999,
-              "temperature_2m": 27.861946998092233,
+              "cloud_cover": 56.5,
+              "provider_apparent_temperature": 28.9125,
+              "relative_humidity_2m": 45.875,
+              "shortwave_radiation": 699.2428571428571,
+              "temperature_2m": 27.86111455048624,
               "uv_index": 6.1,
-              "wind_speed_10m": 10.545833333333333
+              "wind_speed_10m": 10.38125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -3361,12 +3361,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.774348072127985,
-            "real_feel": 33.7421194016369,
-            "solar_adjustment": 1.9011999999999998
+            "physical_real_feel": 33.83846084034919,
+            "real_feel": 33.806232169858106,
+            "solar_adjustment": 1.92235
           },
           "target": "2026-08-10T18:00:00+00:00",
-          "temperature_2m": 27.861946998092233,
+          "temperature_2m": 27.86111455048624,
           "v2_uncertainty": 2.103440088929381
         },
         "3": {
@@ -3419,7 +3419,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.0627604166666664,
+          "analog_distance": 1.95078125,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -3465,10 +3465,10 @@
             }
           },
           "components": {
-            "analog": 24.48353887078723,
-            "mos": 23.992692259693207,
-            "observation_nudge": -0.3523067205860086,
-            "v2_consensus": 24.889831411162447
+            "analog": 24.429915915537713,
+            "mos": 23.6693508152762,
+            "observation_nudge": -0.5963627728355307,
+            "v2_consensus": 24.808581411162447
           },
           "forecast_confidence": {
             "historical_cases": 18,
@@ -3488,9 +3488,9 @@
           "mos_samples": 24,
           "mos_training_mae": 0.3117842814147078,
           "precip_calibration_samples": 58,
-          "precipitation_probability": 50.056481481481484,
-          "raw_precipitation_probability": 50.25,
-          "real_feel": 32.7096369637337,
+          "precipitation_probability": 47.88148148148148,
+          "raw_precipitation_probability": 48.0,
+          "real_feel": 32.114327481609564,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3500,13 +3500,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 55.66666666666667,
-              "provider_apparent_temperature": 28.4,
-              "relative_humidity_2m": 81.29166666666667,
-              "shortwave_radiation": 193.11666666666667,
-              "temperature_2m": 24.374671546860217,
+              "cloud_cover": 51.9375,
+              "provider_apparent_temperature": 28.5375,
+              "relative_humidity_2m": 80.4375,
+              "shortwave_radiation": 221.24285714285716,
+              "temperature_2m": 24.07795824475826,
               "uv_index": 3.1,
-              "wind_speed_10m": 5.533333333333333
+              "wind_speed_10m": 5.5
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -3525,12 +3525,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 32.91235084084105,
-            "real_feel": 32.7096369637337,
-            "solar_adjustment": 0.15090833333333337
+            "physical_real_feel": 32.317041358716914,
+            "real_feel": 32.114327481609564,
+            "solar_adjustment": 0.24935000000000007
           },
           "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 24.374671546860217,
+          "temperature_2m": 24.07795824475826,
           "v2_uncertainty": 2.6166676826286426
         },
         "48": {
@@ -3593,7 +3593,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -4.582558380190646e-06,
+            "observation_nudge": -7.75706809607686e-06,
             "v2_consensus": 22.352461256223183
           },
           "forecast_confidence": {
@@ -3614,9 +3614,9 @@
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 53.5,
-          "raw_precipitation_probability": 53.5,
-          "real_feel": 29.98165583278772,
+          "precipitation_probability": 54.0,
+          "raw_precipitation_probability": 54.0,
+          "real_feel": 30.08171040341337,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3626,13 +3626,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 74.42857142857143,
-              "provider_apparent_temperature": 24.775,
-              "relative_humidity_2m": 80.125,
-              "shortwave_radiation": 450.46000000000004,
-              "temperature_2m": 22.352458277560235,
+              "cloud_cover": 69.875,
+              "provider_apparent_temperature": 24.7625,
+              "relative_humidity_2m": 79.9375,
+              "shortwave_radiation": 487.3,
+              "temperature_2m": 22.35245621412892,
               "uv_index": 3.5,
-              "wind_speed_10m": 7.6125
+              "wind_speed_10m": 7.51875
             },
             "local_correction": {
               "calibration_population": "none",
@@ -3643,12 +3643,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.98165583278772,
-            "real_feel": 29.98165583278772,
-            "solar_adjustment": 1.0516100000000002
+            "physical_real_feel": 30.08171040341337,
+            "real_feel": 30.08171040341337,
+            "solar_adjustment": 1.18055
           },
           "target": "2026-08-11T18:00:00+00:00",
-          "temperature_2m": 22.352458277560235,
+          "temperature_2m": 22.35245621412892,
           "v2_uncertainty": 3.04364632469686
         },
         "6": {
@@ -3700,7 +3700,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.8056919642857143,
+          "analog_distance": 1.837313988095238,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -3746,9 +3746,9 @@
             }
           },
           "components": {
-            "analog": 21.926224917288067,
-            "mos": 21.193774835894942,
-            "observation_nudge": -0.16641791111070475,
+            "analog": 21.950587127899162,
+            "mos": 21.117976476625174,
+            "observation_nudge": -0.2817018271873925,
             "v2_consensus": 21.57154549909312
           },
           "forecast_confidence": {
@@ -3769,9 +3769,9 @@
           "mos_samples": 22,
           "mos_training_mae": 0.3315983243783883,
           "precip_calibration_samples": 27,
-          "precipitation_probability": 54.16481481481482,
-          "raw_precipitation_probability": 54.5,
-          "real_feel": 29.128962379773526,
+          "precipitation_probability": 45.62592592592593,
+          "raw_precipitation_probability": 45.666666666666664,
+          "real_feel": 28.89687022556624,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3781,13 +3781,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 67.66666666666667,
-              "provider_apparent_temperature": 25.395833333333332,
-              "relative_humidity_2m": 93.45833333333333,
-              "shortwave_radiation": 4.783333333333333,
-              "temperature_2m": 21.45024365649029,
+              "cloud_cover": 64.6875,
+              "provider_apparent_temperature": 25.45,
+              "relative_humidity_2m": 92.9375,
+              "shortwave_radiation": 6.1000000000000005,
+              "temperature_2m": 21.365035472874233,
               "uv_index": 0.05,
-              "wind_speed_10m": 5.579166666666667
+              "wind_speed_10m": 5.5625
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -3806,12 +3806,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.312466598915307,
-            "real_feel": 29.128962379773526,
+            "physical_real_feel": 29.08037444470802,
+            "real_feel": 28.89687022556624,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T00:00:00+00:00",
-          "temperature_2m": 21.45024365649029,
+          "temperature_2m": 21.365035472874233,
           "v2_uncertainty": 1.562723918029089
         },
         "72": {
@@ -3874,7 +3874,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.1359026559598227e-08,
+            "observation_nudge": -1.9227849427699685e-08,
             "v2_consensus": 24.776926109784725
           },
           "forecast_confidence": {
@@ -3895,9 +3895,9 @@
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 29.75,
-          "raw_precipitation_probability": 29.75,
-          "real_feel": 30.45797807252251,
+          "precipitation_probability": 39.666666666666664,
+          "raw_precipitation_probability": 39.666666666666664,
+          "real_feel": 30.336757000966564,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -3907,13 +3907,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 39.285714285714285,
-              "provider_apparent_temperature": 25.6375,
-              "relative_humidity_2m": 50.625,
-              "shortwave_radiation": 837.64,
-              "temperature_2m": 24.776926102401358,
+              "cloud_cover": 39.0,
+              "provider_apparent_temperature": 25.7,
+              "relative_humidity_2m": 50.3125,
+              "shortwave_radiation": 818.7833333333333,
+              "temperature_2m": 24.776926097286623,
               "uv_index": 1.2,
-              "wind_speed_10m": 11.6125
+              "wind_speed_10m": 11.375
             },
             "local_correction": {
               "calibration_population": "none",
@@ -3924,12 +3924,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.45797807252251,
-            "real_feel": 30.45797807252251,
-            "solar_adjustment": 2.40674
+            "physical_real_feel": 30.336757000966564,
+            "real_feel": 30.336757000966564,
+            "solar_adjustment": 2.3407416666666667
           },
           "target": "2026-08-12T18:00:00+00:00",
-          "temperature_2m": 24.776926102401358,
+          "temperature_2m": 24.776926097286623,
           "v2_uncertainty": 2.071061106299523
         }
       },
@@ -3937,9 +3937,9 @@
         "name": "mixed",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.900000000000091,
-        "relative_humidity": 82.0,
+        "relative_humidity": 80.0,
         "wind_direction": 294.0,
-        "wind_speed": 14.799999999999999
+        "wind_speed": 14.4
       }
     },
     "shediac": {
@@ -4003,7 +4003,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.093452380952381,
+          "analog_distance": 1.2348958333333333,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -4052,10 +4052,10 @@
             }
           },
           "components": {
-            "analog": 25.286838818592035,
-            "mos": 25.370650988749432,
-            "observation_nudge": 0.7621121948627313,
-            "v2_consensus": 24.884885726294726
+            "analog": 25.692588747112847,
+            "mos": 25.85072270669478,
+            "observation_nudge": 0.13629013703749918,
+            "v2_consensus": 24.584885726294726
           },
           "forecast_confidence": {
             "historical_cases": 15,
@@ -4075,9 +4075,9 @@
           "mos_samples": 17,
           "mos_training_mae": 0.3785704246111872,
           "precip_calibration_samples": 46,
-          "precipitation_probability": 61.711111111111116,
-          "raw_precipitation_probability": 62.0,
-          "real_feel": 37.265004704516834,
+          "precipitation_probability": 70.33333333333333,
+          "raw_precipitation_probability": 70.33333333333333,
+          "real_feel": 35.78896738546514,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4089,13 +4089,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 67.35714285714286,
-              "provider_apparent_temperature": 27.452380952380956,
-              "relative_humidity_2m": 84.64285714285714,
-              "shortwave_radiation": 456.4166666666667,
-              "temperature_2m": 25.668750048545423,
+              "cloud_cover": 59.1875,
+              "provider_apparent_temperature": 27.7375,
+              "relative_humidity_2m": 81.6875,
+              "shortwave_radiation": 485.5,
+              "temperature_2m": 25.134106219848235,
               "uv_index": 3.6,
-              "wind_speed_10m": 5.9261904761904765
+              "wind_speed_10m": 6.0375
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -4114,12 +4114,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 36.90347521909629,
-            "real_feel": 37.265004704516834,
-            "solar_adjustment": 1.0724583333333335
+            "physical_real_feel": 35.4274379000446,
+            "real_feel": 35.78896738546514,
+            "solar_adjustment": 1.17425
           },
           "target": "2026-08-09T19:00:00+00:00",
-          "temperature_2m": 25.668750048545423,
+          "temperature_2m": 25.134106219848235,
           "v2_uncertainty": 2.1278653083680013
         },
         "12": {
@@ -4170,7 +4170,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 0.9219742063492068,
+          "analog_distance": 1.0369419642857147,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -4204,9 +4204,9 @@
             }
           },
           "components": {
-            "analog": 20.060778279491643,
-            "mos": 20.143911000038862,
-            "observation_nudge": 0.04872020261712396,
+            "analog": 19.972982741504758,
+            "mos": 20.116162534779505,
+            "observation_nudge": 0.008712736964376402,
             "v2_consensus": 20.09644003348216
           },
           "forecast_confidence": {
@@ -4227,9 +4227,9 @@
           "mos_samples": 14,
           "mos_training_mae": 0.19903965468361662,
           "precip_calibration_samples": 14,
-          "precipitation_probability": 33.800000000000004,
-          "raw_precipitation_probability": 34.5,
-          "real_feel": 27.09437314408559,
+          "precipitation_probability": 36.333333333333336,
+          "raw_precipitation_probability": 36.333333333333336,
+          "real_feel": 27.05875389509987,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4239,13 +4239,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 26.142857142857142,
-              "provider_apparent_temperature": 21.833333333333336,
-              "relative_humidity_2m": 95.21428571428571,
-              "shortwave_radiation": -0.6666666666666666,
-              "temperature_2m": 20.131619715602667,
+              "cloud_cover": 23.375,
+              "provider_apparent_temperature": 21.80625,
+              "relative_humidity_2m": 95.5625,
+              "shortwave_radiation": -0.5714285714285714,
+              "temperature_2m": 20.08565436353858,
               "uv_index": 0.0,
-              "wind_speed_10m": 10.192857142857141
+              "wind_speed_10m": 10.1375
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -4264,12 +4264,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 27.166187574927765,
-            "real_feel": 27.09437314408559,
+            "physical_real_feel": 27.130568325942043,
+            "real_feel": 27.05875389509987,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T06:00:00+00:00",
-          "temperature_2m": 20.131619715602667,
+          "temperature_2m": 20.08565436353858,
           "v2_uncertainty": 1.2458173467164615
         },
         "24": {
@@ -4332,7 +4332,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.0024256360585949346,
+            "observation_nudge": 0.0004337816309166233,
             "v2_consensus": 27.87547000667476
           },
           "forecast_confidence": {
@@ -4353,9 +4353,9 @@
           "mos_samples": 7,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
-          "precipitation_probability": 3.75,
-          "raw_precipitation_probability": 3.75,
-          "real_feel": 34.512578512361195,
+          "precipitation_probability": 3.3333333333333335,
+          "raw_precipitation_probability": 3.3333333333333335,
+          "real_feel": 34.12594521835264,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4365,13 +4365,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 55.42857142857143,
-              "provider_apparent_temperature": 28.704761904761906,
-              "relative_humidity_2m": 48.547619047619044,
-              "shortwave_radiation": 715.9,
-              "temperature_2m": 27.877046670112847,
+              "cloud_cover": 50.0,
+              "provider_apparent_temperature": 28.9625,
+              "relative_humidity_2m": 46.5625,
+              "shortwave_radiation": 726.7714285714285,
+              "temperature_2m": 27.875751964734857,
               "uv_index": 6.35,
-              "wind_speed_10m": 8.966666666666667
+              "wind_speed_10m": 9.11875
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -4390,12 +4390,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.49066000717424,
-            "real_feel": 34.512578512361195,
-            "solar_adjustment": 1.98065
+            "physical_real_feel": 34.10402671316569,
+            "real_feel": 34.12594521835264,
+            "solar_adjustment": 2.0187
           },
           "target": "2026-08-10T18:00:00+00:00",
-          "temperature_2m": 27.877046670112847,
+          "temperature_2m": 27.875751964734857,
           "v2_uncertainty": 2.0209235680940627
         },
         "3": {
@@ -4448,7 +4448,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 0.9708333333333333,
+          "analog_distance": 1.0625,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -4494,10 +4494,10 @@
             }
           },
           "components": {
-            "analog": 24.537900370494903,
-            "mos": 24.145763573647166,
-            "observation_nudge": 0.4622444123251354,
-            "v2_consensus": 24.543270469359157
+            "analog": 25.012119722058788,
+            "mos": 24.70635621198613,
+            "observation_nudge": 0.08266414672967959,
+            "v2_consensus": 24.462020469359157
           },
           "forecast_confidence": {
             "historical_cases": 18,
@@ -4517,9 +4517,9 @@
           "mos_samples": 24,
           "mos_training_mae": 0.4203801093741286,
           "precip_calibration_samples": 56,
-          "precipitation_probability": 65.5,
-          "raw_precipitation_probability": 65.5,
-          "real_feel": 35.128135128990785,
+          "precipitation_probability": 70.0,
+          "raw_precipitation_probability": 70.0,
+          "real_feel": 34.50949106820433,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4529,13 +4529,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 66.35714285714286,
-              "provider_apparent_temperature": 26.849999999999998,
-              "relative_humidity_2m": 86.61904761904762,
-              "shortwave_radiation": 281.75,
-              "temperature_2m": 24.742661560757444,
+              "cloud_cover": 58.4375,
+              "provider_apparent_temperature": 27.125,
+              "relative_humidity_2m": 83.6875,
+              "shortwave_radiation": 298.64285714285717,
+              "temperature_2m": 24.66189767901367,
               "uv_index": 3.1,
-              "wind_speed_10m": 5.521428571428571
+              "wind_speed_10m": 5.4125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -4554,12 +4554,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.86033857959938,
-            "real_feel": 35.128135128990785,
-            "solar_adjustment": 0.461125
+            "physical_real_feel": 34.24169451881293,
+            "real_feel": 34.50949106820433,
+            "solar_adjustment": 0.5202500000000001
           },
           "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 24.742661560757444,
+          "temperature_2m": 24.66189767901367,
           "v2_uncertainty": 2.063681399478638
         },
         "48": {
@@ -4622,7 +4622,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 6.012550660042601e-06,
+            "observation_nudge": 1.0752371618324628e-06,
             "v2_consensus": 22.04194334056991
           },
           "forecast_confidence": {
@@ -4643,9 +4643,9 @@
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 60.5,
-          "raw_precipitation_probability": 60.5,
-          "real_feel": 29.5993202498562,
+          "precipitation_probability": 61.666666666666664,
+          "raw_precipitation_probability": 61.666666666666664,
+          "real_feel": 29.42955535955153,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4655,13 +4655,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 70.64285714285714,
-              "provider_apparent_temperature": 23.685714285714287,
-              "relative_humidity_2m": 80.5,
-              "shortwave_radiation": 479.78000000000003,
-              "temperature_2m": 22.04194724872784,
+              "cloud_cover": 62.4375,
+              "provider_apparent_temperature": 24.0375,
+              "relative_humidity_2m": 79.0625,
+              "shortwave_radiation": 493.31666666666666,
+              "temperature_2m": 22.041944039474068,
               "uv_index": 6.3,
-              "wind_speed_10m": 8.807142857142857
+              "wind_speed_10m": 8.56875
             },
             "local_correction": {
               "calibration_population": "none",
@@ -4672,12 +4672,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.5993202498562,
-            "real_feel": 29.5993202498562,
-            "solar_adjustment": 1.15423
+            "physical_real_feel": 29.42955535955153,
+            "real_feel": 29.42955535955153,
+            "solar_adjustment": 1.2016083333333334
           },
           "target": "2026-08-11T18:00:00+00:00",
-          "temperature_2m": 22.04194724872784,
+          "temperature_2m": 22.041944039474068,
           "v2_uncertainty": 3.4400716245798604
         },
         "6": {
@@ -4729,7 +4729,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.4299107142857146,
+          "analog_distance": 1.5574776785714288,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -4775,9 +4775,9 @@
             }
           },
           "components": {
-            "analog": 21.48323551935639,
-            "mos": 21.661161848471448,
-            "observation_nudge": 0.21834879957382042,
+            "analog": 21.413534550449782,
+            "mos": 21.54845553562861,
+            "observation_nudge": 0.03904777802597617,
             "v2_consensus": 21.13124788384528
           },
           "forecast_confidence": {
@@ -4798,9 +4798,9 @@
           "mos_samples": 22,
           "mos_training_mae": 0.357606816830635,
           "precip_calibration_samples": 26,
-          "precipitation_probability": 53.43981481481482,
-          "raw_precipitation_probability": 53.75,
-          "real_feel": 29.519606716453648,
+          "precipitation_probability": 52.39259259259259,
+          "raw_precipitation_probability": 52.666666666666664,
+          "real_feel": 29.279908966706575,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4810,13 +4810,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 81.64285714285714,
-              "provider_apparent_temperature": 24.533333333333335,
-              "relative_humidity_2m": 94.57142857142857,
-              "shortwave_radiation": 6.833333333333333,
-              "temperature_2m": 21.429831891106062,
+              "cloud_cover": 80.8125,
+              "provider_apparent_temperature": 24.45625,
+              "relative_humidity_2m": 94.8125,
+              "shortwave_radiation": 7.857142857142857,
+              "temperature_2m": 21.280814903544737,
               "uv_index": 0.05,
-              "wind_speed_10m": 5.273809523809524
+              "wind_speed_10m": 5.1375
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -4835,12 +4835,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.437572453149183,
-            "real_feel": 29.519606716453648,
+            "physical_real_feel": 29.19787470340211,
+            "real_feel": 29.279908966706575,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T00:00:00+00:00",
-          "temperature_2m": 21.429831891106062,
+          "temperature_2m": 21.280814903544737,
           "v2_uncertainty": 1.1675841390952058
         },
         "72": {
@@ -4903,7 +4903,7 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 1.4903623035897347e-08,
+            "observation_nudge": 2.665246455324775e-09,
             "v2_consensus": 24.60797237998676
           },
           "forecast_confidence": {
@@ -4924,9 +4924,9 @@
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 7.75,
-          "raw_precipitation_probability": 7.75,
-          "real_feel": 30.36178688954474,
+          "precipitation_probability": 8.666666666666666,
+          "raw_precipitation_probability": 8.666666666666666,
+          "real_feel": 30.197874552340632,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -4936,13 +4936,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 53.07142857142857,
-              "provider_apparent_temperature": 25.25,
-              "relative_humidity_2m": 51.42857142857143,
-              "shortwave_radiation": 843.9399999999999,
-              "temperature_2m": 24.607972389674114,
+              "cloud_cover": 51.6875,
+              "provider_apparent_temperature": 25.38125,
+              "relative_humidity_2m": 51.125,
+              "shortwave_radiation": 812.2833333333333,
+              "temperature_2m": 24.60797238171917,
               "uv_index": 1.85,
-              "wind_speed_10m": 11.671428571428573
+              "wind_speed_10m": 11.0125
             },
             "local_correction": {
               "calibration_population": "none",
@@ -4953,12 +4953,12 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.36178688954474,
-            "real_feel": 30.36178688954474,
-            "solar_adjustment": 2.42879
+            "physical_real_feel": 30.197874552340632,
+            "real_feel": 30.197874552340632,
+            "solar_adjustment": 2.3179916666666665
           },
           "target": "2026-08-12T18:00:00+00:00",
-          "temperature_2m": 24.607972389674114,
+          "temperature_2m": 24.60797238171917,
           "v2_uncertainty": 1.5610313130733022
         }
       },
@@ -4966,9 +4966,9 @@
         "name": "offshore",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.5,
-        "relative_humidity": 82.0,
+        "relative_humidity": 80.0,
         "wind_direction": 24.0,
-        "wind_speed": 14.8
+        "wind_speed": 14.4
       }
     },
     "wolfville": {
@@ -5034,7 +5034,7 @@
               "status": "active"
             }
           },
-          "analog_distance": 1.5461805555555561,
+          "analog_distance": 1.5930555555555554,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -5083,10 +5083,10 @@
             }
           },
           "components": {
-            "analog": 25.268566854652466,
-            "mos": 25.13779833472378,
-            "observation_nudge": 0.07729999743987225,
-            "v2_consensus": 25.71074319547497
+            "analog": 25.34154239358573,
+            "mos": 25.214828275489534,
+            "observation_nudge": 0.5462019031026882,
+            "v2_consensus": 26.05690340657745
           },
           "forecast_confidence": {
             "historical_cases": 15,
@@ -5100,15 +5100,15 @@
               "samples": 0
             },
             "tolerance_c": 1.0,
-            "uncertainty_prior": 0.8392751876941138,
+            "uncertainty_prior": 0.8367844018393469,
             "value": 77
           },
           "mos_samples": 17,
           "mos_training_mae": 0.26103999538523165,
           "precip_calibration_samples": 60,
-          "precipitation_probability": 34.97222222222222,
-          "raw_precipitation_probability": 36.25,
-          "real_feel": 35.434081490841464,
+          "precipitation_probability": 35.044444444444444,
+          "raw_precipitation_probability": 36.333333333333336,
+          "real_feel": 36.57789183328975,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5120,13 +5120,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 41.020833333333336,
-              "provider_apparent_temperature": 28.759027777777778,
-              "relative_humidity_2m": 76.50694444444444,
-              "shortwave_radiation": 577.2714285714286,
-              "temperature_2m": 25.592569271148378,
-              "uv_index": 5.95,
-              "wind_speed_10m": 9.889583333333334
+              "cloud_cover": 38.677083333333336,
+              "provider_apparent_temperature": 28.946527777777778,
+              "relative_humidity_2m": 76.64583333333333,
+              "shortwave_radiation": 570.9238095238095,
+              "temperature_2m": 26.202283230532643,
+              "uv_index": 5.925000000000001,
+              "wind_speed_10m": 9.464583333333334
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -5145,13 +5145,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 35.645778629295584,
-            "real_feel": 35.434081490841464,
-            "solar_adjustment": 1.4954500000000002
+            "physical_real_feel": 36.78958897174387,
+            "real_feel": 36.57789183328975,
+            "solar_adjustment": 1.4732333333333332
           },
           "target": "2026-08-09T19:00:00+00:00",
-          "temperature_2m": 25.592569271148378,
-          "v2_uncertainty": 1.676330830745148
+          "temperature_2m": 26.202283230532643,
+          "v2_uncertainty": 1.7095413088087072
         },
         "12": {
           "adaptive_skill": {
@@ -5199,7 +5199,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.0031250000000003,
+          "analog_distance": 2.0701388888888896,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -5233,10 +5233,10 @@
             }
           },
           "components": {
-            "analog": 19.26308932612321,
-            "mos": 19.18085373194686,
-            "observation_nudge": 0.004941623507615004,
-            "v2_consensus": 19.355611777616197
+            "analog": 19.196979042238564,
+            "mos": 19.137130129066662,
+            "observation_nudge": 0.03491751945238819,
+            "v2_consensus": 19.405787743089732
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -5250,7 +5250,7 @@
               "samples": 0
             },
             "tolerance_c": 1.8,
-            "uncertainty_prior": 0.8416860951025094,
+            "uncertainty_prior": 0.8401921657656819,
             "value": 84
           },
           "mos_samples": 12,
@@ -5258,7 +5258,7 @@
           "precip_calibration_samples": 16,
           "precipitation_probability": 3.4499999999999997,
           "raw_precipitation_probability": 4.5,
-          "real_feel": 24.945440702242006,
+          "real_feel": 25.11411797531274,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5268,13 +5268,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 45.395833333333336,
-              "provider_apparent_temperature": 21.43888888888889,
-              "relative_humidity_2m": 93.94444444444444,
-              "shortwave_radiation": -0.38095238095238093,
-              "temperature_2m": 19.309005353836337,
+              "cloud_cover": 46.416666666666664,
+              "provider_apparent_temperature": 21.511111111111113,
+              "relative_humidity_2m": 94.73611111111111,
+              "shortwave_radiation": 0.16666666666666669,
+              "temperature_2m": 19.34092404759991,
               "uv_index": 0.0,
-              "wind_speed_10m": 8.738194444444444
+              "wind_speed_10m": 8.070138888888888
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -5293,13 +5293,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 25.11354593263159,
-            "real_feel": 24.945440702242006,
+            "physical_real_feel": 25.282223205702326,
+            "real_feel": 25.11411797531274,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T06:00:00+00:00",
-          "temperature_2m": 19.309005353836337,
-          "v2_uncertainty": 1.644185398633209
+          "temperature_2m": 19.34092404759991,
+          "v2_uncertainty": 1.6641044564575738
         },
         "24": {
           "adaptive_skill": {
@@ -5361,8 +5361,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.00024602894742187183,
-            "v2_consensus": 27.805811653250906
+            "observation_nudge": 0.0017384409282122702,
+            "v2_consensus": 27.837960167727246
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -5376,15 +5376,15 @@
               "samples": 0
             },
             "tolerance_c": 2.2,
-            "uncertainty_prior": 0.7952113249748528,
-            "value": 80
+            "uncertainty_prior": 0.7906015220461794,
+            "value": 79
           },
           "mos_samples": 5,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
           "precipitation_probability": 100.0,
           "raw_precipitation_probability": 1.0,
-          "real_feel": 34.72834317922325,
+          "real_feel": 34.791622868824746,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5394,13 +5394,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 39.229166666666664,
-              "provider_apparent_temperature": 29.74513888888889,
-              "relative_humidity_2m": 49.22222222222222,
-              "shortwave_radiation": 781.2333333333333,
-              "temperature_2m": 27.80597157206673,
-              "uv_index": 6.15,
-              "wind_speed_10m": 10.884722222222223
+              "cloud_cover": 38.479166666666664,
+              "provider_apparent_temperature": 29.902083333333334,
+              "relative_humidity_2m": 49.30555555555556,
+              "shortwave_radiation": 779.0119047619047,
+              "temperature_2m": 27.839090154330584,
+              "uv_index": 6.2,
+              "wind_speed_10m": 10.56388888888889
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -5419,13 +5419,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.74855595152639,
-            "real_feel": 34.72834317922325,
-            "solar_adjustment": 2.2093166666666666
+            "physical_real_feel": 34.811835641127885,
+            "real_feel": 34.791622868824746,
+            "solar_adjustment": 2.2015416666666665
           },
           "target": "2026-08-10T18:00:00+00:00",
-          "temperature_2m": 27.80597157206673,
-          "v2_uncertainty": 2.0638490003352956
+          "temperature_2m": 27.839090154330584,
+          "v2_uncertainty": 2.1253130393842743
         },
         "3": {
           "adaptive_skill": {
@@ -5477,7 +5477,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.3190972222222221,
+          "analog_distance": 1.3263888888888888,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -5523,10 +5523,10 @@
             }
           },
           "components": {
-            "analog": 25.037771054786923,
-            "mos": 24.216229742295674,
-            "observation_nudge": 0.04688481844299058,
-            "v2_consensus": 25.16830061217991
+            "analog": 25.147432680766986,
+            "mos": 24.385624336733315,
+            "observation_nudge": 0.3312882006251694,
+            "v2_consensus": 25.206774029744807
           },
           "forecast_confidence": {
             "historical_cases": 18,
@@ -5540,15 +5540,15 @@
               "samples": 0
             },
             "tolerance_c": 1.2,
-            "uncertainty_prior": 0.8339841460011679,
+            "uncertainty_prior": 0.8311943463711613,
             "value": 91
           },
           "mos_samples": 24,
           "mos_training_mae": 0.28386952508329966,
           "precip_calibration_samples": 72,
-          "precipitation_probability": 14.918253968253968,
-          "raw_precipitation_probability": 20.5,
-          "real_feel": 33.62710642330057,
+          "precipitation_probability": 15.012698412698413,
+          "raw_precipitation_probability": 20.666666666666668,
+          "real_feel": 34.023190326228104,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5558,13 +5558,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 26.604166666666668,
-              "provider_apparent_temperature": 27.68402777777778,
-              "relative_humidity_2m": 77.56944444444444,
-              "shortwave_radiation": 387.2142857142857,
-              "temperature_2m": 24.94774692149481,
-              "uv_index": 3.15,
-              "wind_speed_10m": 10.059722222222222
+              "cloud_cover": 25.1875,
+              "provider_apparent_temperature": 27.87708333333333,
+              "relative_humidity_2m": 76.98611111111111,
+              "shortwave_radiation": 391.2214285714286,
+              "temperature_2m": 25.213280970871384,
+              "uv_index": 3.125,
+              "wind_speed_10m": 10.006944444444445
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -5583,13 +5583,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.98669601984113,
-            "real_feel": 33.62710642330057,
-            "solar_adjustment": 0.83025
+            "physical_real_feel": 34.38277992276867,
+            "real_feel": 34.023190326228104,
+            "solar_adjustment": 0.8442750000000001
           },
           "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 24.94774692149481,
-          "v2_uncertainty": 1.7468780533177606
+          "temperature_2m": 25.213280970871384,
+          "v2_uncertainty": 1.7840753817178499
         },
         "48": {
           "adaptive_skill": {
@@ -5651,8 +5651,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 6.098447889448978e-07,
-            "v2_consensus": 24.102078691678702
+            "observation_nudge": 4.3091642348120495e-06,
+            "v2_consensus": 24.22790055488798
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -5666,15 +5666,15 @@
               "samples": 0
             },
             "tolerance_c": 2.8,
-            "uncertainty_prior": 0.738866476855393,
+            "uncertainty_prior": 0.7362240282811366,
             "value": 74
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 54.5,
-          "raw_precipitation_probability": 54.5,
-          "real_feel": 32.21115965464553,
+          "precipitation_probability": 55.25,
+          "raw_precipitation_probability": 55.25,
+          "real_feel": 32.58458409565262,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5684,13 +5684,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 74.89583333333333,
-              "provider_apparent_temperature": 25.96875,
-              "relative_humidity_2m": 73.41666666666667,
-              "shortwave_radiation": 522.5166666666667,
-              "temperature_2m": 24.102079088077815,
-              "uv_index": 3.45,
-              "wind_speed_10m": 12.527083333333334
+              "cloud_cover": 73.09375,
+              "provider_apparent_temperature": 26.15625,
+              "relative_humidity_2m": 73.75,
+              "shortwave_radiation": 549.5833333333334,
+              "temperature_2m": 24.227903355844735,
+              "uv_index": 4.225,
+              "wind_speed_10m": 12.027083333333334
             },
             "local_correction": {
               "calibration_population": "none",
@@ -5701,13 +5701,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 32.21115965464553,
-            "real_feel": 32.21115965464553,
-            "solar_adjustment": 1.3038083333333332
+            "physical_real_feel": 32.58458409565262,
+            "real_feel": 32.58458409565262,
+            "solar_adjustment": 1.3985416666666668
           },
           "target": "2026-08-11T18:00:00+00:00",
-          "temperature_2m": 24.102079088077815,
-          "v2_uncertainty": 2.4151136419280927
+          "temperature_2m": 24.227903355844735,
+          "v2_uncertainty": 2.450346289584844
         },
         "6": {
           "adaptive_skill": {
@@ -5757,7 +5757,7 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.295442708333333,
+          "analog_distance": 1.270529513888889,
           "analog_neighbors": 8,
           "component_weighting": {
             "learned_target": {
@@ -5803,10 +5803,10 @@
             }
           },
           "components": {
-            "analog": 21.290142671912704,
-            "mos": 21.45502695577047,
-            "observation_nudge": 0.02214682006380381,
-            "v2_consensus": 21.21583092825278
+            "analog": 21.336947497313,
+            "mos": 21.438612915171845,
+            "observation_nudge": 0.15648946529308494,
+            "v2_consensus": 21.282388541073264
           },
           "forecast_confidence": {
             "historical_cases": 3,
@@ -5820,7 +5820,7 @@
               "samples": 0
             },
             "tolerance_c": 1.5,
-            "uncertainty_prior": 0.7986940898729831,
+            "uncertainty_prior": 0.7989034241027021,
             "value": 85
           },
           "mos_samples": 20,
@@ -5828,7 +5828,7 @@
           "precip_calibration_samples": 36,
           "precipitation_probability": 2.0,
           "raw_precipitation_probability": 3.0,
-          "real_feel": 28.24820994527985,
+          "real_feel": 28.522866251301682,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5838,13 +5838,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 15.479166666666666,
-              "provider_apparent_temperature": 24.20763888888889,
-              "relative_humidity_2m": 89.9375,
-              "shortwave_radiation": 6.761904761904762,
-              "temperature_2m": 21.288720950715707,
+              "cloud_cover": 15.666666666666668,
+              "provider_apparent_temperature": 24.19097222222222,
+              "relative_humidity_2m": 90.15972222222223,
+              "shortwave_radiation": 6.65952380952381,
+              "temperature_2m": 21.423293849422336,
               "uv_index": 0.05,
-              "wind_speed_10m": 7.439583333333333
+              "wind_speed_10m": 7.322916666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
@@ -5863,13 +5863,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 28.507052434557096,
-            "real_feel": 28.24820994527985,
+            "physical_real_feel": 28.781708740578928,
+            "real_feel": 28.522866251301682,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T00:00:00+00:00",
-          "temperature_2m": 21.288720950715707,
-          "v2_uncertainty": 2.2174121350268914
+          "temperature_2m": 21.423293849422336,
+          "v2_uncertainty": 2.2146210119639713
         },
         "72": {
           "adaptive_skill": {
@@ -5931,8 +5931,8 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 1.5116540980258014e-09,
-            "v2_consensus": 24.32045089035428
+            "observation_nudge": 1.068135022665319e-08,
+            "v2_consensus": 24.46813236290846
           },
           "forecast_confidence": {
             "historical_cases": 0,
@@ -5946,15 +5946,15 @@
               "samples": 0
             },
             "tolerance_c": 3.2,
-            "uncertainty_prior": 0.7439042527916095,
-            "value": 74
+            "uncertainty_prior": 0.7498450644085652,
+            "value": 75
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 25.5,
           "raw_precipitation_probability": 25.5,
-          "real_feel": 29.714238724922108,
+          "real_feel": 29.92350241937957,
           "real_feel_engine": {
             "available": true,
             "champion_gate": {
@@ -5964,13 +5964,13 @@
               "status": "learning"
             },
             "inputs": {
-              "cloud_cover": 10.458333333333334,
-              "provider_apparent_temperature": 26.02916666666667,
-              "relative_humidity_2m": 49.8125,
-              "shortwave_radiation": 1053.711111111111,
-              "temperature_2m": 24.320450891336854,
+              "cloud_cover": 9.4375,
+              "provider_apparent_temperature": 26.170833333333334,
+              "relative_humidity_2m": 49.729166666666664,
+              "shortwave_radiation": 1052.0916666666667,
+              "temperature_2m": 24.468132369851336,
               "uv_index": 6.65,
-              "wind_speed_10m": 13.945833333333333
+              "wind_speed_10m": 13.716666666666667
             },
             "local_correction": {
               "calibration_population": "none",
@@ -5981,22 +5981,22 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.714238724922108,
-            "real_feel": 29.714238724922108,
+            "physical_real_feel": 29.92350241937957,
+            "real_feel": 29.92350241937957,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T18:00:00+00:00",
-          "temperature_2m": 24.320450891336854,
-          "v2_uncertainty": 1.947943296111873
+          "temperature_2m": 24.468132369851336,
+          "v2_uncertainty": 1.8687324745524643
         }
       },
       "regime": {
         "name": "mixed",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.5999999999996817,
-        "relative_humidity": 76.0,
+        "relative_humidity": 74.0,
         "wind_direction": 289.0,
-        "wind_speed": 8.74195089622281
+        "wind_speed": 8.060239848840427
       }
     }
   },
@@ -6005,17 +6005,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -2.045044345471017,
-          "mean_distance": 1.1137152777777783,
+          "correction": -2.0469883636429413,
+          "mean_distance": 1.1063368055555562,
           "neighbors": 8,
-          "prediction": 23.131344543417875
+          "prediction": 23.157525525245948
         },
         "12": {
           "available": true,
-          "correction": 0.09028228250346668,
-          "mean_distance": 0.9305989583333327,
+          "correction": 0.08884555530192886,
+          "mean_distance": 0.9613281249999992,
           "neighbors": 8,
-          "prediction": 19.613893393614575
+          "prediction": 19.62808166641304
         },
         "24": {
           "available": false,
@@ -6023,10 +6023,10 @@
         },
         "3": {
           "available": true,
-          "correction": -2.0574009846809904,
-          "mean_distance": 1.276171875,
+          "correction": -2.0571334080336627,
+          "mean_distance": 1.2954427083333329,
           "neighbors": 8,
-          "prediction": 23.007182348652343
+          "prediction": 23.018908258633
         },
         "48": {
           "available": false,
@@ -6034,10 +6034,10 @@
         },
         "6": {
           "available": true,
-          "correction": -1.0751035690713608,
-          "mean_distance": 2.0797743055555555,
+          "correction": -1.2441351751283518,
+          "mean_distance": 2.052777777777778,
           "neighbors": 8,
-          "prediction": 21.258924208706418
+          "prediction": 21.13780926931609
         },
         "72": {
           "available": false,
@@ -6113,17 +6113,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -3.3967095829984757,
-          "mean_distance": 1.415104166666667,
+          "correction": -3.395950254457933,
+          "mean_distance": 1.4338541666666669,
           "neighbors": 8,
-          "prediction": 21.865790417001524
+          "prediction": 21.885299745542067
         },
         "12": {
           "available": true,
-          "correction": -1.1313085021737517,
-          "mean_distance": 1.9142857142857146,
+          "correction": -1.1300243800126113,
+          "mean_distance": 1.9120535714285718,
           "neighbors": 8,
-          "prediction": 18.962441497826248
+          "prediction": 18.955392286654057
         },
         "24": {
           "available": false,
@@ -6131,10 +6131,10 @@
         },
         "3": {
           "available": true,
-          "correction": -3.344884362236809,
-          "mean_distance": 1.5893229166666665,
+          "correction": -3.343535799592171,
+          "mean_distance": 1.6164062499999998,
           "neighbors": 8,
-          "prediction": 22.330115637763193
+          "prediction": 22.36479753374116
         },
         "48": {
           "available": false,
@@ -6142,10 +6142,10 @@
         },
         "6": {
           "available": true,
-          "correction": -2.2505576495411233,
-          "mean_distance": 2.2877976190476197,
+          "correction": -2.2602547860372444,
+          "mean_distance": 2.276339285714286,
           "neighbors": 8,
-          "prediction": 20.81819235045888
+          "prediction": 20.831411880629425
         },
         "72": {
           "available": false,
@@ -6221,17 +6221,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.07658290130756915,
-          "mean_distance": 1.5418898809523807,
+          "correction": 0.08604899668295037,
+          "mean_distance": 1.466145833333333,
           "neighbors": 8,
-          "prediction": 25.668249567974236
+          "prediction": 25.74229899668295
         },
         "12": {
           "available": true,
-          "correction": -0.16026852783670043,
-          "mean_distance": 1.0252604166666663,
+          "correction": -0.1614835660636015,
+          "mean_distance": 1.0399925595238095,
           "neighbors": 8,
-          "prediction": 19.88139813882997
+          "prediction": 19.869766433936398
         },
         "24": {
           "available": false,
@@ -6239,10 +6239,10 @@
         },
         "3": {
           "available": true,
-          "correction": -0.27896112921277066,
-          "mean_distance": 2.0627604166666664,
+          "correction": -0.4700840844622876,
+          "mean_distance": 1.95078125,
           "neighbors": 8,
-          "prediction": 24.48353887078723
+          "prediction": 24.429915915537713
         },
         "48": {
           "available": false,
@@ -6250,10 +6250,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.007108416045265307,
-          "mean_distance": 1.8056919642857143,
+          "correction": -0.04941287210083648,
+          "mean_distance": 1.837313988095238,
           "neighbors": 8,
-          "prediction": 21.926224917288067
+          "prediction": 21.950587127899162
         },
         "72": {
           "available": false,
@@ -6329,17 +6329,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 1.508267390020607,
-          "mean_distance": 1.093452380952381,
+          "correction": 1.5300887471128468,
+          "mean_distance": 1.2348958333333333,
           "neighbors": 8,
-          "prediction": 25.286838818592035
+          "prediction": 25.692588747112847
         },
         "12": {
           "available": true,
-          "correction": 0.15363542234878888,
-          "mean_distance": 0.9219742063492068,
+          "correction": 0.10423274150476045,
+          "mean_distance": 1.0369419642857147,
           "neighbors": 8,
-          "prediction": 20.060778279491643
+          "prediction": 19.972982741504758
         },
         "24": {
           "available": false,
@@ -6347,10 +6347,10 @@
         },
         "3": {
           "available": true,
-          "correction": 1.2426622752568088,
-          "mean_distance": 0.9708333333333333,
+          "correction": 1.3246197220587892,
+          "mean_distance": 1.0625,
           "neighbors": 8,
-          "prediction": 24.537900370494903
+          "prediction": 25.012119722058788
         },
         "48": {
           "available": false,
@@ -6358,10 +6358,10 @@
         },
         "6": {
           "available": true,
-          "correction": 0.2403783764992524,
-          "mean_distance": 1.4299107142857146,
+          "correction": 0.2510345504497808,
+          "mean_distance": 1.5574776785714288,
           "neighbors": 8,
-          "prediction": 21.48323551935639
+          "prediction": 21.413534550449782
         },
         "72": {
           "available": false,
@@ -6437,17 +6437,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -0.25643314534753636,
-          "mean_distance": 1.5461805555555561,
+          "correction": -0.26401316196982316,
+          "mean_distance": 1.5930555555555554,
           "neighbors": 8,
-          "prediction": 25.268566854652466
+          "prediction": 25.34154239358573
         },
         "12": {
           "available": true,
-          "correction": -0.27788289609901035,
-          "mean_distance": 2.0031250000000003,
+          "correction": -0.2801042910947687,
+          "mean_distance": 2.0701388888888896,
           "neighbors": 8,
-          "prediction": 19.26308932612321
+          "prediction": 19.196979042238564
         },
         "24": {
           "available": false,
@@ -6455,10 +6455,10 @@
         },
         "3": {
           "available": true,
-          "correction": 0.09332661034248019,
-          "mean_distance": 1.3190972222222221,
+          "correction": 0.04326601410032151,
+          "mean_distance": 1.3263888888888888,
           "neighbors": 8,
-          "prediction": 25.037771054786923
+          "prediction": 25.147432680766986
         },
         "48": {
           "available": false,
@@ -6466,10 +6466,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.2320795503095172,
-          "mean_distance": 1.295442708333333,
+          "correction": -0.1436080582425538,
+          "mean_distance": 1.270529513888889,
           "neighbors": 8,
-          "prediction": 21.290142671912704
+          "prediction": 21.336947497313
         },
         "72": {
           "available": false,
@@ -6666,7 +6666,7 @@
             "samples": 0
           },
           "tolerance_c": 1.0,
-          "uncertainty_prior": 0.8635087506351665,
+          "uncertainty_prior": 0.8659074401983345,
           "value": 50
         },
         "12": {
@@ -6681,8 +6681,8 @@
             "samples": 0
           },
           "tolerance_c": 1.8,
-          "uncertainty_prior": 0.8547672181320528,
-          "value": 85
+          "uncertainty_prior": 0.8393730634949601,
+          "value": 84
         },
         "24": {
           "historical_cases": 0,
@@ -6696,7 +6696,7 @@
             "samples": 0
           },
           "tolerance_c": 2.2,
-          "uncertainty_prior": 0.8229680981740063,
+          "uncertainty_prior": 0.8208541572627731,
           "value": 82
         },
         "3": {
@@ -6711,7 +6711,7 @@
             "samples": 0
           },
           "tolerance_c": 1.2,
-          "uncertainty_prior": 0.8639739618487047,
+          "uncertainty_prior": 0.8557274570377408,
           "value": 84
         },
         "48": {
@@ -6722,12 +6722,12 @@
           "method": "bayesian empirical coverage + prospective reliability calibration",
           "prospective_reliability": {
             "available": false,
-            "bin": "60-69",
+            "bin": "70-79",
             "samples": 0
           },
           "tolerance_c": 2.8,
-          "uncertainty_prior": 0.663118986445024,
-          "value": 66
+          "uncertainty_prior": 0.7375403153053737,
+          "value": 74
         },
         "6": {
           "historical_cases": 3,
@@ -6741,8 +6741,8 @@
             "samples": 0
           },
           "tolerance_c": 1.5,
-          "uncertainty_prior": 0.8433187062069027,
-          "value": 70
+          "uncertainty_prior": 0.8683302362755138,
+          "value": 72
         },
         "72": {
           "historical_cases": 0,
@@ -6756,8 +6756,8 @@
             "samples": 0
           },
           "tolerance_c": 3.2,
-          "uncertainty_prior": 0.7253293162571388,
-          "value": 73
+          "uncertainty_prior": 0.7788382875395075,
+          "value": 78
         }
       },
       "moncton": {
@@ -6987,7 +6987,7 @@
             "samples": 0
           },
           "tolerance_c": 1.0,
-          "uncertainty_prior": 0.8392751876941138,
+          "uncertainty_prior": 0.8367844018393469,
           "value": 77
         },
         "12": {
@@ -7002,7 +7002,7 @@
             "samples": 0
           },
           "tolerance_c": 1.8,
-          "uncertainty_prior": 0.8416860951025094,
+          "uncertainty_prior": 0.8401921657656819,
           "value": 84
         },
         "24": {
@@ -7017,8 +7017,8 @@
             "samples": 0
           },
           "tolerance_c": 2.2,
-          "uncertainty_prior": 0.7952113249748528,
-          "value": 80
+          "uncertainty_prior": 0.7906015220461794,
+          "value": 79
         },
         "3": {
           "historical_cases": 18,
@@ -7032,7 +7032,7 @@
             "samples": 0
           },
           "tolerance_c": 1.2,
-          "uncertainty_prior": 0.8339841460011679,
+          "uncertainty_prior": 0.8311943463711613,
           "value": 91
         },
         "48": {
@@ -7047,7 +7047,7 @@
             "samples": 0
           },
           "tolerance_c": 2.8,
-          "uncertainty_prior": 0.738866476855393,
+          "uncertainty_prior": 0.7362240282811366,
           "value": 74
         },
         "6": {
@@ -7062,7 +7062,7 @@
             "samples": 0
           },
           "tolerance_c": 1.5,
-          "uncertainty_prior": 0.7986940898729831,
+          "uncertainty_prior": 0.7989034241027021,
           "value": 85
         },
         "72": {
@@ -7077,8 +7077,8 @@
             "samples": 0
           },
           "tolerance_c": 3.2,
-          "uncertainty_prior": 0.7439042527916095,
-          "value": 74
+          "uncertainty_prior": 0.7498450644085652,
+          "value": 75
         }
       }
     },
@@ -8098,11 +8098,11 @@
       "gust_station_count": 8,
       "method": "ECCC SWOB real-time mesh; distance + recency weighted; 10m wind in km/h; observed global solar normalized to W/m\u00b2",
       "solar_station_count": 0,
-      "station": "HALIFAX DOCKYARD / HALIFAX WINDSOR PARK / SHEARWATER RCS",
+      "station": "HALIFAX DOCKYARD / SHEARWATER RCS / HALIFAX WINDSOR PARK",
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 0.7309203086771027,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8116,7 +8116,7 @@
           "station": "HALIFAX DOCKYARD",
           "temperature_2m": 22.9,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.8540033619952359,
+          "weight": 0.8103062384262701,
           "wind_direction_10m": 174.0,
           "wind_gusts_10m": 18.6,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8124,7 +8124,29 @@
           "wind_speed_10m": 13.6
         },
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.01375548138888889,
+          "distance_km": 4.981788023468788,
+          "gust_source_field": "max_wnd_spd_10m_pst10mts",
+          "gust_source_uom": "km/h",
+          "lat": 44.63592,
+          "lon": -63.51489,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 86.0,
+          "shortwave_radiation": null,
+          "solar_source_field": null,
+          "solar_source_uom": null,
+          "station": "SHEARWATER RCS",
+          "temperature_2m": 24.1,
+          "time": "2026-08-09T18:24:00+00:00",
+          "weight": 0.7285201887187763,
+          "wind_direction_10m": 156.0,
+          "wind_gusts_10m": 12.8,
+          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
+          "wind_source_uom": "km/h",
+          "wind_speed_10m": 6.8
+        },
+        {
+          "age_hours": 0.4137554813888889,
           "distance_km": 2.750507296327102,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8138,7 +8160,7 @@
           "station": "HALIFAX WINDSOR PARK",
           "temperature_2m": 24.3,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.7567913843012392,
+          "weight": 0.7180683439627582,
           "wind_direction_10m": 133.0,
           "wind_gusts_10m": 12.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8146,29 +8168,7 @@
           "wind_speed_10m": 4.8
         },
         {
-          "age_hours": 0.014871807222222222,
-          "distance_km": 4.981788023468788,
-          "gust_source_field": "max_wnd_spd_10m_pst10mts",
-          "gust_source_uom": "km/h",
-          "lat": 44.63592,
-          "lon": -63.51489,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 88.0,
-          "shortwave_radiation": null,
-          "solar_source_field": null,
-          "solar_source_uom": null,
-          "station": "SHEARWATER RCS",
-          "temperature_2m": 23.9,
-          "time": "2026-08-09T18:17:00+00:00",
-          "weight": 0.7281506161698516,
-          "wind_direction_10m": 153.0,
-          "wind_gusts_10m": 12.8,
-          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
-          "wind_source_uom": "km/h",
-          "wind_speed_10m": 6.8
-        },
-        {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 4.8239568149733305,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8182,7 +8182,7 @@
           "station": "SHEARWATER JETTY",
           "temperature_2m": 22.9,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.6480502620742459,
+          "weight": 0.614891221207476,
           "wind_direction_10m": 184.0,
           "wind_gusts_10m": 16.2,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8190,7 +8190,7 @@
           "wind_speed_10m": 12.5
         },
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 6.150292404980393,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8204,7 +8204,7 @@
           "station": "MCNABS ISLAND (AUT)",
           "temperature_2m": 21.3,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.5844197639855282,
+          "weight": 0.554516529666453,
           "wind_direction_10m": 145.0,
           "wind_gusts_10m": 21.8,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8212,7 +8212,7 @@
           "wind_speed_10m": 19.6
         },
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 7.074672516237647,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8226,7 +8226,7 @@
           "station": "HALIFAX KOOTENAY",
           "temperature_2m": 22.5,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.5439225944042687,
+          "weight": 0.5160914945780266,
           "wind_direction_10m": 146.0,
           "wind_gusts_10m": 12.3,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8234,7 +8234,7 @@
           "wind_speed_10m": 8.0
         },
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 7.857396549617851,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8248,7 +8248,7 @@
           "station": "BEDFORD BASIN",
           "temperature_2m": 24.5,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.5121798026500705,
+          "weight": 0.4859728986472107,
           "wind_direction_10m": 135.0,
           "wind_gusts_10m": 12.3,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8256,7 +8256,7 @@
           "wind_speed_10m": 9.8
         },
         {
-          "age_hours": 0.2982051405555556,
+          "age_hours": 0.4137554813888889,
           "distance_km": 12.685297541909069,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8270,7 +8270,7 @@
           "station": "BEDFORD RANGE",
           "temperature_2m": 25.8,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.362062521873828,
+          "weight": 0.3435367274073417,
           "wind_direction_10m": 57.0,
           "wind_gusts_10m": 6.1,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8278,16 +8278,16 @@
           "wind_speed_10m": 3.1
         }
       ],
-      "temp": 23.401943397520952,
-      "time": "2026-08-09T18:17:00+00:00",
+      "temp": 23.43640437899273,
+      "time": "2026-08-09T18:24:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 85.72461437053883,
+        "relative_humidity_2m": 85.43721876752358,
         "shortwave_radiation": null,
-        "temperature_2m": 23.401943397520952,
-        "wind_direction_10m": 149.26008990515405,
-        "wind_gusts_10m": 14.6357819803016,
-        "wind_speed_10m": 10.070358176563897
+        "temperature_2m": 23.43640437899273,
+        "wind_direction_10m": 149.81436531572237,
+        "wind_gusts_10m": 14.621306578057284,
+        "wind_speed_10m": 10.044570936795388
       },
       "wind_station_count": 8
     },
@@ -8301,7 +8301,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.29971788194444443,
+          "age_hours": 0.41522588277777783,
           "distance_km": 2.194888387888291,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -8315,7 +8315,7 @@
           "station": "LUNENBURG",
           "temperature_2m": 22.3,
           "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.7855016824746234,
+          "weight": 0.7453239550564724,
           "wind_direction_10m": 124.0,
           "wind_gusts_10m": 19.5,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8323,13 +8323,13 @@
           "wind_speed_10m": 17.8
         }
       ],
-      "temp": 22.3,
+      "temp": 22.300000000000004,
       "time": "2026-08-09T18:00:00+00:00",
       "values": {
         "precipitation": null,
         "relative_humidity_2m": 91.0,
         "shortwave_radiation": null,
-        "temperature_2m": 22.3,
+        "temperature_2m": 22.300000000000004,
         "wind_direction_10m": 124.0,
         "wind_gusts_10m": 19.5,
         "wind_speed_10m": 17.8
@@ -8346,38 +8346,38 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.2985515127777778,
+          "age_hours": 0.08073572583333334,
           "distance_km": 8.29891547501511,
           "gust_source_field": null,
           "gust_source_uom": null,
           "lat": 46.1161,
           "lon": -64.6786,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 82.0,
+          "precipitation": null,
+          "relative_humidity_2m": 80.0,
           "shortwave_radiation": null,
           "solar_source_field": null,
           "solar_source_uom": null,
           "station": "Moncton/Greater Moncton Romeo Le",
-          "temperature_2m": 24.8,
-          "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.4952075311459032,
-          "wind_direction_10m": 60.0,
+          "temperature_2m": 24.3,
+          "time": "2026-08-09T18:20:00+00:00",
+          "weight": 0.5467458697967211,
+          "wind_direction_10m": 144.0,
           "wind_gusts_10m": null,
-          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
+          "wind_source_field": "avg_wnd_spd_10m_pst2mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 14.8
+          "wind_speed_10m": 14.4
         }
       ],
-      "temp": 24.799999999999997,
-      "time": "2026-08-09T18:00:00+00:00",
+      "temp": 24.3,
+      "time": "2026-08-09T18:20:00+00:00",
       "values": {
-        "precipitation": 0.0,
-        "relative_humidity_2m": 82.0,
+        "precipitation": null,
+        "relative_humidity_2m": 80.0,
         "shortwave_radiation": null,
-        "temperature_2m": 24.799999999999997,
-        "wind_direction_10m": 59.99999999999999,
+        "temperature_2m": 24.3,
+        "wind_direction_10m": 144.0,
         "wind_gusts_10m": null,
-        "wind_speed_10m": 14.799999999999999
+        "wind_speed_10m": 14.4
       },
       "wind_station_count": 1
     },
@@ -8391,38 +8391,38 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.29935752388888887,
+          "age_hours": 0.08155037305555556,
           "distance_km": 15.6550109182535,
           "gust_source_field": null,
           "gust_source_uom": null,
           "lat": 46.1161,
           "lon": -64.6786,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 82.0,
+          "precipitation": null,
+          "relative_humidity_2m": 80.0,
           "shortwave_radiation": null,
           "solar_source_field": null,
           "solar_source_uom": null,
           "station": "Moncton/Greater Moncton Romeo Le",
-          "temperature_2m": 24.8,
-          "time": "2026-08-09T18:00:00+00:00",
-          "weight": 0.2993743911332329,
-          "wind_direction_10m": 60.0,
+          "temperature_2m": 24.3,
+          "time": "2026-08-09T18:20:00+00:00",
+          "weight": 0.3305302505479309,
+          "wind_direction_10m": 144.0,
           "wind_gusts_10m": null,
-          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
+          "wind_source_field": "avg_wnd_spd_10m_pst2mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 14.8
+          "wind_speed_10m": 14.4
         }
       ],
-      "temp": 24.8,
-      "time": "2026-08-09T18:00:00+00:00",
+      "temp": 24.300000000000004,
+      "time": "2026-08-09T18:20:00+00:00",
       "values": {
-        "precipitation": 0.0,
-        "relative_humidity_2m": 82.0,
+        "precipitation": null,
+        "relative_humidity_2m": 80.0,
         "shortwave_radiation": null,
-        "temperature_2m": 24.8,
-        "wind_direction_10m": 59.99999999999999,
+        "temperature_2m": 24.300000000000004,
+        "wind_direction_10m": 144.0,
         "wind_gusts_10m": null,
-        "wind_speed_10m": 14.8
+        "wind_speed_10m": 14.4
       },
       "wind_station_count": 1
     },
@@ -8436,29 +8436,29 @@
       "station_count": 2,
       "stations": [
         {
-          "age_hours": 0.016848460555555556,
+          "age_hours": 0.015593754444444444,
           "distance_km": 3.3534283259845368,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 76.0,
-          "shortwave_radiation": 358.0,
+          "relative_humidity_2m": 74.0,
+          "shortwave_radiation": 622.0,
           "solar_source_field": "avg_globl_solr_radn_pst1hr",
           "solar_source_uom": "W/m\u00b2",
           "station": "KENTVILLE CDA",
-          "temperature_2m": 25.4,
-          "time": "2026-08-09T18:17:00+00:00",
-          "weight": 0.8234780634657884,
-          "wind_direction_10m": 288.0,
-          "wind_gusts_10m": 13.8,
+          "temperature_2m": 26.4,
+          "time": "2026-08-09T18:24:00+00:00",
+          "weight": 0.8239478442153207,
+          "wind_direction_10m": 279.0,
+          "wind_gusts_10m": 12.3,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 8.4
+          "wind_speed_10m": 7.4
         },
         {
-          "age_hours": 0.17740401611111112,
+          "age_hours": 0.29281597666666664,
           "distance_km": 11.05056600786515,
           "gust_source_field": "max_wnd_spd_10m_pst1hr",
           "gust_source_uom": "km/h",
@@ -8472,7 +8472,7 @@
           "station": "South Alton",
           "temperature_2m": 26.2,
           "time": "2026-08-09T18:07:22+00:00",
-          "weight": 0.4279149689675651,
+          "weight": 0.4060452161129583,
           "wind_direction_10m": 278.0,
           "wind_gusts_10m": 18.0,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -8480,16 +8480,16 @@
           "wind_speed_10m": 9.4
         }
       ],
-      "temp": 25.673560716978248,
-      "time": "2026-08-09T18:17:00+00:00",
+      "temp": 26.333976015115955,
+      "time": "2026-08-09T18:24:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 76.0,
-        "shortwave_radiation": 358.0,
-        "temperature_2m": 25.673560716978248,
-        "wind_direction_10m": 284.5841115791716,
-        "wind_gusts_10m": 15.236193764135804,
-        "wind_speed_10m": 8.74195089622281
+        "relative_humidity_2m": 74.0,
+        "shortwave_radiation": 622.0,
+        "temperature_2m": 26.333976015115955,
+        "wind_direction_10m": 278.6698838902382,
+        "wind_gusts_10m": 14.181683569195213,
+        "wind_speed_10m": 8.060239848840427
       },
       "wind_station_count": 2
     }
@@ -9591,7 +9591,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 8,
+      "deterministic_models": 5,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_stations": 1,
@@ -9627,7 +9627,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 13,
+      "deterministic_models": 10,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_stations": 2,
@@ -9636,7 +9636,7 @@
       "rdpa": true
     }
   },
-  "updated_at": "2026-08-09T18:19:54.163659+00:00",
+  "updated_at": "2026-08-09T18:27:12.811114+00:00",
   "verification": {
     "adaptive_layers": [
       "mos",
