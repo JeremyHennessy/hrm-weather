@@ -98,10 +98,12 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q 'weather-consensus-v59' sw.js
+          grep -q 'weather-consensus-v60' sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'width:106px' forecast-insights.js
           grep -q 'placeConfidence' forecast-insights.js
+          grep -q 'position:relative!important' uv-guidance.js
+          grep -q 'UV guidance overlaps hero metrics' scripts/layout-qa.mjs
           grep -q 'engine3-calibrated' forecast-ui-guard.js
           grep -q 'data/engine-v3.json' startup-fallback.js
           grep -q 'install_engine31' scripts/collect.py
