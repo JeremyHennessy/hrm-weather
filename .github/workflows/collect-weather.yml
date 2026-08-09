@@ -12,6 +12,7 @@ on:
       - 'scripts/accuracy_engine_v3_verify.py'
       - 'scripts/accuracy_engine_v3_walkforward.py'
       - 'scripts/precipitation_walkforward.py'
+      - 'scripts/forecast_confidence_engine.py'
       - 'scripts/accuracy_engine_v3_publish.py'
       - 'scripts/engine3_champion_gate.py'
       - 'scripts/engine3_weighting.py'
@@ -42,7 +43,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/precipitation_walkforward.py scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/precipitation_walkforward.py scripts/forecast_confidence_engine.py scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -65,9 +66,11 @@ jobs:
 
           assert v2.get('version') == '2.0', 'wrong V2 version'
           assert v3.get('version') == '3.0', 'wrong V3 version'
-          assert shadow.get('version') == '1.1', 'wrong V3 prospective verification version'
+          assert shadow.get('version') == '1.2', 'wrong V3 prospective verification version'
           if 'real_feel_scores' not in shadow:
               raise SystemExit('prospective Real Feel score store missing')
+          if 'confidence_scores' not in shadow:
+              raise SystemExit('prospective confidence score store missing')
           if not any((r.get('real_feel_candidates') or {}).get('calibrated') is not None for r in shadow.get('forecasts', [])):
               raise SystemExit('issue-time Real Feel candidates were not stored')
           a2=v2.get('architecture') or {}
@@ -99,6 +102,11 @@ jobs:
               raise SystemExit('precipitation walk-forward leakage guard missing')
           if pwalk.get('evaluated_targets',0) < 1:
               raise SystemExit('precipitation walk-forward produced no held-out targets')
+          confidence=v3.get('forecast_confidence') or {}
+          if confidence.get('owner') != 'accuracy-engine-3':
+              raise SystemExit('Engine 3 does not own Forecast Confidence')
+          if confidence.get('version') != '2.0':
+              raise SystemExit('empirical Forecast Confidence version missing')
           real=v3.get('real_feel') or {}
           if real.get('forecast_points_ready',0) < len(v3.get('consensus') or {}):
               raise SystemExit('locally calibrated Real Feel did not publish enough forecast points')
@@ -126,6 +134,9 @@ jobs:
                   raise SystemExit(f'{name}: missing V3 +1h temperature')
               if not isinstance(h1.get('real_feel'), (int,float)):
                   raise SystemExit(f'{name}: missing calibrated V3 +1h Real Feel')
+              fc=h1.get('forecast_confidence') or {}
+              if not isinstance(fc.get('value'), (int,float)) or not (50 <= fc.get('value') <= 96):
+                  raise SystemExit(f'{name}: invalid empirical Forecast Confidence')
               rf=h1.get('real_feel_engine') or {}
               if rf.get('method') != 'physics-plus-local-verified-residual':
                   raise SystemExit(f'{name}: Real Feel engine metadata missing')
@@ -143,7 +154,7 @@ jobs:
           for name,h in health.items():
               if h.get('deterministic_models',0) < 3:
                   raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
-          print('Accuracy Engines 2.0 + 3.0 + temperature/precip walk-forward + prospective Real Feel validation passed')
+          print('Accuracy Engines 2.0 + 3.0 + empirical Forecast Confidence + walk-forward validation passed')
           PY
       - name: Commit updated skill data
         run: |
