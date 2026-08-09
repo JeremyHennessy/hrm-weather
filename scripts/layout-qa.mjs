@@ -70,7 +70,7 @@ async function inspect(device){
       if(el.scrollWidth>el.clientWidth+3&&s.whiteSpace!=='nowrap')clipped.push(`${el.className||el.id||el.tagName}:${el.scrollWidth}>${el.clientWidth}`);
     }
     if(clipped.length)issues.push(`text clipping ${clipped.slice(0,8).join(', ')}`);
-    const routine=[...document.querySelectorAll('.routineGrid>.routineCard')].filter(visible).map(r);for(let i=0;i<routine.length;i++)for(let j=i+1;j++)if(intersects(routine[i],routine[j],2))issues.push(`routine cards overlap ${i}/${j}`);
+    const routine=[...document.querySelectorAll('.routineGrid>.routineCard')].filter(visible).map(r);for(let i=0;i<routine.length;i++)for(let j=i+1;j<routine.length;j++)if(intersects(routine[i],routine[j],2))issues.push(`routine cards overlap ${i}/${j}`);
     return{name,width,height,innerWidth,scrollWidth:Math.max(html.scrollWidth,body.scrollWidth),app:r(app),hero,summary,orb,place,icon,uv,metrics,issues};
   },device);
   await page.screenshot({path:`screenshots/layout-${device.name}-${device.width}x${device.height}.png`,fullPage:true});return result;
