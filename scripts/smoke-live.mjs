@@ -12,7 +12,7 @@ try{
   const resp=await page.goto(url,{waitUntil:'domcontentloaded',timeout:15000});
   if(!resp||!resp.ok())throw new Error(`Live app HTTP ${resp?.status()??'no response'}`);
   await page.waitForSelector('#feels',{timeout:3000});
-  await page.waitForFunction(()=>{const t=document.querySelector('#feels')?.textContent?.trim()||'';return t!==''&&!t.includes('--')},{timeout:12000});
+  await page.waitForFunction(()=>{const t=document.querySelector('#feels')?.textContent?.trim()||'';return t!==''&&!t.includes('--')},null,{timeout:12000});
   const state=await page.evaluate(()=>({
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
