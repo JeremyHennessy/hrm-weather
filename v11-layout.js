@@ -22,9 +22,25 @@
    addBottomNav();
  }
  function activeLocation(){const a=qs('.tab.active');return a?.textContent.replace(/^[^A-Za-z]+/,'').trim()||'Weather Consensus'}
- function syncHeader(){txt(qs('.brand h1'),activeLocation());txt(qs('.brandsub'),'Weather Consensus · Real Feel first')}
+ function syncHeader(){const map={'HRM Core':'Halifax, NS','Moncton':'Moncton, NB','Shediac':'Shediac, NB','Lunenburg':'Lunenburg, NS','Wolfville Area':'Wolfville, NS'};const raw=activeLocation();txt(qs('.brand h1'),map[raw]||raw);txt(qs('.brandsub'),'Weather Consensus · Real Feel first')}
  function syncConfidence(){const orb=qs('.confidenceOrb');if(!orb)return;const u=parseFloat((qs('#uncertainty')?.textContent||'').replace(/[^0-9.]/g,''));const count=all('#models .model').length||parseInt((qs('#modelCount')?.textContent||'').match(/\d+/)?.[0]||'0',10);let score=86;if(Number.isFinite(u)){score=u<=.6?95:u<=1?92:u<=1.5?88:u<=2.2?82:74}txt(qs('strong',orb),`${score}%`);txt(qs('small',orb),count?`agreement across ${count} models`:'model agreement')}
- function normalizeLabels(){all('.hour b').forEach(el=>el.setAttribute('aria-label',`Real Feel ${el.textContent.trim()}`));all('.dayTemps strong').forEach(el=>el.setAttribute('aria-label',`Real Feel maximum ${el.textContent.trim()}`))}
- function refresh(){arrange();syncHeader();syncConfidence();normalizeLabels()}
- window.addEventListener('DOMContentLoaded',()=>{refresh();[250,900,2200,5000].forEach(ms=>setTimeout(refresh,ms));qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,50))});window.addEventListener('load',refresh);
+ function enhanceForecastPanels(){
+   all('.hour').forEach(h=>{const sub=qs('.sub',h);if(sub&&/^air\s/i.test(sub.textContent))sub.textContent=sub.textContent.replace(/^air\s*/i,'Actual ');const b=qs('b',h);if(b)b.setAttribute('aria-label',`Real Feel ${b.textContent.trim()}`)});
+   all('#days .day').forEach(d=>{
+     if(d.classList.contains('v11Day'))return;
+     const name=qs(':scope>b',d)?.textContent?.trim()||'';
+     const main=qs('.dayMain',d)?.textContent||'';
+     const rf=main.match(/feels max\s*(-?\d+(?:\.\d+)?)°/i)?.[1];
+     const rain=main.match(/☂\s*(\d+(?:\.\d+)?)%/)?.[1];
+     const mm=main.match(/·\s*(\d+(?:\.\d+)?)mm/)?.[1];
+     const emoji=main.match(/[☀☁🌤🌥⛅🌦🌧🌨⛈🌫️]+/)?.[0]||'⛅️';
+     const hi=qs('.dayTemps strong',d)?.textContent?.trim()||'--°';
+     const lo=(qs('.dayTemps small',d)?.textContent||'').match(/-?\d+(?:\.\d+)?°/)?.[0]||'--°';
+     if(!rf)return;
+     d.classList.add('v11Day');
+     d.innerHTML=`<small class="v11DayName">${name}</small><div class="v11DayWx">${emoji}</div><strong class="v11DayRF">${rf}°</strong><span class="v11DayRFLabel">Real Feel</span><span class="v11DayActual">Actual ${hi} / ${lo}</span><span class="v11DayRain">☂ ${rain||'--'}%${mm?` · ${mm}mm`:''}</span>`;
+   });
+ }
+ function refresh(){arrange();syncHeader();syncConfidence();enhanceForecastPanels()}
+ window.addEventListener('DOMContentLoaded',()=>{refresh();[250,900,2200,5000,9000].forEach(ms=>setTimeout(refresh,ms));qs('#tabs')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locPrev')?.addEventListener('click',()=>setTimeout(refresh,50));qs('#locNext')?.addEventListener('click',()=>setTimeout(refresh,50))});window.addEventListener('load',refresh);
 })();
