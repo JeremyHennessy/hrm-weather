@@ -1,0 +1,100 @@
+name: Apply v35 UI and guidance polish
+
+on:
+  push:
+    branches: [batch-polish-v35]
+    paths:
+      - '.github/workflows/apply-v35-polish.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: batch-polish-v35
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply polish batch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # 1) Rebuild tomorrow card as a compact three-zone strip.
+          p=Path('v11-reference.css'); s=p.read_text()
+          start=s.index('.tomorrowRoutine{')
+          end=s.index('\n.sectionHour', start)
+          new_css=r'''.tomorrowRoutine{grid-column:1/-1!important;min-height:112px!important;display:grid!important;grid-template-columns:minmax(0,1.15fr) 92px minmax(118px,.9fr)!important;grid-template-rows:auto auto!important;column-gap:12px!important;row-gap:7px!important;align-items:center!important;padding:13px 15px!important;background:linear-gradient(145deg,rgba(12,54,84,.72),rgba(4,31,52,.84))!important;position:relative!important}.tomorrowRoutine .routineIcon{display:none!important}.tomorrowRoutine .routineTitle{grid-column:1!important;grid-row:1!important;align-self:end!important}.tomorrowRoutine .routineTitle small{font-size:8.5px!important;letter-spacing:.08em!important}.tomorrowRoutine .routineTitle b{font-size:15px!important;margin-top:3px!important;line-height:1.15!important}.tomorrowRoutine .routineTemps{grid-column:2!important;grid-row:1/3!important;margin:0!important;padding:0!important;text-align:center!important;align-self:center!important}.tomorrowRoutine .routineTemps strong{font-size:44px!important;display:block!important;line-height:.9!important;font-weight:390!important}.tomorrowRoutine .routineTemps span{display:inline-block!important;margin:6px 0 0!important;padding:3px 6px!important;font-size:7px!important}.tomorrowRoutine .routineTemps em{display:block!important;margin-top:5px!important;font-size:9px!important}.tomorrowRoutine .routineMeta{grid-column:3!important;grid-row:1!important;display:flex!important;flex-direction:column!important;gap:4px!important;align-self:end!important;margin:0!important;font-size:9.5px!important;color:#d9e7ee!important}.tomorrowRoutine .routineVerdict{grid-column:1 / span 1!important;grid-row:2!important;align-self:start!important;margin:0!important;padding:0!important;font-size:10px!important;line-height:1.25!important;color:#eef6fa!important;max-width:190px!important}.tomorrowRoutine:after{content:'Tomorrow';grid-column:3!important;grid-row:2!important;align-self:start!important;justify-self:start!important;font-size:8px!important;letter-spacing:.10em!important;text-transform:uppercase!important;color:#7fcce9!important}@media(max-width:390px){.tomorrowRoutine{grid-template-columns:minmax(0,1fr) 78px 102px!important;column-gap:9px!important;min-height:108px!important;padding:12px 13px!important}.tomorrowRoutine .routineTitle b{font-size:14px!important}.tomorrowRoutine .routineTemps strong{font-size:39px!important}.tomorrowRoutine .routineMeta{font-size:8.5px!important}.tomorrowRoutine .routineVerdict{font-size:9px!important;max-width:145px!important}}'''
+          s=s[:start]+new_css+s[end:]
+          # slightly more readable location nav type
+          s=s.replace('font-size:10px!important}.tab.active','font-size:11px!important;font-weight:520!important}.tab.active',1)
+          p.write_text(s)
+
+          # 2) Alert-aware routine recommendations, evaluated AFTER main load renders ECCC alerts.
+          p=Path('v8-ui.js'); s=p.read_text()
+          old="function wx8Verdict(x){if(!x)return['Forecast unavailable',''];if(x.rain>=65)return['Rain likely — bring a shell','caution'];if(x.feel>=31)return['Hot — keep the walk easy','caution'];if(x.wind>=36)return['Windy — exposed routes may feel rough','caution'];if(x.rain<=25&&x.feel>=10&&x.feel<=27)return['Great window for a walk','good'];if(x.rain<=40&&x.feel<=29)return['Pretty good outdoor window','good'];return['Usable, but not the day’s best window','']}"
+          new="""function wx8AlertText(){const a=(document.getElementById('alertSummary')?.textContent||'')+' '+(document.getElementById('alerts')?.textContent||'');return a.toLowerCase()}\nfunction wx8Verdict(x){if(!x)return['Forecast unavailable',''];const a=wx8AlertText();if(/severe thunderstorm|tornado|hurricane|tropical storm/.test(a))return['Hazard alert active — skip the walk','caution'];if(/rainfall warning|special weather statement/.test(a)&&x.rain>=35)return['Weather alert active — check conditions before heading out','caution'];if(/wind warning/.test(a)&&x.wind>=25)return['Wind warning active — choose a sheltered route','caution'];if(/heat warning|extreme heat/.test(a)){if(x.feel>=31)return['Heat warning active — avoid a hard walk and hydrate','caution'];if(x.feel>=26)return['Heat warning active — keep it easy and hydrate','caution'];return['Heat warning active later — this is the cooler window','good']}if(x.rain>=65)return['Rain likely — bring a shell','caution'];if(x.feel>=31)return['Hot — keep the walk easy','caution'];if(x.wind>=36)return['Windy — exposed routes may feel rough','caution'];if(x.rain<=25&&x.feel>=10&&x.feel<=27)return['Great window for a walk','good'];if(x.rain<=40&&x.feel<=29)return['Pretty good outdoor window','good'];return['Usable, but not the day’s best window','']}"""
+          if old not in s: raise SystemExit('wx8Verdict pattern missing')
+          s=s.replace(old,new,1)
+          s=s.replace("load=async function(){const routine=wx8Routine().catch(()=>{});const result=await wx8OriginalLoad();await routine;return result}","load=async function(){const result=await wx8OriginalLoad();await wx8Routine().catch(()=>{});return result}",1)
+          # Clarify personal-card rain metric too.
+          s=s.replace("set(prefix+'Rain',`☂ ${Number.isFinite(x?.rain)?Math.round(x.rain):'--'}%`)","set(prefix+'Rain',`Rain ${Number.isFinite(x?.rain)?Math.round(x.rain):'--'}%`)",1)
+          p.write_text(s)
+
+          # 3) Clarify hourly chance vs predicted accumulation.
+          p=Path('v5b.js'); s=p.read_text()
+          old="<small>☂ ${fmt(x.rain,0)}% · ${fmt(x.mm,1)}mm</small><div class=\"rainagree\">${Number.isFinite(x.agree)?fmt(x.agree,0)+'% models wet':'agreement --'}</div>"
+          new="<small>Rain ${fmt(x.rain,0)}% · Amount ${Number.isFinite(x.mm)&&x.mm>0&&x.mm<.1?'trace':fmt(x.mm,1)+' mm'}</small><div class=\"rainagree\">${Number.isFinite(x.agree)?fmt(x.agree,0)+'% models wet':'agreement --'}</div>"
+          if old not in s: raise SystemExit('hour rain pattern missing')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+
+          # 4) Clarify 7-day rain and deepen night rendering.
+          p=Path('scene-images.js'); s=p.read_text()
+          s=s.replace("night:'linear-gradient(180deg,rgba(0,7,24,.30),rgba(0,14,31,.42) 38%,rgba(1,17,32,.84) 74%,rgba(0,12,25,.99))'","night:'linear-gradient(180deg,rgba(0,5,18,.46),rgba(0,12,30,.58) 36%,rgba(0,15,31,.90) 72%,rgba(0,8,20,.995))'",1)
+          old="<span class=\"v11DayRain\">☂ ${rain||'--'}%${mm?` · ${mm}mm`:''}</span>"
+          new="<span class=\"v11DayRain\">Rain ${rain||'--'}%${mm?` · Amount ${mm==='0.0'?'0.0 mm':mm+' mm'}`:''}</span>"
+          if old not in s: raise SystemExit('day rain pattern missing')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+
+          # 5) Bottom nav readability/polish without making it bulky again.
+          p=Path('v11-layout.js'); s=p.read_text()
+          s=s.replace("font-size:6.5px;font-weight:520","font-size:8px;font-weight:540",1)
+          s=s.replace("width:16px;height:16px","width:17px;height:17px",1)
+          s=s.replace("height:46px;padding:3px 5px","height:48px;padding:3px 6px",1)
+          s=s.replace("background:rgba(3,25,43,.60)","background:rgba(3,24,42,.54)",1)
+          p.write_text(s)
+
+          # Cache-bust touched assets and ship one PWA release.
+          p=Path('app.html'); s=p.read_text()
+          s=re.sub(r'v11-reference\.css\?v=\d+','v11-reference.css?v=35',s)
+          s=re.sub(r'v5b\.js\?v=\d+','v5b.js?v=35',s)
+          s=re.sub(r'v8-ui\.js\?v=\d+','v8-ui.js?v=35',s)
+          s=re.sub(r'v11-layout\.js\?v=\d+','v11-layout.js?v=35',s)
+          s=re.sub(r'scene-images\.js\?v=\d+','scene-images.js?v=35',s)
+          p.write_text(s)
+          p=Path('sw.js'); s=p.read_text(); s=re.sub(r'weather-consensus-v\d+','weather-consensus-v35',s,count=1); p.write_text(s)
+          PY
+      - name: Validate batch
+        run: |
+          node --check v5b.js
+          node --check v8-ui.js
+          node --check v11-layout.js
+          node --check scene-images.js
+          grep -q "Heat warning active" v8-ui.js
+          grep -q "Amount" v5b.js
+          grep -q "weather-consensus-v35" sw.js
+          grep -q "v11-reference.css?v=35" app.html
+      - name: Commit batch to branch
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add v11-reference.css v8-ui.js v5b.js scene-images.js v11-layout.js app.html sw.js
+          git commit -m "Polish tomorrow card, alert-aware walks, rain labels, nav and night scene"
+          git push origin batch-polish-v35
