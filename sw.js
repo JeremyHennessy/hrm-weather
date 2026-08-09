@@ -1,5 +1,5 @@
-const CACHE='weather-consensus-v19';
-const ASSETS=['./app.html?release=19','./v4.css','./v11-reference.css','./v5b.js','./v6-extra.js','./v7-final.js','./v8-ui.js','./v11-layout.js','./scene-images.js','./manifest.webmanifest','./icons/weather-consensus.svg','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png'];
+const CACHE='weather-consensus-v20';
+const ASSETS=['./app.html?release=19','./v4.css','./v11-reference.css','./v5b.js','./v6-extra.js','./v7-final.js','./v8-ui.js','./v11-layout.js','./scene-images.js','./weather-icons.js','./manifest.webmanifest','./icons/weather-consensus.svg','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
 self.addEventListener('fetch',e=>{
