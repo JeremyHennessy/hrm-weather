@@ -35,6 +35,11 @@ try{
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
     confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
+    summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
+    summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
+    uvVisible:!document.querySelector('#uvGuidance')?.hidden,
+    uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
+    uvText:document.querySelector('#uvGuidance')?.textContent?.trim()||'',
     warn:document.querySelector('#warn')?.textContent?.trim()||'',
     initialShown:Boolean(window.__wxInitialForecastShown),
     complete:Boolean(window.__wxHasCompleteForecast),
@@ -44,7 +49,10 @@ try{
   console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,confidence_samples:confidenceSamples,console_errors:errors},null,2));
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
-  if(state.confidenceOwner!=='engine3-locked')throw new Error(`Forecast Confidence owner is not locked: ${state.confidenceOwner||'missing'}`);
+  if(state.confidenceOwner!=='engine3-empirical')throw new Error(`Forecast Confidence owner is not empirical Engine 3: ${state.confidenceOwner||'missing'}`);
+  if(state.summaryOwner!=='engine3-summary'||!state.summary)throw new Error(`Engine 3 plain-English summary is not active: owner=${state.summaryOwner||'missing'}`);
+  if(state.uvVisible&&state.uvOwner!=='forecast-insights')throw new Error(`UV overlay has competing owner: ${state.uvOwner||'missing'}`);
+  if(state.uvVisible&&!/SPF 30\+|SPF 50\+/i.test(state.uvText))throw new Error(`Visible UV guidance lacks sunscreen recommendation: ${state.uvText}`);
   if(state.serverConsensusFresh){
     if(state.realFeelOwner!=='engine3-calibrated'||state.realFeelDataset!=='1')throw new Error(`Headline Real Feel is not owned by calibrated Engine 3: owner=${state.realFeelOwner||'missing'} dataset=${state.realFeelDataset||'missing'}`);
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
@@ -65,6 +73,10 @@ try{
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
     confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
+    summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
+    summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
+    uvVisible:!document.querySelector('#uvGuidance')?.hidden,
+    uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
     updated:document.querySelector('#updated')?.textContent?.trim()||'',
     warn:document.querySelector('#warn')?.textContent?.trim()||'',
     initialShown:Boolean(window.__wxInitialForecastShown),
