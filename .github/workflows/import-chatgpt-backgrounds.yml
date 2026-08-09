@@ -1,0 +1,45 @@
+name: Import approved location backgrounds
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/import-chatgpt-backgrounds.mjs'
+      - '.github/workflows/import-chatgpt-backgrounds.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: import-weather-backgrounds
+  cancel-in-progress: true
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser and image tooling
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2 sharp@0.34.3
+          npx playwright install --with-deps chromium
+      - name: Import five approved images
+        run: node scripts/import-chatgpt-backgrounds.mjs
+      - name: Commit binary backgrounds
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backgrounds/generated/*.webp
+          if git diff --cached --quiet; then
+            echo "No background changes"
+          else
+            git commit -m "Import approved scenic location backgrounds"
+            git pull --rebase origin main
+            git push
+          fi
