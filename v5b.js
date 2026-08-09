@@ -49,7 +49,7 @@ async function baseQ(z){
 }
 async function modelQ(z,m){
   const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:'America/Halifax',forecast_days:7,temperature_unit:'celsius',current:'temperature_2m',hourly:'temperature_2m,precipitation',daily:'temperature_2m_max,temperature_2m_min',models:m[0]});
-  const c=new AbortController(),tm=setTimeout(()=>c.abort(),7500);
+  const c=new AbortController(),tm=setTimeout(()=>c.abort(),15000);
   try{const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{signal:c.signal,cache:'no-store'});if(!r.ok)throw Error(r.status);const d=await r.json();if(!d.hourly)throw Error('incomplete');return{z,m,d}}finally{clearTimeout(tm)}
 }
 async function ecccObservation(){
