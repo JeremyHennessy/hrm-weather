@@ -25,9 +25,10 @@
     el=document.createElement('div');el.id='uvGuidance';el.className='uvGuidance';el.hidden=true;el.setAttribute('role','status');el.setAttribute('aria-live','polite');
     hero.appendChild(el);
     if(!document.querySelector('#uvGuidanceStyle')){const s=document.createElement('style');s.id='uvGuidanceStyle';s.textContent=`
-      .uvGuidance{position:absolute;left:16px;right:16px;bottom:14px;z-index:8;padding:10px 12px;border:1px solid rgba(255,232,143,.28);border-radius:14px;background:rgba(19,35,46,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 8px 22px rgba(0,0,0,.16);font-size:10px;line-height:1.3;color:#f7fbfd}
-      .uvGuidance[hidden]{display:none!important}.uvGuidance b{font-size:11px}.uvGuidance span{display:block;margin-top:2px;color:#d8e7ee}.hero.uvGuidanceActive{padding-bottom:86px!important}
-      @media(max-width:620px){.uvGuidance{left:12px;right:12px;bottom:11px;padding:9px 10px}.hero.uvGuidanceActive{padding-bottom:82px!important}}
+      .hero #uvGuidance.uvGuidance{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;box-sizing:border-box!important;z-index:4!important;margin:12px 0 0!important;padding:10px 12px!important;border:1px solid rgba(255,232,143,.28)!important;border-radius:14px!important;background:rgba(19,35,46,.72)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important;box-shadow:0 8px 22px rgba(0,0,0,.16)!important;font-size:10px!important;line-height:1.35!important;color:#f7fbfd!important;overflow-wrap:anywhere!important}
+      .hero #uvGuidance.uvGuidance[hidden]{display:none!important}.hero #uvGuidance.uvGuidance b{font-size:11px!important;line-height:1.3!important}.hero #uvGuidance.uvGuidance span{display:block!important;margin-top:3px!important;color:#d8e7ee!important;font-size:10px!important;line-height:1.35!important}.hero.uvGuidanceActive{padding-bottom:92px!important;height:auto!important}
+      @media(max-width:620px){.hero #uvGuidance.uvGuidance{margin:12px 0 0!important;padding:10px 11px!important;font-size:10px!important;line-height:1.35!important}.hero #uvGuidance.uvGuidance b{font-size:11px!important}.hero #uvGuidance.uvGuidance span{font-size:10px!important}.hero.uvGuidanceActive{padding-bottom:94px!important}}
+      @media(max-width:340px){.hero #uvGuidance.uvGuidance{font-size:9.5px!important;line-height:1.32!important;padding:9px 10px!important}.hero #uvGuidance.uvGuidance b{font-size:10.5px!important}.hero #uvGuidance.uvGuidance span{font-size:9.5px!important;line-height:1.32!important}}
     `;document.head.appendChild(s)}
     return el;
   }
