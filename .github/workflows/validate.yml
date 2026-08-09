@@ -34,6 +34,7 @@ jobs:
           node --check atomic-render.js
           node --check daily-card-fix.js
           node --check forecast-confidence.js
+          node --check forecast-ui-guard.js
           node --check deep-ui.js
           node --check sw.js
           node --check scripts/capture-ui.mjs
@@ -97,14 +98,20 @@ jobs:
           grep -q 'accuracy-v3.js' deep-ui.js
           grep -q 'daily-card-fix.js' deep-ui.js
           grep -q 'forecast-confidence.js' deep-ui.js
+          grep -q 'forecast-ui-guard.js' deep-ui.js
           grep -q 'confidenceOwner' scripts/smoke-live.mjs
           grep -q 'confidenceSamples' scripts/smoke-live.mjs
+          grep -q 'Server model status is stale' scripts/smoke-live.mjs
+          grep -q 'Bogus Actual temperature' scripts/smoke-live.mjs
           grep -q 'engine3-locked' forecast-confidence.js
           grep -q 'wx-forecast-confidence-v1' forecast-confidence.js
+          grep -q 'serverConsensusCleared' forecast-ui-guard.js
+          grep -q 'engine3Corrected' forecast-ui-guard.js
           grep -q 'accuracy-v3.js' sw.js
           grep -q 'daily-card-fix.js' sw.js
           grep -q 'forecast-confidence.js' sw.js
-          grep -q 'weather-consensus-v51' sw.js
+          grep -q 'forecast-ui-guard.js' sw.js
+          grep -q 'weather-consensus-v52' sw.js
           grep -q "dataset.readable==='1'" daily-card-fix.js
           grep -q 'requestAnimationFrame' daily-card-fix.js
           grep -q 'startup-fallback.js' sw.js
@@ -127,6 +134,7 @@ jobs:
           grep -q 'v11-layout.js' sw.js
           test -f startup-fallback.js
           test -f forecast-confidence.js
+          test -f forecast-ui-guard.js
           test -f icons/apple-touch-icon.png
           test -f icons/icon-192.png
           test -f icons/icon-512.png
