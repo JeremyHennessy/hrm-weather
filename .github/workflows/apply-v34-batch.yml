@@ -1,0 +1,154 @@
+name: Apply v34 reliability batch
+
+on:
+  push:
+    branches: [batch-data-health-v34]
+    paths:
+      - '.github/workflows/apply-v34-batch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: batch-data-health-v34
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply third-card, request-manager, and confidence fixes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # 1) Actual DOM fix: make the tomorrow card match the authoritative CSS selectors.
+          p=Path('v8-ui.js')
+          s=p.read_text()
+          old="card.className='routineCard';card.dataset.nextMorning='true'"
+          new="card.className='routineCard tomorrowRoutine';card.dataset.nextMorning='true'"
+          if old not in s:
+              raise SystemExit('tomorrow card creation pattern not found')
+          s=s.replace(old,new,1)
+          p.write_text(s)
+
+          # Give queued model requests enough time to complete instead of timing out while waiting their turn.
+          p=Path('v5b.js')
+          s=p.read_text()
+          s=s.replace("tm=setTimeout(()=>c.abort(),7500)","tm=setTimeout(()=>c.abort(),15000)",1)
+          p.write_text(s)
+
+          # 2) Install one global Open-Meteo request manager BEFORE forecast scripts load.
+          manager=r'''(()=>{
+          const nativeFetch=window.fetch.bind(window);
+          const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0};
+          const cache=new Map(),pending=new Map(),queue=[];
+          const MAX_ACTIVE=6,CACHE_MS=5*60*1000,MIN_GAP_MS=65;
+          let active=0,lastStart=0;
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const managed=input=>{try{return new URL(typeof input==='string'?input:input.url,location.href).hostname==='api.open-meteo.com'}catch{return false}};
+          const snapToResponse=s=>new Response(s.body.slice(0),{status:s.status,statusText:s.statusText,headers:s.headers});
+          async function snapshot(r){return{body:await r.arrayBuffer(),status:r.status,statusText:r.statusText,headers:[...r.headers.entries()]}}
+          function pump(){
+            while(active<MAX_ACTIVE&&queue.length){
+              const job=queue.shift();state.queued=queue.length;
+              if(job.signal?.aborted){job.reject(new DOMException('Aborted','AbortError'));continue}
+              active++;state.active=active;
+              const wait=Math.max(0,MIN_GAP_MS-(Date.now()-lastStart));
+              sleep(wait).then(()=>{lastStart=Date.now();return job.run()}).then(job.resolve,job.reject).finally(()=>{active--;state.active=active;pump()});
+            }
+          }
+          const schedule=(run,signal)=>new Promise((resolve,reject)=>{queue.push({run,signal,resolve,reject});state.queued=queue.length;pump()});
+          async function request(input,init,key){
+            const signal=init?.signal;
+            for(let attempt=0;attempt<3;attempt++){
+              if(signal?.aborted)throw new DOMException('Aborted','AbortError');
+              const snap=await schedule(async()=>{
+                state.started++;
+                const r=await nativeFetch(input,{...init,cache:'no-store'});
+                if(r.status===429)state.rateLimited++;
+                return snapshot(r);
+              },signal);
+              if(snap.status!==429&&snap.status<500){
+                if(snap.status>=200&&snap.status<300){state.success++;cache.set(key,{at:Date.now(),snap})}
+                else state.failed++;
+                return snap;
+              }
+              if(attempt<2){state.retries++;await sleep(attempt?1200:450);continue}
+              state.failed++;return snap;
+            }
+          }
+          window.fetch=async function(input,init={}){
+            if(!managed(input))return nativeFetch(input,init);
+            const method=(init.method||'GET').toUpperCase();
+            if(method!=='GET')return nativeFetch(input,init);
+            const key=typeof input==='string'?input:input.url;
+            const hit=cache.get(key);
+            if(hit&&Date.now()-hit.at<CACHE_MS){state.cacheHits++;return snapToResponse(hit.snap)}
+            let p=pending.get(key);
+            if(!p){p=request(input,init,key).finally(()=>pending.delete(key));pending.set(key,p)}
+            return snapToResponse(await p);
+          };
+
+          function expectedFeeds(){
+            const active=document.querySelector('.tab.active')?.textContent||'';
+            return /HRM Core/i.test(active)?39:13;
+          }
+          function applyConfidence(){
+            const orb=document.querySelector('.confidenceOrb');if(!orb)return;
+            const u=parseFloat((document.querySelector('#uncertainty')?.textContent||'').replace(/[^0-9.]/g,''));
+            let base=86;if(Number.isFinite(u))base=u<=.6?95:u<=1?92:u<=1.5?88:u<=2.2?82:74;
+            const mc=document.querySelector('#modelCount')?.textContent||'';
+            const loaded=Number(mc.match(/·\s*(\d+)\s*feeds/i)?.[1]||0),expected=expectedFeeds();
+            const coverage=loaded?Math.min(1,loaded/expected):0;
+            const obs=(document.querySelector('#obsline')?.textContent||'').toLowerCase();
+            const official=obs&&!obs.includes('unavailable')&&!obs.includes('checking');
+            if(!loaded){orb.querySelector('strong').textContent='--%';orb.querySelector('small').textContent='loading data';return}
+            const requestPenalty=state.failed?Math.min(5,state.failed):0;
+            const score=Math.max(55,Math.min(99,Math.round(base-(1-coverage)*25-(official?0:4)-requestPenalty)));
+            orb.querySelector('strong').textContent=score+'%';
+            const quality=score>=90?'High':score>=80?'Good':score>=70?'Moderate':'Limited';
+            orb.querySelector('span').textContent='Forecast Confidence';
+            orb.querySelector('small').textContent=`${quality} · ${loaded}/${expected} feeds${official?' · ECCC':' · model-only'}`;
+            orb.dataset.healthAdjusted='true';
+          }
+          function ensureTomorrowClass(){const c=document.getElementById('tomorrowRoutine');if(c)c.classList.add('tomorrowRoutine')}
+          document.addEventListener('DOMContentLoaded',()=>{ensureTomorrowClass();setInterval(()=>{ensureTomorrowClass();applyConfidence()},700)});
+          })();'''
+          Path('request-manager.js').write_text(manager)
+
+          # Load request manager first; cache-bust touched assets.
+          p=Path('app.html');s=p.read_text()
+          if 'request-manager.js' not in s:
+              s=s.replace('<script src="v5b.js?v=5"></script>','<script src="request-manager.js?v=34"></script><script src="v5b.js?v=34"></script>',1)
+          else:
+              s=re.sub(r'request-manager\.js\?v=\d+','request-manager.js?v=34',s)
+              s=re.sub(r'v5b\.js\?v=\d+','v5b.js?v=34',s)
+          s=re.sub(r'v8-ui\.js\?v=\d+','v8-ui.js?v=34',s)
+          p.write_text(s)
+
+          # PWA release/cache update.
+          p=Path('sw.js');s=p.read_text()
+          s=re.sub(r"weather-consensus-v\d+","weather-consensus-v34",s,count=1)
+          if "'./request-manager.js'" not in s:
+              s=s.replace("'./v5b.js'","'./request-manager.js','./v5b.js'",1)
+          p.write_text(s)
+          PY
+      - name: Validate batch
+        run: |
+          node --check request-manager.js
+          node --check v5b.js
+          node --check v8-ui.js
+          grep -q "routineCard tomorrowRoutine" v8-ui.js
+          grep -q "request-manager.js?v=34" app.html
+          grep -q "weather-consensus-v34" sw.js
+      - name: Commit batch to branch
+        run: |
+          git config user.name "weather-consensus-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add v5b.js v8-ui.js request-manager.js app.html sw.js
+          git commit -m "Fix tomorrow card, throttle weather requests, and health-adjust confidence"
+          git push origin batch-data-health-v34
