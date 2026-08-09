@@ -8,7 +8,9 @@
   function fix(){
     document.querySelectorAll('#days .v11Day').forEach(day=>{
       const rain=day.querySelector('.v11DayRain');if(!rain)return;
+      if(rain.dataset.readable==='1'&&rain.querySelector('.v11RainPct'))return;
       const p=parseRain(rain.textContent||'');
+      rain.dataset.readable='1';
       rain.innerHTML=`<strong class="v11RainPct">Rain ${p.pct}%</strong>${p.mm?`<span class="v11RainAmt">${p.mm} mm expected</span>`:''}`;
       rain.setAttribute('aria-label',`Rain chance ${p.pct} percent${p.mm?`, expected amount ${p.mm} millimetres`:''}`);
     });
@@ -21,6 +23,10 @@
     .v11RainAmt{display:block!important;max-width:100%!important;font-size:7.5px!important;color:#9fb8c6!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
     @media(max-width:390px){.sectionDays .v11Day{min-width:92px!important}.v11RainPct{font-size:8.5px!important}.v11RainAmt{font-size:7px!important}}
   `;document.head.appendChild(style);
-  function start(){fix();const root=document.getElementById('days');if(root)new MutationObserver(()=>queueMicrotask(fix)).observe(root,{childList:true,subtree:true});}
+  function start(){
+    fix();const root=document.getElementById('days');if(!root)return;
+    let queued=false;
+    new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;fix()})}).observe(root,{childList:true,subtree:true});
+  }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
