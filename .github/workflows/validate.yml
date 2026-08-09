@@ -33,6 +33,7 @@ jobs:
         run: |
           python -m py_compile scripts/collect.py
           python -m py_compile scripts/accuracy_engine_v2.py
+          python -m py_compile scripts/accuracy_engine_v2_runner.py
           python -m py_compile scripts/backfill_short.py
       - name: Validate JSON
         run: |
@@ -51,6 +52,7 @@ jobs:
           grep -q 'v11-layout.js' app.html
           grep -q 'accuracy-v2.js' scene-images.js
           grep -q 'accuracy-v2.js' sw.js
+          grep -q 'accuracy_engine_v2_runner' scripts/collect.py
           grep -q 'morningRoutine' app.html
           grep -q 'eveningRoutine' app.html
           grep -q '6:30 A.M.' app.html
