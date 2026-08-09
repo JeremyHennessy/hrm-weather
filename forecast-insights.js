@@ -30,9 +30,9 @@
     const level=peak.uv>=11?'Extreme':peak.uv>=8?'Very high':peak.uv>=6?'High':'Moderate';
     const spf=peak.uv>=8?'SPF 30+ minimum; SPF 50+ is a sensible choice for extended outdoor exposure.':'Use broad-spectrum SPF 30+.';
     const timing='Apply sunscreen about 15 minutes before going outside and reapply at least every 2 hours, and after swimming or heavy sweating.';
-    const behavior=peak.uv>=8?' Seek shade and limit prolonged direct midday sun.':peak.uv>=6?' Add shade, sunglasses and a hat, especially around midday.':' Sunglasses, a hat and shade add useful protection.';
-    if(now.uv<3){const first=series.find(x=>x.uv>=3);return{uv:peak.uv,level,title:`UV rising to ${Math.round(peak.uv*10)/10} · ${level}`,detail:`Protection becomes useful${first?.target?` around ${time(first.target)}`:''}. ${spf} ${timing}${behavior} ${peakText}`}}
-    return{uv:peak.uv,level,title:`UV ${Math.round(now.uv*10)/10} now · ${level}`,detail:`${spf} ${timing}${behavior} ${peakText}`};
+    const behavior=peak.uv>=8?'Seek shade and limit prolonged direct midday sun.':peak.uv>=6?'Add shade, sunglasses and a hat, especially around midday.':'Sunglasses, a hat and shade add useful protection.';
+    if(now.uv<3){const first=series.find(x=>x.uv>=3);return{uv:peak.uv,level,title:`UV rising to ${Math.round(peak.uv*10)/10} · ${level}`,detail:`Protection becomes useful${first?.target?` around ${time(first.target)}`:''}. ${spf} ${timing} ${behavior} ${peakText}`}}
+    return{uv:peak.uv,level,title:`UV ${Math.round(now.uv*10)/10} now · ${level}`,detail:`${spf} ${timing} ${behavior} ${peakText}`};
   }
   function ensureUV(){let el=document.querySelector('#uvGuidance');if(el)return el;const hero=document.querySelector('.hero');if(!hero)return null;el=document.createElement('div');el.id='uvGuidance';el.className='uvGuidance';el.hidden=true;el.setAttribute('role','status');el.setAttribute('aria-live','polite');hero.appendChild(el);return el}
   function observeUV(el){if(uvObserved||!el)return;uvObserved=true;new MutationObserver(()=>{if(!painting&&el.dataset.owner==='forecast-insights')queueMicrotask(paint)}).observe(el,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['hidden']})}
@@ -68,6 +68,12 @@
       .heroTop>.confidenceOrb .wxConfidenceStable small{font-size:7px!important;line-height:1.18!important;max-width:76px!important;margin-top:4px!important}
       #heroIcon{position:absolute!important;right:8px!important;top:122px!important;margin:0!important;font-size:54px!important;z-index:3!important}
       #daySummary.heroSummary[data-source="engine3-summary"]{display:block!important;width:100%!important;max-width:100%!important;margin:14px 0 0!important;padding:12px 14px!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:14px!important;background:rgba(3,28,47,.46)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;color:#eef7fb!important;font-size:11px!important;line-height:1.52!important;letter-spacing:.005em!important;text-indent:0!important;overflow:visible!important;overflow-wrap:break-word!important;-webkit-line-clamp:unset!important}
+      .hero #uvGuidance.uvGuidance{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important;z-index:4!important;margin:12px 0 0!important;padding:11px 13px!important;border:1px solid rgba(255,232,143,.30)!important;border-radius:14px!important;background:rgba(19,35,46,.78)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important;box-shadow:0 8px 22px rgba(0,0,0,.16)!important;color:#f7fbfd!important;font-size:10px!important;line-height:1.38!important;letter-spacing:0!important;text-indent:0!important;overflow:visible!important;overflow-wrap:anywhere!important;white-space:normal!important}
+      .hero #uvGuidance.uvGuidance[hidden]{display:none!important}
+      .hero #uvGuidance.uvGuidance b{display:block!important;margin:0 0 5px!important;font-size:12px!important;line-height:1.25!important;font-weight:700!important;color:#fff!important;white-space:normal!important}
+      .hero #uvGuidance.uvGuidance span{display:block!important;margin:0!important;font-size:10px!important;line-height:1.4!important;font-weight:400!important;color:#d8e7ee!important;white-space:normal!important;overflow-wrap:anywhere!important}
+      .hero.uvGuidanceActive{height:auto!important;min-height:525px!important;padding-bottom:18px!important}
+      .hero.uvGuidanceActive .metrics{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;margin:14px 0 0!important;box-sizing:border-box!important}
       @media(max-width:620px){
         .heroTop{min-height:116px!important;padding-right:120px!important}
         .heroTop>.confidenceOrb{top:-8px!important;right:-2px!important;width:106px!important;height:106px!important;min-width:106px!important;min-height:106px!important}
@@ -76,6 +82,15 @@
         .heroTop>.confidenceOrb .wxConfidenceStable small{font-size:7px!important;max-width:76px!important}
         #heroIcon{right:8px!important;top:122px!important;font-size:51px!important}
         #daySummary.heroSummary[data-source="engine3-summary"]{width:100%!important;max-width:100%!important;margin:14px 0 0!important;padding:12px 14px!important;font-size:11px!important;line-height:1.5!important}
+        .hero #uvGuidance.uvGuidance{margin-top:12px!important;padding:10px 11px!important;font-size:10px!important;line-height:1.38!important}
+        .hero #uvGuidance.uvGuidance b{font-size:11.5px!important;margin-bottom:5px!important}
+        .hero #uvGuidance.uvGuidance span{font-size:10px!important;line-height:1.38!important}
+        .hero.uvGuidanceActive .metrics{margin-top:13px!important}
+      }
+      @media(max-width:340px){
+        .hero #uvGuidance.uvGuidance{padding:9px 10px!important}
+        .hero #uvGuidance.uvGuidance b{font-size:11px!important}
+        .hero #uvGuidance.uvGuidance span{font-size:9.5px!important;line-height:1.36!important}
       }
     `;document.head.appendChild(st)
   }
