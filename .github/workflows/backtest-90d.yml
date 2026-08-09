@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/archive_backtest_90d.py'
+      - 'scripts/archive_backtest_90d_runner.py'
       - '.github/workflows/backtest-90d.yml'
 
 permissions:
@@ -28,8 +29,8 @@ jobs:
         env:
           PYTHONPATH: scripts
         run: |
-          python -m py_compile scripts/archive_backtest_90d.py
-          python scripts/archive_backtest_90d.py
+          python -m py_compile scripts/archive_backtest_90d.py scripts/archive_backtest_90d_runner.py
+          python scripts/archive_backtest_90d_runner.py
           python -m json.tool data/archive-backtest-90d.json >/dev/null
       - name: Validate complete causal report
         run: |
