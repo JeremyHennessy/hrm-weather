@@ -5,6 +5,12 @@ L.wolfville={n:'Wolfville Area',k:'WOLFVILLE NS',s:'Wolfville · New Minas · Ke
 const wxBaseRegimeFactor=regimeFactor;
 regimeFactor=function(id,lead,windDir){let f=wxBaseRegimeFactor(id,lead,windDir);if(loc==='lunenburg'&&Number.isFinite(windDir)&&windDir>=60&&windDir<=210&&id==='gem_hrdps_continental'&&lead<=12)f*=1.08;return f};
 
+// Progressive startup: v5b.js has already launched all base-zone requests. Ask
+// for the primary zone again; request-manager deduplicates this against the
+// in-flight request, then paint as soon as that one response is available rather
+// than waiting for every HRM zone plus ECCC. Full consensus replaces it later.
+(()=>{const startupToken=token,z=L[loc]?.core?.[0];if(!z)return;baseQ(z).then(b=>{if(startupToken!==token||window.__wxInitialForecastShown)return;render([b],[],null,[],true)}).catch(()=>{})})();
+
 let wxSharedSkills={};
 async function wxLoadSharedSkills(){try{const r=await fetch('./data/skill.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();wxSharedSkills=j.skills||j||{};const h=document.getElementById('health');if(h&&j.updated_at)h.dataset.sharedUpdated=j.updated_at}catch{}}
 const wxLocalGetSkills=getSkills;
