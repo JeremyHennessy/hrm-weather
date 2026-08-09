@@ -33,7 +33,7 @@ async function inspect(device){
     for(const el of document.querySelectorAll('.app>header,.locationNav,.hero,.dayBrief,.section,.footer')){
       if(!visible(el))continue;const x=r(el);if(x.left<-2||x.right>innerWidth+2)issues.push(`viewport escape ${el.className||el.tagName} ${JSON.stringify(x)}`);
     }
-    const hero=r(document.querySelector('.hero')),summary=r(document.querySelector('#daySummary')),orb=r(document.querySelector('.confidenceOrb')),place=r(document.querySelector('#place')),icon=r(document.querySelector('#heroIcon')),temp=r(document.querySelector('.heroTemp')),metrics=r(document.querySelector('.metrics')),uvEl=document.querySelector('#uvGuidance'),uv=visible(uvEl)?r(uvEl):null;
+    const heroEl=document.querySelector('.hero'),hero=r(heroEl),summary=r(document.querySelector('#daySummary')),orb=r(document.querySelector('.confidenceOrb')),place=r(document.querySelector('#place')),icon=r(document.querySelector('#heroIcon')),temp=r(document.querySelector('.heroTemp')),metricsEl=document.querySelector('.metrics'),metrics=r(metricsEl),uvEl=document.querySelector('#uvGuidance'),uv=visible(uvEl)?r(uvEl):null;
     if(!hero||!summary||!orb)issues.push('missing hero/summary/confidence geometry');
     else{
       if(orb.width<104||orb.height<104)issues.push(`confidence shrunk ${orb.width}x${orb.height}`);
@@ -45,6 +45,19 @@ async function inspect(device){
       if(temp&&temp.right>hero.right-8)issues.push('hero temperature escapes card');
       if(uv&&metrics&&intersects(uv,metrics,4))issues.push('UV guidance overlaps hero metrics');
       if(uv&&(uv.left<hero.left+10||uv.right>hero.right-10))issues.push('UV guidance edge clipping');
+      if(uv&&metrics&&metrics.top<uv.bottom+8)issues.push(`hero metrics not below UV guidance ${metrics.top}<${uv.bottom+8}`);
+      if(uv&&metrics&&hero.bottom<metrics.bottom+10)issues.push('hero does not contain UV guidance and metrics');
+      if(uv){
+        const title=uvEl.querySelector('b'),detail=uvEl.querySelector('span'),tr=r(title),dr=r(detail),ts=title?getComputedStyle(title):null,ds=detail?getComputedStyle(detail):null;
+        if(!title||!detail)issues.push('UV guidance missing title/detail structure');
+        else{
+          if(ts.display!=='block'||ds.display!=='block')issues.push(`UV title/detail not block formatted ${ts.display}/${ds.display}`);
+          if(tr&&dr&&dr.top<tr.bottom)issues.push('UV detail collides with title');
+          if(parseFloat(ts.fontSize)>14)issues.push(`UV title font too large ${ts.fontSize}`);
+          if(parseFloat(ds.fontSize)>11.5)issues.push(`UV detail font too large ${ds.fontSize}`);
+          if(detail.scrollWidth>detail.clientWidth+3)issues.push('UV detail text horizontally clipped');
+        }
+      }
     }
     const top=r(document.querySelector('.topbar')),nav=r(document.querySelector('.locationNav'));if(intersects(top,nav))issues.push('header overlaps location nav');
     const buttons=[...document.querySelectorAll('.locationNav button,.topbar button')].filter(visible).map(el=>({name:el.id||el.textContent.trim(),box:r(el)}));
@@ -57,7 +70,7 @@ async function inspect(device){
       if(el.scrollWidth>el.clientWidth+3&&s.whiteSpace!=='nowrap')clipped.push(`${el.className||el.id||el.tagName}:${el.scrollWidth}>${el.clientWidth}`);
     }
     if(clipped.length)issues.push(`text clipping ${clipped.slice(0,8).join(', ')}`);
-    const routine=[...document.querySelectorAll('.routineGrid>.routineCard')].filter(visible).map(r);for(let i=0;i<routine.length;i++)for(let j=i+1;j<routine.length;j++)if(intersects(routine[i],routine[j],2))issues.push(`routine cards overlap ${i}/${j}`);
+    const routine=[...document.querySelectorAll('.routineGrid>.routineCard')].filter(visible).map(r);for(let i=0;i<routine.length;i++)for(let j=i+1;j++)if(intersects(routine[i],routine[j],2))issues.push(`routine cards overlap ${i}/${j}`);
     return{name,width,height,innerWidth,scrollWidth:Math.max(html.scrollWidth,body.scrollWidth),app:r(app),hero,summary,orb,place,icon,uv,metrics,issues};
   },device);
   await page.screenshot({path:`screenshots/layout-${device.name}-${device.width}x${device.height}.png`,fullPage:true});return result;
