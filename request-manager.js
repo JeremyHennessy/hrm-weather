@@ -18,7 +18,7 @@ function installStableRenderer(){
 installStableRenderer();
 
 const nativeFetch=window.fetch.bind(window);
-const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0,timeouts:0,serverModelSkips:0,clientModelFallbacks:0};
+const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0,timeouts:0,serverModelSkips:0,clientModelFallbacks:0,falseWarningsSuppressed:0};
 const cache=new Map(),pending=new Map(),queue=[];const MAX_ACTIVE=4,CACHE_MS=5*60*1000,MIN_GAP_MS=100;let active=0,lastStart=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function requestKind(input){try{const h=new URL(typeof input==='string'?input:input.url,location.href).hostname;if(h==='api.open-meteo.com')return'openmeteo';if(h==='api.weather.gc.ca')return'eccc'}catch{}return null}
 function isClientModelRequest(input){try{const u=new URL(typeof input==='string'?input:input.url,location.href);return u.hostname==='api.open-meteo.com'&&u.searchParams.has('models')}catch{return false}}
@@ -39,7 +39,19 @@ window.fetch=async function(input,init={}){
   if(isClientModelRequest(input))state.clientModelFallbacks++;
   const key=typeof input==='string'?input:input.url,hit=cache.get(key);if(hit&&Date.now()-hit.at<CACHE_MS){state.cacheHits++;return snapToResponse(hit.snap)}let p=pending.get(key);if(!p){p=runRequest(input,init,key,kind).finally(()=>pending.delete(key));pending.set(key,p)}return snapToResponse(await p)
 };
+function suppressFalseLegacyWarning(){
+  const el=document.getElementById('warn');if(!el||!serverConsensusFresh())return;
+  const text=(el.textContent||'').trim();
+  if(/No live weather feeds responded\.?\s*Try Refresh\.?/i.test(text)||/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(text)){
+    el.textContent='';el.style.display='none';el.dataset.suppressedBy='engine3-server-consensus';state.falseWarningsSuppressed++;
+  }
+}
+function watchLegacyWarnings(){
+  const el=document.getElementById('warn');if(!el)return;suppressFalseLegacyWarning();
+  new MutationObserver(()=>queueMicrotask(suppressFalseLegacyWarning)).observe(el,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['style']});
+  window.addEventListener('wx-v3-ready',suppressFalseLegacyWarning);setInterval(suppressFalseLegacyWarning,3000);
+}
 function ensureTomorrowClass(){document.getElementById('tomorrowRoutine')?.classList.add('tomorrowRoutine')}
-document.addEventListener('DOMContentLoaded',()=>{ensureTomorrowClass();setInterval(ensureTomorrowClass,3000)});
+document.addEventListener('DOMContentLoaded',()=>{ensureTomorrowClass();watchLegacyWarnings();setInterval(ensureTomorrowClass,3000)},{once:true});
 window.WX_SERVER_CONSENSUS_FRESH=serverConsensusFresh;
 })();
