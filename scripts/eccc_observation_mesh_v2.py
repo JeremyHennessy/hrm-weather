@@ -22,6 +22,28 @@ def first_number(mapping: dict[str, Any], *keys: str) -> float | None:
     return None
 
 
+def first_number_with_key(mapping: dict[str, Any], *keys: str) -> tuple[float | None, str | None]:
+    for key in keys:
+        v = core.safe_float(mapping.get(key))
+        if v is not None:
+            return v, key
+    return None, None
+
+
+def wind_to_kmh(value: float | None, uom: Any) -> float | None:
+    """Normalize heterogeneous SWOB wind units to km/h for the app/ledger."""
+    if value is None:
+        return None
+    unit = str(uom or "").strip().lower().replace(" ", "")
+    if any(token in unit for token in ("m/s", "m_s-1", "m.s-1", "ms-1", "m%2fs")):
+        return value * 3.6
+    if any(token in unit for token in ("kt", "knot")):
+        return value * 1.852
+    # km/h variants and unitless/unknown values are preserved. Unknown UOM is
+    # surfaced in station diagnostics so we never silently manufacture a unit.
+    return value
+
+
 def station_coords(feature: dict[str, Any], fallback_lat: float, fallback_lon: float) -> tuple[float, float]:
     coords = (feature.get("geometry") or {}).get("coordinates") or []
     if len(coords) >= 2:
@@ -69,19 +91,30 @@ def fetch_mesh(loc: dict[str, Any]) -> dict[str, Any] | None:
         temporal = math.exp(-max(0.0, age_h) / 2.2)
         w = spatial * temporal
 
-        # SWOB is heterogeneous: not every station reports every field. Temperature
-        # is required for the current anchor; the other variables are opportunistic.
+        # Canonical GeoMet SWOB names explicitly include the 10 m measurement
+        # height. Keep legacy fallbacks for partner stations with older schemas.
         rh = first_number(p, "rel_hum", "avg_rel_hum_pst1hr")
         precip = first_number(p, "pcpn_amt_pst1hr", "rnfl_amt_pst1hr")
-        wind = first_number(
+        wind_raw, wind_key = first_number_with_key(
             p,
-            "avg_wnd_spd_pst10mts", "avg_wnd_spd_pst2mts", "avg_wind_spd_pst10mts",
+            "avg_wnd_spd_10m_pst10mts", "avg_wnd_spd_10m_pst2mts", "avg_wnd_spd_10m_pst1mt",
+            "avg_wnd_spd_10m_pst1hr", "avg_wnd_spd_pst10mts", "avg_wnd_spd_pst2mts",
             "wnd_spd", "wind_speed",
         )
-        gust = first_number(
+        gust_raw, gust_key = first_number_with_key(
             p,
+            "max_wnd_gst_spd_10m_pst10mts", "max_wnd_spd_10m_pst10mts", "max_wnd_spd_10m_pst1hr",
             "max_wnd_spd_pst10mts", "max_wnd_spd_pst1hr", "wnd_gust_spd", "wind_gust",
         )
+        direction = first_number(
+            p,
+            "avg_wnd_dir_10m_pst10mts", "avg_wnd_dir_10m_pst2mts", "avg_wnd_dir_10m_pst1mt",
+            "avg_wnd_dir_10m_pst1hr", "avg_wnd_dir_pst10mts", "wnd_dir", "wind_direction",
+        )
+        wind_uom = p.get(f"{wind_key}-uom") if wind_key else None
+        gust_uom = p.get(f"{gust_key}-uom") if gust_key else None
+        wind = wind_to_kmh(wind_raw, wind_uom)
+        gust = wind_to_kmh(gust_raw, gust_uom)
         rows.append({
             "time": core.iso(dt),
             "station": p.get("stn_nam-value") or p.get("stn_id-value") or p.get("msc_id-value") or "ECCC SWOB",
@@ -94,6 +127,11 @@ def fetch_mesh(loc: dict[str, Any]) -> dict[str, Any] | None:
             "relative_humidity_2m": rh,
             "wind_speed_10m": wind,
             "wind_gusts_10m": gust,
+            "wind_direction_10m": direction,
+            "wind_source_field": wind_key,
+            "wind_source_uom": wind_uom,
+            "gust_source_field": gust_key,
+            "gust_source_uom": gust_uom,
             "precipitation": precip,
         })
 
@@ -127,19 +165,37 @@ def fetch_mesh(loc: dict[str, Any]) -> dict[str, Any] | None:
             v = r.get(var)
             if v is None:
                 continue
-            w = max(1e-6, float(r["weight"]))
-            numerator += float(v) * w
-            denominator += w
+            rw = max(1e-6, float(r["weight"]))
+            numerator += float(v) * rw
+            denominator += rw
         values[var] = numerator / denominator if denominator else None
+
+    # Direction requires a circular weighted mean; a linear mean breaks around 0/360.
+    sin_sum = cos_sum = dir_weight = 0.0
+    for r in fresh:
+        direction = core.safe_float(r.get("wind_direction_10m"))
+        if direction is None:
+            continue
+        rw = max(1e-6, float(r["weight"]))
+        radians = math.radians(direction % 360.0)
+        sin_sum += math.sin(radians) * rw
+        cos_sum += math.cos(radians) * rw
+        dir_weight += rw
+    values["wind_direction_10m"] = (
+        math.degrees(math.atan2(sin_sum, cos_sum)) % 360.0 if dir_weight else None
+    )
 
     return {
         "time": core.iso(latest_dt),
         "values": values,
         "stations": fresh,
         "station_count": len(fresh),
+        "wind_station_count": sum(1 for r in fresh if r.get("wind_speed_10m") is not None),
+        "gust_station_count": sum(1 for r in fresh if r.get("wind_gusts_10m") is not None),
+        "direction_station_count": sum(1 for r in fresh if r.get("wind_direction_10m") is not None),
         "temp": values.get("temperature_2m"),
         "station": " / ".join(r["station"] for r in fresh[:3]),
-        "method": "ECCC SWOB real-time mesh; distance + recency weighted",
+        "method": "ECCC SWOB real-time mesh; distance + recency weighted; canonical 10m wind fields normalized to km/h",
         "collection": "swob-realtime",
     }
 
