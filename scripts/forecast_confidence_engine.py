@@ -39,10 +39,7 @@ def tolerance_for(lead: int) -> float:
 def uncertainty_prior(uncertainty: Any, lead: int) -> float:
     u = core.safe_float(uncertainty)
     if u is None:
-        # Conservative climatological starting point; empirical history takes over.
         return max(0.58, min(0.86, 0.82 - lead / 400.0))
-    # This intentionally maps the previous UI uncertainty scale to a probability
-    # prior rather than directly displaying it. Historical hit rates update it.
     score = 0.965 - 0.075 * max(0.0, u)
     if lead >= 24:
         score -= min(0.08, (lead - 12) / 800.0)
@@ -69,9 +66,14 @@ def _historical_cases(state: dict[str, Any], loc: str, lead: int) -> list[dict[s
     return exact if len(exact) >= MIN_EXACT_SAMPLES else (exact + pooled)
 
 
+def _bin_key(value: float) -> str:
+    lo = int(max(0, min(90, (value // 10) * 10)))
+    return f"{lo}-{lo+9}"
+
+
 def _prospective_reliability(state: dict[str, Any], raw_pct: float) -> dict[str, Any]:
     bins = state.get("confidence_scores", {})
-    key = str(int(max(0, min(100, round(raw_pct / 10.0) * 10))))
+    key = _bin_key(raw_pct)
     b = bins.get(key) or {}
     n = int(b.get("n", 0))
     observed = core.safe_float(b.get("hit_rate"))
@@ -90,8 +92,6 @@ def calculate(state: dict[str, Any], loc: str, lead: int, uncertainty: Any) -> d
     hits = sum(1 for x in cases if x["hit"])
     n = len(cases)
     posterior = (hits + PRIOR_STRENGTH * prior) / (n + PRIOR_STRENGTH)
-    # Keep the number useful and honest rather than allowing tiny samples to emit
-    # false 99/100 confidence.
     posterior = max(0.50, min(0.96, posterior))
     raw_pct = 100.0 * posterior
     reliability = _prospective_reliability(state, raw_pct)
