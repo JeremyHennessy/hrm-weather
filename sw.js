@@ -1,13 +1,5 @@
-const CACHE='weather-consensus-v20';
-const ASSETS=['./app.html?release=19','./v4.css','./v11-reference.css','./v5b.js','./v6-extra.js','./v7-final.js','./v8-ui.js','./v11-layout.js','./scene-images.js','./weather-icons.js','./manifest.webmanifest','./icons/weather-consensus.svg','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png'];
+const CACHE='weather-consensus-v21';
+const ASSETS=['./app.html?release=21','./v4.css','./v11-reference.css','./deep-ui.css','./v5b.js','./v6-extra.js','./v7-final.js','./v8-ui.js','./v11-layout.js','./scene-images.js','./weather-icons.js','./deep-ui.js','./backgrounds/halifax.svg','./backgrounds/moncton.svg','./backgrounds/shediac.svg','./backgrounds/lunenburg.svg','./backgrounds/wolfville.svg','./manifest.webmanifest','./icons/weather-consensus.svg','./icons/apple-touch-icon.png','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
 self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
-self.addEventListener('fetch',e=>{
-  const u=new URL(e.request.url);
-  if(u.hostname.includes('open-meteo.com')||u.hostname.includes('weather.gc.ca')||u.hostname.includes('wikimedia.org')||u.pathname.includes('/data/'))return;
-  if(e.request.mode==='navigate'){
-    e.respondWith(fetch(e.request,{cache:'reload'}).catch(()=>caches.match('./app.html?release=19')));
-    return;
-  }
-  e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request)));
-});
+self.addEventListener('fetch',e=>{const u=new URL(e.request.url);if(u.hostname.includes('open-meteo.com')||u.hostname.includes('weather.gc.ca')||u.pathname.includes('/data/'))return;if(e.request.mode==='navigate'){e.respondWith(fetch(e.request,{cache:'reload'}).catch(()=>caches.match('./app.html?release=21')));return}e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request)))});
