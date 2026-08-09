@@ -78,7 +78,9 @@ jobs:
           grep -q 'SPF 50+' forecast-insights.js
           grep -q 'reapply at least every 2 hours' forecast-insights.js
           grep -q 'engine3-summary' forecast-insights.js
-          grep -q 'weather-consensus-v55' sw.js
+          grep -q "dataset.owner='forecast-insights'" forecast-insights.js
+          grep -q 'WXRefreshForecastInsights' uv-guidance.js
+          grep -q 'weather-consensus-v56' sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'engine3-calibrated' forecast-ui-guard.js
           grep -q 'data/engine-v3.json' startup-fallback.js
