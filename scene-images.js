@@ -66,13 +66,44 @@
     if(credit)credit.innerHTML=`Hero photo: <a href="${scene.page}" target="_blank" rel="noopener">${scene.credit}</a> · weather/time treatment applied`;
   }
 
+  function weatherEmoji(text){
+    for(const e of ['⛈️','⛈','🌨️','🌨','❄️','❄','🌧️','🌧','🌦️','🌦','🌫️','🌫','☁️','☁','⛅️','⛅','🌥️','🌥','🌤️','🌤','☀️','☀'])if(text.includes(e))return e;
+    return '⛅️';
+  }
+
+  function formatDays(){
+    const root=document.querySelector('#days');
+    if(!root)return;
+    [...root.querySelectorAll('.day')].forEach(day=>{
+      if(day.classList.contains('v11Day'))return;
+      const name=day.querySelector(':scope > b')?.textContent?.trim()||'';
+      const main=day.querySelector('.dayMain')?.textContent||'';
+      const rf=main.match(/(?:feels|Real Feel)\s*max\s*(-?\d+(?:\.\d+)?)°/i)?.[1];
+      const rain=main.match(/☂\s*(\d+(?:\.\d+)?)%/)?.[1];
+      const mm=main.match(/·\s*(\d+(?:\.\d+)?)mm/)?.[1];
+      const high=day.querySelector('.dayTemps strong')?.textContent?.trim()||'--°';
+      const low=(day.querySelector('.dayTemps small')?.textContent||'').match(/-?\d+(?:\.\d+)?°/)?.[0]||'--°';
+      if(!rf)return;
+      day.classList.add('v11Day');
+      day.innerHTML=`<small class="v11DayName">${name}</small><div class="v11DayWx">${weatherEmoji(main)}</div><strong class="v11DayRF">${rf}°</strong><span class="v11DayActual">Actual ${high} / ${low}</span><span class="v11DayRain">☂ ${rain||'--'}%${mm?` · ${mm}mm`:''}</span>`;
+    });
+  }
+
+  function formatHours(){
+    document.querySelectorAll('#hours .hour .sub').forEach(el=>{
+      if(/^air\s/i.test(el.textContent))el.textContent=el.textContent.replace(/^air\s*/i,'Actual ');
+    });
+  }
+
   function start(){
     const hero=document.querySelector('.hero');
     if(!hero){setTimeout(start,100);return;}
-    apply();
+    apply();formatDays();formatHours();
     new MutationObserver(apply).observe(hero,{attributes:true,attributeFilter:['data-location','data-condition','data-daypart']});
-    document.querySelector('#tabs')?.addEventListener('click',()=>setTimeout(apply,50));
-    document.querySelector('.locationPicker')?.addEventListener('change',()=>setTimeout(apply,50));
+    const days=document.querySelector('#days');if(days)new MutationObserver(()=>queueMicrotask(formatDays)).observe(days,{childList:true});
+    const hours=document.querySelector('#hours');if(hours)new MutationObserver(()=>queueMicrotask(formatHours)).observe(hours,{childList:true,subtree:true});
+    document.querySelector('#tabs')?.addEventListener('click',()=>setTimeout(()=>{apply();formatDays();formatHours()},50));
+    document.querySelector('.locationPicker')?.addEventListener('change',()=>setTimeout(()=>{apply();formatDays();formatHours()},50));
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
