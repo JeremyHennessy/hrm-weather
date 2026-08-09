@@ -41,6 +41,21 @@ jobs:
           npm init -y >/dev/null 2>&1
           npm install --no-save playwright@1.54.2
           npx playwright install --with-deps chromium
+      - name: Wait for current release on GitHub Pages
+        run: |
+          EXPECTED=$(grep -o "weather-consensus-v[0-9]*" sw.js | head -1)
+          echo "Waiting for live release: $EXPECTED"
+          for i in $(seq 1 36); do
+            LIVE=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/sw.js?qa=$(date +%s)" || true)
+            if echo "$LIVE" | grep -q "$EXPECTED"; then
+              echo "GitHub Pages is serving $EXPECTED"
+              exit 0
+            fi
+            echo "Attempt $i: live site has not reached $EXPECTED yet"
+            sleep 5
+          done
+          echo "Timed out waiting for GitHub Pages to serve $EXPECTED"
+          exit 1
       - name: Capture current main with live weather APIs
         run: node scripts/capture-ui.mjs
       - name: Upload screenshots for visual review
