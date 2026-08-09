@@ -3,9 +3,9 @@
 
 Physics baseline: humidex in warm weather, Canadian wind chill in cold weather,
 and a bounded radiant-load proxy. Local residual calibration is learned from
-verified ECCC temperature/humidity. When SWOB wind is unavailable, the same
-forecast wind is used on both sides of the residual comparison so no wind
-observation is invented and the calibration still learns local T/RH error.
+verified ECCC temperature/humidity/wind. Older cases without observed SWOB wind
+remain usable while history is sparse, but fully wind-verified cases become the
+preferred calibration population as soon as enough exist.
 """
 from __future__ import annotations
 import math
@@ -81,10 +81,21 @@ def _training_cases(ledger:list[dict[str,Any]],loc:str,lead:int)->list[dict[str,
     return out[-360:]
 
 def local_correction(ledger:list[dict[str,Any]],loc:str,lead:int,regime:str)->dict[str,Any]:
-    cases=_training_cases(ledger,loc,lead);same=[x['residual'] for x in cases if x.get('regime')==regime];vals=same if len(same)>=MIN_LOCAL_SAMPLES else [x['residual'] for x in cases]
-    if not vals:return {'correction':0.0,'samples':0,'status':'learning'}
+    cases=_training_cases(ledger,loc,lead)
+    wind_cases=[x for x in cases if x.get('observed_wind_used')]
+    population=wind_cases if len(wind_cases)>=MIN_LOCAL_SAMPLES else cases
+    same=[x['residual'] for x in population if x.get('regime')==regime]
+    vals=same if len(same)>=MIN_LOCAL_SAMPLES else [x['residual'] for x in population]
+    if not vals:return {'correction':0.0,'samples':0,'status':'learning','wind_verified_samples':0,'calibration_population':'none'}
     raw=sum(vals)/len(vals);trust=min(1.0,len(vals)/30.0);corr=max(-MAX_CORRECTION,min(MAX_CORRECTION,raw*trust));mae=sum(abs(x-raw) for x in vals)/len(vals)
-    return {'correction':corr,'raw_correction':raw,'samples':len(vals),'residual_mae':mae,'status':'active' if len(vals)>=MIN_LOCAL_SAMPLES else 'learning','regime_specific':len(same)>=MIN_LOCAL_SAMPLES,'verified_variables':['temperature_2m','relative_humidity_2m'],'wind_observation_policy':'observed-when-available-otherwise-held-at-forecast'}
+    wind_preferred=len(wind_cases)>=MIN_LOCAL_SAMPLES
+    return {
+        'correction':corr,'raw_correction':raw,'samples':len(vals),'residual_mae':mae,
+        'status':'active' if len(vals)>=MIN_LOCAL_SAMPLES else 'learning','regime_specific':len(same)>=MIN_LOCAL_SAMPLES,
+        'verified_variables':['temperature_2m','relative_humidity_2m','wind_speed_10m'] if wind_preferred else ['temperature_2m','relative_humidity_2m'],
+        'wind_verified_samples':len(wind_cases),'calibration_population':'fully-wind-verified' if wind_preferred else 'mixed-history',
+        'wind_observation_policy':'prefer-observed-wind-after-minimum-sample-threshold'
+    }
 
 def forecast_inputs(forecasts:dict[str,Any],target,corrected_temp:float|None=None)->dict[str,float|None]:
     def mean_var(var):
