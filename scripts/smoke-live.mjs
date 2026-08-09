@@ -70,7 +70,7 @@ try{
   if(state.serverConsensusFresh){
     if(state.realFeelOwner!=='engine3-calibrated'||state.realFeelDataset!=='1')throw new Error(`Headline Real Feel is not owned by calibrated Engine 3: owner=${state.realFeelOwner||'missing'} dataset=${state.realFeelDataset||'missing'}`);
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
-    if(/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Intentional server skips reported as failures: ${state.warn}`);
+    if(/No live weather feeds responded|model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Healthy Engine 3 consensus reported as feed failure: ${state.warn}`);
     const air=Number(state.actual.match(/-?\d+(?:\.\d+)?/)?.[0]);
     const feel=Number(state.feels.match(/-?\d+(?:\.\d+)?/)?.[0]);
     if(Number.isFinite(air)&&Number.isFinite(feel)&&Math.abs(air)<0.1&&feel>10)throw new Error(`Bogus Actual temperature survived UI guard: ${state.actual}`);
