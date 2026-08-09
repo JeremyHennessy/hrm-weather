@@ -18,6 +18,7 @@ try{
     deadline(10500,'Real Feel did not render within 10 seconds')
   ]);
   await page.waitForFunction(()=>{const b=document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'';return /^\d+%$/.test(b)},{timeout:6000});
+  await page.waitForFunction(()=>document.querySelector('#daySummary')?.dataset?.source==='engine3-summary',{timeout:6000});
   await page.waitForTimeout(500);
   const confidenceSamples=[];
   for(let i=0;i<4;i++){
@@ -25,32 +26,45 @@ try{
     if(i<3)await page.waitForTimeout(1200);
   }
   if(new Set(confidenceSamples).size!==1)throw new Error(`Forecast Confidence changed during one revision: ${confidenceSamples.join(' -> ')}`);
-  const state=await Promise.race([page.evaluate(()=>({
-    feels:document.querySelector('#feels')?.textContent?.trim()||'',
-    realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
-    realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
-    actual:document.querySelector('#actual')?.textContent?.trim()||'',
-    morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
-    updated:document.querySelector('#updated')?.textContent?.trim()||'',
-    modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
-    confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
-    confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
-    summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
-    summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
-    uvVisible:!document.querySelector('#uvGuidance')?.hidden,
-    uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
-    uvText:document.querySelector('#uvGuidance')?.textContent?.trim()||'',
-    warn:document.querySelector('#warn')?.textContent?.trim()||'',
-    initialShown:Boolean(window.__wxInitialForecastShown),
-    complete:Boolean(window.__wxHasCompleteForecast),
-    serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
-    requestHealth:window.WX_REQUEST_HEALTH||null
-  })),deadline(2000,'Could not read live page state')]);
+  const state=await Promise.race([page.evaluate(()=>{
+    const rect=el=>{if(!el)return null;const r=el.getBoundingClientRect();return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};
+    return{
+      feels:document.querySelector('#feels')?.textContent?.trim()||'',
+      realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
+      realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
+      actual:document.querySelector('#actual')?.textContent?.trim()||'',
+      morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
+      updated:document.querySelector('#updated')?.textContent?.trim()||'',
+      modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
+      confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
+      confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
+      summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
+      summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
+      uvVisible:!document.querySelector('#uvGuidance')?.hidden,
+      uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
+      uvText:document.querySelector('#uvGuidance')?.textContent?.trim()||'',
+      warn:document.querySelector('#warn')?.textContent?.trim()||'',
+      initialShown:Boolean(window.__wxInitialForecastShown),
+      complete:Boolean(window.__wxHasCompleteForecast),
+      serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
+      requestHealth:window.WX_REQUEST_HEALTH||null,
+      layout:{hero:rect(document.querySelector('.hero')),summary:rect(document.querySelector('#daySummary')),confidence:rect(document.querySelector('.confidenceOrb')),confidenceParent:document.querySelector('.confidenceOrb')?.parentElement?.className||''}
+    }
+  }),deadline(2000,'Could not read live page state')]);
   console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,confidence_samples:confidenceSamples,console_errors:errors},null,2));
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
   if(state.confidenceOwner!=='engine3-empirical')throw new Error(`Forecast Confidence owner is not empirical Engine 3: ${state.confidenceOwner||'missing'}`);
   if(state.summaryOwner!=='engine3-summary'||!state.summary)throw new Error(`Engine 3 plain-English summary is not active: owner=${state.summaryOwner||'missing'}`);
+  if(/forecast confidence is\s+\d+%/i.test(state.summary))throw new Error(`Summary redundantly repeats Forecast Confidence: ${state.summary}`);
+  const {hero,summary,confidence,confidenceParent}=state.layout||{};
+  if(!hero||!summary||!confidence)throw new Error('Hero layout boxes are unavailable');
+  if(!String(confidenceParent).includes('heroTop'))throw new Error(`Confidence orb is not anchored in heroTop: ${confidenceParent}`);
+  if(confidence.width<104||confidence.height<104)throw new Error(`Confidence orb was shrunk: ${confidence.width}x${confidence.height}`);
+  if(confidence.right>hero.right-6||confidence.top<hero.top+6)throw new Error(`Confidence orb is not inside top-right hero safe area: ${JSON.stringify({hero,confidence})}`);
+  if(summary.left<hero.left+12||summary.right>hero.right-12)throw new Error(`Summary is too close to/cut by hero edges: ${JSON.stringify({hero,summary})}`);
+  const overlap=summary.left<confidence.right&&summary.right>confidence.left&&summary.top<confidence.bottom&&summary.bottom>confidence.top;
+  if(overlap)throw new Error(`Summary overlaps Forecast Confidence: ${JSON.stringify({summary,confidence})}`);
   if(state.uvVisible&&state.uvOwner!=='forecast-insights')throw new Error(`UV overlay has competing owner: ${state.uvOwner||'missing'}`);
   if(state.uvVisible&&!/SPF 30\+|SPF 50\+/i.test(state.uvText))throw new Error(`Visible UV guidance lacks sunscreen recommendation: ${state.uvText}`);
   if(state.serverConsensusFresh){
