@@ -37,7 +37,8 @@ jobs:
             scripts/precipitation_walkforward.py scripts/forecast_confidence_engine.py \
             scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py \
             scripts/engine3_weighting.py scripts/real_feel_engine.py \
-            scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
+            scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py \
+            scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -78,6 +79,14 @@ jobs:
           real=v3.get('real_feel') or {}
           assert real.get('forecast_points_ready',0) >= len(v3.get('consensus') or {})
 
+          e31=v3.get('engine31') or {}
+          assert e31.get('version') == '3.1-challenger'
+          assert e31.get('status') == 'shadow-with-automatic-evidence-gated-promotion'
+          assert e31.get('model_set_watch',{}).get('fingerprint')
+          assert 'safety_fallbacks' in e31
+          assert (v3.get('rain_timing_verification') or {}).get('mode') == 'prospective-issue-time-probability-vs-later-ECCC'
+          assert 'nowcast_intelligence' in v3 and 'microclimate_intelligence' in v3
+
           observations=skill.get('observations') or {}
           hrm=observations.get('hrm') or {}
           assert isinstance(hrm.get('temp'), (int,float))
@@ -95,26 +104,25 @@ jobs:
               h1=(c.get('hours') or {}).get('1') or {}
               assert isinstance(h1.get('temperature_2m'), (int,float)), f'{name}: missing V3 temp'
               assert isinstance(h1.get('real_feel'), (int,float)), f'{name}: missing Real Feel'
+              assert 'engine31_challenger' in h1
               fc=h1.get('forecast_confidence') or {}
               assert isinstance(fc.get('value'), (int,float)) and 50 <= fc['value'] <= 96, f'{name}: invalid confidence'
               rf=h1.get('real_feel_engine') or {}
               assert rf.get('method') == 'physics-plus-local-verified-residual'
               inputs=rf.get('inputs') or {}
-              # Solar/cloud are deliberately fail-soft. Require them only when a fresh
-              # deterministic collection succeeded this cycle.
               if fresh_models > 0:
                   assert inputs.get('shortwave_radiation') is not None, f'{name}: solar missing with live models'
                   assert inputs.get('cloud_cover') is not None, f'{name}: cloud missing with live models'
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3")
+          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3")
           PY
       - name: Commit updated skill data
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/v3-verification.json data/run-history-v2.json
+          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/v3-verification.json data/run-history-v2.json data/model-set-state.json
           if git diff --cached --quiet; then
             echo "No data changes"
           else
