@@ -20,7 +20,7 @@ on:
       - '.github/workflows/screenshot-ui.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: weather-ui-capture
@@ -49,16 +49,3 @@ jobs:
           name: ui-screenshots
           path: screenshots/
           retention-days: 7
-      - name: Commit screenshots and report
-        if: always()
-        run: |
-          git config user.name "weather-consensus-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -d screenshots ]; then git add -f screenshots/; fi
-          if git diff --cached --quiet; then
-            echo "No screenshot changes"
-          else
-            git commit -m "Update live UI screenshots"
-            git pull --rebase origin main
-            git push
-          fi
