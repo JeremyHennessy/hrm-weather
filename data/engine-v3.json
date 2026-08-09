@@ -15,13 +15,13 @@
     "probability_calibration": "reliability bins with Bayesian shrinkage"
   },
   "collector": {
-    "deterministic_forecasts": 62,
+    "deterministic_forecasts": 65,
     "lead_pooling": true,
     "shadow_forecasts_added": 35,
-    "shadow_forecasts_scored": 5,
-    "shadow_history_rows": 105,
-    "training_ledger_rows": 16960,
-    "verified_ledger_rows": 2871
+    "shadow_forecasts_scored": 15,
+    "shadow_history_rows": 140,
+    "training_ledger_rows": 19255,
+    "verified_ledger_rows": 3438
   },
   "consensus": {
     "hrm": {
@@ -49,22 +49,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 3.679817708333333,
+          "analog_distance": 2.2539930555555565,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.4930670907844,
-            "mos": 22.813330918628125,
-            "observation_nudge": -1.5207373317042554,
-            "v2_consensus": 23.289322826956777
+            "analog": 23.08141947823848,
+            "mos": 22.85557020985701,
+            "observation_nudge": -1.532908691508125,
+            "v2_consensus": 23.414629265727342
           },
-          "mos_samples": 12,
-          "mos_training_mae": 0.1445362703342695,
-          "precip_calibration_samples": 40,
-          "precipitation_probability": 28.55,
-          "raw_precipitation_probability": 28.875,
-          "target": "2026-08-09T16:00:00+00:00",
-          "temperature_2m": 22.240275535057787,
-          "v2_uncertainty": 2.7446357340108225
+          "mos_samples": 14,
+          "mos_training_mae": 0.139804996065828,
+          "precip_calibration_samples": 48,
+          "precipitation_probability": 40.4,
+          "raw_precipitation_probability": 41.0,
+          "target": "2026-08-09T17:00:00+00:00",
+          "temperature_2m": 22.25273081604927,
+          "v2_uncertainty": 2.855459790511392
         },
         "12": {
           "adaptive_skill": {
@@ -89,22 +89,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.6093315972222226,
+          "analog_distance": 1.2687934027777772,
           "analog_neighbors": 8,
           "components": {
-            "analog": 20.4706056449689,
-            "mos": 20.093088247309506,
-            "observation_nudge": -0.09721748507304846,
-            "v2_consensus": 19.91927359714574
+            "analog": 20.192068793677542,
+            "mos": 19.89646859305509,
+            "observation_nudge": -0.09799557407328711,
+            "v2_consensus": 19.396849566820844
           },
-          "mos_samples": 13,
-          "mos_training_mae": 0.092912389994625,
-          "precip_calibration_samples": 12,
-          "precipitation_probability": 52.23148148148148,
-          "raw_precipitation_probability": 52.5,
-          "target": "2026-08-10T03:00:00+00:00",
-          "temperature_2m": 19.981342060642714,
-          "v2_uncertainty": 1.2659485077423147
+          "mos_samples": 14,
+          "mos_training_mae": 0.09140742455941948,
+          "precip_calibration_samples": 16,
+          "precipitation_probability": 42.888888888888886,
+          "raw_precipitation_probability": 43.666666666666664,
+          "target": "2026-08-10T04:00:00+00:00",
+          "temperature_2m": 19.563058277465153,
+          "v2_uncertainty": 1.1930500859375268
         },
         "24": {
           "adaptive_skill": {
@@ -134,17 +134,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.004840173575883656,
-            "v2_consensus": 25.21713802469174
+            "observation_nudge": -0.004878912346134821,
+            "v2_consensus": 26.032558803788966
           },
-          "mos_samples": 6,
+          "mos_samples": 7,
           "mos_training_mae": null,
-          "precip_calibration_samples": 0,
-          "precipitation_probability": 25.0,
+          "precip_calibration_samples": 4,
+          "precipitation_probability": 24.75925925925926,
           "raw_precipitation_probability": 25.0,
-          "target": "2026-08-10T15:00:00+00:00",
-          "temperature_2m": 25.213991911867414,
-          "v2_uncertainty": 3.1666319116904327
+          "target": "2026-08-10T16:00:00+00:00",
+          "temperature_2m": 26.02938751076398,
+          "v2_uncertainty": 3.47919661719328
         },
         "3": {
           "adaptive_skill": {
@@ -169,22 +169,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.270703125,
+          "analog_distance": 1.3213541666666666,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.349495545298737,
-            "mos": 22.522451307204122,
-            "observation_nudge": -0.9223738170482119,
-            "v2_consensus": 24.32532106917512
+            "analog": 23.258476135936952,
+            "mos": 22.815554995444675,
+            "observation_nudge": -0.9297561199396526,
+            "v2_consensus": 24.275410339428248
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.11252776499959456,
-          "precip_calibration_samples": 52,
-          "precipitation_probability": 41.797222222222224,
-          "raw_precipitation_probability": 44.125,
-          "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 23.208316125746272,
-          "v2_uncertainty": 3.098966646832349
+          "mos_samples": 21,
+          "mos_training_mae": 0.11320173325626132,
+          "precip_calibration_samples": 60,
+          "precipitation_probability": 49.46136363636363,
+          "raw_precipitation_probability": 50.916666666666664,
+          "target": "2026-08-09T19:00:00+00:00",
+          "temperature_2m": 23.214679748895236,
+          "v2_uncertainty": 3.060554314102724
         },
         "48": {
           "adaptive_skill": {
@@ -214,17 +214,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.1997590786664604e-05,
-            "v2_consensus": 21.415598067415104
+            "observation_nudge": -1.2093614597746057e-05,
+            "v2_consensus": 21.669043532132836
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 58.0,
-          "raw_precipitation_probability": 58.0,
-          "target": "2026-08-11T15:00:00+00:00",
-          "temperature_2m": 21.41559026898109,
-          "v2_uncertainty": 3.395776204039233
+          "precipitation_probability": 61.25,
+          "raw_precipitation_probability": 61.25,
+          "target": "2026-08-11T16:00:00+00:00",
+          "temperature_2m": 21.669035671283346,
+          "v2_uncertainty": 3.835516691281495
         },
         "6": {
           "adaptive_skill": {
@@ -249,22 +249,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.374609375,
+          "analog_distance": 1.2135416666666665,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.316418541583243,
-            "mos": 22.543434082978067,
-            "observation_nudge": -0.4356985402976352,
-            "v2_consensus": 24.302918894855676
+            "analog": 22.50806004171916,
+            "mos": 22.36579343314084,
+            "observation_nudge": -0.4391856932657551,
+            "v2_consensus": 23.669740968647783
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.12256782982702039,
-          "precip_calibration_samples": 28,
-          "precipitation_probability": 42.17159090909091,
-          "raw_precipitation_probability": 43.625,
-          "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 23.50907493253163,
-          "v2_uncertainty": 2.959641336570347
+          "mos_samples": 21,
+          "mos_training_mae": 0.1290492300293463,
+          "precip_calibration_samples": 32,
+          "precipitation_probability": 30.083333333333336,
+          "raw_precipitation_probability": 30.083333333333336,
+          "target": "2026-08-09T22:00:00+00:00",
+          "temperature_2m": 22.934860712606863,
+          "v2_uncertainty": 2.520407986243772
         },
         "72": {
           "adaptive_skill": {
@@ -294,26 +294,26 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -2.9739054277197133e-08,
-            "v2_consensus": 23.240600038814964
+            "observation_nudge": -2.997707350792709e-08,
+            "v2_consensus": 23.721521892755412
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 27.25,
-          "raw_precipitation_probability": 27.25,
-          "target": "2026-08-12T15:00:00+00:00",
-          "temperature_2m": 23.240600019484578,
-          "v2_uncertainty": 3.2570891410850873
+          "precipitation_probability": 3.5,
+          "raw_precipitation_probability": 3.5,
+          "target": "2026-08-12T16:00:00+00:00",
+          "temperature_2m": 23.721521873270316,
+          "v2_uncertainty": 3.8693762436694463
         }
       },
       "regime": {
         "name": "stable",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -0.6000000000000227,
-        "relative_humidity": 88.41794520547612,
-        "wind_direction": 271.0,
-        "wind_speed": 4.65
+        "pressure_tendency_3h": -0.5,
+        "relative_humidity": 87.05507533435164,
+        "wind_direction": 277.3333333333333,
+        "wind_speed": 5.066666666666666
       }
     },
     "lunenburg": {
@@ -341,22 +341,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 3.3057291666666666,
+          "analog_distance": 2.6423735119047613,
           "analog_neighbors": 8,
           "components": {
-            "analog": 22.38926579904773,
-            "mos": 21.893968204777515,
+            "analog": 21.640431279190413,
+            "mos": 20.747582014642113,
             "observation_nudge": -2.3364023492142145,
-            "v2_consensus": 22.30693405832791
+            "v2_consensus": 21.92041920987651
           },
-          "mos_samples": 12,
-          "mos_training_mae": 0.1984505670611624,
+          "mos_samples": 14,
+          "mos_training_mae": 0.21765694678129677,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 23.75,
-          "raw_precipitation_probability": 23.75,
-          "target": "2026-08-09T16:00:00+00:00",
-          "temperature_2m": 20.7388196709311,
-          "v2_uncertainty": 2.009475884284589
+          "precipitation_probability": 40.25,
+          "raw_precipitation_probability": 40.25,
+          "target": "2026-08-09T17:00:00+00:00",
+          "temperature_2m": 20.142277578288482,
+          "v2_uncertainty": 2.013286812570942
         },
         "12": {
           "adaptive_skill": {
@@ -381,22 +381,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.9418154761904767,
+          "analog_distance": 1.9328125000000005,
           "analog_neighbors": 8,
           "components": {
-            "analog": 19.877694935533796,
-            "mos": null,
+            "analog": 19.47886102785054,
+            "mos": 19.316388148086254,
             "observation_nudge": -0.14936120510359183,
-            "v2_consensus": 19.561635506216916
+            "v2_consensus": 18.658559327901745
           },
-          "mos_samples": 11,
-          "mos_training_mae": null,
+          "mos_samples": 12,
+          "mos_training_mae": 0.13388428865866095,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 26.25,
-          "raw_precipitation_probability": 26.25,
-          "target": "2026-08-10T03:00:00+00:00",
-          "temperature_2m": 19.529494441252364,
-          "v2_uncertainty": 2.5916531372369978
+          "precipitation_probability": 25.5,
+          "raw_precipitation_probability": 25.5,
+          "target": "2026-08-10T04:00:00+00:00",
+          "temperature_2m": 18.826809096920158,
+          "v2_uncertainty": 2.5767007893780667
         },
         "24": {
           "adaptive_skill": {
@@ -427,16 +427,16 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -0.0074362565299990755,
-            "v2_consensus": 25.430251825662985
+            "v2_consensus": 25.979673270706524
           },
-          "mos_samples": 4,
+          "mos_samples": 5,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 25.0,
-          "raw_precipitation_probability": 25.0,
-          "target": "2026-08-10T15:00:00+00:00",
-          "temperature_2m": 25.425418258918487,
-          "v2_uncertainty": 2.0488833073483024
+          "precipitation_probability": 50.0,
+          "raw_precipitation_probability": 50.0,
+          "target": "2026-08-10T16:00:00+00:00",
+          "temperature_2m": 25.974839703962026,
+          "v2_uncertainty": 2.0636829228328195
         },
         "3": {
           "adaptive_skill": {
@@ -461,22 +461,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.4357142857142855,
+          "analog_distance": 2.1049851190476194,
           "analog_neighbors": 8,
           "components": {
-            "analog": 22.671761244629533,
-            "mos": 21.145471225573683,
+            "analog": 22.251900890698366,
+            "mos": 20.417468094141267,
             "observation_nudge": -1.417099658223044,
-            "v2_consensus": 23.671995116497488
+            "v2_consensus": 23.54029262209772
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.1720786136107955,
+          "mos_samples": 21,
+          "mos_training_mae": 0.21412716689563976,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 42.5,
-          "raw_precipitation_probability": 42.5,
-          "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 22.086254645084953,
-          "v2_uncertainty": 2.0076292691002737
+          "precipitation_probability": 44.0,
+          "raw_precipitation_probability": 44.0,
+          "target": "2026-08-09T19:00:00+00:00",
+          "temperature_2m": 21.789104025854872,
+          "v2_uncertainty": 1.5351737110760473
         },
         "48": {
           "adaptive_skill": {
@@ -507,16 +507,16 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -1.843263705998463e-05,
-            "v2_consensus": 22.39312142595052
+            "v2_consensus": 22.470319312928904
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 52.25,
-          "raw_precipitation_probability": 52.25,
-          "target": "2026-08-11T15:00:00+00:00",
-          "temperature_2m": 22.393109444736428,
-          "v2_uncertainty": 3.326224233683818
+          "precipitation_probability": 52.5,
+          "raw_precipitation_probability": 52.5,
+          "target": "2026-08-11T16:00:00+00:00",
+          "temperature_2m": 22.470307331714814,
+          "v2_uncertainty": 3.5466435231444176
         },
         "6": {
           "adaptive_skill": {
@@ -541,22 +541,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.80078125,
+          "analog_distance": 2.046875,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.06352318627292,
-            "mos": 21.99212613593435,
+            "analog": 22.242535302362967,
+            "mos": 21.200561297539977,
             "observation_nudge": -0.6693904804452895,
-            "v2_consensus": 24.608760609230035
+            "v2_consensus": 24.27444319654752
           },
-          "mos_samples": 17,
-          "mos_training_mae": 0.16204305295791432,
+          "mos_samples": 19,
+          "mos_training_mae": 0.18638641572649656,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 29.0,
-          "raw_precipitation_probability": 29.0,
-          "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 23.401371281955115,
-          "v2_uncertainty": 1.8055212730544268
+          "precipitation_probability": 17.75,
+          "raw_precipitation_probability": 17.75,
+          "target": "2026-08-09T22:00:00+00:00",
+          "temperature_2m": 22.896388916182215,
+          "v2_uncertainty": 1.731284956030549
         },
         "72": {
           "adaptive_skill": {
@@ -587,25 +587,25 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -4.568993923413789e-08,
-            "v2_consensus": 23.390582852238985
+            "v2_consensus": 23.832640910112133
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 51.75,
-          "raw_precipitation_probability": 51.75,
-          "target": "2026-08-12T15:00:00+00:00",
-          "temperature_2m": 23.390582822540527,
-          "v2_uncertainty": 2.5386540707041796
+          "precipitation_probability": 29.5,
+          "raw_precipitation_probability": 29.5,
+          "target": "2026-08-12T16:00:00+00:00",
+          "temperature_2m": 23.832640880413674,
+          "v2_uncertainty": 2.4388243055367496
         }
       },
       "regime": {
-        "name": "stable",
+        "name": "marine_onshore",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -0.7999999999999545,
-        "relative_humidity": 92.0,
-        "wind_direction": 212.0,
-        "wind_speed": 6.8
+        "pressure_tendency_3h": -0.6000000000000227,
+        "relative_humidity": 94.0,
+        "wind_direction": 178.0,
+        "wind_speed": 8.6
       }
     },
     "moncton": {
@@ -633,22 +633,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 3.4170535714285717,
+          "analog_distance": 2.439087301587301,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.95171285388734,
-            "mos": 23.22522193627306,
-            "observation_nudge": -0.25032882313009286,
-            "v2_consensus": 24.276791624291103
+            "analog": 24.989294671736594,
+            "mos": 24.911657199380574,
+            "observation_nudge": 0.5354255383615909,
+            "v2_consensus": 25.490322161820476
           },
-          "mos_samples": 12,
-          "mos_training_mae": 0.18837850419451296,
-          "precip_calibration_samples": 28,
-          "precipitation_probability": 36.03809523809524,
-          "raw_precipitation_probability": 39.333333333333336,
-          "target": "2026-08-09T16:00:00+00:00",
-          "temperature_2m": 23.852490681120486,
-          "v2_uncertainty": 1.4727478682764212
+          "mos_samples": 14,
+          "mos_training_mae": 0.3216855722282279,
+          "precip_calibration_samples": 35,
+          "precipitation_probability": 39.28611111111111,
+          "raw_precipitation_probability": 44.75,
+          "target": "2026-08-09T17:00:00+00:00",
+          "temperature_2m": 25.641300611478847,
+          "v2_uncertainty": 1.6289280247267022
         },
         "12": {
           "adaptive_skill": {
@@ -673,22 +673,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.0767857142857145,
+          "analog_distance": 1.040290178571429,
           "analog_neighbors": 8,
           "components": {
-            "analog": 20.43916859744838,
-            "mos": 19.985420221234616,
-            "observation_nudge": -0.016002986261099025,
-            "v2_consensus": 19.986913450215457
+            "analog": 20.221949446524167,
+            "mos": 19.65276056678568,
+            "observation_nudge": 0.03422860950290646,
+            "v2_consensus": 19.934756054856898
           },
-          "mos_samples": 13,
-          "mos_training_mae": 0.15230213550939098,
-          "precip_calibration_samples": 12,
-          "precipitation_probability": 19.11111111111111,
-          "raw_precipitation_probability": 19.333333333333332,
-          "target": "2026-08-10T03:00:00+00:00",
-          "temperature_2m": 20.0507636969132,
-          "v2_uncertainty": 1.66547404012528
+          "mos_samples": 14,
+          "mos_training_mae": 0.24274772052093244,
+          "precip_calibration_samples": 16,
+          "precipitation_probability": 19.32777777777778,
+          "raw_precipitation_probability": 20.25,
+          "target": "2026-08-10T04:00:00+00:00",
+          "temperature_2m": 19.94856489377804,
+          "v2_uncertainty": 1.499445133925654
         },
         "24": {
           "adaptive_skill": {
@@ -718,17 +718,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.0007967417710713245,
-            "v2_consensus": 25.430290431529535
+            "observation_nudge": 0.0017041421214581214,
+            "v2_consensus": 26.657928937890375
           },
-          "mos_samples": 6,
+          "mos_samples": 7,
           "mos_training_mae": null,
-          "precip_calibration_samples": 0,
-          "precipitation_probability": 66.66666666666666,
-          "raw_precipitation_probability": 0.6666666666666666,
-          "target": "2026-08-10T15:00:00+00:00",
-          "temperature_2m": 25.429772549378338,
-          "v2_uncertainty": 1.8371241397279883
+          "precip_calibration_samples": 4,
+          "precipitation_probability": 100.0,
+          "raw_precipitation_probability": 1.0,
+          "target": "2026-08-10T16:00:00+00:00",
+          "temperature_2m": 26.659036630269323,
+          "v2_uncertainty": 1.9057032269778842
         },
         "3": {
           "adaptive_skill": {
@@ -753,22 +753,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.5575892857142857,
+          "analog_distance": 1.8434151785714286,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.372012888881574,
-            "mos": 23.67440070605855,
-            "observation_nudge": -0.15183210623818233,
-            "v2_consensus": 25.18808095746045
+            "analog": 25.114134186594917,
+            "mos": 24.319462018741106,
+            "observation_nudge": 0.3247520050094476,
+            "v2_consensus": 25.698129981969092
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.16814365671748652,
-          "precip_calibration_samples": 40,
-          "precipitation_probability": 50.78148148148148,
-          "raw_precipitation_probability": 51.0,
-          "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 24.65546409330764,
-          "v2_uncertainty": 2.038617905101284
+          "mos_samples": 21,
+          "mos_training_mae": 0.2871020511277456,
+          "precip_calibration_samples": 47,
+          "precipitation_probability": 53.19814814814815,
+          "raw_precipitation_probability": 53.5,
+          "target": "2026-08-09T19:00:00+00:00",
+          "temperature_2m": 25.54025218886572,
+          "v2_uncertainty": 2.0436624185952246
         },
         "48": {
           "adaptive_skill": {
@@ -798,17 +798,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.974925399284055e-06,
-            "v2_consensus": 21.709779845719005
+            "observation_nudge": 4.224145992913145e-06,
+            "v2_consensus": 22.17335743386011
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 59.333333333333336,
-          "raw_precipitation_probability": 59.333333333333336,
-          "target": "2026-08-11T15:00:00+00:00",
-          "temperature_2m": 21.709778562017497,
-          "v2_uncertainty": 3.411267551938471
+          "precipitation_probability": 56.0,
+          "raw_precipitation_probability": 56.0,
+          "target": "2026-08-11T16:00:00+00:00",
+          "temperature_2m": 22.173360179555008,
+          "v2_uncertainty": 3.7259782885852926
         },
         "6": {
           "adaptive_skill": {
@@ -833,22 +833,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.320386904761905,
+          "analog_distance": 1.6475818452380953,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.649202287665542,
-            "mos": 22.640095035437533,
-            "observation_nudge": -0.0717204086191377,
-            "v2_consensus": 23.887980706386227
+            "analog": 23.32727164736229,
+            "mos": 21.837796529143894,
+            "observation_nudge": 0.1534019851020455,
+            "v2_consensus": 23.609273992926596
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.1738663920220762,
-          "precip_calibration_samples": 20,
-          "precipitation_probability": 48.525925925925925,
-          "raw_precipitation_probability": 48.666666666666664,
-          "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 23.55516883245536,
-          "v2_uncertainty": 2.598832939959686
+          "mos_samples": 21,
+          "mos_training_mae": 0.29064344814892945,
+          "precip_calibration_samples": 24,
+          "precipitation_probability": 50.53981481481482,
+          "raw_precipitation_probability": 50.75,
+          "target": "2026-08-09T22:00:00+00:00",
+          "temperature_2m": 23.312099244434645,
+          "v2_uncertainty": 2.156614364290729
         },
         "72": {
           "adaptive_skill": {
@@ -878,26 +878,26 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -4.895350632229028e-09,
-            "v2_consensus": 22.71274075911485
+            "observation_nudge": 1.0470611074489932e-08,
+            "v2_consensus": 23.828209387711492
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 35.333333333333336,
-          "raw_precipitation_probability": 35.333333333333336,
-          "target": "2026-08-12T15:00:00+00:00",
-          "temperature_2m": 22.712740755932874,
-          "v2_uncertainty": 1.7043991120657933
+          "precipitation_probability": 27.5,
+          "raw_precipitation_probability": 27.5,
+          "target": "2026-08-12T16:00:00+00:00",
+          "temperature_2m": 23.82820939451739,
+          "v2_uncertainty": 1.6591211475865935
         }
       },
       "regime": {
-        "name": "mixed",
+        "name": "stable",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -1.2000000000000455,
-        "relative_humidity": 82.0,
-        "wind_direction": 306.0,
-        "wind_speed": 3.1
+        "pressure_tendency_3h": -0.8000000000000682,
+        "relative_humidity": 72.0,
+        "wind_direction": 251.0,
+        "wind_speed": 2.5
       }
     },
     "shediac": {
@@ -925,22 +925,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.8677083333333333,
+          "analog_distance": 2.063541666666667,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.768375490221246,
-            "mos": 23.564976512556353,
-            "observation_nudge": 0.4721479747370387,
-            "v2_consensus": 23.82842163559055
+            "analog": 24.862395477718366,
+            "mos": 24.570680138496993,
+            "observation_nudge": 1.5705815791939992,
+            "v2_consensus": 25.1238085385283
           },
-          "mos_samples": 12,
-          "mos_training_mae": 0.21374406352954978,
-          "precip_calibration_samples": 26,
-          "precipitation_probability": 45.6,
-          "raw_precipitation_probability": 46.0,
-          "target": "2026-08-09T16:00:00+00:00",
-          "temperature_2m": 24.073310078563523,
-          "v2_uncertainty": 1.8060131349193933
+          "mos_samples": 14,
+          "mos_training_mae": 0.40237307765571323,
+          "precip_calibration_samples": 34,
+          "precipitation_probability": 52.6,
+          "raw_precipitation_probability": 53.5,
+          "target": "2026-08-09T17:00:00+00:00",
+          "temperature_2m": 25.992186486842726,
+          "v2_uncertainty": 1.7976160153976366
         },
         "12": {
           "adaptive_skill": {
@@ -965,22 +965,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 0.9363095238095235,
+          "analog_distance": 1.0281249999999997,
           "analog_neighbors": 8,
           "components": {
-            "analog": 20.204386011587292,
-            "mos": 19.877629773150687,
-            "observation_nudge": 0.03018341019801748,
-            "v2_consensus": 20.255154080713805
+            "analog": 20.244864573679266,
+            "mos": 20.315245759010697,
+            "observation_nudge": 0.10040392120852558,
+            "v2_consensus": 20.39549355883348
           },
-          "mos_samples": 13,
-          "mos_training_mae": 0.11186274682596593,
-          "precip_calibration_samples": 10,
-          "precipitation_probability": 23.233333333333334,
-          "raw_precipitation_probability": 23.75,
-          "target": "2026-08-10T03:00:00+00:00",
-          "temperature_2m": 20.19172979653995,
-          "v2_uncertainty": 1.4601196474762796
+          "mos_samples": 14,
+          "mos_training_mae": 0.19903965468361662,
+          "precip_calibration_samples": 14,
+          "precipitation_probability": 17.4,
+          "raw_precipitation_probability": 17.5,
+          "target": "2026-08-10T04:00:00+00:00",
+          "temperature_2m": 20.420053962848435,
+          "v2_uncertainty": 1.3755755140513288
         },
         "24": {
           "adaptive_skill": {
@@ -1010,17 +1010,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.0015027435071039781,
-            "v2_consensus": 25.390992137740348
+            "observation_nudge": 0.004998816889610487,
+            "v2_consensus": 26.547047427110034
           },
-          "mos_samples": 6,
+          "mos_samples": 7,
           "mos_training_mae": null,
-          "precip_calibration_samples": 0,
-          "precipitation_probability": 50.0,
-          "raw_precipitation_probability": 0.5,
-          "target": "2026-08-10T15:00:00+00:00",
-          "temperature_2m": 25.391968921019966,
-          "v2_uncertainty": 1.996537324068356
+          "precip_calibration_samples": 4,
+          "precipitation_probability": 50.5,
+          "raw_precipitation_probability": 50.5,
+          "target": "2026-08-10T16:00:00+00:00",
+          "temperature_2m": 26.550296658088282,
+          "v2_uncertainty": 1.9810784822859737
         },
         "3": {
           "adaptive_skill": {
@@ -1045,22 +1045,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.140885416666667,
+          "analog_distance": 1.8367187500000002,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.017011990756497,
-            "mos": 23.47857697267455,
-            "observation_nudge": 0.28637222259923983,
-            "v2_consensus": 24.642800751746716
+            "analog": 24.683807471601934,
+            "mos": 24.313323553696215,
+            "observation_nudge": 0.9526058813610458,
+            "v2_consensus": 25.065219898142125
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.21717735091642348,
-          "precip_calibration_samples": 36,
-          "precipitation_probability": 57.1,
-          "raw_precipitation_probability": 57.75,
-          "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 24.49550468063235,
-          "v2_uncertainty": 1.957531170125701
+          "mos_samples": 21,
+          "mos_training_mae": 0.3877547701511752,
+          "precip_calibration_samples": 44,
+          "precipitation_probability": 62.233333333333334,
+          "raw_precipitation_probability": 63.25,
+          "target": "2026-08-09T19:00:00+00:00",
+          "temperature_2m": 25.472816791377035,
+          "v2_uncertainty": 2.114435631011474
         },
         "48": {
           "adaptive_skill": {
@@ -1090,17 +1090,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 3.724928739205223e-06,
-            "v2_consensus": 21.373194598083952
+            "observation_nudge": 1.239082824587855e-05,
+            "v2_consensus": 22.022899616804505
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 56.75,
-          "raw_precipitation_probability": 56.75,
-          "target": "2026-08-11T15:00:00+00:00",
-          "temperature_2m": 21.373197019287634,
-          "v2_uncertainty": 3.157527532085721
+          "precipitation_probability": 61.25,
+          "raw_precipitation_probability": 61.25,
+          "target": "2026-08-11T16:00:00+00:00",
+          "temperature_2m": 22.022907670842866,
+          "v2_uncertainty": 3.264701425979411
         },
         "6": {
           "adaptive_skill": {
@@ -1125,22 +1125,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.9008928571428574,
+          "analog_distance": 1.4273065476190485,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.208563077559837,
-            "mos": 21.869502691316157,
-            "observation_nudge": 0.1352726595899854,
-            "v2_consensus": 23.274319376670025
+            "analog": 23.03744222996775,
+            "mos": 23.455094022579164,
+            "observation_nudge": 0.44997915629933327,
+            "v2_consensus": 22.833829956553775
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.200926637845517,
-          "precip_calibration_samples": 18,
-          "precipitation_probability": 63.644444444444446,
-          "raw_precipitation_probability": 64.0,
-          "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 23.073531827128544,
-          "v2_uncertainty": 2.349062132285918
+          "mos_samples": 21,
+          "mos_training_mae": 0.31904073691467427,
+          "precip_calibration_samples": 22,
+          "precipitation_probability": 59.53611111111111,
+          "raw_precipitation_probability": 59.75,
+          "target": "2026-08-09T22:00:00+00:00",
+          "temperature_2m": 23.28276626847435,
+          "v2_uncertainty": 1.9700523859023304
         },
         "72": {
           "adaptive_skill": {
@@ -1170,26 +1170,26 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 9.23317522023202e-09,
-            "v2_consensus": 22.357582286980236
+            "observation_nudge": 3.071379248517045e-08,
+            "v2_consensus": 23.502732013214484
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 34.75,
-          "raw_precipitation_probability": 34.75,
-          "target": "2026-08-12T15:00:00+00:00",
-          "temperature_2m": 22.3575822929818,
-          "v2_uncertainty": 2.1416974897446
+          "precipitation_probability": 9.0,
+          "raw_precipitation_probability": 9.0,
+          "target": "2026-08-12T16:00:00+00:00",
+          "temperature_2m": 23.50273203317845,
+          "v2_uncertainty": 1.9898431594285813
         }
       },
       "regime": {
         "name": "offshore",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -0.7999999999999545,
-        "relative_humidity": 82.0,
-        "wind_direction": 25.0,
-        "wind_speed": 6.5
+        "pressure_tendency_3h": -0.39999999999997726,
+        "relative_humidity": 72.0,
+        "wind_direction": 27.0,
+        "wind_speed": 8.6
       }
     },
     "wolfville": {
@@ -1217,22 +1217,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.5694444444444446,
+          "analog_distance": 2.336892361111111,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.417049679622192,
-            "mos": 24.521810219531947,
-            "observation_nudge": 1.0882481291561976,
-            "v2_consensus": 24.71343219159715
+            "analog": 25.403069648236514,
+            "mos": 25.582305395912716,
+            "observation_nudge": 0.7744520114610552,
+            "v2_consensus": 25.26101539372014
           },
-          "mos_samples": 12,
-          "mos_training_mae": 0.1981031455009236,
-          "precip_calibration_samples": 40,
-          "precipitation_probability": 23.628571428571433,
-          "raw_precipitation_probability": 25.25,
-          "target": "2026-08-09T16:00:00+00:00",
-          "temperature_2m": 25.334035968111337,
-          "v2_uncertainty": 1.6005999056003752
+          "mos_samples": 14,
+          "mos_training_mae": 0.23740705010949398,
+          "precip_calibration_samples": 48,
+          "precipitation_probability": 38.53409090909091,
+          "raw_precipitation_probability": 39.583333333333336,
+          "target": "2026-08-09T17:00:00+00:00",
+          "temperature_2m": 25.851376606194133,
+          "v2_uncertainty": 1.5545961034838784
         },
         "12": {
           "adaptive_skill": {
@@ -1257,22 +1257,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.4458333333333333,
+          "analog_distance": 1.5114583333333327,
           "analog_neighbors": 8,
           "components": {
-            "analog": 19.8975116779313,
-            "mos": null,
-            "observation_nudge": 0.06956937535915658,
-            "v2_consensus": 20.000813324307096
+            "analog": 19.807839768647288,
+            "mos": 19.875146022912777,
+            "observation_nudge": 0.049509060699937844,
+            "v2_consensus": 19.87899532260982
           },
-          "mos_samples": 11,
-          "mos_training_mae": null,
-          "precip_calibration_samples": 12,
-          "precipitation_probability": 9.088888888888889,
-          "raw_precipitation_probability": 9.166666666666666,
-          "target": "2026-08-10T03:00:00+00:00",
-          "temperature_2m": 20.024807052596888,
-          "v2_uncertainty": 1.967160539452061
+          "mos_samples": 12,
+          "mos_training_mae": 0.22898875752206896,
+          "precip_calibration_samples": 16,
+          "precipitation_probability": 7.144444444444445,
+          "raw_precipitation_probability": 7.083333333333334,
+          "target": "2026-08-10T04:00:00+00:00",
+          "temperature_2m": 19.89868587465836,
+          "v2_uncertainty": 1.829666540711109
         },
         "24": {
           "adaptive_skill": {
@@ -1302,17 +1302,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.0034636552473159177,
-            "v2_consensus": 25.63318681236537
+            "observation_nudge": 0.0024649109898965313,
+            "v2_consensus": 26.66409618860178
           },
-          "mos_samples": 4,
+          "mos_samples": 5,
           "mos_training_mae": null,
-          "precip_calibration_samples": 0,
-          "precipitation_probability": 25.0,
-          "raw_precipitation_probability": 25.0,
-          "target": "2026-08-10T15:00:00+00:00",
-          "temperature_2m": 25.635438188276126,
-          "v2_uncertainty": 1.9898307008160379
+          "precip_calibration_samples": 4,
+          "precipitation_probability": 33.33333333333333,
+          "raw_precipitation_probability": 33.33333333333333,
+          "target": "2026-08-10T16:00:00+00:00",
+          "temperature_2m": 26.665698380745212,
+          "v2_uncertainty": 1.9041171186516317
         },
         "3": {
           "adaptive_skill": {
@@ -1337,22 +1337,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.999392361111111,
+          "analog_distance": 2.076302083333333,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.434100188513888,
-            "mos": 25.884573035435064,
-            "observation_nudge": 0.6600558557081476,
-            "v2_consensus": 25.693997670442112
+            "analog": 25.74081555128854,
+            "mos": 26.114983052621078,
+            "observation_nudge": 0.4697288894272497,
+            "v2_consensus": 25.79263446796182
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.26303521242888833,
-          "precip_calibration_samples": 52,
-          "precipitation_probability": 36.13409090909091,
-          "raw_precipitation_probability": 36.916666666666664,
-          "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 26.117889958421088,
-          "v2_uncertainty": 2.2420311293929864
+          "mos_samples": 21,
+          "mos_training_mae": 0.2750164754024342,
+          "precip_calibration_samples": 60,
+          "precipitation_probability": 28.077777777777776,
+          "raw_precipitation_probability": 32.83333333333333,
+          "target": "2026-08-09T19:00:00+00:00",
+          "temperature_2m": 26.15317792492214,
+          "v2_uncertainty": 1.7195438728912376
         },
         "48": {
           "adaptive_skill": {
@@ -1382,17 +1382,17 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 8.585542983506185e-06,
-            "v2_consensus": 23.556369915805988
+            "observation_nudge": 6.109903481494854e-06,
+            "v2_consensus": 24.28523076428728
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 54.58333333333333,
-          "raw_precipitation_probability": 54.58333333333333,
-          "target": "2026-08-11T15:00:00+00:00",
-          "temperature_2m": 23.556375496408926,
-          "v2_uncertainty": 2.549245021517353
+          "precipitation_probability": 56.58333333333333,
+          "raw_precipitation_probability": 56.58333333333333,
+          "target": "2026-08-11T16:00:00+00:00",
+          "temperature_2m": 24.285234735724543,
+          "v2_uncertainty": 2.26173379867919
         },
         "6": {
           "adaptive_skill": {
@@ -1417,22 +1417,22 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.2868923611111107,
+          "analog_distance": 1.311545138888889,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.891775332711614,
-            "mos": 25.051413887549757,
-            "observation_nudge": 0.3117883091773783,
-            "v2_consensus": 24.847925754860412
+            "analog": 23.8066835640909,
+            "mos": 23.92069360848435,
+            "observation_nudge": 0.22188421622161522,
+            "v2_consensus": 23.825908669397858
           },
-          "mos_samples": 17,
-          "mos_training_mae": 0.21226325096110632,
-          "precip_calibration_samples": 28,
-          "precipitation_probability": 15.592948717948719,
-          "raw_precipitation_probability": 16.25,
-          "target": "2026-08-09T21:00:00+00:00",
-          "temperature_2m": 25.098066508091378,
-          "v2_uncertainty": 1.9629299589469333
+          "mos_samples": 19,
+          "mos_training_mae": 0.2248698078757459,
+          "precip_calibration_samples": 32,
+          "precipitation_probability": 8.463888888888889,
+          "raw_precipitation_probability": 9.416666666666666,
+          "target": "2026-08-09T22:00:00+00:00",
+          "temperature_2m": 23.985713105809516,
+          "v2_uncertainty": 1.8329914654182127
         },
         "72": {
           "adaptive_skill": {
@@ -1462,26 +1462,26 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 2.1281433358228537e-08,
-            "v2_consensus": 22.7579563534224
+            "observation_nudge": 1.5144936553976733e-08,
+            "v2_consensus": 23.470846747011155
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 51.25,
-          "raw_precipitation_probability": 51.25,
-          "target": "2026-08-12T15:00:00+00:00",
-          "temperature_2m": 22.757956367255332,
-          "v2_uncertainty": 2.436325470607672
+          "precipitation_probability": 50.75,
+          "raw_precipitation_probability": 50.75,
+          "target": "2026-08-12T16:00:00+00:00",
+          "temperature_2m": 23.470846756855362,
+          "v2_uncertainty": 2.3758537732095686
         }
       },
       "regime": {
         "name": "stable",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -0.466666666666697,
-        "relative_humidity": 70.0,
-        "wind_direction": 281.0,
-        "wind_speed": 5.400000000000001
+        "pressure_tendency_3h": -0.39999999999997726,
+        "relative_humidity": 76.0,
+        "wind_direction": 281.6666666666667,
+        "wind_speed": 5.533333333333334
       }
     }
   },
@@ -1490,28 +1490,28 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -1.6600579092155987,
-          "mean_distance": 3.679817708333333,
+          "correction": -1.9269138550948508,
+          "mean_distance": 2.2539930555555565,
           "neighbors": 8,
-          "prediction": 23.4930670907844
+          "prediction": 23.08141947823848
         },
         "12": {
           "available": true,
-          "correction": -0.07210268836443548,
-          "mean_distance": 1.6093315972222226,
+          "correction": 0.05734657145531772,
+          "mean_distance": 1.2687934027777772,
           "neighbors": 8,
-          "prediction": 20.4706056449689
+          "prediction": 20.192068793677542
         },
         "24": {
           "available": false,
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
-          "correction": -1.6744627880345975,
-          "mean_distance": 2.270703125,
+          "correction": -1.9790238640630486,
+          "mean_distance": 1.3213541666666666,
           "neighbors": 8,
-          "prediction": 23.349495545298737
+          "prediction": 23.258476135936952
         },
         "48": {
           "available": false,
@@ -1519,10 +1519,10 @@
         },
         "6": {
           "available": true,
-          "correction": -1.686706458416759,
-          "mean_distance": 2.374609375,
+          "correction": -1.891245513836398,
+          "mean_distance": 1.2135416666666665,
           "neighbors": 8,
-          "prediction": 23.316418541583243
+          "prediction": 22.50806004171916
         },
         "72": {
           "available": false,
@@ -1533,25 +1533,25 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 12,
-          "training_mae": 0.1445362703342695
+          "samples": 14,
+          "training_mae": 0.139804996065828
         },
         "12": {
           "available": true,
           "ridge": 2.5,
-          "samples": 13,
-          "training_mae": 0.092912389994625
+          "samples": 14,
+          "training_mae": 0.09140742455941948
         },
         "24": {
           "available": false,
           "reason": "needs-12-verified-targets",
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.11252776499959456
+          "samples": 21,
+          "training_mae": 0.11320173325626132
         },
         "48": {
           "available": false,
@@ -1561,8 +1561,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.12256782982702039
+          "samples": 21,
+          "training_mae": 0.1290492300293463
         },
         "72": {
           "available": false,
@@ -1572,22 +1572,22 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 40
+          "samples": 48
         },
         "12": {
-          "samples": 12
+          "samples": 16
         },
         "24": {
-          "samples": 0
+          "samples": 4
         },
         "3": {
-          "samples": 52
+          "samples": 60
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 28
+          "samples": 32
         },
         "72": {
           "samples": 0
@@ -1598,28 +1598,28 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -2.514900867618939,
-          "mean_distance": 3.3057291666666666,
+          "correction": -3.1220687208095854,
+          "mean_distance": 2.6423735119047613,
           "neighbors": 8,
-          "prediction": 22.38926579904773
+          "prediction": 21.640431279190413
         },
         "12": {
           "available": true,
-          "correction": -1.2160550644662023,
-          "mean_distance": 1.9418154761904767,
+          "correction": -1.1690556388161237,
+          "mean_distance": 1.9328125000000005,
           "neighbors": 8,
-          "prediction": 19.877694935533796
+          "prediction": 19.47886102785054
         },
         "24": {
           "available": false,
-          "samples": 4
+          "samples": 5
         },
         "3": {
           "available": true,
-          "correction": -2.351155422037134,
-          "mean_distance": 2.4357142857142855,
+          "correction": -3.0480991093016336,
+          "mean_distance": 2.1049851190476194,
           "neighbors": 8,
-          "prediction": 22.671761244629533
+          "prediction": 22.251900890698366
         },
         "48": {
           "available": false,
@@ -1627,10 +1627,10 @@
         },
         "6": {
           "available": true,
-          "correction": -2.6698101470604145,
-          "mean_distance": 2.80078125,
+          "correction": -3.2657980309703656,
+          "mean_distance": 2.046875,
           "neighbors": 8,
-          "prediction": 23.06352318627292
+          "prediction": 22.242535302362967
         },
         "72": {
           "available": false,
@@ -1641,24 +1641,25 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 12,
-          "training_mae": 0.1984505670611624
+          "samples": 14,
+          "training_mae": 0.21765694678129677
         },
         "12": {
-          "available": false,
-          "reason": "needs-12-verified-targets",
-          "samples": 11
+          "available": true,
+          "ridge": 2.5,
+          "samples": 12,
+          "training_mae": 0.13388428865866095
         },
         "24": {
           "available": false,
           "reason": "needs-12-verified-targets",
-          "samples": 4
+          "samples": 5
         },
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.1720786136107955
+          "samples": 21,
+          "training_mae": 0.21412716689563976
         },
         "48": {
           "available": false,
@@ -1668,8 +1669,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 17,
-          "training_mae": 0.16204305295791432
+          "samples": 19,
+          "training_mae": 0.18638641572649656
         },
         "72": {
           "available": false,
@@ -1705,28 +1706,28 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -0.7768585746840875,
-          "mean_distance": 3.4170535714285717,
+          "correction": -0.3065386615967393,
+          "mean_distance": 2.439087301587301,
           "neighbors": 8,
-          "prediction": 23.95171285388734
+          "prediction": 24.989294671736594
         },
         "12": {
           "available": true,
-          "correction": -0.2322599739801911,
-          "mean_distance": 1.0767857142857145,
+          "correction": -0.22388388680916602,
+          "mean_distance": 1.040290178571429,
           "neighbors": 8,
-          "prediction": 20.43916859744838
+          "prediction": 20.221949446524167
         },
         "24": {
           "available": false,
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
-          "correction": -0.8351299682612823,
-          "mean_distance": 2.5575892857142857,
+          "correction": -0.5837824800717522,
+          "mean_distance": 1.8434151785714286,
           "neighbors": 8,
-          "prediction": 24.372012888881574
+          "prediction": 25.114134186594917
         },
         "48": {
           "available": false,
@@ -1734,10 +1735,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.7293691409058886,
-          "mean_distance": 2.320386904761905,
+          "correction": -0.776895019304378,
+          "mean_distance": 1.6475818452380953,
           "neighbors": 8,
-          "prediction": 23.649202287665542
+          "prediction": 23.32727164736229
         },
         "72": {
           "available": false,
@@ -1748,25 +1749,25 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 12,
-          "training_mae": 0.18837850419451296
+          "samples": 14,
+          "training_mae": 0.3216855722282279
         },
         "12": {
           "available": true,
           "ridge": 2.5,
-          "samples": 13,
-          "training_mae": 0.15230213550939098
+          "samples": 14,
+          "training_mae": 0.24274772052093244
         },
         "24": {
           "available": false,
           "reason": "needs-12-verified-targets",
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.16814365671748652
+          "samples": 21,
+          "training_mae": 0.2871020511277456
         },
         "48": {
           "available": false,
@@ -1776,8 +1777,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.1738663920220762
+          "samples": 21,
+          "training_mae": 0.29064344814892945
         },
         "72": {
           "available": false,
@@ -1787,22 +1788,22 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 28
+          "samples": 35
         },
         "12": {
-          "samples": 12
+          "samples": 16
         },
         "24": {
-          "samples": 0
+          "samples": 4
         },
         "3": {
-          "samples": 40
+          "samples": 47
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 20
+          "samples": 24
         },
         "72": {
           "samples": 0
@@ -1813,28 +1814,28 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.17254215688791277,
-          "mean_distance": 2.8677083333333333,
+          "correction": 0.8519788110516993,
+          "mean_distance": 2.063541666666667,
           "neighbors": 8,
-          "prediction": 23.768375490221246
+          "prediction": 24.862395477718366
         },
         "12": {
           "available": true,
-          "correction": 0.08771934492062398,
-          "mean_distance": 0.9363095238095235,
+          "correction": 0.08653124034593186,
+          "mean_distance": 1.0281249999999997,
           "neighbors": 8,
-          "prediction": 20.204386011587292
+          "prediction": 20.244864573679266
         },
         "24": {
           "available": false,
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
-          "correction": -0.15382134257683636,
-          "mean_distance": 2.140885416666667,
+          "correction": 0.40880747160193687,
+          "mean_distance": 1.8367187500000002,
           "neighbors": 8,
-          "prediction": 24.017011990756497
+          "prediction": 24.683807471601934
         },
         "48": {
           "available": false,
@@ -1842,10 +1843,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.03102025577349522,
-          "mean_distance": 1.9008928571428574,
+          "correction": 0.16660889663441514,
+          "mean_distance": 1.4273065476190485,
           "neighbors": 8,
-          "prediction": 23.208563077559837
+          "prediction": 23.03744222996775
         },
         "72": {
           "available": false,
@@ -1856,25 +1857,25 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 12,
-          "training_mae": 0.21374406352954978
+          "samples": 14,
+          "training_mae": 0.40237307765571323
         },
         "12": {
           "available": true,
           "ridge": 2.5,
-          "samples": 13,
-          "training_mae": 0.11186274682596593
+          "samples": 14,
+          "training_mae": 0.19903965468361662
         },
         "24": {
           "available": false,
           "reason": "needs-12-verified-targets",
-          "samples": 6
+          "samples": 7
         },
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.21717735091642348
+          "samples": 21,
+          "training_mae": 0.3877547701511752
         },
         "48": {
           "available": false,
@@ -1884,8 +1885,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.200926637845517
+          "samples": 21,
+          "training_mae": 0.31904073691467427
         },
         "72": {
           "available": false,
@@ -1895,22 +1896,22 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 26
+          "samples": 34
         },
         "12": {
-          "samples": 10
+          "samples": 14
         },
         "24": {
-          "samples": 0
+          "samples": 4
         },
         "3": {
-          "samples": 36
+          "samples": 44
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 18
+          "samples": 22
         },
         "72": {
           "samples": 0
@@ -1921,28 +1922,28 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.11496634628885607,
-          "mean_distance": 2.5694444444444446,
+          "correction": 0.3023752037920702,
+          "mean_distance": 2.336892361111111,
           "neighbors": 8,
-          "prediction": 24.417049679622192
+          "prediction": 25.403069648236514
         },
         "12": {
           "available": true,
-          "correction": -0.276793877624257,
-          "mean_distance": 1.4458333333333333,
+          "correction": -0.27896578690827034,
+          "mean_distance": 1.5114583333333327,
           "neighbors": 8,
-          "prediction": 19.8975116779313
+          "prediction": 19.807839768647288
         },
         "24": {
           "available": false,
-          "samples": 4
+          "samples": 5
         },
         "3": {
           "available": true,
-          "correction": -0.24923314481944697,
-          "mean_distance": 2.999392361111111,
+          "correction": 0.07275999573298872,
+          "mean_distance": 2.076302083333333,
           "neighbors": 8,
-          "prediction": 25.434100188513888
+          "prediction": 25.74081555128854
         },
         "48": {
           "available": false,
@@ -1950,10 +1951,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.1401691117328318,
-          "mean_distance": 2.2868923611111107,
+          "correction": -0.22942754702021131,
+          "mean_distance": 1.311545138888889,
           "neighbors": 8,
-          "prediction": 24.891775332711614
+          "prediction": 23.8066835640909
         },
         "72": {
           "available": false,
@@ -1964,24 +1965,25 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 12,
-          "training_mae": 0.1981031455009236
+          "samples": 14,
+          "training_mae": 0.23740705010949398
         },
         "12": {
-          "available": false,
-          "reason": "needs-12-verified-targets",
-          "samples": 11
+          "available": true,
+          "ridge": 2.5,
+          "samples": 12,
+          "training_mae": 0.22898875752206896
         },
         "24": {
           "available": false,
           "reason": "needs-12-verified-targets",
-          "samples": 4
+          "samples": 5
         },
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.26303521242888833
+          "samples": 21,
+          "training_mae": 0.2750164754024342
         },
         "48": {
           "available": false,
@@ -1991,8 +1993,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 17,
-          "training_mae": 0.21226325096110632
+          "samples": 19,
+          "training_mae": 0.2248698078757459
         },
         "72": {
           "available": false,
@@ -2002,22 +2004,22 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 40
+          "samples": 48
         },
         "12": {
-          "samples": 12
+          "samples": 16
         },
         "24": {
-          "samples": 0
+          "samples": 4
         },
         "3": {
-          "samples": 52
+          "samples": 60
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 28
+          "samples": 32
         },
         "72": {
           "samples": 0
@@ -2033,124 +2035,124 @@
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 0.7309203086771027,
           "lat": 44.655354,
           "lon": -63.575908,
           "precipitation": null,
-          "relative_humidity_2m": 90.0,
+          "relative_humidity_2m": 92.0,
           "station": "HALIFAX DOCKYARD",
           "temperature_2m": 21.2,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.8698160927237459,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.8236980206473071,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 2.750507296327102,
           "lat": 44.656926,
           "lon": -63.608042,
           "precipitation": null,
           "relative_humidity_2m": 79.0,
           "station": "HALIFAX WINDSOR PARK",
-          "temperature_2m": 24.1,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.7708041375410544,
+          "temperature_2m": 23.8,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.7299357274606886,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.024509130833333333,
+          "age_hours": 0.011026998611111111,
           "distance_km": 4.981788023468788,
           "lat": 44.63592,
           "lon": -63.51489,
           "precipitation": 0.0,
-          "relative_humidity_2m": 85.0,
+          "relative_humidity_2m": 87.0,
           "station": "SHEARWATER RCS",
-          "temperature_2m": 23.8,
-          "time": "2026-08-09T15:44:00+00:00",
-          "weight": 0.724967854680241,
+          "temperature_2m": 24.1,
+          "time": "2026-08-09T16:52:00+00:00",
+          "weight": 0.7294242741387699,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 4.8239568149733305,
           "lat": 44.627497,
           "lon": -63.522088,
           "precipitation": null,
-          "relative_humidity_2m": 93.0,
+          "relative_humidity_2m": 87.0,
           "station": "SHEARWATER JETTY",
-          "temperature_2m": 21.8,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.6600495641247425,
+          "temperature_2m": 23.2,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.6250534153675883,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 7.074672516237647,
           "lat": 44.587727,
           "lon": -63.550143,
           "precipitation": null,
-          "relative_humidity_2m": 95.0,
+          "relative_humidity_2m": 94.0,
           "station": "HALIFAX KOOTENAY",
-          "temperature_2m": 21.9,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.5539938680142141,
+          "temperature_2m": 21.0,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.5246208438212724,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 7.857396549617851,
           "lat": 44.706111,
           "lon": -63.633333,
           "precipitation": null,
-          "relative_humidity_2m": 89.0,
+          "relative_humidity_2m": 86.0,
           "station": "BEDFORD BASIN",
-          "temperature_2m": 23.1,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.5216633265614578,
+          "temperature_2m": 24.0,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.49400448339305825,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.7578424641666667,
+          "age_hours": 0.8776936652777778,
           "distance_km": 6.150292404980393,
           "lat": 44.6024,
           "lon": -63.5329,
           "precipitation": null,
-          "relative_humidity_2m": 94.0,
+          "relative_humidity_2m": 89.0,
           "station": "MCNABS ISLAND (AUT)",
-          "temperature_2m": 20.7,
-          "time": "2026-08-09T15:00:00+00:00",
-          "weight": 0.47423047722705375,
+          "temperature_2m": 22.0,
+          "time": "2026-08-09T16:00:00+00:00",
+          "weight": 0.4490865467887061,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.2578424641666667,
+          "age_hours": 0.37769366527777776,
           "distance_km": 12.685297541909069,
           "lat": 44.745547,
           "lon": -63.660246,
           "precipitation": null,
-          "relative_humidity_2m": 85.0,
+          "relative_humidity_2m": 81.0,
           "station": "BEDFORD RANGE",
-          "temperature_2m": 23.6,
-          "time": "2026-08-09T15:30:00+00:00",
-          "weight": 0.36876647342725066,
+          "temperature_2m": 24.4,
+          "time": "2026-08-09T16:30:00+00:00",
+          "weight": 0.3492142957391638,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 22.523376280652506,
-      "time": "2026-08-09T15:44:00+00:00",
+      "temp": 22.896984056419797,
+      "time": "2026-08-09T16:52:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 88.41794520547612,
-        "temperature_2m": 22.523376280652506,
+        "relative_humidity_2m": 87.05507533435164,
+        "temperature_2m": 22.896984056419797,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -2162,26 +2164,26 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.7585313597222223,
+          "age_hours": 0.8785381608333334,
           "distance_km": 2.194888387888291,
           "lat": 44.360682,
           "lon": -64.296016,
           "precipitation": null,
-          "relative_humidity_2m": 92.0,
+          "relative_humidity_2m": 94.0,
           "station": "LUNENBURG",
-          "temperature_2m": 21.3,
-          "time": "2026-08-09T15:00:00+00:00",
-          "weight": 0.6376381878522375,
+          "temperature_2m": 20.9,
+          "time": "2026-08-09T16:00:00+00:00",
+          "weight": 0.603787595399662,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 21.3,
-      "time": "2026-08-09T15:00:00+00:00",
+      "temp": 20.9,
+      "time": "2026-08-09T16:00:00+00:00",
       "values": {
         "precipitation": null,
-        "relative_humidity_2m": 92.0,
-        "temperature_2m": 21.3,
+        "relative_humidity_2m": 94.0,
+        "temperature_2m": 20.9,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -2193,26 +2195,26 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.7582158508333334,
+          "age_hours": 0.8781084633333333,
           "distance_km": 8.29891547501511,
           "lat": 46.1161,
           "lon": -64.6786,
           "precipitation": 0.0,
-          "relative_humidity_2m": 82.0,
+          "relative_humidity_2m": 72.0,
           "station": "Moncton/Greater Moncton Romeo Le",
-          "temperature_2m": 23.8,
-          "time": "2026-08-09T15:00:00+00:00",
-          "weight": 0.40183380955161563,
+          "temperature_2m": 25.5,
+          "time": "2026-08-09T16:00:00+00:00",
+          "weight": 0.38052122287248186,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 23.8,
-      "time": "2026-08-09T15:00:00+00:00",
+      "temp": 25.5,
+      "time": "2026-08-09T16:00:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 82.0,
-        "temperature_2m": 23.8,
+        "relative_humidity_2m": 72.0,
+        "temperature_2m": 25.5,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -2224,26 +2226,26 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.7583437566666666,
+          "age_hours": 0.8783557327777778,
           "distance_km": 15.6550109182535,
           "lat": 46.1161,
           "lon": -64.6786,
           "precipitation": 0.0,
-          "relative_humidity_2m": 82.0,
+          "relative_humidity_2m": 72.0,
           "station": "Moncton/Greater Moncton Romeo Le",
-          "temperature_2m": 23.8,
-          "time": "2026-08-09T15:00:00+00:00",
-          "weight": 0.24300082261022252,
+          "temperature_2m": 25.5,
+          "time": "2026-08-09T16:00:00+00:00",
+          "weight": 0.23009998464966783,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 23.8,
-      "time": "2026-08-09T15:00:00+00:00",
+      "temp": 25.5,
+      "time": "2026-08-09T16:00:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 82.0,
-        "temperature_2m": 23.8,
+        "relative_humidity_2m": 72.0,
+        "temperature_2m": 25.5,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -2255,40 +2257,40 @@
       "station_count": 2,
       "stations": [
         {
-          "age_hours": 0.00867422,
+          "age_hours": 0.012037360277777777,
           "distance_km": 3.3534283259845368,
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 70.0,
+          "relative_humidity_2m": 76.0,
           "station": "KENTVILLE CDA",
-          "temperature_2m": 25.5,
-          "time": "2026-08-09T15:45:00+00:00",
-          "weight": 0.826543440096486,
+          "temperature_2m": 25.3,
+          "time": "2026-08-09T16:52:00+00:00",
+          "weight": 0.8252808683279377,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.6358964422222222,
+          "age_hours": 0.7559262491666666,
           "distance_km": 11.05056600786515,
           "lat": 45.009,
           "lon": -64.538,
           "precipitation": 0.0,
           "relative_humidity_2m": null,
           "station": "South Alton",
-          "temperature_2m": 23.9,
-          "time": "2026-08-09T15:07:22+00:00",
-          "weight": 0.3474145922071295,
+          "temperature_2m": 25.2,
+          "time": "2026-08-09T16:07:22+00:00",
+          "weight": 0.32896779348104793,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 25.026504924166108,
-      "time": "2026-08-09T15:45:00+00:00",
+      "temp": 25.271499400054275,
+      "time": "2026-08-09T16:52:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 70.0,
-        "temperature_2m": 25.026504924166108,
+        "relative_humidity_2m": 76.0,
+        "temperature_2m": 25.271499400054275,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -2323,7 +2325,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 12,
+      "deterministic_models": 13,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_stations": 1,
@@ -2356,7 +2358,7 @@
       "rdpa": true
     }
   },
-  "updated_at": "2026-08-09T15:46:03.092370+00:00",
+  "updated_at": "2026-08-09T16:53:16.322615+00:00",
   "verification": {
     "adaptive_layers": [
       "mos",
@@ -3150,54 +3152,74 @@
     "mode": "shadow-out-of-sample",
     "precip_scores": {
       "hrm:1:all:calibrated": {
-        "brier": 0.05062085149793388,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747736+00:00"
+        "brier": 0.06091731766528926,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099686+00:00"
       },
       "hrm:1:all:raw": {
-        "brier": 0.054678125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747748+00:00"
+        "brier": 0.06424427083333334,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099695+00:00"
       },
       "hrm:1:stable:calibrated": {
-        "brier": 0.05062085149793388,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747730+00:00"
+        "brier": 0.06091731766528926,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099684+00:00"
       },
       "hrm:1:stable:raw": {
-        "brier": 0.054678125,
+        "brier": 0.06424427083333334,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099693+00:00"
+      },
+      "hrm:3:all:calibrated": {
+        "brier": 0.12904497246914992,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747745+00:00"
+        "updated_at": "2026-08-09T16:53:12.099350+00:00"
+      },
+      "hrm:3:all:raw": {
+        "brier": 0.13170868055555554,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099359+00:00"
+      },
+      "hrm:3:stable:calibrated": {
+        "brier": 0.12904497246914992,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099347+00:00"
+      },
+      "hrm:3:stable:raw": {
+        "brier": 0.13170868055555554,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099356+00:00"
       },
       "hrm:all:all:calibrated": {
-        "brier": 0.05062085149793388,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747739+00:00"
+        "brier": 0.08816837958683352,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099689+00:00"
       },
       "hrm:all:all:raw": {
-        "brier": 0.054678125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747751+00:00"
+        "brier": 0.09123003472222221,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099698+00:00"
       },
       "moncton:1:all:calibrated": {
-        "brier": 0.11693797721026009,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747824+00:00"
+        "brier": 0.1212501284198408,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099766+00:00"
       },
       "moncton:1:all:raw": {
-        "brier": 0.125828125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747837+00:00"
+        "brier": 0.13545578703703706,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099775+00:00"
       },
       "moncton:1:mixed:calibrated": {
-        "brier": 0.10593216743827161,
-        "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458620+00:00"
+        "brier": 0.11790329913863692,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099755+00:00"
       },
       "moncton:1:mixed:raw": {
-        "brier": 0.10725625000000001,
-        "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458630+00:00"
+        "brier": 0.13098368055555556,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099773+00:00"
       },
       "moncton:1:stable:calibrated": {
         "brier": 0.12794378698224856,
@@ -3209,25 +3231,65 @@
         "n": 1,
         "updated_at": "2026-08-09T15:45:34.747832+00:00"
       },
-      "moncton:all:all:calibrated": {
-        "brier": 0.11693797721026009,
+      "moncton:3:all:calibrated": {
+        "brier": 0.18559303036526692,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747827+00:00"
+        "updated_at": "2026-08-09T16:53:12.099423+00:00"
+      },
+      "moncton:3:all:raw": {
+        "brier": 0.19710034722222225,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099433+00:00"
+      },
+      "moncton:3:mixed:calibrated": {
+        "brier": 0.14805229392669297,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099066+00:00"
+      },
+      "moncton:3:mixed:raw": {
+        "brier": 0.17015624999999998,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099076+00:00"
+      },
+      "moncton:3:stable:calibrated": {
+        "brier": 0.2231337668038409,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099421+00:00"
+      },
+      "moncton:3:stable:raw": {
+        "brier": 0.2240444444444445,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099430+00:00"
+      },
+      "moncton:all:all:calibrated": {
+        "brier": 0.14698728919801124,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099769+00:00"
       },
       "moncton:all:all:raw": {
-        "brier": 0.125828125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747840+00:00"
+        "brier": 0.16011361111111114,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099778+00:00"
       },
       "shediac:1:all:calibrated": {
-        "brier": 0.14195975655864193,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747900+00:00"
+        "brier": 0.1639518377057613,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099840+00:00"
       },
       "shediac:1:all:raw": {
-        "brier": 0.181953125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747910+00:00"
+        "brier": 0.19183541666666667,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099849+00:00"
+      },
+      "shediac:1:offshore:calibrated": {
+        "brier": 0.207936,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099837+00:00"
+      },
+      "shediac:1:offshore:raw": {
+        "brier": 0.2116,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099847+00:00"
       },
       "shediac:1:stable:calibrated": {
         "brier": 0.14195975655864193,
@@ -3239,239 +3301,447 @@
         "n": 2,
         "updated_at": "2026-08-09T15:45:34.747907+00:00"
       },
-      "shediac:all:all:calibrated": {
-        "brier": 0.14195975655864193,
+      "shediac:3:all:calibrated": {
+        "brier": 0.23312938888888887,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747903+00:00"
+        "updated_at": "2026-08-09T16:53:12.099493+00:00"
+      },
+      "shediac:3:all:raw": {
+        "brier": 0.238878125,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099502+00:00"
+      },
+      "shediac:3:stable:calibrated": {
+        "brier": 0.23312938888888887,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099491+00:00"
+      },
+      "shediac:3:stable:raw": {
+        "brier": 0.238878125,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099500+00:00"
+      },
+      "shediac:all:all:calibrated": {
+        "brier": 0.1916228581790123,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099843+00:00"
       },
       "shediac:all:all:raw": {
-        "brier": 0.181953125,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747913+00:00"
+        "brier": 0.2106525,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099852+00:00"
       },
       "wolfville:1:all:calibrated": {
-        "brier": 0.026967892361111107,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748022+00:00"
+        "brier": 0.036588907832577476,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099966+00:00"
       },
       "wolfville:1:all:raw": {
-        "brier": 0.03407118055555555,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748031+00:00"
+        "brier": 0.04396620370370371,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099975+00:00"
       },
       "wolfville:1:stable:calibrated": {
-        "brier": 0.026967892361111107,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748019+00:00"
+        "brier": 0.036588907832577476,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099964+00:00"
       },
       "wolfville:1:stable:raw": {
-        "brier": 0.03407118055555555,
+        "brier": 0.04396620370370371,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099973+00:00"
+      },
+      "wolfville:3:all:calibrated": {
+        "brier": 0.08660808163265307,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748029+00:00"
+        "updated_at": "2026-08-09T16:53:12.099615+00:00"
+      },
+      "wolfville:3:all:raw": {
+        "brier": 0.10563125000000001,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099624+00:00"
+      },
+      "wolfville:3:stable:calibrated": {
+        "brier": 0.08660808163265307,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099613+00:00"
+      },
+      "wolfville:3:stable:raw": {
+        "brier": 0.10563125000000001,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099622+00:00"
       },
       "wolfville:all:all:calibrated": {
-        "brier": 0.026967892361111107,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748025+00:00"
+        "brier": 0.056596577352607716,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099969+00:00"
       },
       "wolfville:all:all:raw": {
-        "brier": 0.03407118055555555,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748034+00:00"
+        "brier": 0.06863222222222223,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099978+00:00"
       }
     },
     "scores": {
       "hrm:1:all:analog": {
-        "bias": 0.920169258165453,
-        "mae": 0.920169258165453,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747679+00:00"
+        "bias": 0.8121405168985033,
+        "mae": 0.8121405168985033,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099644+00:00"
       },
       "hrm:1:all:final_v3": {
-        "bias": 0.012887074358143735,
-        "mae": 0.18217318923791836,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747694+00:00"
+        "bias": -0.21031145754857405,
+        "mae": 0.34035163327928214,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099652+00:00"
+      },
+      "hrm:1:all:mos": {
+        "bias": -0.08365313779167138,
+        "mae": 0.08365313779167138,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099661+00:00"
       },
       "hrm:1:all:nudge": {
-        "bias": -0.07499557856560202,
-        "mae": 0.07499557856560202,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747707+00:00"
+        "bias": -0.24871055073399617,
+        "mae": 0.24871055073399617,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099670+00:00"
       },
       "hrm:1:all:v2": {
-        "bias": 0.4924736806032328,
-        "mae": 0.4924736806032328,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747716+00:00"
+        "bias": 0.4590953772478154,
+        "mae": 0.4590953772478154,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099677+00:00"
       },
       "hrm:1:stable:analog": {
-        "bias": 0.920169258165453,
-        "mae": 0.920169258165453,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747648+00:00"
+        "bias": 0.8121405168985033,
+        "mae": 0.8121405168985033,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099642+00:00"
       },
       "hrm:1:stable:final_v3": {
-        "bias": 0.012887074358143735,
-        "mae": 0.18217318923791836,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747691+00:00"
+        "bias": -0.21031145754857405,
+        "mae": 0.34035163327928214,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099650+00:00"
+      },
+      "hrm:1:stable:mos": {
+        "bias": -0.08365313779167138,
+        "mae": 0.08365313779167138,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099658+00:00"
       },
       "hrm:1:stable:nudge": {
-        "bias": -0.07499557856560202,
-        "mae": 0.07499557856560202,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747704+00:00"
+        "bias": -0.24871055073399617,
+        "mae": 0.24871055073399617,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099667+00:00"
       },
       "hrm:1:stable:v2": {
-        "bias": 0.4924736806032328,
-        "mae": 0.4924736806032328,
+        "bias": 0.4590953772478154,
+        "mae": 0.4590953772478154,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099675+00:00"
+      },
+      "hrm:3:all:analog": {
+        "bias": 0.7626406156389596,
+        "mae": 0.7626406156389596,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747713+00:00"
+        "updated_at": "2026-08-09T16:53:12.099308+00:00"
+      },
+      "hrm:3:all:final_v3": {
+        "bias": 0.716132278273875,
+        "mae": 0.716132278273875,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099317+00:00"
+      },
+      "hrm:3:all:mos": {
+        "bias": -0.04717626954903231,
+        "mae": 0.08636030496106706,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099325+00:00"
+      },
+      "hrm:3:all:nudge": {
+        "bias": 1.1368239409745016,
+        "mae": 1.1368239409745016,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099333+00:00"
+      },
+      "hrm:3:all:v2": {
+        "bias": 1.481011445104814,
+        "mae": 1.481011445104814,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099340+00:00"
+      },
+      "hrm:3:stable:analog": {
+        "bias": 0.7626406156389596,
+        "mae": 0.7626406156389596,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099305+00:00"
+      },
+      "hrm:3:stable:final_v3": {
+        "bias": 0.716132278273875,
+        "mae": 0.716132278273875,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099314+00:00"
+      },
+      "hrm:3:stable:mos": {
+        "bias": -0.04717626954903231,
+        "mae": 0.08636030496106706,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099323+00:00"
+      },
+      "hrm:3:stable:nudge": {
+        "bias": 1.1368239409745016,
+        "mae": 1.1368239409745016,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099330+00:00"
+      },
+      "hrm:3:stable:v2": {
+        "bias": 1.481011445104814,
+        "mae": 1.481011445104814,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099338+00:00"
       },
       "hrm:all:all:analog": {
-        "bias": 0.920169258165453,
-        "mae": 0.920169258165453,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747684+00:00"
+        "bias": 0.7923405563946858,
+        "mae": 0.7923405563946858,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099646+00:00"
       },
       "hrm:all:all:final_v3": {
-        "bias": 0.012887074358143735,
-        "mae": 0.18217318923791836,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747696+00:00"
+        "bias": 0.16026603678040557,
+        "mae": 0.4906638912771193,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099654+00:00"
+      },
+      "hrm:all:all:mos": {
+        "bias": -0.059335225629912,
+        "mae": 0.08545791590460183,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099664+00:00"
       },
       "hrm:all:all:nudge": {
-        "bias": -0.07499557856560202,
-        "mae": 0.07499557856560202,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747709+00:00"
+        "bias": 0.3055032459494029,
+        "mae": 0.6039559068301983,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099672+00:00"
       },
       "hrm:all:all:v2": {
-        "bias": 0.4924736806032328,
-        "mae": 0.4924736806032328,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747718+00:00"
+        "bias": 0.8678618043906148,
+        "mae": 0.8678618043906148,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099680+00:00"
       },
       "lunenburg:1:all:analog": {
-        "bias": 1.1207505662243094,
-        "mae": 1.1207505662243094,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747934+00:00"
+        "bias": 1.2435889771654505,
+        "mae": 1.2435889771654505,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099871+00:00"
       },
       "lunenburg:1:all:final_v3": {
-        "bias": 0.140175527050733,
-        "mae": 0.26364062887735784,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747942+00:00"
+        "bias": 0.03972357501085592,
+        "mae": 0.2294871956078713,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099880+00:00"
+      },
+      "lunenburg:1:all:mos": {
+        "bias": 0.9939682047775165,
+        "mae": 0.9939682047775165,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099887+00:00"
       },
       "lunenburg:1:all:nudge": {
-        "bias": 0.10586802189437527,
-        "mae": 0.3286890833847895,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747952+00:00"
+        "bias": 0.03955670070555447,
+        "mae": 0.2501480361472221,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099896+00:00"
       },
       "lunenburg:1:all:v2": {
-        "bias": 0.9537873744633671,
-        "mae": 0.9537873744633671,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747960+00:00"
+        "bias": 1.1048362690848823,
+        "mae": 1.1048362690848823,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099904+00:00"
       },
       "lunenburg:1:stable:analog": {
-        "bias": 1.1207505662243094,
-        "mae": 1.1207505662243094,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747931+00:00"
+        "bias": 1.2435889771654505,
+        "mae": 1.2435889771654505,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099869+00:00"
       },
       "lunenburg:1:stable:final_v3": {
-        "bias": 0.140175527050733,
-        "mae": 0.26364062887735784,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747940+00:00"
+        "bias": 0.03972357501085592,
+        "mae": 0.2294871956078713,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099877+00:00"
+      },
+      "lunenburg:1:stable:mos": {
+        "bias": 0.9939682047775165,
+        "mae": 0.9939682047775165,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099885+00:00"
       },
       "lunenburg:1:stable:nudge": {
-        "bias": 0.10586802189437527,
-        "mae": 0.3286890833847895,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747950+00:00"
+        "bias": 0.03955670070555447,
+        "mae": 0.2501480361472221,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099893+00:00"
       },
       "lunenburg:1:stable:v2": {
-        "bias": 0.9537873744633671,
-        "mae": 0.9537873744633671,
+        "bias": 1.1048362690848823,
+        "mae": 1.1048362690848823,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099901+00:00"
+      },
+      "lunenburg:3:all:analog": {
+        "bias": 2.296401691535861,
+        "mae": 2.296401691535861,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747958+00:00"
+        "updated_at": "2026-08-09T16:53:12.099522+00:00"
+      },
+      "lunenburg:3:all:final_v3": {
+        "bias": 2.209893460910882,
+        "mae": 2.209893460910882,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099530+00:00"
+      },
+      "lunenburg:3:all:mos": {
+        "bias": 1.5214132382286714,
+        "mae": 1.5214132382286714,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099538+00:00"
+      },
+      "lunenburg:3:all:nudge": {
+        "bias": 2.6937996735091367,
+        "mae": 2.6937996735091367,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099546+00:00"
+      },
+      "lunenburg:3:all:v2": {
+        "bias": 3.208088757805916,
+        "mae": 3.208088757805916,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099554+00:00"
+      },
+      "lunenburg:3:stable:analog": {
+        "bias": 2.296401691535861,
+        "mae": 2.296401691535861,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099519+00:00"
+      },
+      "lunenburg:3:stable:final_v3": {
+        "bias": 2.209893460910882,
+        "mae": 2.209893460910882,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099528+00:00"
+      },
+      "lunenburg:3:stable:mos": {
+        "bias": 1.5214132382286714,
+        "mae": 1.5214132382286714,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099536+00:00"
+      },
+      "lunenburg:3:stable:nudge": {
+        "bias": 2.6937996735091367,
+        "mae": 2.6937996735091367,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099544+00:00"
+      },
+      "lunenburg:3:stable:v2": {
+        "bias": 3.208088757805916,
+        "mae": 3.208088757805916,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099552+00:00"
       },
       "lunenburg:all:all:analog": {
-        "bias": 1.1207505662243094,
-        "mae": 1.1207505662243094,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747936+00:00"
+        "bias": 1.6647140629136146,
+        "mae": 1.6647140629136146,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099874+00:00"
       },
       "lunenburg:all:all:final_v3": {
-        "bias": 0.140175527050733,
-        "mae": 0.26364062887735784,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747945+00:00"
+        "bias": 0.9077915293708664,
+        "mae": 1.0216497017290755,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099882+00:00"
+      },
+      "lunenburg:all:all:mos": {
+        "bias": 1.3455982270782865,
+        "mae": 1.3455982270782865,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099890+00:00"
       },
       "lunenburg:all:all:nudge": {
-        "bias": 0.10586802189437527,
-        "mae": 0.3286890833847895,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747954+00:00"
+        "bias": 1.1012538898269875,
+        "mae": 1.227608691091988,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099898+00:00"
       },
       "lunenburg:all:all:v2": {
-        "bias": 0.9537873744633671,
-        "mae": 0.9537873744633671,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747963+00:00"
+        "bias": 1.9461372645732957,
+        "mae": 1.9461372645732957,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099906+00:00"
       },
       "moncton:1:all:analog": {
-        "bias": 0.5271734226587927,
-        "mae": 0.8116573590242684,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747777+00:00"
+        "bias": -0.16464676693169147,
+        "mae": 1.0572006213870655,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099716+00:00"
       },
       "moncton:1:all:final_v3": {
-        "bias": 0.031260802505354235,
-        "mae": 0.4726021271111698,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747787+00:00"
+        "bias": -0.5283292379562686,
+        "mae": 0.8642378577006179,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099724+00:00"
+      },
+      "moncton:1:all:mos": {
+        "bias": -2.2747780637269415,
+        "mae": 2.2747780637269415,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099732+00:00"
       },
       "moncton:1:all:nudge": {
-        "bias": -0.05267089197833741,
-        "mae": 0.3965072242631429,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747798+00:00"
+        "bias": -0.4970879649000442,
+        "mae": 0.7263121864232479,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099741+00:00"
       },
       "moncton:1:all:v2": {
-        "bias": 0.1187058428381551,
-        "mae": 0.44132883183053373,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747807+00:00"
+        "bias": -0.3285988966775288,
+        "mae": 0.7019553464566547,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099749+00:00"
       },
       "moncton:1:mixed:analog": {
-        "bias": 1.3388307816830611,
-        "mae": 1.3388307816830611,
-        "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458576+00:00"
+        "bias": -0.1047281822147994,
+        "mae": 1.4435589638978605,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099714+00:00"
       },
       "moncton:1:mixed:final_v3": {
-        "bias": 0.503862929616524,
-        "mae": 0.503862929616524,
+        "bias": -0.5718231946314951,
+        "mae": 1.0756861242480191,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099722+00:00"
+      },
+      "moncton:1:mixed:mos": {
+        "bias": -2.2747780637269415,
+        "mae": 2.2747780637269415,
         "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458587+00:00"
+        "updated_at": "2026-08-09T16:53:12.099730+00:00"
       },
       "moncton:1:mixed:nudge": {
-        "bias": 0.3438363322848055,
-        "mae": 0.3438363322848055,
-        "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458598+00:00"
+        "bias": -0.5210428892293262,
+        "mae": 0.8648792215141317,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099738+00:00"
       },
       "moncton:1:mixed:v2": {
-        "bias": 0.5600346746686888,
-        "mae": 0.5600346746686888,
-        "n": 1,
-        "updated_at": "2026-08-09T14:51:24.458607+00:00"
+        "bias": -0.33158685052010384,
+        "mae": 0.8916215251887927,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099746+00:00"
       },
       "moncton:1:stable:analog": {
         "bias": -0.28448393636547564,
@@ -3497,53 +3767,185 @@
         "n": 1,
         "updated_at": "2026-08-09T15:45:34.747805+00:00"
       },
-      "moncton:all:all:analog": {
-        "bias": 0.5271734226587927,
-        "mae": 0.8116573590242684,
+      "moncton:3:all:analog": {
+        "bias": -0.5970678891034531,
+        "mae": 0.5970678891034531,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747780+00:00"
+        "updated_at": "2026-08-09T16:53:12.099379+00:00"
+      },
+      "moncton:3:all:final_v3": {
+        "bias": -0.6019032432923943,
+        "mae": 0.6019032432923943,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099388+00:00"
+      },
+      "moncton:3:all:mos": {
+        "bias": -1.536413394638556,
+        "mae": 1.536413394638556,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099397+00:00"
+      },
+      "moncton:3:all:nudge": {
+        "bias": -0.25399211459741267,
+        "mae": 0.25399211459741267,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099405+00:00"
+      },
+      "moncton:3:all:v2": {
+        "bias": -0.15004687056976884,
+        "mae": 0.15004687056976884,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099413+00:00"
+      },
+      "moncton:3:mixed:analog": {
+        "bias": -0.18754654133796933,
+        "mae": 0.18754654133796933,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099019+00:00"
+      },
+      "moncton:3:mixed:final_v3": {
+        "bias": -0.37321555462655454,
+        "mae": 0.37321555462655454,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099031+00:00"
+      },
+      "moncton:3:mixed:mos": {
+        "bias": -0.9789339473091303,
+        "mae": 0.9789339473091303,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099039+00:00"
+      },
+      "moncton:3:mixed:nudge": {
+        "bias": -0.15864285918330623,
+        "mae": 0.15864285918330623,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099047+00:00"
+      },
+      "moncton:3:mixed:v2": {
+        "bias": -0.027511935948432154,
+        "mae": 0.027511935948432154,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099055+00:00"
+      },
+      "moncton:3:stable:analog": {
+        "bias": -1.0065892368689369,
+        "mae": 1.0065892368689369,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099377+00:00"
+      },
+      "moncton:3:stable:final_v3": {
+        "bias": -0.8305909319582341,
+        "mae": 0.8305909319582341,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099385+00:00"
+      },
+      "moncton:3:stable:mos": {
+        "bias": -2.093892841967982,
+        "mae": 2.093892841967982,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099395+00:00"
+      },
+      "moncton:3:stable:nudge": {
+        "bias": -0.3493413700115191,
+        "mae": 0.3493413700115191,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099403+00:00"
+      },
+      "moncton:3:stable:v2": {
+        "bias": -0.27258180519110553,
+        "mae": 0.27258180519110553,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099411+00:00"
+      },
+      "moncton:all:all:analog": {
+        "bias": -0.3376152158003961,
+        "mae": 0.8731475284736205,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099719+00:00"
       },
       "moncton:all:all:final_v3": {
-        "bias": 0.031260802505354235,
-        "mae": 0.4726021271111698,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747790+00:00"
+        "bias": -0.5577588400907189,
+        "mae": 0.7593040119373284,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099727+00:00"
+      },
+      "moncton:all:all:mos": {
+        "bias": -1.7825349510013513,
+        "mae": 1.7825349510013513,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099735+00:00"
       },
       "moncton:all:all:nudge": {
-        "bias": -0.05267089197833741,
-        "mae": 0.3965072242631429,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747801+00:00"
+        "bias": -0.3998496247789916,
+        "mae": 0.5373841576929138,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099743+00:00"
       },
       "moncton:all:all:v2": {
-        "bias": 0.1187058428381551,
-        "mae": 0.44132883183053373,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747813+00:00"
+        "bias": -0.2571780862344248,
+        "mae": 0.48119195610190035,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099751+00:00"
       },
       "shediac:1:all:analog": {
-        "bias": 0.0340788899422666,
-        "mae": 0.6802602147881611,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747862+00:00"
+        "bias": -0.5544889099647404,
+        "mae": 1.0307149797850255,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099797+00:00"
       },
       "shediac:1:all:final_v3": {
-        "bias": 0.02063137487857425,
-        "mae": 0.4930930606387154,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747871+00:00"
+        "bias": -0.46180905722644283,
+        "mae": 0.8042920142379693,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099806+00:00"
+      },
+      "shediac:1:all:mos": {
+        "bias": -1.9350234874436474,
+        "mae": 1.9350234874436474,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099814+00:00"
       },
       "shediac:1:all:nudge": {
-        "bias": -0.035759565841186,
-        "mae": 0.44386951779457817,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747881+00:00"
+        "bias": -0.4787337708375823,
+        "mae": 0.7508070721398438,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099823+00:00"
       },
       "shediac:1:all:v2": {
-        "bias": -0.2403570215605697,
-        "mae": 0.44070563961335196,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747890+00:00"
+        "bias": -0.717430802510196,
+        "mae": 0.8509965478787175,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099831+00:00"
+      },
+      "shediac:1:offshore:analog": {
+        "bias": -1.7316245097787544,
+        "mae": 1.7316245097787544,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099794+00:00"
+      },
+      "shediac:1:offshore:final_v3": {
+        "bias": -1.426689921436477,
+        "mae": 1.426689921436477,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099804+00:00"
+      },
+      "shediac:1:offshore:mos": {
+        "bias": -1.9350234874436474,
+        "mae": 1.9350234874436474,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099812+00:00"
+      },
+      "shediac:1:offshore:nudge": {
+        "bias": -1.3646821808303748,
+        "mae": 1.3646821808303748,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099820+00:00"
+      },
+      "shediac:1:offshore:v2": {
+        "bias": -1.6715783644094486,
+        "mae": 1.6715783644094486,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099828+00:00"
       },
       "shediac:1:stable:analog": {
         "bias": 0.0340788899422666,
@@ -3569,101 +3971,245 @@
         "n": 2,
         "updated_at": "2026-08-09T15:45:34.747887+00:00"
       },
-      "shediac:all:all:analog": {
-        "bias": 0.0340788899422666,
-        "mae": 0.6802602147881611,
+      "shediac:3:all:analog": {
+        "bias": -1.4144930488356717,
+        "mae": 1.4144930488356717,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747865+00:00"
+        "updated_at": "2026-08-09T16:53:12.099452+00:00"
+      },
+      "shediac:3:all:final_v3": {
+        "bias": -1.131273699278946,
+        "mae": 1.131273699278946,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099460+00:00"
+      },
+      "shediac:3:all:mos": {
+        "bias": -1.8894577350865926,
+        "mae": 1.8894577350865926,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099469+00:00"
+      },
+      "shediac:3:all:nudge": {
+        "bias": -0.8933343871286112,
+        "mae": 0.8933343871286112,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099477+00:00"
+      },
+      "shediac:3:all:v2": {
+        "bias": -1.017429016921616,
+        "mae": 1.017429016921616,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099484+00:00"
+      },
+      "shediac:3:stable:analog": {
+        "bias": -1.4144930488356717,
+        "mae": 1.4144930488356717,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099450+00:00"
+      },
+      "shediac:3:stable:final_v3": {
+        "bias": -1.131273699278946,
+        "mae": 1.131273699278946,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099458+00:00"
+      },
+      "shediac:3:stable:mos": {
+        "bias": -1.8894577350865926,
+        "mae": 1.8894577350865926,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099466+00:00"
+      },
+      "shediac:3:stable:nudge": {
+        "bias": -0.8933343871286112,
+        "mae": 0.8933343871286112,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099474+00:00"
+      },
+      "shediac:3:stable:v2": {
+        "bias": -1.017429016921616,
+        "mae": 1.017429016921616,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099482+00:00"
+      },
+      "shediac:all:all:analog": {
+        "bias": -0.8984905655131129,
+        "mae": 1.184226207405284,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099799+00:00"
       },
       "shediac:all:all:final_v3": {
-        "bias": 0.02063137487857425,
-        "mae": 0.4930930606387154,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747874+00:00"
+        "bias": -0.7295949140474441,
+        "mae": 0.93508468825436,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099809+00:00"
+      },
+      "shediac:all:all:mos": {
+        "bias": -1.904646319205611,
+        "mae": 1.904646319205611,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099817+00:00"
       },
       "shediac:all:all:nudge": {
-        "bias": -0.035759565841186,
-        "mae": 0.44386951779457817,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747884+00:00"
+        "bias": -0.6445740173539939,
+        "mae": 0.8078179981353507,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099825+00:00"
       },
       "shediac:all:all:v2": {
-        "bias": -0.2403570215605697,
-        "mae": 0.44070563961335196,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747892+00:00"
+        "bias": -0.8374300882747641,
+        "mae": 0.9175695354958769,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099833+00:00"
       },
       "wolfville:1:all:analog": {
-        "bias": -1.167026079815452,
-        "mae": 1.167026079815452,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747985+00:00"
+        "bias": -1.0628339600209955,
+        "mae": 1.0628339600209955,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099925+00:00"
       },
       "wolfville:1:all:final_v3": {
-        "bias": -0.5778444196339265,
-        "mae": 0.5778444196339265,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747993+00:00"
+        "bias": -0.36438409040359687,
+        "mae": 0.40607513577497184,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099933+00:00"
+      },
+      "wolfville:1:all:mos": {
+        "bias": -0.7496891805223278,
+        "mae": 0.7496891805223278,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099941+00:00"
       },
       "wolfville:1:all:nudge": {
-        "bias": -0.5461188630839917,
-        "mae": 0.5461188630839917,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748003+00:00"
+        "bias": -0.3143145502245268,
+        "mae": 0.41384393388746216,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099949+00:00"
       },
       "wolfville:1:all:v2": {
-        "bias": -1.0126283712724362,
-        "mae": 1.0126283712724362,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748012+00:00"
+        "bias": -0.8611079836673324,
+        "mae": 0.8611079836673324,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099957+00:00"
       },
       "wolfville:1:stable:analog": {
-        "bias": -1.167026079815452,
-        "mae": 1.167026079815452,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747982+00:00"
+        "bias": -1.0628339600209955,
+        "mae": 1.0628339600209955,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099923+00:00"
       },
       "wolfville:1:stable:final_v3": {
-        "bias": -0.5778444196339265,
-        "mae": 0.5778444196339265,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747991+00:00"
+        "bias": -0.36438409040359687,
+        "mae": 0.40607513577497184,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099931+00:00"
+      },
+      "wolfville:1:stable:mos": {
+        "bias": -0.7496891805223278,
+        "mae": 0.7496891805223278,
+        "n": 1,
+        "updated_at": "2026-08-09T16:53:12.099939+00:00"
       },
       "wolfville:1:stable:nudge": {
-        "bias": -0.5461188630839917,
-        "mae": 0.5461188630839917,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748001+00:00"
+        "bias": -0.3143145502245268,
+        "mae": 0.41384393388746216,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099947+00:00"
       },
       "wolfville:1:stable:v2": {
-        "bias": -1.0126283712724362,
-        "mae": 1.0126283712724362,
+        "bias": -0.8611079836673324,
+        "mae": 0.8611079836673324,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099955+00:00"
+      },
+      "wolfville:3:all:analog": {
+        "bias": -0.8297556992484019,
+        "mae": 0.8297556992484019,
         "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748009+00:00"
+        "updated_at": "2026-08-09T16:53:12.099574+00:00"
+      },
+      "wolfville:3:all:final_v3": {
+        "bias": -0.46148249637611727,
+        "mae": 0.46148249637611727,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099582+00:00"
+      },
+      "wolfville:3:all:mos": {
+        "bias": -1.5482039360315731,
+        "mae": 1.5482039360315731,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099590+00:00"
+      },
+      "wolfville:3:all:nudge": {
+        "bias": -0.1899711618126929,
+        "mae": 0.1899711618126929,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099598+00:00"
+      },
+      "wolfville:3:all:v2": {
+        "bias": -0.47292348157644604,
+        "mae": 0.47292348157644604,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099606+00:00"
+      },
+      "wolfville:3:stable:analog": {
+        "bias": -0.8297556992484019,
+        "mae": 0.8297556992484019,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099572+00:00"
+      },
+      "wolfville:3:stable:final_v3": {
+        "bias": -0.46148249637611727,
+        "mae": 0.46148249637611727,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099580+00:00"
+      },
+      "wolfville:3:stable:mos": {
+        "bias": -1.5482039360315731,
+        "mae": 1.5482039360315731,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099588+00:00"
+      },
+      "wolfville:3:stable:nudge": {
+        "bias": -0.1899711618126929,
+        "mae": 0.1899711618126929,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099596+00:00"
+      },
+      "wolfville:3:stable:v2": {
+        "bias": -0.47292348157644604,
+        "mae": 0.47292348157644604,
+        "n": 2,
+        "updated_at": "2026-08-09T16:53:12.099604+00:00"
       },
       "wolfville:all:all:analog": {
-        "bias": -1.167026079815452,
-        "mae": 1.167026079815452,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747987+00:00"
+        "bias": -0.969602655711958,
+        "mae": 0.969602655711958,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099927+00:00"
       },
       "wolfville:all:all:final_v3": {
-        "bias": -0.5778444196339265,
-        "mae": 0.5778444196339265,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747996+00:00"
+        "bias": -0.403223452792605,
+        "mae": 0.42823808001543,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099935+00:00"
+      },
+      "wolfville:all:all:mos": {
+        "bias": -1.2820323508618248,
+        "mae": 1.2820323508618248,
+        "n": 3,
+        "updated_at": "2026-08-09T16:53:12.099943+00:00"
       },
       "wolfville:all:all:nudge": {
-        "bias": -0.5461188630839917,
-        "mae": 0.5461188630839917,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748005+00:00"
+        "bias": -0.26457719485979325,
+        "mae": 0.32429482505755447,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099951+00:00"
       },
       "wolfville:all:all:v2": {
-        "bias": -1.0126283712724362,
-        "mae": 1.0126283712724362,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.748014+00:00"
+        "bias": -0.7058341828309779,
+        "mae": 0.7058341828309779,
+        "n": 5,
+        "updated_at": "2026-08-09T16:53:12.099959+00:00"
       }
     }
   },
