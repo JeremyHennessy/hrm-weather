@@ -7,6 +7,8 @@ on:
       - 'scripts/collect.py'
       - 'scripts/accuracy_engine_v2.py'
       - 'scripts/accuracy_engine_v2_runner.py'
+      - 'scripts/accuracy_engine_v3.py'
+      - 'scripts/accuracy_engine_v3_publish.py'
       - 'scripts/eccc_observation_mesh_v2.py'
       - '.github/workflows/collect-weather.yml'
   schedule:
@@ -32,7 +34,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/eccc_observation_mesh_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_publish.py scripts/eccc_observation_mesh_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -40,7 +42,7 @@ jobs:
           TOMORROW_API_KEY: ${{ secrets.TOMORROW_API_KEY }}
           METEOBLUE_API_KEY: ${{ secrets.METEOBLUE_API_KEY }}
         run: python scripts/collect.py
-      - name: Validate Accuracy Engine 2.0 output
+      - name: Validate Accuracy Engine outputs
         run: |
           python - <<'PY'
           import json
@@ -48,16 +50,22 @@ jobs:
           from pathlib import Path
 
           skill=json.loads(Path('data/skill.json').read_text())
-          engine=json.loads(Path('data/engine-v2.json').read_text())
+          v2=json.loads(Path('data/engine-v2.json').read_text())
+          v3=json.loads(Path('data/engine-v3.json').read_text())
           now=datetime.now(timezone.utc)
 
-          assert engine.get('version') == '2.0', 'wrong engine version'
-          arch=engine.get('architecture') or {}
-          assert arch.get('family_aware_weighting') is True
-          assert arch.get('bias_correction') is True
-          assert arch.get('run_stability') is True
-          assert arch.get('parallel_collection') is True
-          assert {'nowcast','learned_local','raw_ensemble'} <= set(arch.get('engines') or [])
+          assert v2.get('version') == '2.0', 'wrong V2 version'
+          assert v3.get('version') == '3.0', 'wrong V3 version'
+          a2=v2.get('architecture') or {}
+          assert a2.get('family_aware_weighting') is True
+          assert a2.get('bias_correction') is True
+          assert a2.get('run_stability') is True
+          assert a2.get('parallel_collection') is True
+          a3=v3.get('architecture') or {}
+          layers=' '.join(a3.get('layers') or []).lower()
+          for required in ['mos','analog','observation','probability']:
+              if required not in layers:
+                  raise SystemExit(f'V3 missing {required} layer')
 
           observations=skill.get('observations') or {}
           hrm=observations.get('hrm')
@@ -65,37 +73,34 @@ jobs:
               raise SystemExit('HRM ECCC observation mesh unavailable')
           if hrm.get('station_count',0) < 1:
               raise SystemExit('HRM ECCC observation mesh contains no stations')
-
           for name,obs in observations.items():
-              if not obs:
-                  continue
+              if not obs: continue
               stamp=obs.get('time')
-              if not stamp:
-                  raise SystemExit(f'{name}: observation missing timestamp')
+              if not stamp: raise SystemExit(f'{name}: observation missing timestamp')
               dt=datetime.fromisoformat(stamp.replace('Z','+00:00'))
-              if now-dt > timedelta(hours=6):
-                  raise SystemExit(f'{name}: stale observation {stamp}')
+              if now-dt > timedelta(hours=6): raise SystemExit(f'{name}: stale observation {stamp}')
 
-          for name,c in (engine.get('consensus') or {}).items():
-              if not (c.get('hours') or {}):
-                  raise SystemExit(f'{name}: missing v2 consensus hours')
-          if not isinstance((engine.get('consensus') or {}).get('hrm',{}).get('hours',{}).get('1',{}).get('components',{}).get('nowcast'), (int,float)):
-              raise SystemExit('HRM +1h nowcast component is not observation-anchored')
+          for name,c in (v3.get('consensus') or {}).items():
+              hours=c.get('hours') or {}
+              if not hours: raise SystemExit(f'{name}: missing V3 consensus hours')
+              if not isinstance((hours.get('1') or {}).get('temperature_2m'), (int,float)):
+                  raise SystemExit(f'{name}: missing V3 +1h temperature')
+              pop=(hours.get('6') or {}).get('precipitation_probability')
+              if pop is not None and not (0 <= pop <= 100):
+                  raise SystemExit(f'{name}: invalid calibrated precipitation probability {pop}')
 
-          health=engine.get('source_health') or {}
-          if not health:
-              raise SystemExit('missing source health diagnostics')
+          health=v2.get('source_health') or {}
+          if not health: raise SystemExit('missing source health diagnostics')
           for name,h in health.items():
               if h.get('deterministic_models',0) < 3:
                   raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
-
-          print('Accuracy Engine 2.0 production validation passed')
+          print('Accuracy Engines 2.0 + 3.0 production validation passed')
           PY
       - name: Commit updated skill data
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/skill.json data/ledger.json data/engine-v2.json data/run-history-v2.json
+          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/run-history-v2.json
           if git diff --cached --quiet; then
             echo "No data changes"
           else

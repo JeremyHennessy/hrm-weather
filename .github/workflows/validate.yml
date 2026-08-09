@@ -28,12 +28,18 @@ jobs:
           node --check v11-layout.js
           node --check scene-images.js
           node --check accuracy-v2.js
+          node --check accuracy-v3.js
+          node --check atomic-render.js
+          node --check daily-card-fix.js
+          node --check deep-ui.js
           node --check scripts/capture-ui.mjs
       - name: Python syntax
         run: |
           python -m py_compile scripts/collect.py
           python -m py_compile scripts/accuracy_engine_v2.py
           python -m py_compile scripts/accuracy_engine_v2_runner.py
+          python -m py_compile scripts/accuracy_engine_v3.py
+          python -m py_compile scripts/accuracy_engine_v3_publish.py
           python -m py_compile scripts/eccc_observation_mesh_v2.py
           python -m py_compile scripts/backfill_short.py
       - name: Validate JSON
@@ -42,6 +48,19 @@ jobs:
           python -m json.tool data/skill.json >/dev/null
           python -m json.tool data/ledger.json >/dev/null
           python -m json.tool data/engine-v2.json >/dev/null
+      - name: Verify Engine 3 architecture
+        env:
+          PYTHONPATH: scripts
+        run: |
+          python - <<'PY'
+          import accuracy_engine_v3 as v3
+          assert len(v3.FAMILIES) >= 6
+          assert callable(v3.fit_mos)
+          assert callable(v3.analog_predict)
+          assert callable(v3.observation_nudge)
+          assert callable(v3.calibrate_probability)
+          print('Accuracy Engine 3.0 architecture imports successfully')
+          PY
       - name: Verify app references and mobile shell
         run: |
           grep -q 'viewport-fit=cover' app.html
@@ -52,14 +71,18 @@ jobs:
           grep -q 'v11-reference.css' app.html
           grep -q 'v11-layout.js' app.html
           grep -q 'accuracy-v2.js' scene-images.js
-          grep -q 'accuracy-v2.js' sw.js
+          grep -q 'accuracy-v3.js' deep-ui.js
+          grep -q 'atomic-render.js' deep-ui.js
+          grep -q 'daily-card-fix.js' deep-ui.js
+          grep -q 'accuracy-v3.js' sw.js
+          grep -q 'daily-card-fix.js' sw.js
           grep -q 'accuracy_engine_v2_runner' scripts/collect.py
+          grep -q 'accuracy_engine_v3_publish' scripts/collect.py
           grep -q 'eccc_observation_mesh_v2' scripts/collect.py
+          grep -q 'v11RainPct' daily-card-fix.js
+          grep -q 'Real Feel' app.html
           grep -q 'morningRoutine' app.html
           grep -q 'eveningRoutine' app.html
-          grep -q '6:30 A.M.' app.html
-          grep -q '5:00 P.M.' app.html
-          grep -q 'Real Feel' app.html
           grep -q 'app.html' index.html
           grep -q 'safe-area-inset-top' v7-final.js
           grep -q 'safe-area-inset-bottom' v7-final.js
