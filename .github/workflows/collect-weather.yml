@@ -8,6 +8,7 @@ on:
       - 'scripts/accuracy_engine_v2.py'
       - 'scripts/accuracy_engine_v2_runner.py'
       - 'scripts/accuracy_engine_v3.py'
+      - 'scripts/accuracy_engine_v3_pooling.py'
       - 'scripts/accuracy_engine_v3_publish.py'
       - 'scripts/eccc_observation_mesh_v2.py'
       - '.github/workflows/collect-weather.yml'
@@ -34,7 +35,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_publish.py scripts/eccc_observation_mesh_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_publish.py scripts/eccc_observation_mesh_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -66,6 +67,8 @@ jobs:
           for required in ['mos','analog','observation','probability']:
               if required not in layers:
                   raise SystemExit(f'V3 missing {required} layer')
+          if not (v3.get('collector') or {}).get('lead_pooling'):
+              raise SystemExit('V3 pooled training is not enabled')
 
           observations=skill.get('observations') or {}
           hrm=observations.get('hrm')
