@@ -3,10 +3,15 @@ const WX8_ICONS={hrm:'◉',moncton:'⌂',shediac:'⛵',lunenburg:'⚓',wolfville
 const wx8OriginalNav=nav;
 const wx8OriginalLoad=load;
 const wx8OriginalRender=render;
-// Do not paint the temporary base-feed state. A refresh now keeps the previous
-// complete forecast visible and swaps the UI only after model consensus is ready.
-// This prevents condition/advice text from visibly oscillating during collection.
-render=function(base,mods,official,alertData,loading){if(loading)return;return wx8OriginalRender(base,mods,official,alertData,false)};
+// Paint the first usable base forecast immediately. Once a forecast is visible,
+// later partial refresh states are suppressed so condition/advice text does not
+// oscillate while the complete model consensus is being collected.
+render=function(base,mods,official,alertData,loading){
+  if(loading&&(window.__wxInitialForecastShown||window.__wxHasCompleteForecast))return;
+  const result=wx8OriginalRender(base,mods,official,alertData,loading);
+  if(loading)window.__wxInitialForecastShown=true;
+  return result;
+};
 window.__wxAtomicForecastRender=true;
 let wx8TouchStart=null;
 function wx8LocalDate(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Halifax',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
