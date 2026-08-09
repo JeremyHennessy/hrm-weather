@@ -72,6 +72,7 @@ jobs:
       - name: Verify app references and mobile shell
         run: |
           grep -q 'viewport-fit=cover' app.html
+          grep -q 'startup-fallback.js' app.html
           grep -q 'request-manager.js' app.html
           grep -q 'v5b.js' app.html
           grep -q 'v6-extra.js' app.html
@@ -89,7 +90,7 @@ jobs:
           grep -q 'daily-card-fix.js' deep-ui.js
           grep -q 'accuracy-v3.js' sw.js
           grep -q 'daily-card-fix.js' sw.js
-          grep -q 'weather-consensus-v46' sw.js
+          grep -q 'weather-consensus-v47' sw.js
           grep -q 'startup-fallback.js' sw.js
           grep -q '__wxPaintStaticStartup' v7-final.js
           grep -q 'Same-origin static startup path' v7-final.js
