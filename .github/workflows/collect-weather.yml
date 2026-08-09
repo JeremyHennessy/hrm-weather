@@ -6,6 +6,7 @@ on:
     paths:
       - 'scripts/collect.py'
       - 'scripts/accuracy_engine_v2.py'
+      - 'scripts/accuracy_engine_v2_runner.py'
       - '.github/workflows/collect-weather.yml'
   schedule:
     - cron: '17 * * * *'
@@ -21,7 +22,7 @@ concurrency:
 jobs:
   collect:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,9 +31,10 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py
       - name: Collect and verify forecasts
         env:
+          WX_COLLECT_WORKERS: '16'
           PIRATE_WEATHER_API_KEY: ${{ secrets.PIRATE_WEATHER_API_KEY }}
           TOMORROW_API_KEY: ${{ secrets.TOMORROW_API_KEY }}
           METEOBLUE_API_KEY: ${{ secrets.METEOBLUE_API_KEY }}
@@ -53,6 +55,7 @@ jobs:
           assert arch.get('family_aware_weighting') is True
           assert arch.get('bias_correction') is True
           assert arch.get('run_stability') is True
+          assert arch.get('parallel_collection') is True
           assert {'nowcast','learned_local','raw_ensemble'} <= set(arch.get('engines') or [])
 
           for name,obs in (skill.get('observations') or {}).items():
@@ -69,7 +72,14 @@ jobs:
               if not (c.get('hours') or {}):
                   raise SystemExit(f'{name}: missing v2 consensus hours')
 
-          print('Accuracy Engine 2.0 validation passed')
+          health=engine.get('source_health') or {}
+          if not health:
+              raise SystemExit('missing source health diagnostics')
+          for name,h in health.items():
+              if h.get('deterministic_models',0) < 3:
+                  raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
+
+          print('Accuracy Engine 2.0 production validation passed')
           PY
       - name: Commit updated skill data
         run: |
