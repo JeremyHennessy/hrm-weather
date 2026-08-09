@@ -1,0 +1,87 @@
+name: Release guard
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '32 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weather-release-guard
+  cancel-in-progress: true
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm frozen recovery target
+        run: |
+          git fetch origin stable-v52-confidence-lock
+          git rev-parse --verify origin/stable-v52-confidence-lock
+          echo "Recovery target: stable-v52-confidence-lock" >> "$GITHUB_STEP_SUMMARY"
+      - name: Static startup guard
+        run: |
+          node --check forecast-confidence.js
+          node --check uv-guidance.js
+          node --check scene-images.js
+          python -m py_compile scripts/release_guard.py scripts/forecast_confidence_engine.py scripts/precipitation_walkforward.py
+          grep -q 'accuracy-v3.js' scene-images.js
+          grep -q 'forecast-confidence.js' scene-images.js
+          grep -q 'uv-guidance.js' scene-images.js
+          grep -q 'engine3-empirical' forecast-confidence.js
+          grep -q 'SPF 30+' uv-guidance.js
+      - name: Forecast skill guard
+        run: |
+          python scripts/release_guard.py
+          cat release-guard-report.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Wait for GitHub Pages release
+        run: |
+          EXPECTED=$(grep -o "weather-consensus-v[0-9]*" sw.js | head -1 || true)
+          if [ -z "$EXPECTED" ]; then
+            echo "No service-worker release token; continuing with live shell probe"
+            exit 0
+          fi
+          for i in $(seq 1 30); do
+            LIVE=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/sw.js?guard=$(date +%s)" || true)
+            if echo "$LIVE" | grep -q "$EXPECTED"; then exit 0; fi
+            sleep 5
+          done
+          echo "Live release never reached expected service-worker version $EXPECTED"
+          exit 1
+      - name: Live startup and Engine 3 probe
+        run: |
+          HTML=$(curl -fsS --retry 3 --retry-delay 2 "https://jeremyhennessy.github.io/hrm-weather/app.html?guard=$(date +%s)")
+          echo "$HTML" | grep -q 'Weather Consensus'
+          ENGINE=$(curl -fsS --retry 3 --retry-delay 2 "https://jeremyhennessy.github.io/hrm-weather/data/engine-v3.json?guard=$(date +%s)")
+          python -c 'import json,sys; j=json.load(sys.stdin); assert j.get("version")=="3.0"; assert (j.get("forecast_confidence") or {}).get("owner")=="accuracy-engine-3"' <<< "$ENGINE"
+      - name: Rollback instructions on failure
+        if: failure()
+        run: |
+          {
+            echo '## RELEASE GUARD FAILED'
+            echo 'Explicit recovery target: `stable-v52-confidence-lock`.'
+            echo 'Do not promote the failed release until startup and skill checks pass.'
+            echo 'Recovery comparison: `git diff stable-v52-confidence-lock..main`.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload guard report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-guard-report
+          path: release-guard-report.json
+          if-no-files-found: ignore
+          retention-days: 14
