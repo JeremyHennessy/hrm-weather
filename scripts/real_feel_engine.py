@@ -101,7 +101,15 @@ def forecast_inputs(forecasts:dict[str,Any],target,corrected_temp:float|None=Non
     def mean_var(var):
         fam=v3.current_family_values(forecasts,target,var);vals=[core.safe_float(x) for x in fam.values()];vals=[x for x in vals if x is not None]
         return sum(vals)/len(vals) if vals else None
-    return {'temperature_2m':corrected_temp if corrected_temp is not None else mean_var('temperature_2m'),'relative_humidity_2m':mean_var('relative_humidity_2m'),'wind_speed_10m':mean_var('wind_speed_10m'),'shortwave_radiation':mean_var('shortwave_radiation'),'cloud_cover':mean_var('cloud_cover'),'uv_index':mean_var('uv_index')}
+    return {
+        'temperature_2m':corrected_temp if corrected_temp is not None else mean_var('temperature_2m'),
+        'relative_humidity_2m':mean_var('relative_humidity_2m'),
+        'wind_speed_10m':mean_var('wind_speed_10m'),
+        'shortwave_radiation':mean_var('shortwave_radiation'),
+        'cloud_cover':mean_var('cloud_cover'),
+        'uv_index':mean_var('uv_index'),
+        'provider_apparent_temperature':mean_var('apparent_temperature')
+    }
 
 def predict(ledger:list[dict[str,Any]],forecasts:dict[str,Any],loc:str,lead:int,target,regime:str,corrected_temp:float|None=None)->dict[str,Any]:
     inputs=forecast_inputs(forecasts,target,corrected_temp);t=core.safe_float(inputs['temperature_2m'])
