@@ -17,7 +17,7 @@ function wxMergeAllLeadSkills(){const s=getSkills();for(const m of M){const rows
 const wxBaseBacktest=runHistoricalBacktest;
 runHistoricalBacktest=async function(days=90){await wxBaseBacktest(days);wxMergeAllLeadSkills();if(typeof wxScorecard==='function')wxScorecard()};
 const wxPriorLoad=load;
-load=async function(){await wxLoadSharedSkills();return wxPriorLoad()};
+load=function(){wxLoadSharedSkills();return wxPriorLoad()};
 refresh.onclick=load;
 
 let wxTermObserver=null,wxTermQueued=false;
@@ -40,8 +40,9 @@ wxTermObserver=new MutationObserver(()=>{if(wxTermQueued)return;wxTermQueued=tru
 window.addEventListener('load',()=>{
   if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
   wxTermObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
+  // v5b.js has already started the weather request. Refresh navigation only so
+  // Lunenburg/Wolfville appear without launching a second competing load().
   nav();
-  load();
   wxApplyTerminology();
   wxLoadSharedSkills().then(()=>{const h=document.getElementById('health');if(h&&h.dataset.sharedUpdated){const d=new Date(h.dataset.sharedUpdated);if(!Number.isNaN(d)){const age=Math.max(0,Math.round((Date.now()-d)/3600000));h.insertAdjacentHTML('beforeend',`<span> · shared calibration ${age}h old</span>`)}}});
 });
