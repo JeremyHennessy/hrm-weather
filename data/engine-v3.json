@@ -17,6 +17,9 @@
   "collector": {
     "deterministic_forecasts": 62,
     "lead_pooling": true,
+    "shadow_forecasts_added": 35,
+    "shadow_forecasts_scored": 0,
+    "shadow_history_rows": 35,
     "training_ledger_rows": 14700,
     "verified_ledger_rows": 2248
   },
@@ -24,13 +27,35 @@
     "hrm": {
       "hours": {
         "1": {
-          "analog_distance": 4.425911458333332,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 4.4384114583333325,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.072199513429712,
+            "analog": 24.087450679666897,
             "mos": null,
-            "observation_nudge": -0.8687923407501874,
-            "v2_consensus": 23.0560270217056
+            "observation_nudge": -0.952480281254242,
+            "v2_consensus": 22.999781722765793
           },
           "mos_samples": 10,
           "mos_training_mae": null,
@@ -38,17 +63,39 @@
           "precipitation_probability": 21.817045454545454,
           "raw_precipitation_probability": 22.625,
           "target": "2026-08-09T15:00:00+00:00",
-          "temperature_2m": 22.7001145670106,
-          "v2_uncertainty": 2.290165642390487
+          "temperature_2m": 22.604163161231583,
+          "v2_uncertainty": 2.290506426483882
         },
         "12": {
-          "analog_distance": 1.8265190972222218,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 1.8358940972222224,
           "analog_neighbors": 8,
           "components": {
-            "analog": 20.721577737820564,
+            "analog": 20.732429722700562,
             "mos": null,
-            "observation_nudge": -0.05554003617692858,
-            "v2_consensus": 20.395448582140894
+            "observation_nudge": -0.060890027222146974,
+            "v2_consensus": 20.375136082140894
           },
           "mos_samples": 11,
           "mos_training_mae": null,
@@ -56,17 +103,39 @@
           "precipitation_probability": 3.375,
           "raw_precipitation_probability": 3.75,
           "target": "2026-08-10T02:00:00+00:00",
-          "temperature_2m": 20.426360398834042,
-          "v2_uncertainty": 1.2048422347988657
+          "temperature_2m": 20.40897406593136,
+          "v2_uncertainty": 1.1909676385769137
         },
         "24": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.0027651755782943798,
-            "v2_consensus": 24.128353320551774
+            "observation_nudge": -0.003031535948230128,
+            "v2_consensus": 24.12835332055177
           },
           "mos_samples": 5,
           "mos_training_mae": null,
@@ -74,17 +143,39 @@
           "precipitation_probability": 37.5,
           "raw_precipitation_probability": 37.5,
           "target": "2026-08-10T14:00:00+00:00",
-          "temperature_2m": 24.126555956425882,
+          "temperature_2m": 24.12638282218542,
           "v2_uncertainty": 2.6914334914792226
         },
         "3": {
-          "analog_distance": 3.870789930555555,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 3.883289930555556,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.064436060792474,
-            "mos": 22.975508992221947,
-            "observation_nudge": -0.5269491915884942,
-            "v2_consensus": 24.393994646682295
+            "analog": 24.07856008300687,
+            "mos": 22.98755568393113,
+            "observation_nudge": -0.5777084933524099,
+            "v2_consensus": 24.358590103913873
           },
           "mos_samples": 16,
           "mos_training_mae": 0.12965703763400138,
@@ -92,16 +183,38 @@
           "precipitation_probability": 36.22685185185185,
           "raw_precipitation_probability": 36.25,
           "target": "2026-08-09T17:00:00+00:00",
-          "temperature_2m": 23.716575248318634,
-          "v2_uncertainty": 2.9307957334851986
+          "temperature_2m": 23.665727167044757,
+          "v2_uncertainty": 2.923429072440351
         },
         "48": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -6.85418498356185e-06,
+            "observation_nudge": -7.514426330317742e-06,
             "v2_consensus": 21.025704361140836
           },
           "mos_samples": 0,
@@ -110,17 +223,39 @@
           "precipitation_probability": 45.75,
           "raw_precipitation_probability": 45.75,
           "target": "2026-08-11T14:00:00+00:00",
-          "temperature_2m": 21.025699905920597,
+          "temperature_2m": 21.02569947676372,
           "v2_uncertainty": 2.8411928490506133
         },
         "6": {
-          "analog_distance": 4.120052083333332,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 4.138802083333332,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.259298158063796,
-            "mos": 22.9657675951447,
-            "observation_nudge": -0.2489131731003215,
-            "v2_consensus": 24.460727410326843
+            "analog": 24.27987704645128,
+            "mos": 22.976443540185333,
+            "observation_nudge": -0.2728901694940833,
+            "v2_consensus": 24.455414910326844
           },
           "mos_samples": 16,
           "mos_training_mae": 0.12159033045684131,
@@ -128,17 +263,39 @@
           "precipitation_probability": 44.443518518518516,
           "raw_precipitation_probability": 44.75,
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 23.970024886743232,
-          "v2_uncertainty": 3.13343842970117
+          "temperature_2m": 23.95655769992843,
+          "v2_uncertainty": 3.1339425300827286
         },
         "72": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.6989825947277803e-08,
-            "v2_consensus": 22.30053227790191
+            "observation_nudge": -1.8626400622674102e-08,
+            "v2_consensus": 22.30303227790191
           },
           "mos_samples": 0,
           "mos_training_mae": null,
@@ -146,15 +303,15 @@
           "precipitation_probability": 26.875,
           "raw_precipitation_probability": 26.875,
           "target": "2026-08-12T14:00:00+00:00",
-          "temperature_2m": 22.300532266858525,
-          "v2_uncertainty": 2.9409601922609867
+          "temperature_2m": 22.303032265794748,
+          "v2_uncertainty": 2.939224398182835
         }
       },
       "regime": {
         "name": "stable",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.8000000000000682,
-        "relative_humidity": 90.07135613148755,
+        "relative_humidity": 90.4048524844912,
         "wind_direction": 281.5,
         "wind_speed": 4.65
       }
@@ -162,6 +319,28 @@
     "lunenburg": {
       "hours": {
         "1": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 4.18720238095238,
           "analog_neighbors": 8,
           "components": {
@@ -180,6 +359,28 @@
           "v2_uncertainty": 2.6905779655304634
         },
         "12": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 2.1112351190476195,
           "analog_neighbors": 8,
           "components": {
@@ -198,6 +399,28 @@
           "v2_uncertainty": 2.5809641383293815
         },
         "24": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -216,6 +439,28 @@
           "v2_uncertainty": 2.1500712948150587
         },
         "3": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 3.6729166666666657,
           "analog_neighbors": 8,
           "components": {
@@ -234,6 +479,28 @@
           "v2_uncertainty": 2.6976311708973006
         },
         "48": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -252,6 +519,28 @@
           "v2_uncertainty": 2.8346409111914794
         },
         "6": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 4.649702380952381,
           "analog_neighbors": 8,
           "components": {
@@ -270,6 +559,28 @@
           "v2_uncertainty": 1.866045592261654
         },
         "72": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -300,144 +611,320 @@
     "moncton": {
       "hours": {
         "1": {
-          "analog_distance": 3.9313988095238095,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 3.812619047619048,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.190446806639226,
+            "analog": 24.184461035506086,
             "mos": null,
-            "observation_nudge": -0.2002630585040776,
-            "v2_consensus": 23.55611105676422
+            "observation_nudge": -0.2614545486025428,
+            "v2_consensus": 23.56003467466869
           },
           "mos_samples": 10,
           "mos_training_mae": null,
           "precip_calibration_samples": 20,
-          "precipitation_probability": 52.714814814814815,
-          "raw_precipitation_probability": 53.0,
+          "precipitation_probability": 37.71367521367522,
+          "raw_precipitation_probability": 40.333333333333336,
           "target": "2026-08-09T15:00:00+00:00",
-          "temperature_2m": 23.55628303103965,
-          "v2_uncertainty": 1.645794035717222
+          "temperature_2m": 23.518396004550475,
+          "v2_uncertainty": 1.626221476891932
         },
         "12": {
-          "analog_distance": 1.3336309523809524,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 1.3717261904761906,
           "analog_neighbors": 8,
           "components": {
-            "analog": 20.695977623889075,
+            "analog": 20.905432577013173,
             "mos": null,
-            "observation_nudge": -0.012802389008879431,
-            "v2_consensus": 20.540970931861377
+            "observation_nudge": -0.016714230094925737,
+            "v2_consensus": 20.558453732045372
           },
           "mos_samples": 11,
           "mos_training_mae": null,
           "precip_calibration_samples": 8,
-          "precipitation_probability": 22.066666666666666,
-          "raw_precipitation_probability": 22.5,
+          "precipitation_probability": 22.222222222222225,
+          "raw_precipitation_probability": 22.666666666666668,
           "target": "2026-08-10T02:00:00+00:00",
-          "temperature_2m": 20.56450006914828,
-          "v2_uncertainty": 1.9027714410835772
+          "temperature_2m": 20.618886505422257,
+          "v2_uncertainty": 1.889932493540309
         },
         "24": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.0006373934168570701,
-            "v2_consensus": 24.146626935221363
+            "observation_nudge": -0.0008321525164522767,
+            "v2_consensus": 24.161929520699644
           },
           "mos_samples": 5,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 1.5,
-          "raw_precipitation_probability": 1.5,
+          "precipitation_probability": 1.6666666666666667,
+          "raw_precipitation_probability": 1.6666666666666667,
           "target": "2026-08-10T14:00:00+00:00",
-          "temperature_2m": 24.146212629500408,
-          "v2_uncertainty": 1.6953022801625652
+          "temperature_2m": 24.16138862156395,
+          "v2_uncertainty": 1.6560702911495853
         },
         "3": {
-          "analog_distance": 4.01031746031746,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 3.9830952380952382,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.02675945663976,
-            "mos": 24.58833485372075,
-            "observation_nudge": -0.12146568499054788,
-            "v2_consensus": 25.387653025582743
+            "analog": 25.080055479861876,
+            "mos": 24.067409409698012,
+            "observation_nudge": -0.15858019984876906,
+            "v2_consensus": 25.472488064051568
           },
           "mos_samples": 16,
           "mos_training_mae": 0.16258597248567885,
           "precip_calibration_samples": 28,
-          "precipitation_probability": 59.77777777777778,
-          "raw_precipitation_probability": 60.0,
+          "precipitation_probability": 47.88148148148148,
+          "raw_precipitation_probability": 48.0,
           "target": "2026-08-09T17:00:00+00:00",
-          "temperature_2m": 25.091105488276682,
-          "v2_uncertainty": 2.1314670302481225
+          "temperature_2m": 25.026796598532183,
+          "v2_uncertainty": 2.1158827295822227
         },
         "48": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.5799403194272702e-06,
-            "v2_consensus": 20.584637321135865
+            "observation_nudge": -2.0626998614744685e-06,
+            "v2_consensus": 20.550962417898646
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 56.5,
-          "raw_precipitation_probability": 56.5,
+          "precipitation_probability": 54.0,
+          "raw_precipitation_probability": 54.0,
           "target": "2026-08-11T14:00:00+00:00",
-          "temperature_2m": 20.584636294174658,
-          "v2_uncertainty": 2.685687760241497
+          "temperature_2m": 20.550961077143736,
+          "v2_uncertainty": 2.576918055110825
         },
         "6": {
-          "analog_distance": 3.507390873015873,
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
+          "analog_distance": 3.590178571428572,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.4998774175431,
-            "mos": 23.372162679830392,
-            "observation_nudge": -0.057376326895311115,
-            "v2_consensus": 24.600028645027976
+            "analog": 24.61227174916211,
+            "mos": 24.136803951300376,
+            "observation_nudge": -0.07490798233554423,
+            "v2_consensus": 24.55346256439948
           },
           "mos_samples": 16,
           "mos_training_mae": 0.17637335717958202,
           "precip_calibration_samples": 12,
-          "precipitation_probability": 52.714814814814815,
-          "raw_precipitation_probability": 53.0,
+          "precipitation_probability": 43.39629629629629,
+          "raw_precipitation_probability": 43.666666666666664,
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 24.303351001932512,
-          "v2_uncertainty": 2.788043217941847
+          "temperature_2m": 24.43205020814133,
+          "v2_uncertainty": 2.700137038158105
         },
         "72": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -3.916280505783288e-09,
-            "v2_consensus": 21.37401750909741
+            "observation_nudge": -5.112921771439235e-09,
+            "v2_consensus": 21.41333674903166
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
-          "precipitation_probability": 50.0,
-          "raw_precipitation_probability": 50.0,
+          "precipitation_probability": 34.0,
+          "raw_precipitation_probability": 34.0,
           "target": "2026-08-12T14:00:00+00:00",
-          "temperature_2m": 21.374017506551827,
-          "v2_uncertainty": 1.829833285757215
+          "temperature_2m": 21.41333674570826,
+          "v2_uncertainty": 1.813440041519877
         }
       },
       "regime": {
-        "name": "mixed",
+        "name": "stable",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -1.0,
+        "pressure_tendency_3h": -0.7999999999999545,
         "relative_humidity": 83.0,
-        "wind_direction": 238.0,
-        "wind_speed": 2.9
+        "wind_direction": 319.0,
+        "wind_speed": 3.3
       }
     },
     "shediac": {
       "hours": {
         "1": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 3.083333333333334,
           "analog_neighbors": 8,
           "components": {
@@ -456,6 +943,28 @@
           "v2_uncertainty": 1.9578040595415866
         },
         "12": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 1.055431547619047,
           "analog_neighbors": 8,
           "components": {
@@ -474,6 +983,28 @@
           "v2_uncertainty": 1.6710659934788326
         },
         "24": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -492,6 +1023,28 @@
           "v2_uncertainty": 2.0271249003955822
         },
         "3": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 3.0095610119047618,
           "analog_neighbors": 8,
           "components": {
@@ -510,6 +1063,28 @@
           "v2_uncertainty": 2.2957354959427807
         },
         "48": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -528,6 +1103,28 @@
           "v2_uncertainty": 2.5222226927855127
         },
         "6": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 3.033333333333333,
           "analog_neighbors": 8,
           "components": {
@@ -546,6 +1143,28 @@
           "v2_uncertainty": 2.524145761198478
         },
         "72": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
@@ -576,13 +1195,35 @@
     "wolfville": {
       "hours": {
         "1": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 2.608289930555556,
           "analog_neighbors": 8,
           "components": {
             "analog": 22.996360597073338,
             "mos": null,
-            "observation_nudge": 0.24300614814270688,
-            "v2_consensus": 23.04583432905197
+            "observation_nudge": 0.6228915736369611,
+            "v2_consensus": 23.338503854110286
           },
           "mos_samples": 10,
           "mos_training_mae": null,
@@ -590,16 +1231,38 @@
           "precipitation_probability": 16.60833333333333,
           "raw_precipitation_probability": 18.416666666666664,
           "target": "2026-08-09T15:00:00+00:00",
-          "temperature_2m": 23.193622490006657,
+          "temperature_2m": 23.673079967994113,
           "v2_uncertainty": 1.8842820585352307
         },
         "12": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 1.3875000000000004,
           "analog_neighbors": 8,
           "components": {
             "analog": 20.031075338120477,
             "mos": null,
-            "observation_nudge": 0.015534863310843585,
+            "observation_nudge": 0.03982012606629132,
             "v2_consensus": 20.039532530249573
           },
           "mos_samples": 9,
@@ -608,16 +1271,38 @@
           "precipitation_probability": 3.466666666666667,
           "raw_precipitation_probability": 4.0,
           "target": "2026-08-10T02:00:00+00:00",
-          "temperature_2m": 20.04789241219701,
+          "temperature_2m": 20.063677832988052,
           "v2_uncertainty": 2.219834769954552
         },
         "24": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.0007734353017423908,
+            "observation_nudge": 0.001982527338879407,
             "v2_consensus": 24.173739528563544
           },
           "mos_samples": 3,
@@ -626,17 +1311,39 @@
           "precipitation_probability": 25.0,
           "raw_precipitation_probability": 25.0,
           "target": "2026-08-10T14:00:00+00:00",
-          "temperature_2m": 24.174242261509676,
+          "temperature_2m": 24.175028171333818,
           "v2_uncertainty": 2.08141313339476
         },
         "3": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 3.5141493055555553,
           "analog_neighbors": 8,
           "components": {
             "analog": 24.312125688588083,
             "mos": 22.509507237826302,
-            "observation_nudge": 0.14739067934722194,
-            "v2_consensus": 24.68942347187787
+            "observation_nudge": 0.37780283708746637,
+            "v2_consensus": 24.7686881349145
           },
           "mos_samples": 16,
           "mos_training_mae": 0.11009511984799225,
@@ -644,16 +1351,38 @@
           "precipitation_probability": 29.228571428571428,
           "raw_precipitation_probability": 32.25,
           "target": "2026-08-09T17:00:00+00:00",
-          "temperature_2m": 24.29184324903296,
+          "temperature_2m": 24.492131486246805,
           "v2_uncertainty": 2.6330843149330017
         },
         "48": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 1.917154437704553e-06,
+            "observation_nudge": 4.914193956547893e-06,
             "v2_consensus": 22.602744961622786
           },
           "mos_samples": 0,
@@ -662,16 +1391,38 @@
           "precipitation_probability": 53.33333333333333,
           "raw_precipitation_probability": 53.33333333333333,
           "target": "2026-08-11T14:00:00+00:00",
-          "temperature_2m": 22.60274620777317,
+          "temperature_2m": 22.602748155848857,
           "v2_uncertainty": 2.4664878142597226
         },
         "6": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": 4.302213541666666,
           "analog_neighbors": 8,
           "components": {
             "analog": 24.99581665885258,
             "mos": 23.40372413644195,
-            "observation_nudge": 0.0696224271094035,
+            "observation_nudge": 0.17846142377078167,
             "v2_consensus": 25.333711827333012
           },
           "mos_samples": 14,
@@ -680,16 +1431,38 @@
           "precipitation_probability": 18.605555555555558,
           "raw_precipitation_probability": 19.416666666666668,
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 24.941513592171205,
+          "temperature_2m": 25.0122589400011,
           "v2_uncertainty": 2.444152041312142
         },
         "72": {
+          "adaptive_skill": {
+            "analog": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "mos": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "observation_nudge": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            },
+            "precipitation_calibration": {
+              "factor": 1.0,
+              "samples": 0,
+              "status": "learning"
+            }
+          },
           "analog_distance": null,
           "analog_neighbors": 0,
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 4.752150735465729e-09,
+            "observation_nudge": 1.2181068966353754e-08,
             "v2_consensus": 21.796136918332405
           },
           "mos_samples": 0,
@@ -698,7 +1471,7 @@
           "precipitation_probability": 42.666666666666664,
           "raw_precipitation_probability": 42.666666666666664,
           "target": "2026-08-12T14:00:00+00:00",
-          "temperature_2m": 21.7961369214213,
+          "temperature_2m": 21.7961369262501,
           "v2_uncertainty": 2.590952511271078
         }
       },
@@ -706,7 +1479,7 @@
         "name": "stable",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.566666666666606,
-        "relative_humidity": 85.0,
+        "relative_humidity": 86.0,
         "wind_direction": 279.3333333333333,
         "wind_speed": 5.533333333333334
       }
@@ -717,17 +1490,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -0.48717548657028786,
-          "mean_distance": 4.425911458333332,
+          "correction": -0.4844243203330996,
+          "mean_distance": 4.4384114583333325,
           "neighbors": 8,
-          "prediction": 24.072199513429712
+          "prediction": 24.087450679666897
         },
         "12": {
           "available": true,
-          "correction": -0.10238059551276958,
-          "mean_distance": 1.8265190972222218,
+          "correction": -0.10402861063277205,
+          "mean_distance": 1.8358940972222224,
           "neighbors": 8,
-          "prediction": 20.721577737820564
+          "prediction": 20.732429722700562
         },
         "24": {
           "available": false,
@@ -735,10 +1508,10 @@
         },
         "3": {
           "available": true,
-          "correction": -0.8209806058741931,
-          "mean_distance": 3.870789930555555,
+          "correction": -0.8193565836597958,
+          "mean_distance": 3.883289930555556,
           "neighbors": 8,
-          "prediction": 24.064436060792474
+          "prediction": 24.07856008300687
         },
         "48": {
           "available": false,
@@ -746,10 +1519,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.7084101752695353,
-          "mean_distance": 4.120052083333332,
+          "correction": -0.7065812868820512,
+          "mean_distance": 4.138802083333332,
           "neighbors": 8,
-          "prediction": 24.259298158063796
+          "prediction": 24.27987704645128
         },
         "72": {
           "available": false,
@@ -929,17 +1702,17 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.09044680663922917,
-          "mean_distance": 3.9313988095238095,
+          "correction": 0.0630324640775157,
+          "mean_distance": 3.812619047619048,
           "neighbors": 8,
-          "prediction": 24.190446806639226
+          "prediction": 24.184461035506086
         },
         "12": {
           "available": true,
-          "correction": -0.24687951896806876,
-          "mean_distance": 1.3336309523809524,
+          "correction": -0.28028170870111563,
+          "mean_distance": 1.3717261904761906,
           "neighbors": 8,
-          "prediction": 20.695977623889075
+          "prediction": 20.905432577013173
         },
         "24": {
           "available": false,
@@ -947,10 +1720,10 @@
         },
         "3": {
           "available": true,
-          "correction": -0.20181197193167003,
-          "mean_distance": 4.01031746031746,
+          "correction": -0.24851594870955382,
+          "mean_distance": 3.9830952380952382,
           "neighbors": 8,
-          "prediction": 25.02675945663976
+          "prediction": 25.080055479861876
         },
         "48": {
           "available": false,
@@ -958,10 +1731,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.21440829674261602,
-          "mean_distance": 3.507390873015873,
+          "correction": -0.3091568222664579,
+          "mean_distance": 3.590178571428572,
           "neighbors": 8,
-          "prediction": 24.4998774175431
+          "prediction": 24.61227174916211
         },
         "72": {
           "available": false,
@@ -1252,63 +2025,91 @@
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.23170935944444443,
+          "age_hours": 0.04708955194444445,
           "distance_km": 0.7309203086771027,
           "lat": 44.655354,
           "lon": -63.575908,
           "precipitation": null,
-          "relative_humidity_2m": 85.0,
+          "relative_humidity_2m": 88.0,
           "station": "HALIFAX DOCKYARD",
-          "temperature_2m": 22.9,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.8802099737936283,
+          "temperature_2m": 22.2,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.9572633915948838,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.23170935944444443,
+          "age_hours": 0.04708955194444445,
           "distance_km": 2.750507296327102,
           "lat": 44.656926,
           "lon": -63.608042,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 86.0,
+          "precipitation": null,
+          "relative_humidity_2m": 87.0,
           "station": "HALIFAX WINDSOR PARK",
-          "temperature_2m": 22.7,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.7800148736964264,
+          "temperature_2m": 22.8,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.848297231024288,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.015042692777777778,
+          "age_hours": 0.013756218611111112,
           "distance_km": 4.981788023468788,
           "lat": 44.63592,
           "lon": -63.51489,
           "precipitation": 0.0,
-          "relative_humidity_2m": 91.0,
+          "relative_humidity_2m": 94.0,
           "station": "SHEARWATER RCS",
-          "temperature_2m": 22.5,
-          "time": "2026-08-09T14:13:00+00:00",
-          "weight": 0.7280940590834355,
+          "temperature_2m": 22.3,
+          "time": "2026-08-09T14:32:00+00:00",
+          "weight": 0.7285199445909661,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.23170935944444443,
+          "age_hours": 0.04708955194444445,
           "distance_km": 4.8239568149733305,
           "lat": 44.627497,
           "lon": -63.522088,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 93.0,
+          "precipitation": null,
+          "relative_humidity_2m": 88.0,
           "station": "SHEARWATER JETTY",
-          "temperature_2m": 22.0,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.6679368367644765,
+          "temperature_2m": 22.9,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.7264079035330621,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.23170935944444443,
+          "age_hours": 0.04708955194444445,
+          "distance_km": 7.074672516237647,
+          "lat": 44.587727,
+          "lon": -63.550143,
+          "precipitation": null,
+          "relative_humidity_2m": 97.0,
+          "station": "HALIFAX KOOTENAY",
+          "temperature_2m": 20.5,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.6096898568034247,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.04708955194444445,
+          "distance_km": 7.857396549617851,
+          "lat": 44.706111,
+          "lon": -63.633333,
+          "precipitation": null,
+          "relative_humidity_2m": 94.0,
+          "station": "BEDFORD BASIN",
+          "temperature_2m": 22.3,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.5741089518028617,
+          "wind_gusts_10m": null,
+          "wind_speed_10m": null
+        },
+        {
+          "age_hours": 0.5470895519444444,
           "distance_km": 6.150292404980393,
           "lat": 44.6024,
           "lon": -63.5329,
@@ -1317,59 +2118,31 @@
           "station": "MCNABS ISLAND (AUT)",
           "temperature_2m": 22.2,
           "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.6023537236906684,
+          "weight": 0.5219074225293838,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.23170935944444443,
-          "distance_km": 7.074672516237647,
-          "lat": 44.587727,
-          "lon": -63.550143,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 95.0,
-          "station": "HALIFAX KOOTENAY",
-          "temperature_2m": 21.7,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.5606138264465222,
-          "wind_gusts_10m": null,
-          "wind_speed_10m": null
-        },
-        {
-          "age_hours": 0.23170935944444443,
-          "distance_km": 7.857396549617851,
-          "lat": 44.706111,
-          "lon": -63.633333,
-          "precipitation": null,
-          "relative_humidity_2m": 95.0,
-          "station": "BEDFORD BASIN",
-          "temperature_2m": 22.1,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.527896950680575,
-          "wind_gusts_10m": null,
-          "wind_speed_10m": null
-        },
-        {
-          "age_hours": 0.23170935944444443,
+          "age_hours": 0.04708955194444445,
           "distance_km": 12.685297541909069,
           "lat": 44.745547,
           "lon": -63.660246,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 86.0,
+          "precipitation": null,
+          "relative_humidity_2m": 84.0,
           "station": "BEDFORD RANGE",
-          "temperature_2m": 23.0,
-          "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.37317305419693997,
+          "temperature_2m": 23.4,
+          "time": "2026-08-09T14:30:00+00:00",
+          "weight": 0.40584055412684766,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 22.406323552653124,
-      "time": "2026-08-09T14:13:00+00:00",
+      "temp": 22.311366109975665,
+      "time": "2026-08-09T14:32:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 90.07135613148755,
-        "temperature_2m": 22.406323552653124,
+        "relative_humidity_2m": 90.4048524844912,
+        "temperature_2m": 22.311366109975665,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -1381,7 +2154,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.23235525333333334,
+          "age_hours": 0.5477917063888889,
           "distance_km": 2.194888387888291,
           "lat": 44.360682,
           "lon": -64.296016,
@@ -1390,7 +2163,7 @@
           "station": "LUNENBURG",
           "temperature_2m": 22.1,
           "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.8099252636009553,
+          "weight": 0.7017391616068497,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
@@ -1412,7 +2185,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.23194780916666666,
+          "age_hours": 0.5472814875,
           "distance_km": 8.29891547501511,
           "lat": 46.1161,
           "lon": -64.6786,
@@ -1421,7 +2194,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 23.0,
           "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.5104288936675245,
+          "weight": 0.4422688035814857,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
@@ -1443,7 +2216,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.2322443836111111,
+          "age_hours": 0.5475631886111111,
           "distance_km": 15.6550109182535,
           "lat": 46.1161,
           "lon": -64.6786,
@@ -1452,7 +2225,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 23.0,
           "time": "2026-08-09T14:00:00+00:00",
-          "weight": 0.3086478266128067,
+          "weight": 0.2674343665872079,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
@@ -1474,21 +2247,21 @@
       "station_count": 2,
       "stations": [
         {
-          "age_hours": 0.01580156361111111,
+          "age_hours": 0.014633231944444445,
           "distance_km": 3.3534283259845368,
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 85.0,
+          "relative_humidity_2m": 86.0,
           "station": "KENTVILLE CDA",
-          "temperature_2m": 23.1,
-          "time": "2026-08-09T14:13:00+00:00",
-          "weight": 0.8238700188388014,
+          "temperature_2m": 23.8,
+          "time": "2026-08-09T14:32:00+00:00",
+          "weight": 0.8243076593225362,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         },
         {
-          "age_hours": 0.1096904525,
+          "age_hours": 0.4251887875,
           "distance_km": 11.05056600786515,
           "lat": 45.009,
           "lon": -64.538,
@@ -1497,17 +2270,17 @@
           "station": "South Alton",
           "temperature_2m": 22.8,
           "time": "2026-08-09T14:07:22+00:00",
-          "weight": 0.44129050398046177,
+          "weight": 0.38233418792804014,
           "wind_gusts_10m": null,
           "wind_speed_10m": null
         }
       ],
-      "temp": 22.995359403959956,
-      "time": "2026-08-09T14:13:00+00:00",
+      "temp": 23.483141945723816,
+      "time": "2026-08-09T14:32:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 85.0,
-        "temperature_2m": 22.995359403959956,
+        "relative_humidity_2m": 86.0,
+        "temperature_2m": 23.483141945723816,
         "wind_gusts_10m": null,
         "wind_speed_10m": null
       }
@@ -1542,7 +2315,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 11,
+      "deterministic_models": 13,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_stations": 1,
@@ -1575,6 +2348,800 @@
       "rdpa": true
     }
   },
-  "updated_at": "2026-08-09T14:14:28.446259+00:00",
+  "updated_at": "2026-08-09T14:33:25.096370+00:00",
+  "verification": {
+    "adaptive_layers": [
+      "mos",
+      "analog",
+      "observation_nudge",
+      "precipitation_calibration"
+    ],
+    "adaptive_status": {
+      "hrm": {
+        "1": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "12": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "24": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "3": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "48": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "6": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "72": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        }
+      },
+      "lunenburg": {
+        "1": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "12": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "24": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "3": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "48": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "6": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "72": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        }
+      },
+      "moncton": {
+        "1": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "12": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "24": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "3": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "48": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "6": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "72": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        }
+      },
+      "shediac": {
+        "1": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "12": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "24": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "3": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "48": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "6": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "72": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        }
+      },
+      "wolfville": {
+        "1": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "12": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "24": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "3": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "48": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "6": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        },
+        "72": {
+          "analog": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "mos": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "observation_nudge": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          },
+          "precipitation_calibration": {
+            "factor": 1.0,
+            "samples": 0,
+            "status": "learning"
+          }
+        }
+      }
+    },
+    "minimum_samples_before_adaptation": 8,
+    "mode": "shadow-out-of-sample",
+    "precip_scores": {},
+    "scores": {}
+  },
   "version": "3.0"
 }
