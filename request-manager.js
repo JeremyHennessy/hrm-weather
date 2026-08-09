@@ -1,4 +1,3 @@
-document.write('<script src="./startup-fallback.js?v=2" data-wx-static-startup="1"><\/script>');
 (()=>{
 /* Startup/render + bounded weather networking. This file loads before v5b.js. */
 function installStableRenderer(){
@@ -6,7 +5,7 @@ function installStableRenderer(){
   if(typeof window.render!=='function'){setTimeout(installStableRenderer,0);return}
   window.__wxAtomicRenderInstalled=true;
   const original=window.render;
-  let hasComplete=false,initialPartialShown=false;
+  let hasComplete=false,initialPartialShown=Boolean(window.__wxStaticStartupShown);
   function patchProbabilities(base){
     if(typeof window.WXCalibratedPop!=='function'||!Array.isArray(base))return;
     for(const x of base){
@@ -24,7 +23,7 @@ function installStableRenderer(){
   }
   window.render=function(base,mods,official,alerts,loading){
     if(loading===true){
-      if(hasComplete||initialPartialShown)return;
+      if(hasComplete||initialPartialShown||window.__wxStaticStartupShown)return;
       initialPartialShown=true;
       const out=original(base,mods,official,alerts,true);
       window.__wxInitialForecastShown=true;
