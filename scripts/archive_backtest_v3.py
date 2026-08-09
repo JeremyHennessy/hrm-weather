@@ -12,12 +12,14 @@ from __future__ import annotations
 
 import json
 import math
+import random
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone, timedelta
-from pathlib import Path
 from typing import Any
 
 import accuracy_engine_v2 as core
@@ -26,11 +28,12 @@ import accuracy_engine_v3 as v3
 OUT = core.DATA / "archive-backtest-v3.json"
 DAYS = 21
 LEADS = [3, 6, 12]
-MAX_WORKERS = 14
-HTTP_TIMEOUT = 16
+MAX_WORKERS = 4
+HTTP_TIMEOUT = 20
+MAX_RETRIES = 4
 MODELS = [
     "gem_hrdps_continental",
-    "gem_regional",
+    "gem_seamless",
     "ecmwf_ifs025",
     "gfs_seamless",
     "icon_seamless",
@@ -45,10 +48,32 @@ LOCATIONS = {
 }
 
 
-def get_json(url: str, timeout: int = HTTP_TIMEOUT) -> Any:
-    req = urllib.request.Request(url, headers={"User-Agent": "weather-consensus-archive-backtest/1.0"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.load(r)
+def get_json(url: str, timeout: int = HTTP_TIMEOUT, retries: int = MAX_RETRIES) -> Any:
+    last: Exception | None = None
+    for attempt in range(retries + 1):
+        req = urllib.request.Request(url, headers={"User-Agent": "weather-consensus-archive-backtest/1.1"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as exc:
+            last = exc
+            if exc.code != 429 or attempt >= retries:
+                raise
+            # Respect server pressure and desynchronise concurrent retries.
+            retry_after = exc.headers.get("Retry-After")
+            try:
+                delay = float(retry_after) if retry_after else (0.7 * (2 ** attempt) + random.uniform(0.05, 0.35))
+            except Exception:
+                delay = 0.7 * (2 ** attempt) + random.uniform(0.05, 0.35)
+            time.sleep(min(8.0, delay))
+        except Exception as exc:
+            last = exc
+            if attempt >= min(2, retries):
+                raise
+            time.sleep(0.35 * (attempt + 1))
+    if last:
+        raise last
+    raise RuntimeError("archive request failed")
 
 
 def observations(bbox, start, end) -> dict[str, float]:
@@ -58,7 +83,7 @@ def observations(bbox, start, end) -> dict[str, float]:
         "limit": "10000",
         "f": "json",
     }
-    j = get_json("https://api.weather.gc.ca/collections/climate-hourly/items?" + urllib.parse.urlencode(q), 25)
+    j = get_json("https://api.weather.gc.ca/collections/climate-hourly/items?" + urllib.parse.urlencode(q), 25, 2)
     groups: dict[str, list[float]] = defaultdict(list)
     for f in j.get("features", []):
         p = f.get("properties") or {}
@@ -122,7 +147,8 @@ def build_rows(obs_by_loc, forecasts, start) -> dict[tuple[str, int], list[dict[
                     "models": model_values,
                     "regime": "archive-unknown",
                 })
-    for rows in out.values(): rows.sort(key=lambda r: r["dt"])
+    for rows in out.values():
+        rows.sort(key=lambda r: r["dt"])
     return out
 
 
@@ -164,28 +190,35 @@ def evaluate(rows):
         prior = rows[:i]
         v2p = v2_proxy(row)
         mos = analog = None
-        if v2p is not None: update(stats["v2"], v2p, actual)
-        for model, pred in (row.get("models") or {}).items(): update(model_stats[model], float(pred), actual)
+        if v2p is not None:
+            update(stats["v2"], v2p, actual)
+        for model, pred in (row.get("models") or {}).items():
+            update(model_stats[model], float(pred), actual)
         if len(prior) >= 12:
             m = v3.fit_mos(prior)
             if m.get("available"):
                 mos = v3.predict_mos(m, row["families"], row["dt"])
-                if mos is not None: update(stats["mos"], float(mos), actual)
+                if mos is not None:
+                    update(stats["mos"], float(mos), actual)
         if len(prior) >= 8:
             a = v3.analog_predict(prior, row["families"], row["dt"], "archive-unknown")
             if a.get("available"):
                 analog = core.safe_float(a.get("prediction"))
-                if analog is not None: update(stats["analog"], analog, actual)
+                if analog is not None:
+                    update(stats["analog"], analog, actual)
         weighted = []
-        if v2p is not None: weighted.append((v2p, .58))
-        if mos is not None: weighted.append((float(mos), .27 if len(prior) >= 24 else .18))
-        if analog is not None: weighted.append((analog, .15))
+        if v2p is not None:
+            weighted.append((v2p, .58))
+        if mos is not None:
+            weighted.append((float(mos), .27 if len(prior) >= 24 else .18))
+        if analog is not None:
+            weighted.append((analog, .15))
         final = None
         if weighted:
-            final = sum(v*w for v,w in weighted) / sum(w for _,w in weighted)
+            final = sum(v * w for v, w in weighted) / sum(w for _, w in weighted)
             update(stats["engine3_reconstructed"], final, actual)
         cases.append({"target": core.iso(row["dt"]), "actual": actual, "v2": v2p, "mos": mos, "analog": analog, "engine3_reconstructed": final, "prior_days": i})
-    return {k: finish(v) for k,v in stats.items()}, {k: finish(v) for k,v in model_stats.items()}, cases
+    return {k: finish(v) for k, v in stats.items()}, {k: finish(v) for k, v in model_stats.items()}, cases
 
 
 def aggregate(results, key):
@@ -194,48 +227,86 @@ def aggregate(results, key):
         for lead in loc["leads"].values():
             for name, s in lead.get(key, {}).items():
                 n = int(s.get("n", 0))
-                if not n: continue
-                a = acc[name]; a["n"] += n; a["mae"] += float(s["mae"])*n; a["mse"] += float(s["rmse"])**2*n; a["bias"] += float(s["bias"])*n; a["w1"] += float(s["within_1c"])*n; a["w2"] += float(s["within_2c"])*n
-    out={}
-    for name,a in acc.items():
-        n=int(a["n"]);out[name]={"n":n,"mae":a["mae"]/n,"rmse":math.sqrt(a["mse"]/n),"bias":a["bias"]/n,"within_1c":a["w1"]/n,"within_2c":a["w2"]/n}
+                if not n:
+                    continue
+                a = acc[name]
+                a["n"] += n
+                a["mae"] += float(s["mae"]) * n
+                a["mse"] += float(s["rmse"]) ** 2 * n
+                a["bias"] += float(s["bias"]) * n
+                a["w1"] += float(s["within_1c"]) * n
+                a["w2"] += float(s["within_2c"]) * n
+    out = {}
+    for name, a in acc.items():
+        n = int(a["n"])
+        out[name] = {"n": n, "mae": a["mae"] / n, "rmse": math.sqrt(a["mse"] / n), "bias": a["bias"] / n, "within_1c": a["w1"] / n, "within_2c": a["w2"] / n}
     return out
 
 
 def main():
     end = (datetime.now(timezone.utc) - timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
-    start = end - timedelta(days=DAYS-1)
+    start = end - timedelta(days=DAYS - 1)
     obs_by_loc = {}
-    for loc, (_,_,bbox) in LOCATIONS.items():
-        try: obs_by_loc[loc] = observations(bbox, start, end)
-        except Exception: obs_by_loc[loc] = {}
-    tasks=[]
-    for loc,(lat,lon,_) in LOCATIONS.items():
+    for loc, (_, _, bbox) in LOCATIONS.items():
+        try:
+            obs_by_loc[loc] = observations(bbox, start, end)
+        except Exception:
+            obs_by_loc[loc] = {}
+    tasks = []
+    for loc, (lat, lon, _) in LOCATIONS.items():
         for model in MODELS:
-            for day in range(DAYS): tasks.append((loc,lat,lon,model,start+timedelta(days=day)))
-    forecasts={};failures=[]
+            for day in range(DAYS):
+                tasks.append((loc, lat, lon, model, start + timedelta(days=day)))
+    forecasts = {}
+    failures = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures=[pool.submit(fetch_run,t) for t in tasks]
+        futures = [pool.submit(fetch_run, t) for t in tasks]
         for fut in as_completed(futures):
-            result=fut.result();task,fc=result[:2];loc,_,_,model,run=task
-            forecasts[(loc,model,run.strftime("%Y-%m-%d"))]=fc
-            if len(result)>2: failures.append({"loc":loc,"model":model,"run":run.strftime("%Y-%m-%d"),"error":result[2]})
-    rows=build_rows(obs_by_loc,forecasts,start)
-    locations={}
+            result = fut.result()
+            task, fc = result[:2]
+            loc, _, _, model, run = task
+            forecasts[(loc, model, run.strftime("%Y-%m-%d"))] = fc
+            if len(result) > 2:
+                failures.append({"loc": loc, "model": model, "run": run.strftime("%Y-%m-%d"), "error": result[2]})
+    rows = build_rows(obs_by_loc, forecasts, start)
+    locations = {}
     for loc in LOCATIONS:
-        leads={}
+        leads = {}
         for lead in LEADS:
-            scores,models,cases=evaluate(rows.get((loc,lead),[]))
-            leads[str(lead)]={"scores":scores,"individual_models":models,"cases":cases}
-        locations[loc]={"leads":leads}
-    overall=aggregate(locations,"scores");individual=aggregate(locations,"individual_models")
-    v2=(overall.get("v2") or {}).get("mae");v3m=(overall.get("engine3_reconstructed") or {}).get("mae")
-    improvement=(v2-v3m)/v2 if isinstance(v2,(int,float)) and v2>0 and isinstance(v3m,(int,float)) else None
-    report={
-        "version":"1.0","method":"21-day archived 00Z strict causal Engine 3 temperature hindcast","start":core.iso(start),"end":core.iso(end+timedelta(hours=12)),"days_requested":DAYS,"leads_hours":LEADS,"models":MODELS,"archive_requests":len(tasks),"archive_failures":len(failures),"failure_examples":failures[:20],"leakage_policy":"strictly-earlier-days-only","overall":overall,"individual_models":individual,"engine3_vs_v2_mae_improvement":improvement,"locations":locations,
-        "limitations":["Uses one standardized 00Z archived model run per day, not every intraday model cycle.","Reconstructed Engine 3 includes family consensus, causal MOS and causal analog layers; live observation nudge and later champion/weight decisions are excluded to prevent look-ahead.","Historical ECCC climate-hourly mesh is used as the verifying observation target."],
+            scores, models, cases = evaluate(rows.get((loc, lead), []))
+            leads[str(lead)] = {"scores": scores, "individual_models": models, "cases": cases}
+        locations[loc] = {"leads": leads}
+    overall = aggregate(locations, "scores")
+    individual = aggregate(locations, "individual_models")
+    v2 = (overall.get("v2") or {}).get("mae")
+    v3m = (overall.get("engine3_reconstructed") or {}).get("mae")
+    improvement = (v2 - v3m) / v2 if isinstance(v2, (int, float)) and v2 > 0 and isinstance(v3m, (int, float)) else None
+    report = {
+        "version": "1.1",
+        "method": "21-day archived 00Z strict causal Engine 3 temperature hindcast",
+        "start": core.iso(start),
+        "end": core.iso(end + timedelta(hours=12)),
+        "days_requested": DAYS,
+        "leads_hours": LEADS,
+        "models": MODELS,
+        "archive_requests": len(tasks),
+        "archive_failures": len(failures),
+        "archive_success_rate": (len(tasks) - len(failures)) / len(tasks),
+        "failure_examples": failures[:20],
+        "leakage_policy": "strictly-earlier-days-only",
+        "overall": overall,
+        "individual_models": individual,
+        "engine3_vs_v2_mae_improvement": improvement,
+        "locations": locations,
+        "limitations": [
+            "Uses one standardized 00Z archived model run per day, not every intraday model cycle.",
+            "Reconstructed Engine 3 includes family consensus, causal MOS and causal analog layers; live observation nudge and later champion/weight decisions are excluded to prevent look-ahead.",
+            "Historical ECCC climate-hourly mesh is used as the verifying observation target.",
+        ],
     }
-    OUT.write_text(json.dumps(report,indent=2,sort_keys=True,allow_nan=False)+"\n")
-    print(json.dumps({"start":report["start"],"end":report["end"],"archive_requests":len(tasks),"archive_failures":len(failures),"overall":overall,"individual_models":individual,"engine3_vs_v2_mae_improvement":improvement},indent=2))
+    OUT.write_text(json.dumps(report, indent=2, sort_keys=True, allow_nan=False) + "\n")
+    print(json.dumps({"start": report["start"], "end": report["end"], "archive_requests": len(tasks), "archive_failures": len(failures), "archive_success_rate": report["archive_success_rate"], "overall": overall, "individual_models": individual, "engine3_vs_v2_mae_improvement": improvement}, indent=2))
 
-if __name__=="__main__": main()
+
+if __name__ == "__main__":
+    main()
