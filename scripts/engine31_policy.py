@@ -9,8 +9,6 @@ verification so it can earn authority over time.
 from __future__ import annotations
 import hashlib
 import json
-import math
-from datetime import timedelta
 from typing import Any
 
 import accuracy_engine_v2 as core
@@ -46,11 +44,9 @@ def _recent_mae(state:dict[str,Any],loc:str,lead:int,regime:str,layer:str)->dict
     for row in state.get('forecasts',[]):
         if not row.get('scored') or row.get('loc')!=loc or int(row.get('lead',-1))!=lead:continue
         if regime not in {'unknown','all'} and row.get('regime') not in {regime,None}:continue
-        actual=core.safe_float(row.get('actual_temperature'));pred=core.safe_float((row.get('temperature_candidates') or {}).get(layer))
-        issued=core.parse_stamp(row.get('issued'))
+        actual=core.safe_float(row.get('actual_temperature'));pred=core.safe_float((row.get('temperature_candidates') or {}).get(layer));issued=core.parse_stamp(row.get('issued'))
         if actual is None or pred is None or not issued:continue
-        age=max(0.0,(now-issued).total_seconds()/86400.0);w=0.5**(age/HALF_LIFE_DAYS)
-        num+=abs(pred-actual)*w;den+=w;n+=1
+        age=max(0.0,(now-issued).total_seconds()/86400.0);w=0.5**(age/HALF_LIFE_DAYS);num+=abs(pred-actual)*w;den+=w;n+=1
     return {'mae':num/den,'n':n,'effective_weight':den} if den>0 and n>=6 else None
 
 
@@ -59,22 +55,17 @@ def _skill_mod(state:dict[str,Any],loc:str,lead:int,regime:str,available:set[str
     if not base:return {k:1.0 for k in available}
     bm=max(0.05,float(base['mae']));out={}
     for layer in available:
-        if layer=='v2':name='v2'
-        else:name=layer
-        s=_recent_mae(state,loc,lead,regime,name) or _recent_mae(state,loc,lead,'all',name)
+        s=_recent_mae(state,loc,lead,regime,layer) or _recent_mae(state,loc,lead,'all',layer)
         out[layer]=max(0.88,min(1.12,bm/max(0.05,float(s['mae'])))) if s else 1.0
     return out
 
 
 def candidate(base_weights:dict[str,float],components:dict[str,Any],state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]:
-    values={'v2':core.safe_float(components.get('v2_consensus')),'mos':core.safe_float(components.get('mos')),'analog':core.safe_float(components.get('analog'))}
-    available={k for k,v in values.items() if v is not None}
+    values={'v2':core.safe_float(components.get('v2_consensus')),'mos':core.safe_float(components.get('mos')),'analog':core.safe_float(components.get('analog'))};available={k for k,v in values.items() if v is not None}
     if not available:return {'available':False}
-    weights={k:float(base_weights.get(k,0.0)) for k in available}
-    lm=_lead_mod(lead);rm=_regime_mod(regime);sm=_skill_mod(state,loc,lead,regime,available)
+    weights={k:float(base_weights.get(k,0.0)) for k in available};lm=_lead_mod(lead);rm=_regime_mod(regime);sm=_skill_mod(state,loc,lead,regime,available)
     for k in weights:weights[k]*=lm.get(k,1.0)*rm.get(k,1.0)*sm.get(k,1.0)
-    weights=_norm(weights)
-    temp=sum(float(values[k])*weights[k] for k in weights)
+    weights=_norm(weights);temp=sum(float(values[k])*weights[k] for k in weights)
     return {'available':True,'temperature_2m':temp,'weights':weights,'lead_modifier':lm,'regime_modifier':rm,'time_decayed_skill_modifier':sm,'half_life_days':HALF_LIFE_DAYS}
 
 
@@ -93,15 +84,25 @@ def gate(state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]:
 
 
 def _fingerprint()->str:
-    payload=[{'id':m[0],'family':m[3],'weight':m[4]} for m in core.MODELS]
-    return hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()[:16]
+    payload=[{'id':m[0],'family':m[3],'weight':m[4]} for m in core.MODELS];return hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()[:16]
 
 
 def model_set_watch()->dict[str,Any]:
-    fp=_fingerprint();old=core.load(MODEL_STATE,{})
-    changed=bool(old.get('fingerprint') and old.get('fingerprint')!=fp)
-    state={'fingerprint':fp,'previous_fingerprint':old.get('fingerprint'),'changed':changed,'model_ids':[m[0] for m in core.MODELS],'checked_at':core.iso(core.utcnow()),'policy':'reset trust on explicit configured model-set change; upstream provider revisions continue to be caught by prospective skill decay'}
-    core.save(MODEL_STATE,state);return state
+    fp=_fingerprint();old=core.load(MODEL_STATE,{});changed=bool(old.get('fingerprint') and old.get('fingerprint')!=fp)
+    state={'fingerprint':fp,'previous_fingerprint':old.get('fingerprint'),'changed':changed,'model_ids':[m[0] for m in core.MODELS],'checked_at':core.iso(core.utcnow()),'policy':'explicit configured model-set changes are detected immediately; unseen upstream revisions are caught by time-decayed prospective skill'};core.save(MODEL_STATE,state);return state
+
+
+def hrm_microclimate()->dict[str,Any]:
+    """Fail-soft HRDPS point diagnostic for Peninsula/Bedford/Dartmouth."""
+    loc=core.LOCATIONS['hrm'];now=core.utcnow().replace(minute=0,second=0,microsecond=0);points=[]
+    for name,lat,lon,kind in loc['points']:
+        fc=core.forecast_point(lat,lon,'gem_hrdps_continental')
+        if not fc:continue
+        tkey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('temperature_2m',{}));wkey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('wind_direction_10m',{}));skey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('wind_speed_10m',{}))
+        points.append({'name':name,'kind':kind,'temperature_1h':core.safe_float((fc.get('temperature_2m') or {}).get(tkey)) if tkey else None,'wind_direction_1h':core.safe_float((fc.get('wind_direction_10m') or {}).get(wkey)) if wkey else None,'wind_speed_1h':core.safe_float((fc.get('wind_speed_10m') or {}).get(skey)) if skey else None})
+    temps=[p['temperature_1h'] for p in points if p.get('temperature_1h') is not None];spread=(max(temps)-min(temps)) if len(temps)>=2 else None
+    peninsula=next((p for p in points if p['name']=='Halifax Peninsula'),None);bedford=next((p for p in points if p['name']=='Bedford'),None);wd=core.safe_float((peninsula or {}).get('wind_direction_1h'));ws=core.safe_float((peninsula or {}).get('wind_speed_1h'));sea_breeze=bool(wd is not None and 70<=wd<=190 and (ws or 0)>=6 and spread is not None and spread>=1.0)
+    return {'available':bool(points),'points':points,'temperature_spread_c':spread,'sea_breeze_signal':sea_breeze,'peninsula_vs_bedford_c':(core.safe_float((peninsula or {}).get('temperature_1h'))-core.safe_float((bedford or {}).get('temperature_1h'))) if peninsula and bedford and core.safe_float(peninsula.get('temperature_1h')) is not None and core.safe_float(bedford.get('temperature_1h')) is not None else None,'method':'HRDPS point-level Peninsula/Bedford/Dartmouth diagnostic'}
 
 
 def apply(engine:dict[str,Any],state:dict[str,Any])->None:
@@ -109,9 +110,13 @@ def apply(engine:dict[str,Any],state:dict[str,Any])->None:
     for loc,payload in (engine.get('consensus') or {}).items():
         regime=((payload.get('regime') or {}).get('name')) or 'unknown';locations[loc]={}
         for lead_s,h in (payload.get('hours') or {}).items():
-            lead=int(lead_s);w=((h.get('component_weighting') or {}).get('weights') or {});c=candidate(w,h.get('components') or {},state,loc,lead,regime);g=gate(state,loc,lead,regime);c['gate']=g
-            h['engine31_challenger']=c
+            lead=int(lead_s);w=((h.get('component_weighting') or {}).get('weights') or {});c=candidate(w,h.get('components') or {},state,loc,lead,regime);g=gate(state,loc,lead,regime);c['gate']=g;h['engine31_challenger']=c
             if c.get('available') and g.get('status')=='promotion-approved':h['temperature_2m']=c['temperature_2m'];h['engine31_promoted']=True;promoted+=1
             else:h['engine31_promoted']=False
             locations[loc][lead_s]=c
+    v2=core.load(core.ENGINE,{})
+    engine['nowcast_intelligence']={'source':'Accuracy Engine 2 GeoMet radar/RDPA','locations':v2.get('nowcast',{}),'lead_priority':'0-3h'}
+    try:micro=hrm_microclimate()
+    except Exception as exc:micro={'available':False,'error':type(exc).__name__}
+    engine['microclimate_intelligence']={'hrm':micro}
     engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'model_set_watch':model_set_watch(),'locations':locations}
