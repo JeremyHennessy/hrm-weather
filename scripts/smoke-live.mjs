@@ -17,20 +17,31 @@ try{
     page.waitForFunction(()=>{const t=document.querySelector('#feels')?.textContent?.trim()||'';return t!==''&&!t.includes('--')},null,{polling:100,timeout:10000}),
     deadline(10500,'Real Feel did not render within 10 seconds')
   ]);
+  await page.waitForFunction(()=>{const b=document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'';return /^\d+%$/.test(b)},{timeout:6000});
+  const confidenceSamples=[];
+  for(let i=0;i<4;i++){
+    confidenceSamples.push(await page.locator('.wxConfidenceStable b').textContent());
+    if(i<3)await page.waitForTimeout(1200);
+  }
+  if(new Set(confidenceSamples).size!==1)throw new Error(`Forecast Confidence changed during one revision: ${confidenceSamples.join(' -> ')}`);
   const state=await Promise.race([page.evaluate(()=>({
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
     morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
     updated:document.querySelector('#updated')?.textContent?.trim()||'',
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
+    confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
+    confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
     warn:document.querySelector('#warn')?.textContent?.trim()||'',
     initialShown:Boolean(window.__wxInitialForecastShown),
     complete:Boolean(window.__wxHasCompleteForecast),
+    serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
     requestHealth:window.WX_REQUEST_HEALTH||null
   })),deadline(2000,'Could not read live page state')]);
-  console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,console_errors:errors},null,2));
+  console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,confidence_samples:confidenceSamples,console_errors:errors},null,2));
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
+  if(state.confidenceOwner!=='engine3-locked')throw new Error(`Forecast Confidence owner is not locked: ${state.confidenceOwner||'missing'}`);
 }catch(err){
   exitCode=1;
   let state=null;
@@ -38,6 +49,8 @@ try{
     readyState:document.readyState,
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
+    confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
+    confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
     updated:document.querySelector('#updated')?.textContent?.trim()||'',
     warn:document.querySelector('#warn')?.textContent?.trim()||'',
     initialShown:Boolean(window.__wxInitialForecastShown),
