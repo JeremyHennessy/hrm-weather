@@ -8,9 +8,6 @@
     const hs=V3?.consensus?.[locKey()]?.hours||{},keys=Object.keys(hs).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
     if(!keys.length)return null;
     const min=keys[0],max=keys[keys.length-1];
-    // V3 is trained/published only through its explicit lead horizon. Do not reuse
-    // the last calibrated point for days 4–7; those correctly fall back to the raw
-    // daily forecast until V3 gains longer-horizon training.
     if(lead<min||lead>max)return null;
     if(hs[String(lead)])return hs[String(lead)];
     const lo=keys.filter(x=>x<=lead).pop(),hi=keys.find(x=>x>=lead);
@@ -32,6 +29,7 @@
     }
     window.WXAccuracyV3=V3;
     window.WXCalibratedPop=function(lead,raw){const h=atLead(lead);return h&&finite(h.precipitation_probability)?Number(h.precipitation_probability):raw};
+    window.dispatchEvent(new CustomEvent('wx-v3-ready'));
   }
   function ensureUI(){
     const section=[...document.querySelectorAll('.section')].find(s=>s.querySelector('h2')?.textContent.trim()==='Accuracy engine');
@@ -51,7 +49,7 @@
     const note=document.getElementById('v2EngineNote');if(note)note.textContent=`V3: local MOS + historical analogs + observation nudging + calibrated rain probability · ${V3.collector?.verified_ledger_rows??0} verified ledger rows.`;
   }
   async function loadV3(){
-    try{const r=await fetch('data/engine-v3.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);V3=await r.json();install();render();if(typeof load==='function'&&!window.__wxV3Reloaded){window.__wxV3Reloaded=true;setTimeout(()=>load(),80)}}catch{ensureUI()}
+    try{const r=await fetch('data/engine-v3.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);V3=await r.json();install();render()}catch{ensureUI()}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadV3,{once:true});else loadV3();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(!V3||!fresh()))loadV3()});
