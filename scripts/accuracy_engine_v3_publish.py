@@ -6,6 +6,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 import accuracy_engine_v2 as core
 import accuracy_engine_v3 as v3
+from accuracy_engine_v3_pooling import install as install_v3_pooling
+
+install_v3_pooling()
 
 
 def main() -> None:
@@ -43,15 +46,20 @@ def main() -> None:
         "deterministic_forecasts": sum(len(x) for x in forecasts.values()),
         "verified_ledger_rows": sum(1 for x in ledger if x.get("scored")),
         "training_ledger_rows": len(ledger),
+        "lead_pooling": True,
     }
     core.save(v3.ENGINE_V3, engine)
     mos_ready = sum(
         1 for loc in engine.get("diagnostics", {}).values()
         for item in (loc.get("mos") or {}).values() if item.get("available")
     )
+    analog_ready = sum(
+        1 for loc in engine.get("diagnostics", {}).values()
+        for item in (loc.get("analogs") or {}).values() if item.get("available")
+    )
     print(
         f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} "
-        f"verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready}"
+        f"verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready}"
     )
 
 
