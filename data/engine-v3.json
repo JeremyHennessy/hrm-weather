@@ -18,10 +18,10 @@
     "deterministic_forecasts": 65,
     "lead_pooling": true,
     "shadow_forecasts_added": 35,
-    "shadow_forecasts_scored": 0,
-    "shadow_history_rows": 350,
+    "shadow_forecasts_scored": 35,
+    "shadow_history_rows": 385,
     "training_ledger_rows": 21550,
-    "verified_ledger_rows": 4167
+    "verified_ledger_rows": 4700
   },
   "consensus": {
     "hrm": {
@@ -29,74 +29,83 @@
         "1": {
           "adaptive_skill": {
             "analog": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.34162712596438105,
+              "samples": 10,
+              "status": "boosted",
+              "v2_mae": 0.4454202674734823
             },
             "mos": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.22712118901957057,
+              "samples": 8,
+              "status": "boosted",
+              "v2_mae": 0.4454202674734823
             },
             "observation_nudge": {
               "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "layer_mae": 0.4553349622857894,
+              "samples": 10,
+              "status": "neutral",
+              "v2_mae": 0.4454202674734823
             },
             "precipitation_calibration": {
+              "calibrated_brier": 0.18259627585514235,
               "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "raw_brier": 0.18822656249999997,
+              "samples": 10,
+              "status": "active"
             }
           },
-          "analog_distance": 2.1717013888888888,
+          "analog_distance": 1.5375868055555553,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.27870387179837,
-            "mos": 22.858730304940075,
-            "observation_nudge": -1.4649031526935659,
-            "v2_consensus": 23.602334066438644
+            "analog": 23.22633329670652,
+            "mos": 23.01235091171224,
+            "observation_nudge": -1.4750063323309648,
+            "v2_consensus": 23.536364513550005
           },
-          "mos_samples": 15,
-          "mos_training_mae": 0.13617843118811498,
-          "precip_calibration_samples": 52,
-          "precipitation_probability": 49.56666666666666,
+          "mos_samples": 17,
+          "mos_training_mae": 0.14198265587776338,
+          "precip_calibration_samples": 60,
+          "precipitation_probability": 48.861363636363635,
           "raw_precipitation_probability": 50.25,
-          "real_feel": 30.129485577559176,
+          "real_feel": 29.86085861312434,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 65.84027777777777,
+              "provider_apparent_temperature": 28.82638888888889,
               "relative_humidity_2m": 79.5,
               "shortwave_radiation": 587.0809523809523,
-              "temperature_2m": 22.449714922390264,
+              "temperature_2m": 22.400246252878304,
               "uv_index": 3.6833333333333336,
               "wind_speed_10m": 8.621527777777777
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.4039487919456485,
-              "raw_correction": -0.9321895198745734,
+              "correction": -0.5861243577744399,
+              "raw_correction": -1.1722487155488799,
               "regime_specific": false,
-              "residual_mae": 1.2973987116346142,
-              "samples": 13,
+              "residual_mae": 1.3484674660460185,
+              "samples": 15,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.533434369504825,
-            "real_feel": 30.129485577559176,
+            "physical_real_feel": 30.44698297089878,
+            "real_feel": 29.86085861312434,
             "solar_adjustment": 1.5297833333333333
           },
           "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 22.449714922390264,
-          "v2_uncertainty": 2.973377366495777
+          "temperature_2m": 22.400246252878304,
+          "v2_uncertainty": 2.9491985753704277
         },
         "12": {
           "adaptive_skill": {
@@ -126,22 +135,23 @@
           "components": {
             "analog": 19.870460983106465,
             "mos": 19.704385804405813,
-            "observation_nudge": -0.09364812542666263,
-            "v2_consensus": 19.122517063518856
+            "observation_nudge": -0.0942940000922687,
+            "v2_consensus": 19.08345456351886
           },
           "mos_samples": 14,
           "mos_training_mae": 0.09140742455941948,
           "precip_calibration_samples": 16,
           "precipitation_probability": 26.416666666666668,
           "raw_precipitation_probability": 26.416666666666668,
-          "real_feel": 25.09850052026475,
+          "real_feel": 25.03885910753753,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 35.125,
+              "provider_apparent_temperature": 22.372916666666665,
               "relative_humidity_2m": 95.99305555555556,
               "shortwave_radiation": 0.5238095238095238,
-              "temperature_2m": 19.300028157044046,
+              "temperature_2m": 19.274711360489427,
               "uv_index": 0.0,
               "wind_speed_10m": 6.10625
             },
@@ -162,13 +172,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 25.3358453070908,
-            "real_feel": 25.09850052026475,
+            "physical_real_feel": 25.27620389436358,
+            "real_feel": 25.03885910753753,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T05:00:00+00:00",
-          "temperature_2m": 19.300028157044046,
-          "v2_uncertainty": 1.2455052095355
+          "temperature_2m": 19.274711360489427,
+          "v2_uncertainty": 1.2436017523513894
         },
         "24": {
           "adaptive_skill": {
@@ -198,22 +208,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.00466246562313955,
-            "v2_consensus": 26.68848578208751
+            "observation_nudge": -0.0046946218292731505,
+            "v2_consensus": 26.62668900883958
           },
           "mos_samples": 7,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
           "precipitation_probability": 8.833333333333332,
           "raw_precipitation_probability": 8.833333333333332,
-          "real_feel": 34.16471393181828,
+          "real_feel": 34.06270360546227,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 61.47916666666667,
+              "provider_apparent_temperature": 29.747916666666665,
               "relative_humidity_2m": 55.576388888888886,
               "shortwave_radiation": 790.4047619047618,
-              "temperature_2m": 26.68545517943247,
+              "temperature_2m": 26.623637504650553,
               "uv_index": 6.3500000000000005,
               "wind_speed_10m": 10.290972222222223
             },
@@ -234,13 +245,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.25902553592946,
-            "real_feel": 34.16471393181828,
+            "physical_real_feel": 34.15701520957345,
+            "real_feel": 34.06270360546227,
             "solar_adjustment": 2.2414166666666664
           },
           "target": "2026-08-10T17:00:00+00:00",
-          "temperature_2m": 26.68545517943247,
-          "v2_uncertainty": 3.6937242111677335
+          "temperature_2m": 26.623637504650553,
+          "v2_uncertainty": 3.6683506689270224
         },
         "3": {
           "adaptive_skill": {
@@ -265,54 +276,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.6077256944444442,
+          "analog_distance": 1.2572482638888889,
           "analog_neighbors": 8,
           "components": {
-            "analog": 23.274780451293598,
-            "mos": 22.955544007445546,
-            "observation_nudge": -0.888508675618345,
-            "v2_consensus": 24.446809392260693
+            "analog": 23.187216774566224,
+            "mos": 23.15759491734823,
+            "observation_nudge": -0.8946365638290118,
+            "v2_consensus": 24.292519181311796
           },
-          "mos_samples": 22,
-          "mos_training_mae": 0.11221948414437867,
-          "precip_calibration_samples": 64,
-          "precipitation_probability": 48.036363636363646,
+          "mos_samples": 24,
+          "mos_training_mae": 0.12245289853413273,
+          "precip_calibration_samples": 72,
+          "precipitation_probability": 47.2,
           "raw_precipitation_probability": 49.333333333333336,
-          "real_feel": 31.002834047707225,
+          "real_feel": 30.56728761677024,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 46.96527777777778,
+              "provider_apparent_temperature": 28.352083333333333,
               "relative_humidity_2m": 79.04166666666667,
               "shortwave_radiation": 428.4634920634921,
-              "temperature_2m": 23.381111598810097,
+              "temperature_2m": 23.23878050254094,
               "uv_index": 2.9499999999999997,
               "wind_speed_10m": 9.7125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.5469819746605155,
-              "raw_correction": -1.0255912024884666,
+              "correction": -0.729157540489307,
+              "raw_correction": -1.2152625674821784,
               "regime_specific": false,
-              "residual_mae": 1.1760161546809813,
-              "samples": 16,
+              "residual_mae": 1.2139444619330606,
+              "samples": 18,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 31.54981602236774,
-            "real_feel": 31.002834047707225,
+            "physical_real_feel": 31.296445157259548,
+            "real_feel": 30.56728761677024,
             "solar_adjustment": 0.9746222222222223
           },
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 23.381111598810097,
-          "v2_uncertainty": 3.0993506333045495
+          "temperature_2m": 23.23878050254094,
+          "v2_uncertainty": 3.0423750294849046
         },
         "48": {
           "adaptive_skill": {
@@ -342,22 +354,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.1557096811989228e-05,
-            "v2_consensus": 21.794445847317043
+            "observation_nudge": -1.1636804077936223e-05,
+            "v2_consensus": 21.746087042498385
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 58.75,
           "raw_precipitation_probability": 58.75,
-          "real_feel": 29.351580422792257,
+          "real_feel": 29.26845516955865,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 64.45833333333333,
+              "provider_apparent_temperature": 24.420833333333334,
               "relative_humidity_2m": 79.27083333333333,
               "shortwave_radiation": 584.0222222222222,
-              "temperature_2m": 21.794438335204116,
+              "temperature_2m": 21.746079478575734,
               "uv_index": 7.05,
               "wind_speed_10m": 13.941666666666666
             },
@@ -370,13 +383,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.351580422792257,
-            "real_feel": 29.351580422792257,
+            "physical_real_feel": 29.26845516955865,
+            "real_feel": 29.26845516955865,
             "solar_adjustment": 1.519077777777778
           },
           "target": "2026-08-11T17:00:00+00:00",
-          "temperature_2m": 21.794438335204116,
-          "v2_uncertainty": 3.3012233924084438
+          "temperature_2m": 21.746079478575734,
+          "v2_uncertainty": 3.2637746899709073
         },
         "6": {
           "adaptive_skill": {
@@ -401,54 +414,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.609895833333333,
+          "analog_distance": 1.6055555555555554,
           "analog_neighbors": 8,
           "components": {
-            "analog": 21.750468134267578,
-            "mos": 21.751235910750324,
-            "observation_nudge": -0.4197017801823221,
-            "v2_consensus": 22.701486127895762
+            "analog": 21.771021187278272,
+            "mos": 21.849837689548814,
+            "observation_nudge": -0.4225963896119771,
+            "v2_consensus": 22.67846529456243
           },
-          "mos_samples": 21,
-          "mos_training_mae": 0.1290492300293463,
-          "precip_calibration_samples": 32,
-          "precipitation_probability": 16.829545454545453,
+          "mos_samples": 22,
+          "mos_training_mae": 0.13838621387274005,
+          "precip_calibration_samples": 36,
+          "precipitation_probability": 16.583333333333332,
           "raw_precipitation_probability": 17.083333333333332,
-          "real_feel": 28.94953679150555,
+          "real_feel": 28.869726753064736,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 25.11111111111111,
+              "provider_apparent_temperature": 26.77777777777778,
               "relative_humidity_2m": 85.79861111111111,
               "shortwave_radiation": 87.99365079365079,
-              "temperature_2m": 22.083957181622964,
+              "temperature_2m": 22.090294580880496,
               "uv_index": 0.5,
               "wind_speed_10m": 6.475694444444445
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.37221964645547556,
-              "raw_correction": -1.2407321548515853,
+              "correction": -0.46339745393815807,
+              "raw_correction": -1.3901923618144743,
               "regime_specific": false,
-              "residual_mae": 1.18579252334972,
-              "samples": 9,
+              "residual_mae": 1.186781436585059,
+              "samples": 10,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 3
+              "wind_verified_samples": 4
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.321756437961028,
-            "real_feel": 28.94953679150555,
+            "physical_real_feel": 29.333124207002893,
+            "real_feel": 28.869726753064736,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-09T23:00:00+00:00",
-          "temperature_2m": 22.083957181622964,
-          "v2_uncertainty": 2.040319691947409
+          "temperature_2m": 22.090294580880496,
+          "v2_uncertainty": 2.042305807901307
         },
         "72": {
           "adaptive_skill": {
@@ -478,22 +492,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -2.8647178878662132e-08,
-            "v2_consensus": 23.958206618922276
+            "observation_nudge": -2.8844753437624372e-08,
+            "v2_consensus": 23.918806328136625
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 5.416666666666666,
           "raw_precipitation_probability": 5.416666666666666,
-          "real_feel": 29.539237492796772,
+          "real_feel": 29.479147127054805,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 29.479166666666668,
+              "provider_apparent_temperature": 26.204166666666666,
               "relative_humidity_2m": 52.020833333333336,
               "shortwave_radiation": 989.388888888889,
-              "temperature_2m": 23.958206600301608,
+              "temperature_2m": 23.918806309387534,
               "uv_index": 1.7,
               "wind_speed_10m": 13.55
             },
@@ -506,22 +521,22 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.539237492796772,
-            "real_feel": 29.539237492796772,
+            "physical_real_feel": 29.479147127054805,
+            "real_feel": 29.479147127054805,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T17:00:00+00:00",
-          "temperature_2m": 23.958206600301608,
-          "v2_uncertainty": 4.158154561150734
+          "temperature_2m": 23.918806309387534,
+          "v2_uncertainty": 4.140392803780158
         }
       },
       "regime": {
         "name": "offshore",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.23333333333346218,
-        "relative_humidity": 85.79257476806825,
+        "relative_humidity": 86.22100421485901,
         "wind_direction": 263.0,
-        "wind_speed": 10.190813641667784
+        "wind_speed": 10.045253794471261
       }
     },
     "lunenburg": {
@@ -529,19 +544,25 @@
         "1": {
           "adaptive_skill": {
             "analog": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.6147109694851466,
+              "samples": 10,
+              "status": "boosted",
+              "v2_mae": 0.8311386757291398
             },
             "mos": {
               "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "layer_mae": 0.8187087721735873,
+              "samples": 8,
+              "status": "neutral",
+              "v2_mae": 0.8311386757291398
             },
             "observation_nudge": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.6253566158404915,
+              "samples": 10,
+              "status": "boosted",
+              "v2_mae": 0.8311386757291398
             },
             "precipitation_calibration": {
               "factor": 1.0,
@@ -549,54 +570,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.3388020833333334,
+          "analog_distance": 1.7395833333333337,
           "analog_neighbors": 8,
           "components": {
-            "analog": 21.897647361739946,
-            "mos": 20.85561982911853,
+            "analog": 21.74719012565839,
+            "mos": 21.429967927025647,
             "observation_nudge": -2.3364023492142145,
-            "v2_consensus": 22.376972357115104
+            "v2_consensus": 22.318703554593416
           },
-          "mos_samples": 15,
-          "mos_training_mae": 0.2679741752284623,
+          "mos_samples": 17,
+          "mos_training_mae": 0.28074687088265676,
           "precip_calibration_samples": 0,
           "precipitation_probability": 45.25,
           "raw_precipitation_probability": 45.25,
-          "real_feel": 26.101082631275162,
+          "real_feel": 25.87363006800083,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 53.3125,
+              "provider_apparent_temperature": 28.691666666666666,
               "relative_humidity_2m": 81.64583333333333,
               "shortwave_radiation": 527.4619047619047,
-              "temperature_2m": 20.497035868823176,
+              "temperature_2m": 20.53677090985725,
               "uv_index": 6.2,
               "wind_speed_10m": 9.48125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -1.1794835867871722,
-              "raw_correction": -2.7218852002780896,
+              "correction": -1.474137030889138,
+              "raw_correction": -2.948274061778276,
               "regime_specific": false,
-              "residual_mae": 1.2568426817745804,
-              "samples": 13,
+              "residual_mae": 1.3609302913381933,
+              "samples": 15,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 27.280566218062333,
-            "real_feel": 26.101082631275162,
+            "physical_real_feel": 27.347767098889967,
+            "real_feel": 25.87363006800083,
             "solar_adjustment": 1.3211166666666667
           },
           "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 20.497035868823176,
-          "v2_uncertainty": 1.9784749586503978
+          "temperature_2m": 20.53677090985725,
+          "v2_uncertainty": 1.9230054430355832
         },
         "12": {
           "adaptive_skill": {
@@ -639,6 +661,7 @@
             "available": true,
             "inputs": {
               "cloud_cover": 26.104166666666668,
+              "provider_apparent_temperature": 22.43958333333333,
               "relative_humidity_2m": 91.375,
               "shortwave_radiation": 0.5238095238095238,
               "temperature_2m": 18.532059161367275,
@@ -699,21 +722,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -0.0074362565299990755,
-            "v2_consensus": 26.467577543408943
+            "v2_consensus": 26.38040574486043
           },
           "mos_samples": 5,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 1.5,
           "raw_precipitation_probability": 1.5,
-          "real_feel": 33.234894986675805,
+          "real_feel": 33.09413683531316,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 49.854166666666664,
+              "provider_apparent_temperature": 30.260416666666668,
               "relative_humidity_2m": 53.270833333333336,
               "shortwave_radiation": 786.1095238095238,
-              "temperature_2m": 26.462743976664445,
+              "temperature_2m": 26.37557217811593,
               "uv_index": 6.8,
               "wind_speed_10m": 9.175
             },
@@ -734,13 +758,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.4246671915589,
-            "real_feel": 33.234894986675805,
+            "physical_real_feel": 33.28390904019626,
+            "real_feel": 33.09413683531316,
             "solar_adjustment": 2.226383333333333
           },
           "target": "2026-08-10T17:00:00+00:00",
-          "temperature_2m": 26.462743976664445,
-          "v2_uncertainty": 2.223783143592974
+          "temperature_2m": 26.37557217811593,
+          "v2_uncertainty": 2.2466386163548995
         },
         "3": {
           "adaptive_skill": {
@@ -765,54 +789,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.8875000000000002,
+          "analog_distance": 1.4934895833333335,
           "analog_neighbors": 8,
           "components": {
-            "analog": 22.576444924949758,
-            "mos": 21.242672952675804,
+            "analog": 22.38720392329919,
+            "mos": 21.850015799845526,
             "observation_nudge": -1.417099658223044,
-            "v2_consensus": 23.936728874710084
+            "v2_consensus": 23.761698698943203
           },
-          "mos_samples": 22,
-          "mos_training_mae": 0.2482276362766228,
+          "mos_samples": 24,
+          "mos_training_mae": 0.26785802954861665,
           "precip_calibration_samples": 0,
           "precipitation_probability": 36.0,
           "raw_precipitation_probability": 36.0,
-          "real_feel": 27.957154363436715,
+          "real_feel": 27.42364744861817,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 36.833333333333336,
+              "provider_apparent_temperature": 29.0375,
               "relative_humidity_2m": 75.85416666666667,
               "shortwave_radiation": 495.3285714285715,
-              "temperature_2m": 22.258501285403327,
+              "temperature_2m": 22.11825532199525,
               "uv_index": 1.1,
               "wind_speed_10m": 8.1
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -1.3637383170790571,
-              "raw_correction": -2.557009344523232,
+              "correction": -1.6583917611810226,
+              "raw_correction": -2.763986268635038,
               "regime_specific": false,
-              "residual_mae": 1.1036226068192756,
-              "samples": 16,
+              "residual_mae": 1.2569671048773197,
+              "samples": 18,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.320892680515772,
-            "real_feel": 27.957154363436715,
+            "physical_real_feel": 29.08203920979919,
+            "real_feel": 27.42364744861817,
             "solar_adjustment": 1.2086500000000002
           },
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 22.258501285403327,
-          "v2_uncertainty": 1.5606774799541785
+          "temperature_2m": 22.11825532199525,
+          "v2_uncertainty": 1.5373408550488485
         },
         "48": {
           "adaptive_skill": {
@@ -843,21 +868,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -1.843263705998463e-05,
-            "v2_consensus": 23.145086299874777
+            "v2_consensus": 23.074155894775814
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 46.5,
           "raw_precipitation_probability": 46.5,
-          "real_feel": 31.20869747134796,
+          "real_feel": 31.08769316354215,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 64.3125,
+              "provider_apparent_temperature": 27.375,
               "relative_humidity_2m": 72.5,
               "shortwave_radiation": 752.9333333333334,
-              "temperature_2m": 23.145074318660686,
+              "temperature_2m": 23.074143913561723,
               "uv_index": 5.5,
               "wind_speed_10m": 11.75
             },
@@ -870,13 +896,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 31.20869747134796,
-            "real_feel": 31.20869747134796,
+            "physical_real_feel": 31.08769316354215,
+            "real_feel": 31.08769316354215,
             "solar_adjustment": 2.110266666666667
           },
           "target": "2026-08-11T17:00:00+00:00",
-          "temperature_2m": 23.145074318660686,
-          "v2_uncertainty": 3.526028921583414
+          "temperature_2m": 23.074143913561723,
+          "v2_uncertainty": 3.5506968679191404
         },
         "6": {
           "adaptive_skill": {
@@ -901,53 +927,54 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.100111607142857,
+          "analog_distance": 2.0232886904761904,
           "analog_neighbors": 8,
           "components": {
-            "analog": 21.540778576121962,
-            "mos": 20.38078057609644,
+            "analog": 21.65154059261391,
+            "mos": 20.80571751326046,
             "observation_nudge": -0.6693904804452895,
             "v2_consensus": 23.3121874301259
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.18638641572649656,
+          "mos_samples": 20,
+          "mos_training_mae": 0.2446653896644854,
           "precip_calibration_samples": 0,
           "precipitation_probability": 35.5,
           "raw_precipitation_probability": 35.5,
-          "real_feel": 27.376141364965473,
+          "real_feel": 27.40624947338038,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 13.125,
+              "provider_apparent_temperature": 27.747916666666665,
               "relative_humidity_2m": 79.3125,
               "shortwave_radiation": 97.26190476190477,
-              "temperature_2m": 22.0052544290168,
+              "temperature_2m": 22.107565364361104,
               "uv_index": 0.55,
               "wind_speed_10m": 7.079166666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.8261072734973133,
-              "raw_correction": -2.753690911657711,
+              "correction": -0.9730769878237429,
+              "raw_correction": -2.919230963471229,
               "regime_specific": false,
-              "residual_mae": 1.6414228739621837,
-              "samples": 9,
+              "residual_mae": 1.6759286487421867,
+              "samples": 10,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 3
+              "wind_verified_samples": 4
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 28.202248638462788,
-            "real_feel": 27.376141364965473,
+            "physical_real_feel": 28.379326461204123,
+            "real_feel": 27.40624947338038,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-09T23:00:00+00:00",
-          "temperature_2m": 22.0052544290168,
+          "temperature_2m": 22.107565364361104,
           "v2_uncertainty": 1.8739029677836339
         },
         "72": {
@@ -979,21 +1006,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": -4.568993923413789e-08,
-            "v2_consensus": 24.360752989542448
+            "v2_consensus": 24.28983990119461
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 33.0,
           "raw_precipitation_probability": 33.0,
-          "real_feel": 29.280517500727647,
+          "real_feel": 29.175383813246196,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 24.5625,
+              "provider_apparent_temperature": 27.28125,
               "relative_humidity_2m": 46.9375,
               "shortwave_radiation": 1121.0666666666666,
-              "temperature_2m": 24.36075295984399,
+              "temperature_2m": 24.289839871496152,
               "uv_index": 6.95,
               "wind_speed_10m": 12.74375
             },
@@ -1006,13 +1034,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.280517500727647,
-            "real_feel": 29.280517500727647,
+            "physical_real_feel": 29.175383813246196,
+            "real_feel": 29.175383813246196,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T17:00:00+00:00",
-          "temperature_2m": 24.36075295984399,
-          "v2_uncertainty": 2.2609719772937944
+          "temperature_2m": 24.289839871496152,
+          "v2_uncertainty": 2.2803725686905296
         }
       },
       "regime": {
@@ -1029,19 +1057,25 @@
         "1": {
           "adaptive_skill": {
             "analog": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.4747319984351563,
+              "layer_mae": 0.7963370784689175,
+              "samples": 10,
+              "status": "damped",
+              "v2_mae": 0.3780466926895631
             },
             "mos": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.44070799430653834,
+              "layer_mae": 0.8578167348301138,
+              "samples": 8,
+              "status": "damped",
+              "v2_mae": 0.3780466926895631
             },
             "observation_nudge": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.883343222438861,
+              "layer_mae": 0.427972596705726,
+              "samples": 10,
+              "status": "damped",
+              "v2_mae": 0.3780466926895631
             },
             "precipitation_calibration": {
               "factor": 1.0,
@@ -1049,54 +1083,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 2.017398313492063,
+          "analog_distance": 1.4492931547619043,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.605204629459916,
-            "mos": 25.650709604633075,
-            "observation_nudge": 0.7041657080270606,
-            "v2_consensus": 26.036957269553422
+            "analog": 25.780159758360316,
+            "mos": 25.991742164450248,
+            "observation_nudge": 0.7041657080270634,
+            "v2_consensus": 26.05861154122516
           },
-          "mos_samples": 15,
-          "mos_training_mae": 0.34172906116619683,
+          "mos_samples": 17,
+          "mos_training_mae": 0.3230269797615069,
           "precip_calibration_samples": 39,
           "precipitation_probability": 50.53981481481482,
           "raw_precipitation_probability": 50.75,
-          "real_feel": 36.463901156791906,
+          "real_feel": 36.6149560067539,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 68.95833333333333,
+              "provider_apparent_temperature": 29.454166666666666,
               "relative_humidity_2m": 76.08333333333333,
               "shortwave_radiation": 433.2857142857143,
-              "temperature_2m": 26.347096325155974,
+              "temperature_2m": 26.428520998069168,
               "uv_index": 6.1,
               "wind_speed_10m": 4.360416666666667
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.006526524941997754,
-              "raw_correction": -0.021755083139992512,
+              "correction": -0.009034435076030906,
+              "raw_correction": -0.0246393683891752,
               "regime_specific": true,
-              "residual_mae": 0.6510220402181246,
-              "samples": 9,
+              "residual_mae": 0.5358008895412103,
+              "samples": 11,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 36.4704276817339,
-            "real_feel": 36.463901156791906,
+            "physical_real_feel": 36.62399044182993,
+            "real_feel": 36.6149560067539,
             "solar_adjustment": 0.9914999999999999
           },
           "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 26.347096325155974,
-          "v2_uncertainty": 1.824010757647556
+          "temperature_2m": 26.428520998069168,
+          "v2_uncertainty": 1.7588131499078108
         },
         "12": {
           "adaptive_skill": {
@@ -1126,7 +1161,7 @@
           "components": {
             "analog": 20.09336176696625,
             "mos": 19.636636591241963,
-            "observation_nudge": 0.0450158076492769,
+            "observation_nudge": 0.045015807649277075,
             "v2_consensus": 19.78285195349135
           },
           "mos_samples": 14,
@@ -1139,6 +1174,7 @@
             "available": true,
             "inputs": {
               "cloud_cover": 18.9375,
+              "provider_apparent_temperature": 22.672916666666666,
               "relative_humidity_2m": 95.97916666666667,
               "shortwave_radiation": -0.38095238095238093,
               "temperature_2m": 19.83437344474508,
@@ -1198,22 +1234,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 0.0022412050930691618,
-            "v2_consensus": 27.473875182455494
+            "observation_nudge": 0.0022412050930691704,
+            "v2_consensus": 27.51961701551468
           },
           "mos_samples": 7,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
           "precipitation_probability": 1.5,
           "raw_precipitation_probability": 1.5,
-          "real_feel": 33.900767705946045,
+          "real_feel": 33.97312817249089,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 57.145833333333336,
+              "provider_apparent_temperature": 29.204166666666666,
               "relative_humidity_2m": 47.770833333333336,
               "shortwave_radiation": 786.0333333333334,
-              "temperature_2m": 27.47533196576599,
+              "temperature_2m": 27.521073798825174,
               "uv_index": 6.35,
               "wind_speed_10m": 10.0
             },
@@ -1234,13 +1271,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.93299637643713,
-            "real_feel": 33.900767705946045,
+            "physical_real_feel": 34.005356842981975,
+            "real_feel": 33.97312817249089,
             "solar_adjustment": 2.226116666666667
           },
           "target": "2026-08-10T17:00:00+00:00",
-          "temperature_2m": 27.47533196576599,
-          "v2_uncertainty": 2.006475999693545
+          "temperature_2m": 27.521073798825174,
+          "v2_uncertainty": 1.9815590375213188
         },
         "3": {
           "adaptive_skill": {
@@ -1265,54 +1302,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.4165550595238094,
+          "analog_distance": 1.2324404761904761,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.373304601687188,
-            "mos": 23.83797340510139,
-            "observation_nudge": 0.42709809143666666,
-            "v2_consensus": 25.11948327778549
+            "analog": 24.746391432087535,
+            "mos": 24.503267663334196,
+            "observation_nudge": 0.4270980914366683,
+            "v2_consensus": 25.28412475445087
           },
-          "mos_samples": 22,
-          "mos_training_mae": 0.3196269984554105,
+          "mos_samples": 24,
+          "mos_training_mae": 0.3117842814147078,
           "precip_calibration_samples": 51,
           "precipitation_probability": 52.95648148148148,
           "raw_precipitation_probability": 53.25,
-          "real_feel": 34.135771351792165,
+          "real_feel": 34.598079609459425,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 66.25,
+              "provider_apparent_temperature": 28.55,
               "relative_humidity_2m": 79.04166666666667,
               "shortwave_radiation": 351.3285714285715,
-              "temperature_2m": 25.020615082826048,
+              "temperature_2m": 25.2702471009287,
               "uv_index": 4.4,
               "wind_speed_10m": 4.45
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.12670385705020568,
-              "raw_correction": -0.3455559737732882,
+              "correction": -0.12921176718423885,
+              "raw_correction": -0.29818100119439733,
               "regime_specific": true,
-              "residual_mae": 0.9137832572269541,
-              "samples": 11,
+              "residual_mae": 0.8023550469328941,
+              "samples": 13,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.26247520884237,
-            "real_feel": 34.135771351792165,
+            "physical_real_feel": 34.72729137664366,
+            "real_feel": 34.598079609459425,
             "solar_adjustment": 0.7046500000000002
           },
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 25.020615082826048,
-          "v2_uncertainty": 2.263613668744215
+          "temperature_2m": 25.2702471009287,
+          "v2_uncertainty": 2.078110663215351
         },
         "48": {
           "adaptive_skill": {
@@ -1342,22 +1380,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 5.555392002800913e-06,
-            "v2_consensus": 21.964183886477052
+            "observation_nudge": 5.555392002800935e-06,
+            "v2_consensus": 22.000880413966435
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 54.75,
           "raw_precipitation_probability": 54.75,
-          "real_feel": 29.5640661388085,
+          "real_feel": 29.62781734782777,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 74.4375,
+              "provider_apparent_temperature": 24.70625,
               "relative_humidity_2m": 80.3125,
               "shortwave_radiation": 516.4166666666666,
-              "temperature_2m": 21.964187497481852,
+              "temperature_2m": 22.000884024971235,
               "uv_index": 6.1,
               "wind_speed_10m": 5.875
             },
@@ -1370,13 +1409,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.5640661388085,
-            "real_feel": 29.5640661388085,
+            "physical_real_feel": 29.62781734782777,
+            "real_feel": 29.62781734782777,
             "solar_adjustment": 1.2824583333333333
           },
           "target": "2026-08-11T17:00:00+00:00",
-          "temperature_2m": 21.964187497481852,
-          "v2_uncertainty": 3.1474241698907823
+          "temperature_2m": 22.000884024971235,
+          "v2_uncertainty": 3.1381821894307964
         },
         "6": {
           "adaptive_skill": {
@@ -1401,53 +1440,54 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.6942708333333332,
+          "analog_distance": 1.6430431547619044,
           "analog_neighbors": 8,
           "components": {
-            "analog": 22.730131972542885,
-            "mos": 21.58527687585988,
-            "observation_nudge": 0.20174685313420493,
+            "analog": 22.921562988276886,
+            "mos": 22.020396684160193,
+            "observation_nudge": 0.2017468531342057,
             "v2_consensus": 22.745709341396875
           },
-          "mos_samples": 21,
-          "mos_training_mae": 0.29064344814892945,
+          "mos_samples": 22,
+          "mos_training_mae": 0.3315983243783883,
           "precip_calibration_samples": 24,
           "precipitation_probability": 53.19814814814815,
           "raw_precipitation_probability": 53.5,
-          "real_feel": 30.423517933200948,
+          "real_feel": 30.638098714683558,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 62.666666666666664,
+              "provider_apparent_temperature": 27.012500000000003,
               "relative_humidity_2m": 87.52083333333333,
               "shortwave_radiation": 83.1952380952381,
-              "temperature_2m": 22.64474100568712,
+              "temperature_2m": 22.76236322310927,
               "uv_index": 0.6,
               "wind_speed_10m": 4.077083333333333
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.18187107088718252,
-              "raw_correction": -0.6062369029572751,
+              "correction": -0.18350421914178305,
+              "raw_correction": -0.5505126574253492,
               "regime_specific": false,
-              "residual_mae": 0.9342907720105479,
-              "samples": 9,
+              "residual_mae": 0.8965859403414189,
+              "samples": 10,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 3
+              "wind_verified_samples": 4
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.60538900408813,
-            "real_feel": 30.423517933200948,
+            "physical_real_feel": 30.82160293382534,
+            "real_feel": 30.638098714683558,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-09T23:00:00+00:00",
-          "temperature_2m": 22.64474100568712,
+          "temperature_2m": 22.76236322310927,
           "v2_uncertainty": 1.6776916270499445
         },
         "72": {
@@ -1478,22 +1518,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": 1.3770440019177643e-08,
-            "v2_consensus": 24.639998046852835
+            "observation_nudge": 1.3770440019177698e-08,
+            "v2_consensus": 24.676699610755158
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 28.75,
           "raw_precipitation_probability": 28.75,
-          "real_feel": 30.166211024624424,
+          "real_feel": 30.22200340170171,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 37.8125,
+              "provider_apparent_temperature": 26.15,
               "relative_humidity_2m": 49.625,
               "shortwave_radiation": 1001.0500000000001,
-              "temperature_2m": 24.63999805580362,
+              "temperature_2m": 24.676699619705943,
               "uv_index": 5.85,
               "wind_speed_10m": 11.94375
             },
@@ -1506,13 +1547,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.166211024624424,
-            "real_feel": 30.166211024624424,
+            "physical_real_feel": 30.22200340170171,
+            "real_feel": 30.22200340170171,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T17:00:00+00:00",
-          "temperature_2m": 24.63999805580362,
-          "v2_uncertainty": 1.6777231401208872
+          "temperature_2m": 24.676699619705943,
+          "v2_uncertainty": 1.6655939559960895
         }
       },
       "regime": {
@@ -1529,19 +1570,25 @@
         "1": {
           "adaptive_skill": {
             "analog": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.7678893425416865,
+              "layer_mae": 0.9451588697432964,
+              "samples": 10,
+              "status": "damped",
+              "v2_mae": 0.7257774230846235
             },
             "mos": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.092253528584397,
+              "layer_mae": 0.6644770688223449,
+              "samples": 8,
+              "status": "boosted",
+              "v2_mae": 0.7257774230846235
             },
             "observation_nudge": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.5331722714737932,
+              "samples": 10,
+              "status": "boosted",
+              "v2_mae": 0.7257774230846235
             },
             "precipitation_calibration": {
               "factor": 1.0,
@@ -1549,27 +1596,28 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.6596354166666663,
+          "analog_distance": 1.290364583333333,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.23418318043924,
-            "mos": 25.911620525799844,
+            "analog": 25.396630925777846,
+            "mos": 26.126764338813814,
             "observation_nudge": 1.7052492146000955,
             "v2_consensus": 25.50513785830172
           },
-          "mos_samples": 15,
-          "mos_training_mae": 0.41375031140881074,
+          "mos_samples": 17,
+          "mos_training_mae": 0.3785704246111872,
           "precip_calibration_samples": 38,
           "precipitation_probability": 60.50277777777778,
           "raw_precipitation_probability": 60.75,
-          "real_feel": 38.4490389879926,
+          "real_feel": 39.16685511191907,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 74.58333333333333,
+              "provider_apparent_temperature": 27.96875,
               "relative_humidity_2m": 81.16666666666667,
               "shortwave_radiation": 509.34761904761905,
-              "temperature_2m": 26.64929015380309,
+              "temperature_2m": 27.013683143776127,
               "uv_index": 2.55,
               "wind_speed_10m": 6.135416666666667
             },
@@ -1586,16 +1634,16 @@
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 38.32844424179986,
-            "real_feel": 38.4490389879926,
+            "physical_real_feel": 39.046260365726326,
+            "real_feel": 39.16685511191907,
             "solar_adjustment": 1.2577166666666666
           },
           "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 26.64929015380309,
+          "temperature_2m": 27.013683143776127,
           "v2_uncertainty": 2.292328008981595
         },
         "12": {
@@ -1639,6 +1687,7 @@
             "available": true,
             "inputs": {
               "cloud_cover": 17.958333333333332,
+              "provider_apparent_temperature": 22.285416666666666,
               "relative_humidity_2m": 95.6875,
               "shortwave_radiation": -0.5714285714285714,
               "temperature_2m": 20.388216479939516,
@@ -1699,21 +1748,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": 0.005427434453492376,
-            "v2_consensus": 27.33439683299925
+            "v2_consensus": 27.422858624548194
           },
           "mos_samples": 7,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
           "precipitation_probability": 2.0,
           "raw_precipitation_probability": 2.0,
-          "real_feel": 33.947615946167254,
+          "real_feel": 34.08822822367325,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 47.020833333333336,
+              "provider_apparent_temperature": 29.110416666666666,
               "relative_humidity_2m": 48.666666666666664,
               "shortwave_radiation": 793.1666666666667,
-              "temperature_2m": 27.33792466539402,
+              "temperature_2m": 27.426386456942964,
               "uv_index": 6.45,
               "wind_speed_10m": 8.175
             },
@@ -1734,13 +1784,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 33.9256974409803,
-            "real_feel": 33.947615946167254,
+            "physical_real_feel": 34.066309718486295,
+            "real_feel": 34.08822822367325,
             "solar_adjustment": 2.2510833333333338
           },
           "target": "2026-08-10T17:00:00+00:00",
-          "temperature_2m": 27.33792466539402,
-          "v2_uncertainty": 2.005046699309305
+          "temperature_2m": 27.426386456942964,
+          "v2_uncertainty": 1.9503588857903247
         },
         "3": {
           "adaptive_skill": {
@@ -1765,27 +1815,28 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.1718749999999993,
+          "analog_distance": 1.1218749999999997,
           "analog_neighbors": 8,
           "components": {
-            "analog": 24.669566703364744,
-            "mos": 24.973821123325834,
+            "analog": 24.88104754027175,
+            "mos": 25.095504187495052,
             "observation_nudge": 1.0342859311058459,
             "v2_consensus": 25.14532379842256
           },
-          "mos_samples": 22,
-          "mos_training_mae": 0.41422059113107096,
+          "mos_samples": 24,
+          "mos_training_mae": 0.4203801093741286,
           "precip_calibration_samples": 48,
           "precipitation_probability": 68.0,
           "raw_precipitation_probability": 68.0,
-          "real_feel": 36.25001527872091,
+          "real_feel": 36.36355640189103,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 66.77083333333333,
+              "provider_apparent_temperature": 27.6375,
               "relative_humidity_2m": 81.3125,
               "shortwave_radiation": 410.65714285714284,
-              "temperature_2m": 25.705264548392915,
+              "temperature_2m": 25.764516919968308,
               "uv_index": 4.45,
               "wind_speed_10m": 5.020833333333334
             },
@@ -1802,16 +1853,16 @@
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 36.18248050943089,
-            "real_feel": 36.25001527872091,
+            "physical_real_feel": 36.29602163260101,
+            "real_feel": 36.36355640189103,
             "solar_adjustment": 0.9123
           },
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 25.705264548392915,
+          "temperature_2m": 25.764516919968308,
           "v2_uncertainty": 2.1157920556466463
         },
         "48": {
@@ -1843,21 +1894,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": 1.3453264965308215e-05,
-            "v2_consensus": 21.58030675115476
+            "v2_consensus": 21.651702755651012
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 61.0,
           "raw_precipitation_probability": 61.0,
-          "real_feel": 28.592959896558813,
+          "real_feel": 28.716060342661176,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 77.125,
+              "provider_apparent_temperature": 23.31875,
               "relative_humidity_2m": 80.5,
               "shortwave_radiation": 420.7,
-              "temperature_2m": 21.58031549577699,
+              "temperature_2m": 21.65171150027324,
               "uv_index": 4.3,
               "wind_speed_10m": 7.46875
             },
@@ -1870,13 +1922,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 28.592959896558813,
-            "real_feel": 28.592959896558813,
+            "physical_real_feel": 28.716060342661176,
+            "real_feel": 28.716060342661176,
             "solar_adjustment": 0.94745
           },
           "target": "2026-08-11T17:00:00+00:00",
-          "temperature_2m": 21.58031549577699,
-          "v2_uncertainty": 3.3534816839360824
+          "temperature_2m": 21.65171150027324,
+          "v2_uncertainty": 3.3194380850486103
         },
         "6": {
           "adaptive_skill": {
@@ -1905,49 +1957,50 @@
           "analog_neighbors": 8,
           "components": {
             "analog": 22.235710686231794,
-            "mos": 22.442895739353595,
+            "mos": 23.15591371741049,
             "observation_nudge": 0.48856207982499905,
             "v2_consensus": 21.928683371977378
           },
-          "mos_samples": 21,
-          "mos_training_mae": 0.31904073691467427,
+          "mos_samples": 22,
+          "mos_training_mae": 0.357606816830635,
           "precip_calibration_samples": 22,
           "precipitation_probability": 60.74444444444445,
           "raw_precipitation_probability": 61.0,
-          "real_feel": 30.786105518412583,
+          "real_feel": 31.100699521306645,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 65.6875,
+              "provider_apparent_temperature": 25.50208333333333,
               "relative_humidity_2m": 91.39583333333333,
               "shortwave_radiation": 82.42857142857143,
-              "temperature_2m": 22.39856995822174,
+              "temperature_2m": 22.53960648135387,
               "uv_index": 0.6,
               "wind_speed_10m": 4.38125
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": 0.03051078432443835,
-              "raw_correction": 0.1017026144147945,
+              "correction": 0.08203426330446437,
+              "raw_correction": 0.24610278991339313,
               "regime_specific": false,
-              "residual_mae": 0.7574503702026385,
-              "samples": 9,
+              "residual_mae": 0.7972254735812536,
+              "samples": 10,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 3
+              "wind_verified_samples": 4
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.755594734088145,
-            "real_feel": 30.786105518412583,
+            "physical_real_feel": 31.01866525800218,
+            "real_feel": 31.100699521306645,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-09T23:00:00+00:00",
-          "temperature_2m": 22.39856995822174,
+          "temperature_2m": 22.53960648135387,
           "v2_uncertainty": 1.5944678515061117
         },
         "72": {
@@ -1979,21 +2032,22 @@
             "analog": null,
             "mos": null,
             "observation_nudge": 3.3347309816027e-08,
-            "v2_consensus": 24.36087993104181
+            "v2_consensus": 24.432312466181624
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 8.0,
           "raw_precipitation_probability": 8.0,
-          "real_feel": 30.012280746673888,
+          "real_feel": 30.12153300518202,
           "real_feel_engine": {
             "available": true,
             "inputs": {
               "cloud_cover": 49.3125,
+              "provider_apparent_temperature": 25.9875,
               "relative_humidity_2m": 51.1875,
               "shortwave_radiation": 995.3833333333333,
-              "temperature_2m": 24.360879952717564,
+              "temperature_2m": 24.432312487857377,
               "uv_index": 6.55,
               "wind_speed_10m": 11.275
             },
@@ -2006,13 +2060,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 30.012280746673888,
-            "real_feel": 30.012280746673888,
+            "physical_real_feel": 30.12153300518202,
+            "real_feel": 30.12153300518202,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T17:00:00+00:00",
-          "temperature_2m": 24.360879952717564,
-          "v2_uncertainty": 1.7955049385223254
+          "temperature_2m": 24.432312487857377,
+          "v2_uncertainty": 1.7789849753025926
         }
       },
       "regime": {
@@ -2029,74 +2083,83 @@
         "1": {
           "adaptive_skill": {
             "analog": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.6847901560233082,
+              "layer_mae": 0.886032937597844,
+              "samples": 8,
+              "status": "damped",
+              "v2_mae": 0.6067466335794176
             },
             "mos": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 0.6135164573313222,
+              "layer_mae": 1.015882169905228,
+              "samples": 8,
+              "status": "damped",
+              "v2_mae": 0.6232604299463119
             },
             "observation_nudge": {
-              "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "factor": 1.25,
+              "layer_mae": 0.46113802982778956,
+              "samples": 8,
+              "status": "boosted",
+              "v2_mae": 0.6067466335794176
             },
             "precipitation_calibration": {
+              "calibrated_brier": 0.10652560057409671,
               "factor": 1.0,
-              "samples": 0,
-              "status": "learning"
+              "raw_brier": 0.11441484375000001,
+              "samples": 8,
+              "status": "active"
             }
           },
-          "analog_distance": 2.2387152777777772,
+          "analog_distance": 1.642708333333333,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.842996580336425,
-            "mos": 26.11296950431371,
-            "observation_nudge": -0.23418106879854983,
-            "v2_consensus": 25.189476225558543
+            "analog": 25.267096325442523,
+            "mos": 25.254459658507447,
+            "observation_nudge": -0.156300990491411,
+            "v2_consensus": 25.27843039869001
           },
-          "mos_samples": 15,
-          "mos_training_mae": 0.22560812852887746,
-          "precip_calibration_samples": 52,
-          "precipitation_probability": 38.53409090909091,
+          "mos_samples": 17,
+          "mos_training_mae": 0.26103999538523165,
+          "precip_calibration_samples": 60,
+          "precipitation_probability": 37.861111111111114,
           "raw_precipitation_probability": 39.583333333333336,
-          "real_feel": 35.22552125798458,
+          "real_feel": 34.834946801247035,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 51.638888888888886,
+              "cloud_cover": 51.69097222222222,
+              "provider_apparent_temperature": 29.08888888888889,
               "relative_humidity_2m": 76.88194444444444,
-              "shortwave_radiation": 616.6031746031747,
-              "temperature_2m": 25.32765066643577,
+              "shortwave_radiation": 614.3698412698413,
+              "temperature_2m": 25.146630483043204,
               "uv_index": 6.8,
               "wind_speed_10m": 9.525694444444444
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.1377844511678578,
-              "raw_correction": -0.3757757759123395,
+              "correction": -0.18712684895154663,
+              "raw_correction": -0.4678171223788666,
               "regime_specific": true,
-              "residual_mae": 0.48933702246513905,
-              "samples": 11,
+              "residual_mae": 0.5429013081147657,
+              "samples": 12,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 35.36330570915244,
-            "real_feel": 35.22552125798458,
-            "solar_adjustment": 1.6331111111111114
+            "physical_real_feel": 35.022073650198585,
+            "real_feel": 34.834946801247035,
+            "solar_adjustment": 1.6252944444444448
           },
           "target": "2026-08-09T18:00:00+00:00",
-          "temperature_2m": 25.32765066643577,
-          "v2_uncertainty": 1.657865119398127
+          "temperature_2m": 25.146630483043204,
+          "v2_uncertainty": 1.7040380487724451
         },
         "12": {
           "adaptive_skill": {
@@ -2126,22 +2189,23 @@
           "components": {
             "analog": 19.488223371874618,
             "mos": 19.495886259463585,
-            "observation_nudge": -0.014970694863392132,
-            "v2_consensus": 19.55574009802761
+            "observation_nudge": -0.009991988026605843,
+            "v2_consensus": 19.556891705472427
           },
           "mos_samples": 12,
           "mos_training_mae": 0.22898875752206896,
           "precip_calibration_samples": 16,
           "precipitation_probability": 12.899999999999999,
           "raw_precipitation_probability": 13.249999999999998,
-          "real_feel": 25.362966752438883,
+          "real_feel": 25.3722776966398,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 32.020833333333336,
+              "cloud_cover": 32.208333333333336,
+              "provider_apparent_temperature": 21.705555555555556,
               "relative_humidity_2m": 93.27083333333333,
               "shortwave_radiation": 0.15873015873015875,
-              "temperature_2m": 19.523040794866986,
+              "temperature_2m": 19.52701094586913,
               "uv_index": 0.0,
               "wind_speed_10m": 8.76875
             },
@@ -2162,13 +2226,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "transition",
-            "physical_real_feel": 25.53107198282847,
-            "real_feel": 25.362966752438883,
+            "physical_real_feel": 25.540382927029384,
+            "real_feel": 25.3722776966398,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-10T05:00:00+00:00",
-          "temperature_2m": 19.523040794866986,
-          "v2_uncertainty": 1.7365014515545345
+          "temperature_2m": 19.52701094586913,
+          "v2_uncertainty": 1.7412258224004369
         },
         "24": {
           "adaptive_skill": {
@@ -2198,22 +2262,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -0.0007453470086781336,
-            "v2_consensus": 27.452063463196616
+            "observation_nudge": -0.000497471791011503,
+            "v2_consensus": 27.428486617612513
           },
           "mos_samples": 5,
           "mos_training_mae": null,
           "precip_calibration_samples": 4,
           "precipitation_probability": 17.187037037037033,
           "raw_precipitation_probability": 17.166666666666664,
-          "real_feel": 34.886505432559154,
+          "real_feel": 34.84708365731788,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 44.11805555555556,
+              "cloud_cover": 44.06597222222222,
+              "provider_apparent_temperature": 30.073611111111113,
               "relative_humidity_2m": 51.888888888888886,
-              "shortwave_radiation": 830.4746031746032,
-              "temperature_2m": 27.451578987640975,
+              "shortwave_radiation": 830.1269841269841,
+              "temperature_2m": 27.428163260948356,
               "uv_index": 6.666666666666667,
               "wind_speed_10m": 9.202083333333334
             },
@@ -2234,13 +2299,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 34.906718204862294,
-            "real_feel": 34.886505432559154,
-            "solar_adjustment": 2.3816611111111112
+            "physical_real_feel": 34.86729642962102,
+            "real_feel": 34.84708365731788,
+            "solar_adjustment": 2.3804444444444446
           },
           "target": "2026-08-10T17:00:00+00:00",
-          "temperature_2m": 27.451578987640975,
-          "v2_uncertainty": 1.9678036703552253
+          "temperature_2m": 27.428163260948356,
+          "v2_uncertainty": 1.9538249727156807
         },
         "3": {
           "adaptive_skill": {
@@ -2265,54 +2330,55 @@
               "status": "learning"
             }
           },
-          "analog_distance": 1.5476562500000002,
+          "analog_distance": 1.1336805555555556,
           "analog_neighbors": 8,
           "components": {
-            "analog": 25.754256981035002,
-            "mos": 25.52947034735358,
-            "observation_nudge": -0.142037998150594,
-            "v2_consensus": 25.609206544367705
+            "analog": 25.55860956929452,
+            "mos": 24.828237508839198,
+            "observation_nudge": -0.09480134287649356,
+            "v2_consensus": 25.544044906157943
           },
-          "mos_samples": 22,
-          "mos_training_mae": 0.2739026455093747,
-          "precip_calibration_samples": 64,
-          "precipitation_probability": 16.809941520467838,
+          "mos_samples": 24,
+          "mos_training_mae": 0.28386952508329966,
+          "precip_calibration_samples": 72,
+          "precipitation_probability": 15.579365079365079,
           "raw_precipitation_probability": 21.666666666666668,
-          "real_feel": 34.82160967990541,
+          "real_feel": 34.35341511285602,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 33.854166666666664,
+              "cloud_cover": 33.40625,
+              "provider_apparent_temperature": 28.363194444444446,
               "relative_humidity_2m": 75.64583333333334,
-              "shortwave_radiation": 505.22222222222223,
-              "temperature_2m": 25.525019263193506,
+              "shortwave_radiation": 508.1031746031746,
+              "temperature_2m": 25.291340735482645,
               "uv_index": 4.633333333333334,
               "wind_speed_10m": 10.6875
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.28567690925430433,
-              "raw_correction": -0.6121648055449379,
+              "correction": -0.33501930703799315,
+              "raw_correction": -0.6700386140759863,
               "regime_specific": true,
-              "residual_mae": 0.6096916615501561,
-              "samples": 14,
+              "residual_mae": 0.6290729582007817,
+              "samples": 15,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 4
+              "wind_verified_samples": 6
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 35.10728658915971,
-            "real_feel": 34.82160967990541,
-            "solar_adjustment": 1.243277777777778
+            "physical_real_feel": 34.688434419894016,
+            "real_feel": 34.35341511285602,
+            "solar_adjustment": 1.2533611111111111
           },
           "target": "2026-08-09T20:00:00+00:00",
-          "temperature_2m": 25.525019263193506,
-          "v2_uncertainty": 1.626890844842228
+          "temperature_2m": 25.291340735482645,
+          "v2_uncertainty": 1.5318130470515627
         },
         "48": {
           "adaptive_skill": {
@@ -2342,22 +2408,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -1.8475305201326827e-06,
-            "v2_consensus": 24.28754979491102
+            "observation_nudge": -1.233109284799875e-06,
+            "v2_consensus": 24.314554566605807
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 56.41666666666667,
           "raw_precipitation_probability": 56.41666666666667,
-          "real_feel": 32.496184759673966,
+          "real_feel": 32.55279156243952,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 74.52083333333333,
+              "cloud_cover": 74.97916666666667,
+              "provider_apparent_temperature": 26.464583333333334,
               "relative_humidity_2m": 72.375,
-              "shortwave_radiation": 562.3166666666666,
-              "temperature_2m": 24.28754859401618,
+              "shortwave_radiation": 564.9722222222222,
+              "temperature_2m": 24.31455376508477,
               "uv_index": 3.6166666666666667,
               "wind_speed_10m": 10.589583333333334
             },
@@ -2370,13 +2437,13 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 32.496184759673966,
-            "real_feel": 32.496184759673966,
-            "solar_adjustment": 1.4431083333333332
+            "physical_real_feel": 32.55279156243952,
+            "real_feel": 32.55279156243952,
+            "solar_adjustment": 1.4524027777777777
           },
           "target": "2026-08-11T17:00:00+00:00",
-          "temperature_2m": 24.28754859401618,
-          "v2_uncertainty": 2.207874816379902
+          "temperature_2m": 24.31455376508477,
+          "v2_uncertainty": 2.192337366065656
         },
         "6": {
           "adaptive_skill": {
@@ -2405,50 +2472,51 @@
           "analog_neighbors": 8,
           "components": {
             "analog": 22.328889713874183,
-            "mos": 22.740304106758806,
-            "observation_nudge": -0.06709399954463072,
-            "v2_consensus": 22.581855563392462
+            "mos": 22.51463960965791,
+            "observation_nudge": -0.04478098352978821,
+            "v2_consensus": 22.572707430390807
           },
-          "mos_samples": 19,
-          "mos_training_mae": 0.2248698078757459,
-          "precip_calibration_samples": 32,
-          "precipitation_probability": 5.525,
+          "mos_samples": 20,
+          "mos_training_mae": 0.25113754118160847,
+          "precip_calibration_samples": 36,
+          "precipitation_probability": 5.427777777777778,
           "raw_precipitation_probability": 5.583333333333334,
-          "real_feel": 29.748145485246813,
+          "real_feel": 29.642401730791736,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 12.416666666666666,
+              "cloud_cover": 12.5625,
+              "provider_apparent_temperature": 25.62638888888889,
               "relative_humidity_2m": 84.74305555555556,
-              "shortwave_radiation": 104.8047619047619,
-              "temperature_2m": 22.527888266301858,
+              "shortwave_radiation": 104.55,
+              "temperature_2m": 22.491924115042142,
               "uv_index": 0.5833333333333334,
               "wind_speed_10m": 8.178472222222222
             },
             "local_correction": {
               "calibration_population": "mixed-history",
-              "correction": -0.20950009149355728,
-              "raw_correction": -0.6983336383118576,
-              "regime_specific": false,
-              "residual_mae": 0.6419457624757056,
-              "samples": 9,
+              "correction": -0.25042956684197504,
+              "raw_correction": -0.9391108756574065,
+              "regime_specific": true,
+              "residual_mae": 0.6329205246929215,
+              "samples": 8,
               "status": "active",
               "verified_variables": [
                 "temperature_2m",
                 "relative_humidity_2m"
               ],
               "wind_observation_policy": "prefer-observed-wind-after-minimum-sample-threshold",
-              "wind_verified_samples": 3
+              "wind_verified_samples": 4
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.95764557674037,
-            "real_feel": 29.748145485246813,
+            "physical_real_feel": 29.892831297633712,
+            "real_feel": 29.642401730791736,
             "solar_adjustment": 0.0
           },
           "target": "2026-08-09T23:00:00+00:00",
-          "temperature_2m": 22.527888266301858,
-          "v2_uncertainty": 1.945059341523873
+          "temperature_2m": 22.491924115042142,
+          "v2_uncertainty": 1.9341426826275676
         },
         "72": {
           "adaptive_skill": {
@@ -2478,22 +2546,23 @@
           "components": {
             "analog": null,
             "mos": null,
-            "observation_nudge": -4.579570298236417e-09,
-            "v2_consensus": 24.08755030125644
+            "observation_nudge": -3.0565723237651863e-09,
+            "v2_consensus": 24.091972447208125
           },
           "mos_samples": 0,
           "mos_training_mae": null,
           "precip_calibration_samples": 0,
           "precipitation_probability": 50.5,
           "raw_precipitation_probability": 50.5,
-          "real_feel": 29.616758853732847,
+          "real_feel": 29.62348957466234,
           "real_feel_engine": {
             "available": true,
             "inputs": {
-              "cloud_cover": 18.25,
+              "cloud_cover": 18.322916666666664,
+              "provider_apparent_temperature": 26.160416666666666,
               "relative_humidity_2m": 51.3125,
-              "shortwave_radiation": 1122.1944444444446,
-              "temperature_2m": 24.08755029827972,
+              "shortwave_radiation": 1121.8944444444444,
+              "temperature_2m": 24.09197244522135,
               "uv_index": 6.866666666666667,
               "wind_speed_10m": 13.810416666666667
             },
@@ -2506,22 +2575,22 @@
             },
             "method": "physics-plus-local-verified-residual",
             "mode": "humidex",
-            "physical_real_feel": 29.616758853732847,
-            "real_feel": 29.616758853732847,
+            "physical_real_feel": 29.62348957466234,
+            "real_feel": 29.62348957466234,
             "solar_adjustment": 2.5
           },
           "target": "2026-08-12T17:00:00+00:00",
-          "temperature_2m": 24.08755029827972,
-          "v2_uncertainty": 2.143458717760551
+          "temperature_2m": 24.09197244522135,
+          "v2_uncertainty": 2.105954696701033
         }
       },
       "regime": {
         "name": "stable",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.39999999999997726,
-        "relative_humidity": 74.0,
+        "relative_humidity": 76.0,
         "wind_direction": 275.3333333333333,
-        "wind_speed": 6.200000000000001
+        "wind_speed": 5.7
       }
     }
   },
@@ -2530,10 +2599,10 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -1.909490572646076,
-          "mean_distance": 2.1717013888888888,
+          "correction": -1.9618611477379224,
+          "mean_distance": 1.5375868055555553,
           "neighbors": 8,
-          "prediction": 23.27870387179837
+          "prediction": 23.22633329670652
         },
         "12": {
           "available": true,
@@ -2548,10 +2617,10 @@
         },
         "3": {
           "available": true,
-          "correction": -1.9724417709286224,
-          "mean_distance": 1.6077256944444442,
+          "correction": -2.060005447655998,
+          "mean_distance": 1.2572482638888889,
           "neighbors": 8,
-          "prediction": 23.274780451293598
+          "prediction": 23.187216774566224
         },
         "48": {
           "available": false,
@@ -2559,10 +2628,10 @@
         },
         "6": {
           "available": true,
-          "correction": -1.6668929768435345,
-          "mean_distance": 1.609895833333333,
+          "correction": -1.6463399238328416,
+          "mean_distance": 1.6055555555555554,
           "neighbors": 8,
-          "prediction": 21.750468134267578
+          "prediction": 21.771021187278272
         },
         "72": {
           "available": false,
@@ -2573,8 +2642,8 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 15,
-          "training_mae": 0.13617843118811498
+          "samples": 17,
+          "training_mae": 0.14198265587776338
         },
         "12": {
           "available": true,
@@ -2590,8 +2659,8 @@
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 22,
-          "training_mae": 0.11221948414437867
+          "samples": 24,
+          "training_mae": 0.12245289853413273
         },
         "48": {
           "available": false,
@@ -2601,8 +2670,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 21,
-          "training_mae": 0.1290492300293463
+          "samples": 22,
+          "training_mae": 0.13838621387274005
         },
         "72": {
           "available": false,
@@ -2612,7 +2681,7 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 52
+          "samples": 60
         },
         "12": {
           "samples": 16
@@ -2621,13 +2690,13 @@
           "samples": 4
         },
         "3": {
-          "samples": 64
+          "samples": 72
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 32
+          "samples": 36
         },
         "72": {
           "samples": 0
@@ -2638,10 +2707,10 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": -3.104435971593387,
-          "mean_distance": 2.3388020833333334,
+          "correction": -3.2548932076749426,
+          "mean_distance": 1.7395833333333337,
           "neighbors": 8,
-          "prediction": 21.897647361739946
+          "prediction": 21.74719012565839
         },
         "12": {
           "available": true,
@@ -2656,10 +2725,10 @@
         },
         "3": {
           "available": true,
-          "correction": -3.1589717417169068,
-          "mean_distance": 1.8875000000000002,
+          "correction": -3.348212743367475,
+          "mean_distance": 1.4934895833333335,
           "neighbors": 8,
-          "prediction": 22.576444924949758
+          "prediction": 22.38720392329919
         },
         "48": {
           "available": false,
@@ -2667,10 +2736,10 @@
         },
         "6": {
           "available": true,
-          "correction": -3.023804757211374,
-          "mean_distance": 2.100111607142857,
+          "correction": -2.9130427407194257,
+          "mean_distance": 2.0232886904761904,
           "neighbors": 8,
-          "prediction": 21.540778576121962
+          "prediction": 21.65154059261391
         },
         "72": {
           "available": false,
@@ -2681,8 +2750,8 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 15,
-          "training_mae": 0.2679741752284623
+          "samples": 17,
+          "training_mae": 0.28074687088265676
         },
         "12": {
           "available": true,
@@ -2698,8 +2767,8 @@
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 22,
-          "training_mae": 0.2482276362766228
+          "samples": 24,
+          "training_mae": 0.26785802954861665
         },
         "48": {
           "available": false,
@@ -2709,8 +2778,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.18638641572649656
+          "samples": 20,
+          "training_mae": 0.2446653896644854
         },
         "72": {
           "available": false,
@@ -2746,10 +2815,10 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.07812129612658093,
-          "mean_distance": 2.017398313492063,
+          "correction": 0.2530764250269827,
+          "mean_distance": 1.4492931547619043,
           "neighbors": 8,
-          "prediction": 25.605204629459916
+          "prediction": 25.780159758360316
         },
         "12": {
           "available": true,
@@ -2764,10 +2833,10 @@
         },
         "3": {
           "available": true,
-          "correction": -0.49127873164614533,
-          "mean_distance": 1.4165550595238094,
+          "correction": -0.11819190124579693,
+          "mean_distance": 1.2324404761904761,
           "neighbors": 8,
-          "prediction": 24.373304601687188
+          "prediction": 24.746391432087535
         },
         "48": {
           "available": false,
@@ -2775,10 +2844,10 @@
         },
         "6": {
           "available": true,
-          "correction": -0.5177846941237844,
-          "mean_distance": 1.6942708333333332,
+          "correction": -0.32635367838978235,
+          "mean_distance": 1.6430431547619044,
           "neighbors": 8,
-          "prediction": 22.730131972542885
+          "prediction": 22.921562988276886
         },
         "72": {
           "available": false,
@@ -2789,8 +2858,8 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 15,
-          "training_mae": 0.34172906116619683
+          "samples": 17,
+          "training_mae": 0.3230269797615069
         },
         "12": {
           "available": true,
@@ -2806,8 +2875,8 @@
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 22,
-          "training_mae": 0.3196269984554105
+          "samples": 24,
+          "training_mae": 0.3117842814147078
         },
         "48": {
           "available": false,
@@ -2817,8 +2886,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 21,
-          "training_mae": 0.29064344814892945
+          "samples": 22,
+          "training_mae": 0.3315983243783883
         },
         "72": {
           "available": false,
@@ -2854,10 +2923,10 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 1.0091831804392364,
-          "mean_distance": 1.6596354166666663,
+          "correction": 1.1716309257778448,
+          "mean_distance": 1.290364583333333,
           "neighbors": 8,
-          "prediction": 25.23418318043924
+          "prediction": 25.396630925777846
         },
         "12": {
           "available": true,
@@ -2872,10 +2941,10 @@
         },
         "3": {
           "available": true,
-          "correction": 0.4987333700314083,
-          "mean_distance": 1.1718749999999993,
+          "correction": 0.710214206938416,
+          "mean_distance": 1.1218749999999997,
           "neighbors": 8,
-          "prediction": 24.669566703364744
+          "prediction": 24.88104754027175
         },
         "48": {
           "available": false,
@@ -2897,8 +2966,8 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 15,
-          "training_mae": 0.41375031140881074
+          "samples": 17,
+          "training_mae": 0.3785704246111872
         },
         "12": {
           "available": true,
@@ -2914,8 +2983,8 @@
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 22,
-          "training_mae": 0.41422059113107096
+          "samples": 24,
+          "training_mae": 0.4203801093741286
         },
         "48": {
           "available": false,
@@ -2925,8 +2994,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 21,
-          "training_mae": 0.31904073691467427
+          "samples": 22,
+          "training_mae": 0.357606816830635
         },
         "72": {
           "available": false,
@@ -2962,10 +3031,10 @@
       "analogs": {
         "1": {
           "available": true,
-          "correction": 0.30827435811420467,
-          "mean_distance": 2.2387152777777772,
+          "correction": -0.2676258967796997,
+          "mean_distance": 1.642708333333333,
           "neighbors": 8,
-          "prediction": 25.842996580336425
+          "prediction": 25.267096325442523
         },
         "12": {
           "available": true,
@@ -2980,10 +3049,10 @@
         },
         "3": {
           "available": true,
-          "correction": 0.20286809214611098,
-          "mean_distance": 1.5476562500000002,
+          "correction": 0.007220680405631742,
+          "mean_distance": 1.1336805555555556,
           "neighbors": 8,
-          "prediction": 25.754256981035002
+          "prediction": 25.55860956929452
         },
         "48": {
           "available": false,
@@ -3005,8 +3074,8 @@
         "1": {
           "available": true,
           "ridge": 2.5,
-          "samples": 15,
-          "training_mae": 0.22560812852887746
+          "samples": 17,
+          "training_mae": 0.26103999538523165
         },
         "12": {
           "available": true,
@@ -3022,8 +3091,8 @@
         "3": {
           "available": true,
           "ridge": 2.5,
-          "samples": 22,
-          "training_mae": 0.2739026455093747
+          "samples": 24,
+          "training_mae": 0.28386952508329966
         },
         "48": {
           "available": false,
@@ -3033,8 +3102,8 @@
         "6": {
           "available": true,
           "ridge": 2.5,
-          "samples": 19,
-          "training_mae": 0.2248698078757459
+          "samples": 20,
+          "training_mae": 0.25113754118160847
         },
         "72": {
           "available": false,
@@ -3044,7 +3113,7 @@
       },
       "precip_calibration": {
         "1": {
-          "samples": 52
+          "samples": 60
         },
         "12": {
           "samples": 16
@@ -3053,13 +3122,13 @@
           "samples": 4
         },
         "3": {
-          "samples": 64
+          "samples": 72
         },
         "48": {
           "samples": 0
         },
         "6": {
-          "samples": 32
+          "samples": 36
         },
         "72": {
           "samples": 0
@@ -3077,7 +3146,7 @@
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 0.7309203086771027,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3088,7 +3157,7 @@
           "station": "HALIFAX DOCKYARD",
           "temperature_2m": 21.4,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.9154669635436214,
+          "weight": 0.9019407033083505,
           "wind_direction_10m": 163.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3096,7 +3165,7 @@
           "wind_speed_10m": 19.7
         },
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 2.750507296327102,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3107,7 +3176,7 @@
           "station": "HALIFAX WINDSOR PARK",
           "temperature_2m": 24.6,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.8112585283078713,
+          "weight": 0.7992719745501045,
           "wind_direction_10m": 82.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3115,26 +3184,26 @@
           "wind_speed_10m": 4.5
         },
         {
-          "age_hours": 0.028640350000000002,
+          "age_hours": 0.028055114444444446,
           "distance_km": 4.981788023468788,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
           "lat": 44.63592,
           "lon": -63.51489,
           "precipitation": 0.0,
-          "relative_humidity_2m": 87.0,
+          "relative_humidity_2m": 90.0,
           "station": "SHEARWATER RCS",
-          "temperature_2m": 23.7,
-          "time": "2026-08-09T17:37:00+00:00",
-          "weight": 0.7236077679488674,
-          "wind_direction_10m": 154.0,
+          "temperature_2m": 23.6,
+          "time": "2026-08-09T17:39:00+00:00",
+          "weight": 0.7238002849149897,
+          "wind_direction_10m": 167.0,
           "wind_gusts_10m": 14.0,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 8.5
+          "wind_speed_10m": 7.5
         },
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 4.8239568149733305,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3145,7 +3214,7 @@
           "station": "SHEARWATER JETTY",
           "temperature_2m": 23.8,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.6946911827825656,
+          "weight": 0.6844269415858188,
           "wind_direction_10m": 146.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3153,7 +3222,7 @@
           "wind_speed_10m": 12.0
         },
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 7.074672516237647,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3164,7 +3233,7 @@
           "station": "HALIFAX KOOTENAY",
           "temperature_2m": 21.2,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.5830693274306131,
+          "weight": 0.5744543279034837,
           "wind_direction_10m": 156.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3172,7 +3241,7 @@
           "wind_speed_10m": 11.2
         },
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 7.857396549617851,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3183,7 +3252,7 @@
           "station": "BEDFORD BASIN",
           "temperature_2m": 24.6,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.5490419705432575,
+          "weight": 0.5409297339805013,
           "wind_direction_10m": 142.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3191,7 +3260,7 @@
           "wind_speed_10m": 5.0
         },
         {
-          "age_hours": 0.6453070166666666,
+          "age_hours": 0.6780551144444444,
           "distance_km": 6.150292404980393,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3202,7 +3271,7 @@
           "station": "MCNABS ISLAND (AUT)",
           "temperature_2m": 21.0,
           "time": "2026-08-09T17:00:00+00:00",
-          "weight": 0.4991196859182246,
+          "weight": 0.4917450639721265,
           "wind_direction_10m": 142.0,
           "wind_gusts_10m": 14.1,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3210,7 +3279,7 @@
           "wind_speed_10m": 9.8
         },
         {
-          "age_hours": 0.14530701666666668,
+          "age_hours": 0.17805511444444444,
           "distance_km": 12.685297541909069,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3221,7 +3290,7 @@
           "station": "BEDFORD RANGE",
           "temperature_2m": 25.4,
           "time": "2026-08-09T17:30:00+00:00",
-          "weight": 0.38812057687734064,
+          "weight": 0.38238599536367773,
           "wind_direction_10m": 180.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3229,15 +3298,15 @@
           "wind_speed_10m": 5.9
         }
       ],
-      "temp": 23.12736045228879,
-      "time": "2026-08-09T17:37:00+00:00",
+      "temp": 23.11438771284501,
+      "time": "2026-08-09T17:39:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 85.79257476806825,
-        "temperature_2m": 23.12736045228879,
-        "wind_direction_10m": 144.55509634161268,
-        "wind_gusts_10m": 14.04082019131407,
-        "wind_speed_10m": 10.190813641667784
+        "relative_humidity_2m": 86.22100421485901,
+        "temperature_2m": 23.11438771284501,
+        "wind_direction_10m": 146.59072871729643,
+        "wind_gusts_10m": 14.040454686813812,
+        "wind_speed_10m": 10.045253794471261
       },
       "wind_station_count": 8
     },
@@ -3250,7 +3319,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.6462796205555557,
+          "age_hours": 0.6790326597222222,
           "distance_km": 2.194888387888291,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3261,7 +3330,7 @@
           "station": "LUNENBURG",
           "temperature_2m": 21.6,
           "time": "2026-08-09T17:00:00+00:00",
-          "weight": 0.6710170433696175,
+          "weight": 0.6611011087902731,
           "wind_direction_10m": 138.0,
           "wind_gusts_10m": 21.0,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3290,7 +3359,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.6455162691666667,
+          "age_hours": 0.6782622516666666,
           "distance_km": 8.29891547501511,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3301,7 +3370,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 26.2,
           "time": "2026-08-09T17:00:00+00:00",
-          "weight": 0.4229549518819438,
+          "weight": 0.4167060841618141,
           "wind_direction_10m": 0.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -3309,12 +3378,12 @@
           "wind_speed_10m": 1.8
         }
       ],
-      "temp": 26.2,
+      "temp": 26.200000000000003,
       "time": "2026-08-09T17:00:00+00:00",
       "values": {
         "precipitation": null,
         "relative_humidity_2m": 70.0,
-        "temperature_2m": 26.2,
+        "temperature_2m": 26.200000000000003,
         "wind_direction_10m": 0.0,
         "wind_gusts_10m": null,
         "wind_speed_10m": 1.8
@@ -3330,7 +3399,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.6460663127777778,
+          "age_hours": 0.6787838947222222,
           "distance_km": 15.6550109182535,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3341,7 +3410,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 26.2,
           "time": "2026-08-09T17:00:00+00:00",
-          "weight": 0.25572433050941945,
+          "weight": 0.2519494323690242,
           "wind_direction_10m": 0.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -3370,34 +3439,34 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.013181146388888888,
+          "age_hours": 0.012643978611111112,
           "distance_km": 3.3534283259845368,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 74.0,
+          "relative_humidity_2m": 76.0,
           "station": "KENTVILLE CDA",
-          "temperature_2m": 24.8,
-          "time": "2026-08-09T17:38:00+00:00",
-          "weight": 0.8248519140289751,
-          "wind_direction_10m": 266.0,
+          "temperature_2m": 24.9,
+          "time": "2026-08-09T17:40:00+00:00",
+          "weight": 0.8250533403777593,
+          "wind_direction_10m": 278.0,
           "wind_gusts_10m": 11.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 6.2
+          "wind_speed_10m": 5.7
         }
       ],
-      "temp": 24.800000000000004,
-      "time": "2026-08-09T17:38:00+00:00",
+      "temp": 24.900000000000002,
+      "time": "2026-08-09T17:40:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 74.0,
-        "temperature_2m": 24.800000000000004,
-        "wind_direction_10m": 266.0,
+        "relative_humidity_2m": 76.0,
+        "temperature_2m": 24.900000000000002,
+        "wind_direction_10m": 278.0,
         "wind_gusts_10m": 11.4,
-        "wind_speed_10m": 6.200000000000001
+        "wind_speed_10m": 5.7
       },
       "wind_station_count": 1
     }
@@ -3471,7 +3540,7 @@
       "rdpa": true
     }
   },
-  "updated_at": "2026-08-09T17:39:15.957305+00:00",
+  "updated_at": "2026-08-09T17:42:03.280703+00:00",
   "verification": {
     "adaptive_layers": [
       "mos",
@@ -3483,24 +3552,32 @@
       "hrm": {
         "1": {
           "analog": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.34162712596438105,
+            "samples": 10,
+            "status": "boosted",
+            "v2_mae": 0.4454202674734823
           },
           "mos": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.22712118901957057,
+            "samples": 8,
+            "status": "boosted",
+            "v2_mae": 0.4454202674734823
           },
           "observation_nudge": {
             "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "layer_mae": 0.4553349622857894,
+            "samples": 10,
+            "status": "neutral",
+            "v2_mae": 0.4454202674734823
           },
           "precipitation_calibration": {
+            "calibrated_brier": 0.18259627585514235,
             "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "raw_brier": 0.18822656249999997,
+            "samples": 10,
+            "status": "active"
           }
         },
         "12": {
@@ -3639,19 +3716,25 @@
       "lunenburg": {
         "1": {
           "analog": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.6147109694851466,
+            "samples": 10,
+            "status": "boosted",
+            "v2_mae": 0.8311386757291398
           },
           "mos": {
             "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "layer_mae": 0.8187087721735873,
+            "samples": 8,
+            "status": "neutral",
+            "v2_mae": 0.8311386757291398
           },
           "observation_nudge": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.6253566158404915,
+            "samples": 10,
+            "status": "boosted",
+            "v2_mae": 0.8311386757291398
           },
           "precipitation_calibration": {
             "factor": 1.0,
@@ -3795,19 +3878,25 @@
       "moncton": {
         "1": {
           "analog": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.4747319984351563,
+            "layer_mae": 0.7963370784689175,
+            "samples": 10,
+            "status": "damped",
+            "v2_mae": 0.3780466926895631
           },
           "mos": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.44070799430653834,
+            "layer_mae": 0.8578167348301138,
+            "samples": 8,
+            "status": "damped",
+            "v2_mae": 0.3780466926895631
           },
           "observation_nudge": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.883343222438861,
+            "layer_mae": 0.427972596705726,
+            "samples": 10,
+            "status": "damped",
+            "v2_mae": 0.3780466926895631
           },
           "precipitation_calibration": {
             "factor": 1.0,
@@ -3951,19 +4040,25 @@
       "shediac": {
         "1": {
           "analog": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.7678893425416865,
+            "layer_mae": 0.9451588697432964,
+            "samples": 10,
+            "status": "damped",
+            "v2_mae": 0.7257774230846235
           },
           "mos": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.092253528584397,
+            "layer_mae": 0.6644770688223449,
+            "samples": 8,
+            "status": "boosted",
+            "v2_mae": 0.7257774230846235
           },
           "observation_nudge": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.5331722714737932,
+            "samples": 10,
+            "status": "boosted",
+            "v2_mae": 0.7257774230846235
           },
           "precipitation_calibration": {
             "factor": 1.0,
@@ -4107,24 +4202,32 @@
       "wolfville": {
         "1": {
           "analog": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.6847901560233082,
+            "layer_mae": 0.886032937597844,
+            "samples": 8,
+            "status": "damped",
+            "v2_mae": 0.6067466335794176
           },
           "mos": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 0.6135164573313222,
+            "layer_mae": 1.015882169905228,
+            "samples": 8,
+            "status": "damped",
+            "v2_mae": 0.6232604299463119
           },
           "observation_nudge": {
-            "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "factor": 1.25,
+            "layer_mae": 0.46113802982778956,
+            "samples": 8,
+            "status": "boosted",
+            "v2_mae": 0.6067466335794176
           },
           "precipitation_calibration": {
+            "calibrated_brier": 0.10652560057409671,
             "factor": 1.0,
-            "samples": 0,
-            "status": "learning"
+            "raw_brier": 0.11441484375000001,
+            "samples": 8,
+            "status": "active"
           }
         },
         "12": {
@@ -4265,14 +4368,24 @@
     "mode": "prospective-shadow-out-of-sample",
     "precip_scores": {
       "hrm:1:all:calibrated": {
-        "brier": 0.08649198824896694,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113551+00:00"
+        "brier": 0.18259627585514235,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498279+00:00"
       },
       "hrm:1:all:raw": {
-        "brier": 0.090208203125,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113563+00:00"
+        "brier": 0.18822656249999997,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498288+00:00"
+      },
+      "hrm:1:offshore:calibrated": {
+        "brier": 0.24666580092592594,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498276+00:00"
+      },
+      "hrm:1:offshore:raw": {
+        "brier": 0.2535721354166666,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498286+00:00"
       },
       "hrm:1:stable:calibrated": {
         "brier": 0.08649198824896694,
@@ -4285,34 +4398,34 @@
         "updated_at": "2026-08-09T17:19:26.113560+00:00"
       },
       "hrm:3:all:calibrated": {
-        "brier": 0.12904497246914992,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099350+00:00"
+        "brier": 0.1442635744958942,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496296+00:00"
       },
       "hrm:3:all:raw": {
-        "brier": 0.13170868055555554,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099359+00:00"
+        "brier": 0.15270630787037034,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496308+00:00"
       },
       "hrm:3:stable:calibrated": {
-        "brier": 0.12904497246914992,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099347+00:00"
+        "brier": 0.1442635744958942,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496291+00:00"
       },
       "hrm:3:stable:raw": {
-        "brier": 0.13170868055555554,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099356+00:00"
+        "brier": 0.15270630787037034,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496305+00:00"
       },
       "hrm:all:all:calibrated": {
-        "brier": 0.10067631632236125,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113554+00:00"
+        "brier": 0.173750267849162,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498282+00:00"
       },
       "hrm:all:all:raw": {
-        "brier": 0.10404169560185184,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113565+00:00"
+        "brier": 0.1800295806623931,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498291+00:00"
       },
       "moncton:1:all:calibrated": {
         "brier": 0.1212501284198408,
@@ -4445,86 +4558,126 @@
         "updated_at": "2026-08-09T16:53:12.099852+00:00"
       },
       "wolfville:1:all:calibrated": {
-        "brier": 0.06456358492918517,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113823+00:00"
+        "brier": 0.11491800370307903,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498522+00:00"
       },
       "wolfville:1:all:raw": {
-        "brier": 0.07214565972222223,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113833+00:00"
+        "brier": 0.12286868055555558,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498532+00:00"
+      },
+      "wolfville:1:mixed:calibrated": {
+        "brier": 0.14848761621900824,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497255+00:00"
+      },
+      "wolfville:1:mixed:raw": {
+        "brier": 0.15668402777777782,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497264+00:00"
       },
       "wolfville:1:stable:calibrated": {
-        "brier": 0.06456358492918517,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113820+00:00"
+        "brier": 0.10652560057409671,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498520+00:00"
       },
       "wolfville:1:stable:raw": {
-        "brier": 0.07214565972222223,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113830+00:00"
+        "brier": 0.11441484375000001,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498529+00:00"
       },
       "wolfville:3:all:calibrated": {
-        "brier": 0.08660808163265307,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099615+00:00"
+        "brier": 0.10126113861598358,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496558+00:00"
       },
       "wolfville:3:all:raw": {
-        "brier": 0.10563125000000001,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099624+00:00"
+        "brier": 0.1158488425925926,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496567+00:00"
       },
       "wolfville:3:stable:calibrated": {
-        "brier": 0.08660808163265307,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099613+00:00"
+        "brier": 0.10126113861598358,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496555+00:00"
       },
       "wolfville:3:stable:raw": {
-        "brier": 0.10563125000000001,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099622+00:00"
+        "brier": 0.1158488425925926,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496565+00:00"
       },
       "wolfville:all:all:calibrated": {
-        "brier": 0.0719117504970078,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113826+00:00"
+        "brier": 0.11176641945221086,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498525+00:00"
       },
       "wolfville:all:all:raw": {
-        "brier": 0.08330752314814815,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113836+00:00"
+        "brier": 0.12124871794871799,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498534+00:00"
       }
     },
     "scores": {
       "hrm:1:all:analog": {
-        "bias": 0.6212191544912793,
-        "mae": 0.6212191544912793,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113490+00:00"
+        "bias": 0.34162712596438105,
+        "mae": 0.34162712596438105,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498237+00:00"
       },
       "hrm:1:all:final_v3": {
-        "bias": -0.3527919918913316,
-        "mae": 0.45032212368936264,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113504+00:00"
+        "bias": -0.5735297343555021,
+        "mae": 0.6125417870747146,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498245+00:00"
       },
       "hrm:1:all:mos": {
-        "bias": -0.13052366945176708,
-        "mae": 0.13052366945176708,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113514+00:00"
+        "bias": -0.22712118901957057,
+        "mae": 0.22712118901957057,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498253+00:00"
       },
       "hrm:1:all:nudge": {
-        "bias": -0.34021436173095054,
-        "mae": 0.34021436173095054,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113523+00:00"
+        "bias": -0.4553349622857894,
+        "mae": 0.4553349622857894,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498262+00:00"
       },
       "hrm:1:all:v2": {
-        "bias": 0.4397377466254788,
-        "mae": 0.4397377466254788,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113531+00:00"
+        "bias": 0.4454202674734823,
+        "mae": 0.4454202674734823,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498270+00:00"
+      },
+      "hrm:1:offshore:analog": {
+        "bias": 0.15523244027978222,
+        "mae": 0.15523244027978222,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498235+00:00"
+      },
+      "hrm:1:offshore:final_v3": {
+        "bias": -0.7206882293316159,
+        "mae": 0.7206882293316159,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498243+00:00"
+      },
+      "hrm:1:offshore:mos": {
+        "bias": -0.2593203622088384,
+        "mae": 0.2593203622088384,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498251+00:00"
+      },
+      "hrm:1:offshore:nudge": {
+        "bias": -0.5320820293223486,
+        "mae": 0.5320820293223486,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498259+00:00"
+      },
+      "hrm:1:offshore:v2": {
+        "bias": 0.4492086147054846,
+        "mae": 0.4492086147054846,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498267+00:00"
       },
       "hrm:1:stable:analog": {
         "bias": 0.6212191544912793,
@@ -4557,154 +4710,154 @@
         "updated_at": "2026-08-09T17:19:26.113529+00:00"
       },
       "hrm:3:all:analog": {
-        "bias": 0.7626406156389596,
-        "mae": 0.7626406156389596,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099308+00:00"
+        "bias": 0.5867963545772158,
+        "mae": 0.5867963545772158,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496232+00:00"
       },
       "hrm:3:all:final_v3": {
-        "bias": 0.716132278273875,
-        "mae": 0.716132278273875,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099317+00:00"
+        "bias": 0.5087309898163378,
+        "mae": 0.5087309898163378,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496248+00:00"
       },
       "hrm:3:all:mos": {
-        "bias": -0.04717626954903231,
-        "mae": 0.08636030496106706,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099325+00:00"
+        "bias": -0.22876298157965044,
+        "mae": 0.25488567185434025,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496258+00:00"
       },
       "hrm:3:all:nudge": {
-        "bias": 1.1368239409745016,
-        "mae": 1.1368239409745016,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099333+00:00"
+        "bias": 0.9616794190659258,
+        "mae": 0.9616794190659258,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496266+00:00"
       },
       "hrm:3:all:v2": {
-        "bias": 1.481011445104814,
-        "mae": 1.481011445104814,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099340+00:00"
+        "bias": 1.3909854155132468,
+        "mae": 1.3909854155132468,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496275+00:00"
       },
       "hrm:3:stable:analog": {
-        "bias": 0.7626406156389596,
-        "mae": 0.7626406156389596,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099305+00:00"
+        "bias": 0.5867963545772158,
+        "mae": 0.5867963545772158,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496216+00:00"
       },
       "hrm:3:stable:final_v3": {
-        "bias": 0.716132278273875,
-        "mae": 0.716132278273875,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099314+00:00"
+        "bias": 0.5087309898163378,
+        "mae": 0.5087309898163378,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496244+00:00"
       },
       "hrm:3:stable:mos": {
-        "bias": -0.04717626954903231,
-        "mae": 0.08636030496106706,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099323+00:00"
+        "bias": -0.22876298157965044,
+        "mae": 0.25488567185434025,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496255+00:00"
       },
       "hrm:3:stable:nudge": {
-        "bias": 1.1368239409745016,
-        "mae": 1.1368239409745016,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099330+00:00"
+        "bias": 0.9616794190659258,
+        "mae": 0.9616794190659258,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496264+00:00"
       },
       "hrm:3:stable:v2": {
-        "bias": 1.481011445104814,
-        "mae": 1.481011445104814,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099338+00:00"
+        "bias": 1.3909854155132468,
+        "mae": 1.3909854155132468,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496273+00:00"
       },
       "hrm:all:all:analog": {
-        "bias": 0.6683596415405061,
-        "mae": 0.6683596415405061,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113495+00:00"
+        "bias": 0.39820464025965063,
+        "mae": 0.39820464025965063,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498240+00:00"
       },
       "hrm:all:all:final_v3": {
-        "bias": 0.0035160981637372877,
-        "mae": 0.5389255085508667,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113507+00:00"
+        "bias": -0.323777259546616,
+        "mae": 0.5885854492458584,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498248+00:00"
       },
       "hrm:all:all:mos": {
-        "bias": -0.0888499695003997,
-        "mae": 0.10844198720641707,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113517+00:00"
+        "bias": -0.22756895062686508,
+        "mae": 0.23469332070178048,
+        "n": 11,
+        "updated_at": "2026-08-09T17:41:38.498256+00:00"
       },
       "hrm:all:all:nudge": {
-        "bias": 0.15213173917086684,
-        "mae": 0.6057508881454675,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113525+00:00"
+        "bias": -0.12833164351231666,
+        "mae": 0.5721836830812054,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498264+00:00"
       },
       "hrm:all:all:v2": {
-        "bias": 0.7868289794519239,
-        "mae": 0.7868289794519239,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113534+00:00"
+        "bias": 0.6636276093288126,
+        "mae": 0.6636276093288126,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498272+00:00"
       },
       "lunenburg:1:all:analog": {
-        "bias": 0.9427995526716915,
-        "mae": 0.9427995526716915,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113718+00:00"
+        "bias": 0.6147109694851466,
+        "mae": 0.6147109694851466,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498422+00:00"
       },
       "lunenburg:1:all:final_v3": {
-        "bias": -0.33463792416973703,
-        "mae": 0.5365460021337825,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113728+00:00"
+        "bias": -0.7896637768973385,
+        "mae": 0.8704270080829566,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498430+00:00"
       },
       "lunenburg:1:all:mos": {
-        "bias": 0.07077510970981571,
-        "mae": 0.9231930950677008,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113736+00:00"
+        "bias": -0.5702167209792082,
+        "mae": 0.8187087721735873,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498438+00:00"
       },
       "lunenburg:1:all:nudge": {
-        "bias": -0.26522767200170616,
-        "mae": 0.48250622464128856,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113745+00:00"
+        "bias": -0.5384451947846586,
+        "mae": 0.6253566158404915,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498447+00:00"
       },
       "lunenburg:1:all:v2": {
-        "bias": 0.9087320042827898,
-        "mae": 0.9087320042827898,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113753+00:00"
+        "bias": 0.8311386757291398,
+        "mae": 0.8311386757291398,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498455+00:00"
       },
       "lunenburg:1:marine_onshore:analog": {
-        "bias": 0.04043127919041467,
-        "mae": 0.04043127919041467,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113713+00:00"
+        "bias": 0.34519182333644494,
+        "mae": 0.34519182333644494,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498419+00:00"
       },
       "lunenburg:1:marine_onshore:final_v3": {
-        "bias": -1.457722421711516,
-        "mae": 1.457722421711516,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113725+00:00"
+        "bias": -1.1451154991437076,
+        "mae": 1.1451154991437076,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498428+00:00"
       },
       "lunenburg:1:marine_onshore:mos": {
-        "bias": -0.852417985357885,
-        "mae": 0.852417985357885,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113734+00:00"
+        "bias": -0.793671710373026,
+        "mae": 0.793671710373026,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498436+00:00"
       },
       "lunenburg:1:marine_onshore:nudge": {
-        "bias": -1.179580790123488,
-        "mae": 1.179580790123488,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113742+00:00"
+        "bias": -0.7861602928518927,
+        "mae": 0.7861602928518927,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498444+00:00"
       },
       "lunenburg:1:marine_onshore:v2": {
-        "bias": 0.32041920987651196,
-        "mae": 0.32041920987651196,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113751+00:00"
+        "bias": 0.7138397071481073,
+        "mae": 0.7138397071481073,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498452+00:00"
       },
       "lunenburg:1:stable:analog": {
         "bias": 1.2435889771654505,
@@ -4737,124 +4890,154 @@
         "updated_at": "2026-08-09T16:53:12.099901+00:00"
       },
       "lunenburg:3:all:analog": {
-        "bias": 2.296401691535861,
-        "mae": 2.296401691535861,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099522+00:00"
+        "bias": 1.888188209233751,
+        "mae": 1.888188209233751,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496456+00:00"
       },
       "lunenburg:3:all:final_v3": {
-        "bias": 2.209893460910882,
-        "mae": 2.209893460910882,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099530+00:00"
+        "bias": 1.635347188968905,
+        "mae": 1.635347188968905,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496465+00:00"
       },
       "lunenburg:3:all:mos": {
-        "bias": 1.5214132382286714,
-        "mae": 1.5214132382286714,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099538+00:00"
+        "bias": 0.8627659006770081,
+        "mae": 1.1657850836278871,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496473+00:00"
       },
       "lunenburg:3:all:nudge": {
-        "bias": 2.6937996735091367,
-        "mae": 2.6937996735091367,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099546+00:00"
+        "bias": 2.1794932285569275,
+        "mae": 2.1794932285569275,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496481+00:00"
       },
       "lunenburg:3:all:v2": {
-        "bias": 3.208088757805916,
-        "mae": 3.208088757805916,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099554+00:00"
+        "bias": 2.829390877369773,
+        "mae": 2.829390877369773,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496490+00:00"
       },
       "lunenburg:3:stable:analog": {
-        "bias": 2.296401691535861,
-        "mae": 2.296401691535861,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099519+00:00"
+        "bias": 1.888188209233751,
+        "mae": 1.888188209233751,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496454+00:00"
       },
       "lunenburg:3:stable:final_v3": {
-        "bias": 2.209893460910882,
-        "mae": 2.209893460910882,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099528+00:00"
+        "bias": 1.635347188968905,
+        "mae": 1.635347188968905,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496462+00:00"
       },
       "lunenburg:3:stable:mos": {
-        "bias": 1.5214132382286714,
-        "mae": 1.5214132382286714,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099536+00:00"
+        "bias": 0.8627659006770081,
+        "mae": 1.1657850836278871,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496471+00:00"
       },
       "lunenburg:3:stable:nudge": {
-        "bias": 2.6937996735091367,
-        "mae": 2.6937996735091367,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099544+00:00"
+        "bias": 2.1794932285569275,
+        "mae": 2.1794932285569275,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496479+00:00"
       },
       "lunenburg:3:stable:v2": {
-        "bias": 3.208088757805916,
-        "mae": 3.208088757805916,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099552+00:00"
+        "bias": 2.829390877369773,
+        "mae": 2.829390877369773,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496487+00:00"
       },
       "lunenburg:all:all:analog": {
-        "bias": 1.3940002656264145,
-        "mae": 1.3940002656264145,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113721+00:00"
+        "bias": 0.9085903325040553,
+        "mae": 0.9085903325040553,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498424+00:00"
       },
       "lunenburg:all:all:final_v3": {
-        "bias": 0.5135392041904693,
-        "mae": 1.0943284883928157,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113730+00:00"
+        "bias": -0.2300458616974361,
+        "mae": 1.0469470498258677,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498432+00:00"
       },
       "lunenburg:all:all:mos": {
-        "bias": 0.7960941739692435,
-        "mae": 1.222303166648186,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113739+00:00"
+        "bias": -0.179403278709331,
+        "mae": 0.9133659480247599,
+        "n": 11,
+        "updated_at": "2026-08-09T17:41:38.498441+00:00"
       },
       "lunenburg:all:all:nudge": {
-        "bias": 0.7211147765019081,
-        "mae": 1.2196040409305713,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113747+00:00"
+        "bias": 0.08877136444801519,
+        "mae": 0.9840035264673614,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498449+00:00"
       },
       "lunenburg:all:all:v2": {
-        "bias": 1.6751842554571652,
-        "mae": 1.6751842554571652,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113756+00:00"
+        "bias": 1.2922737991846704,
+        "mae": 1.2922737991846704,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498457+00:00"
       },
       "moncton:1:all:analog": {
-        "bias": -0.4261614072646198,
-        "mae": 1.0955767981061504,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113591+00:00"
+        "bias": -0.5285709221323053,
+        "mae": 0.7963370784689175,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498310+00:00"
       },
       "moncton:1:all:final_v3": {
-        "bias": -0.5359217755974894,
-        "mae": 0.7878532404057514,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113600+00:00"
+        "bias": -0.1297548136284803,
+        "mae": 0.39975519277281607,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498318+00:00"
       },
       "moncton:1:all:mos": {
-        "bias": -1.7815604321731833,
-        "mae": 1.7815604321731833,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113609+00:00"
+        "bias": -0.8578167348301138,
+        "mae": 0.8578167348301138,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498326+00:00"
       },
       "moncton:1:all:nudge": {
-        "bias": -0.463228783236155,
-        "mae": 0.6351469493785578,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113617+00:00"
+        "bias": -0.011377696340159105,
+        "mae": 0.427972596705726,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498334+00:00"
       },
       "moncton:1:all:v2": {
-        "bias": -0.4238686320530274,
-        "mae": 0.7038859693873718,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113626+00:00"
+        "bias": -0.26603975775582533,
+        "mae": 0.3780466926895631,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498343+00:00"
+      },
+      "moncton:1:frontal:analog": {
+        "bias": -0.7769803686792258,
+        "mae": 0.7769803686792258,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496705+00:00"
+      },
+      "moncton:1:frontal:final_v3": {
+        "bias": 0.13565626115861562,
+        "mae": 0.13565626115861562,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496714+00:00"
+      },
+      "moncton:1:frontal:mos": {
+        "bias": -0.6153343613073652,
+        "mae": 0.6153343613073652,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496722+00:00"
+      },
+      "moncton:1:frontal:nudge": {
+        "bias": 0.3275278427957993,
+        "mae": 0.3275278427957993,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496731+00:00"
+      },
+      "moncton:1:frontal:v2": {
+        "bias": -0.1597093971132466,
+        "mae": 0.1597093971132466,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496740+00:00"
       },
       "moncton:1:mixed:analog": {
         "bias": -0.1047281822147994,
@@ -4887,94 +5070,94 @@
         "updated_at": "2026-08-09T16:53:12.099746+00:00"
       },
       "moncton:1:stable:analog": {
-        "bias": -0.7475946323144402,
-        "mae": 0.7475946323144402,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113588+00:00"
+        "bias": -0.6141817840306041,
+        "mae": 0.6141817840306041,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498308+00:00"
       },
       "moncton:1:stable:final_v3": {
-        "bias": -0.5000203565634838,
-        "mae": 0.5000203565634838,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113597+00:00"
+        "bias": -0.04136542974006119,
+        "mae": 0.24436048829621523,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498316+00:00"
       },
       "moncton:1:stable:mos": {
-        "bias": -1.288342800619425,
-        "mae": 1.288342800619425,
-        "n": 1,
-        "updated_at": "2026-08-09T17:19:26.113606+00:00"
+        "bias": -0.6620702422677672,
+        "mae": 0.6620702422677672,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498324+00:00"
       },
       "moncton:1:stable:nudge": {
-        "bias": -0.40541467724298386,
-        "mae": 0.40541467724298386,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113615+00:00"
+        "bias": 0.0858258531801803,
+        "mae": 0.3174913830333139,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498332+00:00"
       },
       "moncton:1:stable:v2": {
-        "bias": -0.5161504135859509,
-        "mae": 0.5161504135859509,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113623+00:00"
+        "bias": -0.26250206848639984,
+        "mae": 0.26250206848639984,
+        "n": 7,
+        "updated_at": "2026-08-09T17:41:38.498340+00:00"
       },
       "moncton:3:all:analog": {
-        "bias": -0.5970678891034531,
-        "mae": 0.5970678891034531,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099379+00:00"
+        "bias": -1.0073742964417782,
+        "mae": 1.0073742964417782,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496335+00:00"
       },
       "moncton:3:all:final_v3": {
-        "bias": -0.6019032432923943,
-        "mae": 0.6019032432923943,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099388+00:00"
+        "bias": -0.916114131092384,
+        "mae": 0.916114131092384,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496344+00:00"
       },
       "moncton:3:all:mos": {
-        "bias": -1.536413394638556,
-        "mae": 1.536413394638556,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099397+00:00"
+        "bias": -1.866142027739522,
+        "mae": 1.866142027739522,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496352+00:00"
       },
       "moncton:3:all:nudge": {
-        "bias": -0.25399211459741267,
-        "mae": 0.25399211459741267,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099405+00:00"
+        "bias": -0.5395313802630651,
+        "mae": 0.5395313802630651,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496360+00:00"
       },
       "moncton:3:all:v2": {
-        "bias": -0.15004687056976884,
-        "mae": 0.15004687056976884,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099413+00:00"
+        "bias": -0.4373375945596969,
+        "mae": 0.4373375945596969,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496368+00:00"
       },
       "moncton:3:mixed:analog": {
-        "bias": -0.18754654133796933,
-        "mae": 0.18754654133796933,
-        "n": 1,
-        "updated_at": "2026-08-09T16:53:12.099019+00:00"
+        "bias": -1.007766826228199,
+        "mae": 1.007766826228199,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.496332+00:00"
       },
       "moncton:3:mixed:final_v3": {
-        "bias": -0.37321555462655454,
-        "mae": 0.37321555462655454,
-        "n": 1,
-        "updated_at": "2026-08-09T16:53:12.099031+00:00"
+        "bias": -0.9588757306594591,
+        "mae": 0.9588757306594591,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.496341+00:00"
       },
       "moncton:3:mixed:mos": {
-        "bias": -0.9789339473091303,
-        "mae": 0.9789339473091303,
-        "n": 1,
-        "updated_at": "2026-08-09T16:53:12.099039+00:00"
+        "bias": -1.7522666206252921,
+        "mae": 1.7522666206252921,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.496350+00:00"
       },
       "moncton:3:mixed:nudge": {
-        "bias": -0.15864285918330623,
-        "mae": 0.15864285918330623,
-        "n": 1,
-        "updated_at": "2026-08-09T16:53:12.099047+00:00"
+        "bias": -0.6346263853888381,
+        "mae": 0.6346263853888381,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.496358+00:00"
       },
       "moncton:3:mixed:v2": {
-        "bias": -0.027511935948432154,
-        "mae": 0.027511935948432154,
-        "n": 1,
-        "updated_at": "2026-08-09T16:53:12.099055+00:00"
+        "bias": -0.5197154892439926,
+        "mae": 0.5197154892439926,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.496366+00:00"
       },
       "moncton:3:stable:analog": {
         "bias": -1.0065892368689369,
@@ -5007,148 +5190,184 @@
         "updated_at": "2026-08-09T16:53:12.099411+00:00"
       },
       "moncton:all:all:analog": {
-        "bias": -0.48313023454423093,
-        "mae": 0.929407161771918,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113593+00:00"
+        "bias": -0.6390640085114144,
+        "mae": 0.8450379749241931,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498312+00:00"
       },
       "moncton:all:all:final_v3": {
-        "bias": -0.5579155981624577,
-        "mae": 0.7258699080346324,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113602+00:00"
+        "bias": -0.3112223484278427,
+        "mae": 0.5189149477696394,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498321+00:00"
       },
       "moncton:all:all:mos": {
-        "bias": -1.6589869134058697,
-        "mae": 1.6589869134058697,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113611+00:00"
+        "bias": -1.132814541987225,
+        "mae": 1.132814541987225,
+        "n": 11,
+        "updated_at": "2026-08-09T17:41:38.498329+00:00"
       },
       "moncton:all:all:nudge": {
-        "bias": -0.3934832270232409,
-        "mae": 0.5080953377848427,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113620+00:00"
+        "bias": -0.13325931570698357,
+        "mae": 0.4537169313728043,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498337+00:00"
       },
       "moncton:all:all:v2": {
-        "bias": -0.33259471155860787,
-        "mae": 0.5192729364481709,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113628+00:00"
+        "bias": -0.305570027787488,
+        "mae": 0.39172920850574783,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498345+00:00"
       },
       "shediac:1:all:analog": {
-        "bias": -0.7502678130439637,
-        "mae": 1.1074373654091776,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113654+00:00"
+        "bias": -0.8022910487972108,
+        "mae": 0.9451588697432964,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498365+00:00"
       },
       "shediac:1:all:final_v3": {
-        "bias": -0.39831017120915035,
-        "mae": 0.6551723889677952,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113663+00:00"
+        "bias": 0.15723898728053812,
+        "mae": 0.5786320113513164,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498373+00:00"
       },
       "shediac:1:all:mos": {
-        "bias": -1.782171674473327,
-        "mae": 1.782171674473327,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113671+00:00"
+        "bias": -0.6644770688223449,
+        "mae": 0.6644770688223449,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498381+00:00"
       },
       "shediac:1:all:nudge": {
-        "bias": -0.3728786868770859,
-        "mae": 0.576933662853782,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113680+00:00"
+        "bias": 0.15324733158144604,
+        "mae": 0.5331722714737932,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498389+00:00"
       },
       "shediac:1:all:v2": {
-        "bias": -0.8071209672505715,
-        "mae": 0.9072952762769626,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113688+00:00"
+        "bias": -0.685707699474067,
+        "mae": 0.7257774230846235,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498397+00:00"
       },
       "shediac:1:offshore:analog": {
-        "bias": -1.534614516030194,
-        "mae": 1.534614516030194,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113652+00:00"
+        "bias": -1.0569502474033996,
+        "mae": 1.0569502474033996,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.497098+00:00"
       },
       "shediac:1:offshore:final_v3": {
-        "bias": -0.817251717296875,
-        "mae": 0.817251717296875,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113661+00:00"
+        "bias": -0.07159499931944424,
+        "mae": 0.7456567179774307,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.497107+00:00"
       },
       "shediac:1:offshore:mos": {
-        "bias": -1.782171674473327,
-        "mae": 1.782171674473327,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113669+00:00"
+        "bias": -1.0405746634445343,
+        "mae": 1.0405746634445343,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.497115+00:00"
       },
       "shediac:1:offshore:nudge": {
-        "bias": -0.7099978079129858,
-        "mae": 0.7099978079129858,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113677+00:00"
+        "bias": -0.020532477147495065,
+        "mae": 0.6894653307654908,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.497123+00:00"
       },
       "shediac:1:offshore:v2": {
-        "bias": -1.3738849129405732,
-        "mae": 1.3738849129405732,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113686+00:00"
+        "bias": -0.907209337436524,
+        "mae": 0.907209337436524,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.497131+00:00"
       },
       "shediac:1:stable:analog": {
-        "bias": 0.0340788899422666,
-        "mae": 0.6802602147881611,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747859+00:00"
+        "bias": -0.6325182497264183,
+        "mae": 0.8706312846365609,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498362+00:00"
       },
       "shediac:1:stable:final_v3": {
-        "bias": 0.02063137487857425,
-        "mae": 0.4930930606387154,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747869+00:00"
+        "bias": 0.309794978347193,
+        "mae": 0.4672822069339067,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498371+00:00"
+      },
+      "shediac:1:stable:mos": {
+        "bias": -0.28837947420015553,
+        "mae": 0.28837947420015553,
+        "n": 4,
+        "updated_at": "2026-08-09T17:41:38.498379+00:00"
       },
       "shediac:1:stable:nudge": {
-        "bias": -0.035759565841186,
-        "mae": 0.44386951779457817,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747879+00:00"
+        "bias": 0.2691005374007401,
+        "mae": 0.4289768986126615,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498387+00:00"
       },
       "shediac:1:stable:v2": {
-        "bias": -0.2403570215605697,
-        "mae": 0.44070563961335196,
-        "n": 2,
-        "updated_at": "2026-08-09T15:45:34.747887+00:00"
+        "bias": -0.5380399408324289,
+        "mae": 0.6048228135166897,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498395+00:00"
       },
       "shediac:3:all:analog": {
-        "bias": -1.4144930488356717,
-        "mae": 1.4144930488356717,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099452+00:00"
+        "bias": -1.6706580356382819,
+        "mae": 1.6706580356382819,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496395+00:00"
       },
       "shediac:3:all:final_v3": {
-        "bias": -1.131273699278946,
-        "mae": 1.131273699278946,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099460+00:00"
+        "bias": -1.3223475726418468,
+        "mae": 1.3223475726418468,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496404+00:00"
       },
       "shediac:3:all:mos": {
-        "bias": -1.8894577350865926,
-        "mae": 1.8894577350865926,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099469+00:00"
+        "bias": -2.166779499166212,
+        "mae": 2.166779499166212,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496416+00:00"
       },
       "shediac:3:all:nudge": {
-        "bias": -0.8933343871286112,
-        "mae": 0.8933343871286112,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099477+00:00"
+        "bias": -1.0525753592736666,
+        "mae": 1.0525753592736666,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496424+00:00"
       },
       "shediac:3:all:v2": {
-        "bias": -1.017429016921616,
-        "mae": 1.017429016921616,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099484+00:00"
+        "bias": -1.1973524273655052,
+        "mae": 1.1973524273655052,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496433+00:00"
+      },
+      "shediac:3:offshore:analog": {
+        "bias": -2.182988009243502,
+        "mae": 2.182988009243502,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496393+00:00"
+      },
+      "shediac:3:offshore:final_v3": {
+        "bias": -1.7044953193676484,
+        "mae": 1.7044953193676484,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496402+00:00"
+      },
+      "shediac:3:offshore:mos": {
+        "bias": -2.72142302732545,
+        "mae": 2.72142302732545,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496414+00:00"
+      },
+      "shediac:3:offshore:nudge": {
+        "bias": -1.3710573035637772,
+        "mae": 1.3710573035637772,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496422+00:00"
+      },
+      "shediac:3:offshore:v2": {
+        "bias": -1.5571992482532835,
+        "mae": 1.5571992482532835,
+        "n": 1,
+        "updated_at": "2026-08-09T17:41:38.496431+00:00"
       },
       "shediac:3:stable:analog": {
         "bias": -1.4144930488356717,
@@ -5181,184 +5400,214 @@
         "updated_at": "2026-08-09T16:53:12.099482+00:00"
       },
       "shediac:all:all:analog": {
-        "bias": -0.9716762249745331,
-        "mae": 1.2097892598846756,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113657+00:00"
+        "bias": -1.0026834303759196,
+        "mae": 1.1125817541806007,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498367+00:00"
       },
       "shediac:all:all:final_v3": {
-        "bias": -0.6426313472324156,
-        "mae": 0.8138728257381788,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113665+00:00"
+        "bias": -0.18420406500924308,
+        "mae": 0.7502586793414388,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498375+00:00"
       },
       "shediac:all:all:mos": {
-        "bias": -1.8358147047799598,
-        "mae": 1.8358147047799598,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113674+00:00"
+        "bias": -1.0741959134615813,
+        "mae": 1.0741959134615813,
+        "n": 11,
+        "updated_at": "2026-08-09T17:41:38.498383+00:00"
       },
       "shediac:all:all:nudge": {
-        "bias": -0.5463639202942611,
-        "mae": 0.6824005709453917,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113682+00:00"
+        "bias": -0.12501944323127226,
+        "mae": 0.6530345225045332,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498391+00:00"
       },
       "shediac:all:all:v2": {
-        "bias": -0.877223650474253,
-        "mae": 0.9440065231585137,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113690+00:00"
+        "bias": -0.8037795597567066,
+        "mae": 0.8346024240725192,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498400+00:00"
       },
       "wolfville:1:all:analog": {
-        "bias": -0.8192262556049288,
-        "mae": 0.8192262556049288,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113778+00:00"
+        "bias": 0.24160668187622533,
+        "mae": 0.8969876863601683,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498480+00:00"
       },
       "wolfville:1:all:final_v3": {
-        "bias": -0.18331211390247493,
-        "mae": 0.3945323057314516,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113787+00:00"
+        "bias": 0.4355560592323318,
+        "mae": 0.6666938270859024,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498488+00:00"
       },
       "wolfville:1:all:mos": {
-        "bias": -0.32942828760142717,
-        "mae": 0.42026089292090063,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113795+00:00"
+        "bias": 0.8284598747746461,
+        "mae": 1.015882169905228,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498496+00:00"
       },
       "wolfville:1:all:nudge": {
-        "bias": -0.16750181002424913,
-        "mae": 0.3786170530597426,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113803+00:00"
+        "bias": 0.3278900043698574,
+        "mae": 0.546337549603454,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498505+00:00"
       },
       "wolfville:1:all:v2": {
-        "bias": -0.703445336968775,
-        "mae": 0.703445336968775,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113812+00:00"
+        "bias": 0.06050416037129196,
+        "mae": 0.6232604299463119,
+        "n": 10,
+        "updated_at": "2026-08-09T17:41:38.498513+00:00"
+      },
+      "wolfville:1:mixed:analog": {
+        "bias": 0.940806681409466,
+        "mae": 0.940806681409466,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497212+00:00"
+      },
+      "wolfville:1:mixed:final_v3": {
+        "bias": 1.0321700901361144,
+        "mae": 1.0321700901361144,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497220+00:00"
+      },
+      "wolfville:1:mixed:mos": {
+        "bias": 1.2129695043137083,
+        "mae": 1.2129695043137083,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497229+00:00"
+      },
+      "wolfville:1:mixed:nudge": {
+        "bias": 0.8871356287061118,
+        "mae": 0.8871356287061118,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497237+00:00"
+      },
+      "wolfville:1:mixed:v2": {
+        "bias": 0.6893156154138893,
+        "mae": 0.6893156154138893,
+        "n": 2,
+        "updated_at": "2026-08-09T17:41:38.497245+00:00"
       },
       "wolfville:1:stable:analog": {
-        "bias": -0.8192262556049288,
-        "mae": 0.8192262556049288,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113775+00:00"
+        "bias": 0.06680668199291517,
+        "mae": 0.886032937597844,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498478+00:00"
       },
       "wolfville:1:stable:final_v3": {
-        "bias": -0.18331211390247493,
-        "mae": 0.3945323057314516,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113784+00:00"
+        "bias": 0.28640255150638616,
+        "mae": 0.5753247613233494,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498486+00:00"
       },
       "wolfville:1:stable:mos": {
-        "bias": -0.32942828760142717,
-        "mae": 0.42026089292090063,
-        "n": 2,
-        "updated_at": "2026-08-09T17:19:26.113793+00:00"
+        "bias": 0.7002899982616254,
+        "mae": 0.9501863917690679,
+        "n": 6,
+        "updated_at": "2026-08-09T17:41:38.498494+00:00"
       },
       "wolfville:1:stable:nudge": {
-        "bias": -0.16750181002424913,
-        "mae": 0.3786170530597426,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113801+00:00"
+        "bias": 0.18807859828579376,
+        "mae": 0.46113802982778956,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498502+00:00"
       },
       "wolfville:1:stable:v2": {
-        "bias": -0.703445336968775,
-        "mae": 0.703445336968775,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113809+00:00"
+        "bias": -0.09669870338935738,
+        "mae": 0.6067466335794176,
+        "n": 8,
+        "updated_at": "2026-08-09T17:41:38.498511+00:00"
       },
       "wolfville:3:all:analog": {
-        "bias": -0.8297556992484019,
-        "mae": 0.8297556992484019,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099574+00:00"
+        "bias": -0.37513706999430596,
+        "mae": 0.7312038623368965,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496514+00:00"
       },
       "wolfville:3:all:final_v3": {
-        "bias": -0.46148249637611727,
-        "mae": 0.46148249637611727,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099582+00:00"
+        "bias": 0.09830832188961718,
+        "mae": 0.7136183170577736,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496522+00:00"
       },
       "wolfville:3:all:mos": {
-        "bias": -1.5482039360315731,
-        "mae": 1.5482039360315731,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099590+00:00"
+        "bias": -0.7039449455426947,
+        "mae": 1.3603269691660695,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496531+00:00"
       },
       "wolfville:3:all:nudge": {
-        "bias": -0.1899711618126929,
-        "mae": 0.1899711618126929,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099598+00:00"
+        "bias": 0.28103055100900676,
+        "mae": 0.5343254334259306,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496539+00:00"
       },
       "wolfville:3:all:v2": {
-        "bias": -0.47292348157644604,
-        "mae": 0.47292348157644604,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099606+00:00"
+        "bias": -0.05061643090359406,
+        "mae": 0.579948211198334,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496547+00:00"
       },
       "wolfville:3:stable:analog": {
-        "bias": -0.8297556992484019,
-        "mae": 0.8297556992484019,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099572+00:00"
+        "bias": -0.37513706999430596,
+        "mae": 0.7312038623368965,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496512+00:00"
       },
       "wolfville:3:stable:final_v3": {
-        "bias": -0.46148249637611727,
-        "mae": 0.46148249637611727,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099580+00:00"
+        "bias": 0.09830832188961718,
+        "mae": 0.7136183170577736,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496520+00:00"
       },
       "wolfville:3:stable:mos": {
-        "bias": -1.5482039360315731,
-        "mae": 1.5482039360315731,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099588+00:00"
+        "bias": -0.7039449455426947,
+        "mae": 1.3603269691660695,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496529+00:00"
       },
       "wolfville:3:stable:nudge": {
-        "bias": -0.1899711618126929,
-        "mae": 0.1899711618126929,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099596+00:00"
+        "bias": 0.28103055100900676,
+        "mae": 0.5343254334259306,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496537+00:00"
       },
       "wolfville:3:stable:v2": {
-        "bias": -0.47292348157644604,
-        "mae": 0.47292348157644604,
-        "n": 2,
-        "updated_at": "2026-08-09T16:53:12.099604+00:00"
+        "bias": -0.05061643090359406,
+        "mae": 0.579948211198334,
+        "n": 3,
+        "updated_at": "2026-08-09T17:41:38.496545+00:00"
       },
       "wolfville:all:all:analog": {
-        "bias": -0.8227360701527532,
-        "mae": 0.8227360701527532,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113781+00:00"
+        "bias": 0.0992812006753335,
+        "mae": 0.8587298808163364,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498482+00:00"
       },
       "wolfville:all:all:final_v3": {
-        "bias": -0.2760355747270224,
-        "mae": 0.41684903594634015,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113789+00:00"
+        "bias": 0.35772965830708997,
+        "mae": 0.6775225555409496,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498490+00:00"
       },
       "wolfville:all:all:mos": {
-        "bias": -0.9388161118165002,
-        "mae": 0.9842324144762369,
-        "n": 4,
-        "updated_at": "2026-08-09T17:19:26.113797+00:00"
+        "bias": 0.4105312874153713,
+        "mae": 1.1098216606127302,
+        "n": 11,
+        "updated_at": "2026-08-09T17:41:38.498499+00:00"
       },
       "wolfville:all:all:nudge": {
-        "bias": -0.1749915939537304,
-        "mae": 0.315735089310726,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113806+00:00"
+        "bias": 0.3170762843635072,
+        "mae": 0.5435655227932563,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498507+00:00"
       },
       "wolfville:all:all:v2": {
-        "bias": -0.6266047185046654,
-        "mae": 0.6266047185046654,
-        "n": 6,
-        "updated_at": "2026-08-09T17:19:26.113814+00:00"
+        "bias": 0.03486094700016441,
+        "mae": 0.6132653025429324,
+        "n": 13,
+        "updated_at": "2026-08-09T17:41:38.498515+00:00"
       }
     }
   },
@@ -5368,32 +5617,32 @@
     "locations": {
       "hrm": {
         "1": {
-          "cases_evaluated": 15,
-          "cases_seen": 15,
+          "cases_evaluated": 17,
+          "cases_seen": 17,
           "scores": {
             "analog": {
-              "bias": 0.7001237062634809,
-              "mae": 0.7886022022531652,
-              "n": 7,
-              "rmse": 0.9978012785410659
+              "bias": 0.567661136419139,
+              "mae": 0.6364777444111157,
+              "n": 9,
+              "rmse": 0.8818016398931523
             },
             "mos": {
-              "bias": -0.20771683730275647,
-              "mae": 0.20771683730275647,
-              "n": 2,
-              "rmse": 0.21237251028309198
+              "bias": -0.2696866387910477,
+              "mae": 0.2696866387910477,
+              "n": 4,
+              "rmse": 0.2836141132106709
             },
             "v2": {
-              "bias": 0.7516698990477609,
-              "mae": 0.8941287759548561,
-              "n": 15,
-              "rmse": 1.27408622530052
+              "bias": 0.9023542976486115,
+              "mae": 1.0280533066842836,
+              "n": 17,
+              "rmse": 1.3851069056294283
             },
             "v3_reconstructed": {
-              "bias": 0.6132621247916323,
-              "mae": 0.7552813977920702,
-              "n": 15,
-              "rmse": 1.0693660078912304
+              "bias": 0.6878170381767416,
+              "mae": 0.813128161412422,
+              "n": 17,
+              "rmse": 1.0919042104762282
             }
           }
         },
@@ -5458,32 +5707,32 @@
           }
         },
         "3": {
-          "cases_evaluated": 22,
-          "cases_seen": 22,
+          "cases_evaluated": 24,
+          "cases_seen": 24,
           "scores": {
             "analog": {
-              "bias": 0.5557015259182807,
-              "mae": 0.6044366683108725,
-              "n": 14,
-              "rmse": 0.7434224078996303
+              "bias": 0.49071427116871713,
+              "mae": 0.5348412674015381,
+              "n": 16,
+              "rmse": 0.6957273877573676
             },
             "mos": {
-              "bias": 0.029468876579004898,
-              "mae": 0.478261107714453,
-              "n": 10,
-              "rmse": 0.6716192257913111
+              "bias": -0.03296048724540116,
+              "mae": 0.45606880748994943,
+              "n": 12,
+              "rmse": 0.6300706821643101
             },
             "v2": {
-              "bias": 0.6895064591411034,
-              "mae": 0.8250105728399215,
-              "n": 22,
-              "rmse": 1.1823990988894297
+              "bias": 0.8014215281422609,
+              "mae": 0.9256336323661772,
+              "n": 24,
+              "rmse": 1.2751292675821717
             },
             "v3_reconstructed": {
-              "bias": 0.48798386356016804,
-              "mae": 0.6490287605308097,
-              "n": 22,
-              "rmse": 0.869043301840824
+              "bias": 0.5500743872554308,
+              "mae": 0.6976988761451857,
+              "n": 24,
+              "rmse": 0.9051101166681942
             }
           }
         },
@@ -5518,32 +5767,32 @@
           }
         },
         "6": {
-          "cases_evaluated": 21,
-          "cases_seen": 21,
+          "cases_evaluated": 22,
+          "cases_seen": 22,
           "scores": {
             "analog": {
-              "bias": 0.6148624370768976,
-              "mae": 0.6672816295245284,
-              "n": 13,
-              "rmse": 0.790066192111782
+              "bias": 0.571019134836093,
+              "mae": 0.6196940992517502,
+              "n": 14,
+              "rmse": 0.7613268848579263
             },
             "mos": {
-              "bias": 0.04627392071369406,
-              "mae": 0.5156530405261542,
-              "n": 9,
-              "rmse": 0.6817833764740239
+              "bias": -0.009421925808852904,
+              "mae": 0.5151561909247164,
+              "n": 10,
+              "rmse": 0.6666525223780441
             },
             "v2": {
-              "bias": 0.6157050476965678,
-              "mae": 0.7854739283367203,
-              "n": 21,
-              "rmse": 1.1498893824785361
+              "bias": 0.6782260838335668,
+              "mae": 0.8402781971718941,
+              "n": 22,
+              "rmse": 1.2009826811354187
             },
             "v3_reconstructed": {
-              "bias": 0.44160383045927326,
-              "mae": 0.6335173101831354,
-              "n": 21,
-              "rmse": 0.864952538978392
+              "bias": 0.47463345462999773,
+              "mae": 0.6578235943664116,
+              "n": 22,
+              "rmse": 0.8810072192211512
             }
           }
         },
@@ -5580,32 +5829,32 @@
       },
       "lunenburg": {
         "1": {
-          "cases_evaluated": 15,
-          "cases_seen": 15,
+          "cases_evaluated": 17,
+          "cases_seen": 17,
           "scores": {
             "analog": {
-              "bias": 1.1146871191392276,
-              "mae": 1.3214068521667843,
-              "n": 7,
-              "rmse": 1.4383752469699478
+              "bias": 0.9251699031642582,
+              "mae": 1.0859519177412469,
+              "n": 9,
+              "rmse": 1.2746313597099932
             },
             "mos": {
-              "bias": -0.36999033690786476,
-              "mae": 0.4373087470204702,
-              "n": 2,
-              "rmse": 0.5728278883101005
+              "bias": -0.5653149900515091,
+              "mae": 0.5989741951078118,
+              "n": 4,
+              "rmse": 0.6734125135701663
             },
             "v2": {
-              "bias": 1.776349206349207,
-              "mae": 1.776349206349207,
-              "n": 15,
-              "rmse": 2.2009468437844606
+              "bias": 1.968837535014006,
+              "mae": 1.968837535014006,
+              "n": 17,
+              "rmse": 2.375772749225478
             },
             "v3_reconstructed": {
-              "bias": 1.5237851784648255,
-              "mae": 1.5279379078114557,
-              "n": 15,
-              "rmse": 1.8413774226408197
+              "bias": 1.58777603805237,
+              "mae": 1.5914402110052792,
+              "n": 17,
+              "rmse": 1.8694274514724527
             }
           }
         },
@@ -5670,32 +5919,32 @@
           }
         },
         "3": {
-          "cases_evaluated": 22,
-          "cases_seen": 22,
+          "cases_evaluated": 24,
+          "cases_seen": 24,
           "scores": {
             "analog": {
-              "bias": 0.6811565400537495,
-              "mae": 0.8062486255669492,
-              "n": 14,
-              "rmse": 1.0141559587907614
+              "bias": 0.6231904600480933,
+              "mae": 0.7326460348721431,
+              "n": 16,
+              "rmse": 0.9517949578387427
             },
             "mos": {
-              "bias": 0.2955304654526021,
-              "mae": 0.909358582419441,
-              "n": 10,
-              "rmse": 1.0289570559766803
+              "bias": 0.10178924309439452,
+              "mae": 0.9022849634656414,
+              "n": 12,
+              "rmse": 1.0037792920017659
             },
             "v2": {
-              "bias": 1.6408414502164506,
-              "mae": 1.6408414502164506,
-              "n": 22,
-              "rmse": 2.0009223147847073
+              "bias": 1.788479662698413,
+              "mae": 1.788479662698413,
+              "n": 24,
+              "rmse": 2.154179193350717
             },
             "v3_reconstructed": {
-              "bias": 1.2838934361715912,
-              "mae": 1.3130329366365254,
-              "n": 22,
-              "rmse": 1.529263013766975
+              "bias": 1.3468491249737642,
+              "mae": 1.3735603337332876,
+              "n": 24,
+              "rmse": 1.578082283274667
             }
           }
         },
@@ -5730,32 +5979,32 @@
           }
         },
         "6": {
-          "cases_evaluated": 19,
-          "cases_seen": 19,
+          "cases_evaluated": 20,
+          "cases_seen": 20,
           "scores": {
             "analog": {
-              "bias": 1.1492085092386652,
-              "mae": 1.3219000368704177,
-              "n": 9,
-              "rmse": 1.4188277912836142
+              "bias": 1.038813528098914,
+              "mae": 1.1942359029674912,
+              "n": 10,
+              "rmse": 1.3460943154771485
             },
             "mos": {
-              "bias": 0.7478744275951256,
-              "mae": 0.7776256819125099,
-              "n": 7,
-              "rmse": 0.8909022929490181
+              "bias": 0.4978130426145997,
+              "mae": 0.8369995532045813,
+              "n": 8,
+              "rmse": 0.9437290889447844
             },
             "v2": {
-              "bias": 1.7792919799498748,
-              "mae": 1.7792919799498748,
-              "n": 19,
-              "rmse": 2.194459916170999
+              "bias": 1.8614732142857142,
+              "mae": 1.8614732142857142,
+              "n": 20,
+              "rmse": 2.271715108204457
             },
             "v3_reconstructed": {
-              "bias": 1.4714118347638772,
-              "mae": 1.4758494864559843,
-              "n": 19,
-              "rmse": 1.7279440525066099
+              "bias": 1.4949076976376614,
+              "mae": 1.4991234667451632,
+              "n": 20,
+              "rmse": 1.7392351906461936
             }
           }
         },
@@ -5792,32 +6041,32 @@
       },
       "moncton": {
         "1": {
-          "cases_evaluated": 15,
-          "cases_seen": 15,
+          "cases_evaluated": 17,
+          "cases_seen": 17,
           "scores": {
             "analog": {
-              "bias": 0.004052722674692636,
-              "mae": 1.0169547975914814,
-              "n": 7,
-              "rmse": 1.0597654367679015
+              "bias": -0.16968981721030396,
+              "mae": 0.9638067774173282,
+              "n": 9,
+              "rmse": 1.0076707538723635
             },
             "mos": {
-              "bias": -1.0975558363570457,
-              "mae": 1.0975558363570457,
-              "n": 2,
-              "rmse": 1.1841260494753556
+              "bias": -0.8188334191181008,
+              "mae": 0.8188334191181008,
+              "n": 4,
+              "rmse": 0.9203147984960964
             },
             "v2": {
-              "bias": -0.08111772486772513,
-              "mae": 0.5665542328042323,
-              "n": 15,
-              "rmse": 0.7176324213887704
+              "bias": -0.16423902894491166,
+              "mae": 0.5925653594771239,
+              "n": 17,
+              "rmse": 0.7272855498326872
             },
             "v3_reconstructed": {
-              "bias": -0.10450150393380374,
-              "mae": 0.5966213813935514,
-              "n": 15,
-              "rmse": 0.7362391193825455
+              "bias": -0.17892014999759998,
+              "mae": 0.6131435712856126,
+              "n": 17,
+              "rmse": 0.7371578743196162
             }
           }
         },
@@ -5882,32 +6131,32 @@
           }
         },
         "3": {
-          "cases_evaluated": 22,
-          "cases_seen": 22,
+          "cases_evaluated": 24,
+          "cases_seen": 24,
           "scores": {
             "analog": {
-              "bias": -0.030125044986184162,
-              "mae": 0.7032342768782767,
-              "n": 14,
-              "rmse": 0.8334886871456311
+              "bias": -0.15229829887869187,
+              "mae": 0.7412688767842728,
+              "n": 16,
+              "rmse": 0.8599853409499176
             },
             "mos": {
-              "bias": -0.4181209937157913,
-              "mae": 1.0647307872336764,
-              "n": 10,
-              "rmse": 1.3499485047799673
+              "bias": -0.4912476305806095,
+              "mae": 1.030089125178847,
+              "n": 12,
+              "rmse": 1.2819831733473908
             },
             "v2": {
-              "bias": 0.05763888888888857,
-              "mae": 0.5968524531024522,
-              "n": 22,
-              "rmse": 0.72315940590614
+              "bias": -0.01280175264550302,
+              "mae": 0.6127521494708986,
+              "n": 24,
+              "rmse": 0.7295037640755416
             },
             "v3_reconstructed": {
-              "bias": -0.01334313126814557,
-              "mae": 0.6150944399245902,
-              "n": 22,
-              "rmse": 0.7375578499406853
+              "bias": -0.08202987743770433,
+              "mae": 0.633635243706112,
+              "n": 24,
+              "rmse": 0.7473425777559033
             }
           }
         },
@@ -5942,32 +6191,32 @@
           }
         },
         "6": {
-          "cases_evaluated": 21,
-          "cases_seen": 21,
+          "cases_evaluated": 22,
+          "cases_seen": 22,
           "scores": {
             "analog": {
-              "bias": 0.020151981823892183,
-              "mae": 0.6641827979244634,
-              "n": 13,
-              "rmse": 0.8092565092170583
+              "bias": -0.10475012101871403,
+              "mae": 0.7402038450707585,
+              "n": 14,
+              "rmse": 0.9063775464117638
             },
             "mos": {
-              "bias": -0.36589134656815264,
-              "mae": 1.0185017644996337,
-              "n": 9,
-              "rmse": 1.351833588325802
+              "bias": -0.5167057776968367,
+              "mae": 1.1040551538351697,
+              "n": 10,
+              "rmse": 1.4127666509952843
             },
             "v2": {
-              "bias": 0.24917800453514752,
-              "mae": 0.5875566893424027,
-              "n": 21,
-              "rmse": 0.7476994284243962
+              "bias": 0.19683441558441572,
+              "mae": 0.6018668831168822,
+              "n": 22,
+              "rmse": 0.7554178411439681
             },
             "v3_reconstructed": {
-              "bias": 0.1417980360844003,
-              "mae": 0.5963896316786914,
-              "n": 21,
-              "rmse": 0.7227140689186377
+              "bias": 0.07940966433976775,
+              "mae": 0.6252240185250016,
+              "n": 22,
+              "rmse": 0.7532766062178504
             }
           }
         },
@@ -6004,32 +6253,32 @@
       },
       "shediac": {
         "1": {
-          "cases_evaluated": 15,
-          "cases_seen": 15,
+          "cases_evaluated": 17,
+          "cases_seen": 17,
           "scores": {
             "analog": {
-              "bias": -0.5490155581890198,
-              "mae": 0.9158751467600587,
-              "n": 7,
-              "rmse": 1.0436761695181547
+              "bias": -0.5891962163250205,
+              "mae": 0.8745314518802729,
+              "n": 9,
+              "rmse": 0.9847253636691873
             },
             "mos": {
-              "bias": -1.5357204742412645,
-              "mae": 1.5357204742412645,
-              "n": 2,
-              "rmse": 1.6495511519214263
+              "bias": -0.9969415956967822,
+              "mae": 0.9969415956967822,
+              "n": 4,
+              "rmse": 1.2165028622615381
             },
             "v2": {
-              "bias": -0.6389592352092357,
-              "mae": 0.6714592352092356,
-              "n": 15,
-              "rmse": 0.9551313202335044
+              "bias": -0.7993267761650117,
+              "mae": 0.8280032467532469,
+              "n": 17,
+              "rmse": 1.129869329885646
             },
             "v3_reconstructed": {
-              "bias": -0.5949507524158991,
-              "mae": 0.6428142530677786,
-              "n": 15,
-              "rmse": 0.9096481459960339
+              "bias": -0.6998953827575191,
+              "mae": 0.742127883332707,
+              "n": 17,
+              "rmse": 0.9954264501871894
             }
           }
         },
@@ -6094,32 +6343,32 @@
           }
         },
         "3": {
-          "cases_evaluated": 22,
-          "cases_seen": 22,
+          "cases_evaluated": 24,
+          "cases_seen": 24,
           "scores": {
             "analog": {
-              "bias": -0.3611234783149125,
-              "mae": 0.6634792735209728,
-              "n": 14,
-              "rmse": 0.9612774039545534
+              "bias": -0.45091221935852954,
+              "mae": 0.7154735401638324,
+              "n": 16,
+              "rmse": 0.9800747333291661
             },
             "mos": {
-              "bias": -0.7594173818228963,
-              "mae": 1.1874531644853232,
-              "n": 10,
-              "rmse": 1.567961904424473
+              "bias": -0.8038213947598368,
+              "mae": 1.160517880311859,
+              "n": 12,
+              "rmse": 1.500430424413257
             },
             "v2": {
-              "bias": -0.37878172963400236,
-              "mae": 0.6105999114521846,
-              "n": 22,
-              "rmse": 0.8438928079830931
+              "bias": -0.5140568632756132,
+              "mae": 0.7265568632756135,
+              "n": 24,
+              "rmse": 0.9934274409662505
             },
             "v3_reconstructed": {
-              "bias": -0.378834353257275,
-              "mae": 0.6241305007808212,
-              "n": 22,
-              "rmse": 0.8821353780864234
+              "bias": -0.485339439847825,
+              "mae": 0.7101942417444089,
+              "n": 24,
+              "rmse": 0.9713871529477129
             }
           }
         },
@@ -6154,32 +6403,32 @@
           }
         },
         "6": {
-          "cases_evaluated": 21,
-          "cases_seen": 21,
+          "cases_evaluated": 22,
+          "cases_seen": 22,
           "scores": {
             "analog": {
-              "bias": -0.266256600944818,
-              "mae": 0.546722864093212,
-              "n": 13,
-              "rmse": 0.83146158398272
+              "bias": -0.3712307715853141,
+              "mae": 0.6316637302231085,
+              "n": 14,
+              "rmse": 0.9258432515167866
             },
             "mos": {
-              "bias": -0.6654218364114435,
-              "mae": 1.0392221280664498,
-              "n": 9,
-              "rmse": 1.42239572297312
+              "bias": -0.783556894576898,
+              "mae": 1.1199771570664037,
+              "n": 10,
+              "rmse": 1.4703555589965074
             },
             "v2": {
-              "bias": -0.2528061224489797,
-              "mae": 0.4821995464852613,
-              "n": 21,
-              "rmse": 0.6765440309408915
+              "bias": -0.3335497835497836,
+              "mae": 0.5525162337662342,
+              "n": 22,
+              "rmse": 0.7899788749462014
             },
             "v3_reconstructed": {
-              "bias": -0.27464010193199956,
-              "mae": 0.5085845824145587,
-              "n": 21,
-              "rmse": 0.7347228423440756
+              "bias": -0.35055406085543567,
+              "mae": 0.5738647013160603,
+              "n": 22,
+              "rmse": 0.8289701283519638
             }
           }
         },
@@ -6216,32 +6465,32 @@
       },
       "wolfville": {
         "1": {
-          "cases_evaluated": 15,
-          "cases_seen": 15,
+          "cases_evaluated": 17,
+          "cases_seen": 17,
           "scores": {
             "analog": {
-              "bias": -0.2846862352923308,
-              "mae": 0.5229453586874533,
-              "n": 7,
-              "rmse": 0.6730834489142165
+              "bias": 0.0035593825955737815,
+              "mae": 0.6317172890242948,
+              "n": 9,
+              "rmse": 0.7624179818834096
             },
             "mos": {
-              "bias": 0.6886536533164378,
-              "mae": 0.6886536533164378,
-              "n": 2,
-              "rmse": 0.7350801382982463
+              "bias": 0.993338486701222,
+              "mae": 0.993338486701222,
+              "n": 4,
+              "rmse": 1.056513488031529
             },
             "v2": {
-              "bias": -0.023323416556054372,
-              "mae": 0.34086870999605856,
-              "n": 15,
-              "rmse": 0.4475786488044745
+              "bias": 0.06283554748321972,
+              "mae": 0.38418154149978995,
+              "n": 17,
+              "rmse": 0.4863660636307503
             },
             "v3_reconstructed": {
-              "bias": -0.005770354204630953,
-              "mae": 0.31836092376142083,
-              "n": 15,
-              "rmse": 0.4431614232411183
+              "bias": 0.09791344512740435,
+              "mae": 0.3839116315680383,
+              "n": 17,
+              "rmse": 0.513956757746329
             }
           }
         },
@@ -6306,32 +6555,32 @@
           }
         },
         "3": {
-          "cases_evaluated": 22,
-          "cases_seen": 22,
+          "cases_evaluated": 24,
+          "cases_seen": 24,
           "scores": {
             "analog": {
-              "bias": -0.10080334622285696,
-              "mae": 0.5773072378453062,
-              "n": 14,
-              "rmse": 0.7036258242540705
+              "bias": 0.024520993618561082,
+              "mae": 0.6178677546782039,
+              "n": 16,
+              "rmse": 0.7319587904109933
             },
             "mos": {
-              "bias": -0.5661976245894614,
-              "mae": 0.869515269814243,
-              "n": 10,
-              "rmse": 0.9923856031865428
+              "bias": -0.2802416692634064,
+              "mae": 0.9161857427396806,
+              "n": 12,
+              "rmse": 1.0202676584679091
             },
             "v2": {
-              "bias": 0.12203627362360078,
-              "mae": 0.37847099520381894,
-              "n": 22,
-              "rmse": 0.5220601602713922
+              "bias": 0.17095223230311532,
+              "mae": 0.40601739375164864,
+              "n": 24,
+              "rmse": 0.5405442184822795
             },
             "v3_reconstructed": {
-              "bias": 0.030882541887738958,
-              "mae": 0.33575809438007387,
-              "n": 22,
-              "rmse": 0.4705786149350576
+              "bias": 0.0973036557334878,
+              "mae": 0.37677291218479486,
+              "n": 24,
+              "rmse": 0.5103025399127147
             }
           }
         },
@@ -6366,32 +6615,32 @@
           }
         },
         "6": {
-          "cases_evaluated": 19,
-          "cases_seen": 19,
+          "cases_evaluated": 20,
+          "cases_seen": 20,
           "scores": {
             "analog": {
-              "bias": -0.0897607822149386,
-              "mae": 0.5535249668113748,
-              "n": 9,
-              "rmse": 0.6577565383145317
+              "bias": -0.009439607955534867,
+              "mae": 0.5695175661681471,
+              "n": 10,
+              "rmse": 0.6635363777612726
             },
             "mos": {
-              "bias": -0.6344229830198316,
-              "mae": 0.7908721186329625,
-              "n": 7,
-              "rmse": 0.9087898309319231
+              "bias": -0.4379741749679762,
+              "mae": 0.8091590389782186,
+              "n": 8,
+              "rmse": 0.9123853068893908
             },
             "v2": {
-              "bias": 0.20880867913041992,
-              "mae": 0.34181822161140585,
-              "n": 19,
-              "rmse": 0.4771240956577858
+              "bias": 0.2375349118405655,
+              "mae": 0.36389397719750216,
+              "n": 20,
+              "rmse": 0.49693620121696946
             },
             "v3_reconstructed": {
-              "bias": 0.12031024885754957,
-              "mae": 0.32860274241186344,
-              "n": 19,
-              "rmse": 0.433171683912858
+              "bias": 0.1544068860872709,
+              "mae": 0.3522847549638691,
+              "n": 20,
+              "rmse": 0.4587325074418046
             }
           }
         },
