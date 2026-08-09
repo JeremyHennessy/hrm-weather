@@ -26,16 +26,20 @@ jobs:
           node --check v7-final.js
           node --check v8-ui.js
           node --check v11-layout.js
+          node --check scene-images.js
+          node --check accuracy-v2.js
           node --check scripts/capture-ui.mjs
       - name: Python syntax
         run: |
           python -m py_compile scripts/collect.py
+          python -m py_compile scripts/accuracy_engine_v2.py
           python -m py_compile scripts/backfill_short.py
       - name: Validate JSON
         run: |
           python -m json.tool manifest.webmanifest >/dev/null
           python -m json.tool data/skill.json >/dev/null
           python -m json.tool data/ledger.json >/dev/null
+          python -m json.tool data/engine-v2.json >/dev/null
       - name: Verify app references and mobile shell
         run: |
           grep -q 'viewport-fit=cover' app.html
@@ -45,6 +49,8 @@ jobs:
           grep -q 'v8-ui.js' app.html
           grep -q 'v11-reference.css' app.html
           grep -q 'v11-layout.js' app.html
+          grep -q 'accuracy-v2.js' scene-images.js
+          grep -q 'accuracy-v2.js' sw.js
           grep -q 'morningRoutine' app.html
           grep -q 'eveningRoutine' app.html
           grep -q '6:30 A.M.' app.html
