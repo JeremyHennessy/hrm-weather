@@ -21,6 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
+          node --check request-manager.js
           node --check v5b.js
           node --check v6-extra.js
           node --check v7-final.js
@@ -32,6 +33,7 @@ jobs:
           node --check atomic-render.js
           node --check daily-card-fix.js
           node --check deep-ui.js
+          node --check sw.js
           node --check scripts/capture-ui.mjs
       - name: Python syntax
         run: |
@@ -68,18 +70,22 @@ jobs:
       - name: Verify app references and mobile shell
         run: |
           grep -q 'viewport-fit=cover' app.html
+          grep -q 'request-manager.js' app.html
           grep -q 'v5b.js' app.html
           grep -q 'v6-extra.js' app.html
           grep -q 'v7-final.js' app.html
           grep -q 'v8-ui.js' app.html
           grep -q 'v11-reference.css' app.html
           grep -q 'v11-layout.js' app.html
+          grep -q 'installStableRenderer' request-manager.js
+          grep -q '__wxAtomicRenderInstalled' request-manager.js
+          grep -q 'REQUEST_TIMEOUT_MS' request-manager.js
           grep -q 'accuracy-v2.js' scene-images.js
           grep -q 'accuracy-v3.js' deep-ui.js
-          grep -q 'atomic-render.js' deep-ui.js
           grep -q 'daily-card-fix.js' deep-ui.js
           grep -q 'accuracy-v3.js' sw.js
           grep -q 'daily-card-fix.js' sw.js
+          grep -q 'weather-consensus-v40' sw.js
           grep -q 'accuracy_engine_v2_runner' scripts/collect.py
           grep -q 'accuracy_engine_v3_publish' scripts/collect.py
           grep -q 'eccc_observation_mesh_v2' scripts/collect.py
