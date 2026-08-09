@@ -21,11 +21,7 @@
     const previous=window.weightedModel;
     if(typeof previous==='function'&&!window.__wxV3WeightingInstalled){
       window.__wxV3WeightingInstalled=true;
-      window.weightedModel=function(mods,zname,getter,lead=0,windDir=null){
-        const h=lead>0?atLead(lead):null;
-        if(h&&finite(h.temperature_2m))return Number(h.temperature_2m);
-        return previous(mods,zname,getter,lead,windDir);
-      };
+      window.weightedModel=function(mods,zname,getter,lead=0,windDir=null){const h=lead>0?atLead(lead):null;if(h&&finite(h.temperature_2m))return Number(h.temperature_2m);return previous(mods,zname,getter,lead,windDir)};
     }
     window.WXAccuracyV3=V3;
     window.WXCalibratedPop=function(lead,raw){const h=atLead(lead);return h&&finite(h.precipitation_probability)?Number(h.precipitation_probability):raw};
@@ -42,16 +38,11 @@
     ensureUI();if(!V3)return;const d=V3.diagnostics?.[locKey()]||{},h=V3.consensus?.[locKey()]?.hours?.['6']||{};
     const mos=d.mos?.['6']||{},analog=d.analogs?.['6']||{},rain=d.precip_calibration?.['6']||{},nudge=h.components?.observation_nudge;
     const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
-    set('v3Mos',mos.available?`${mos.samples} samples`:`${mos.samples||0}/12`);
-    set('v3Analog',analog.available?`${analog.neighbors} matches`:'learning');
-    set('v3Rain',rain.samples?`${rain.samples} scored`:'learning');
-    set('v3Nudge',finite(nudge)?`${Number(nudge)>=0?'+':''}${Number(nudge).toFixed(1)}°`:'--');
+    set('v3Mos',mos.available?`${mos.samples} samples`:`${mos.samples||0}/12`);set('v3Analog',analog.available?`${analog.neighbors} matches`:'learning');set('v3Rain',rain.samples?`${rain.samples} scored`:'learning');set('v3Nudge',finite(nudge)?`${Number(nudge)>=0?'+':''}${Number(nudge).toFixed(1)}°`:'--');
+    const feeds=Number(V3.collector?.deterministic_forecasts||0),mc=document.getElementById('modelCount');if(mc&&feeds)mc.textContent=`${feeds} forecast feeds · Engine 3 server consensus`;
     const note=document.getElementById('v2EngineNote');if(note)note.textContent=`V3: local MOS + historical analogs + observation nudging + calibrated rain probability · ${V3.collector?.verified_ledger_rows??0} verified ledger rows.`;
   }
-  async function loadV3(){
-    try{const r=await fetch('data/engine-v3.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);V3=await r.json();install();render()}catch{ensureUI()}
-  }
+  async function loadV3(){try{const r=await fetch('data/engine-v3.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);V3=await r.json();install();render()}catch{ensureUI()}}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadV3,{once:true});else loadV3();
-  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(!V3||!fresh()))loadV3()});
-  setInterval(render,60000);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(!V3||!fresh()))loadV3()});setInterval(render,60000);
 })();
