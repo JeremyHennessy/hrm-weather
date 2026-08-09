@@ -11,7 +11,10 @@ on:
       - 'scripts/accuracy_engine_v3_pooling.py'
       - 'scripts/accuracy_engine_v3_verify.py'
       - 'scripts/accuracy_engine_v3_walkforward.py'
+      - 'scripts/precipitation_walkforward.py'
       - 'scripts/accuracy_engine_v3_publish.py'
+      - 'scripts/engine3_champion_gate.py'
+      - 'scripts/engine3_weighting.py'
       - 'scripts/real_feel_engine.py'
       - 'scripts/eccc_observation_mesh_v2.py'
       - 'scripts/solar_context_v2.py'
@@ -39,7 +42,7 @@ jobs:
       - name: Sync latest main
         run: git pull --rebase origin main
       - name: Validate collector syntax
-        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/accuracy_engine_v3_publish.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
+        run: python -m py_compile scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py scripts/precipitation_walkforward.py scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -89,6 +92,13 @@ jobs:
               raise SystemExit('historical walk-forward verification missing')
           if walk.get('leakage_policy') != 'strictly-earlier-targets-only':
               raise SystemExit('walk-forward leakage guard missing')
+          pwalk=v3.get('precipitation_walk_forward') or {}
+          if pwalk.get('mode') != 'historical-walk-forward-probability':
+              raise SystemExit('precipitation walk-forward verification missing')
+          if pwalk.get('leakage_policy') != 'strictly-earlier-targets-only':
+              raise SystemExit('precipitation walk-forward leakage guard missing')
+          if pwalk.get('evaluated_targets',0) < 1:
+              raise SystemExit('precipitation walk-forward produced no held-out targets')
           real=v3.get('real_feel') or {}
           if real.get('forecast_points_ready',0) < len(v3.get('consensus') or {}):
               raise SystemExit('locally calibrated Real Feel did not publish enough forecast points')
@@ -133,7 +143,7 @@ jobs:
           for name,h in health.items():
               if h.get('deterministic_models',0) < 3:
                   raise SystemExit(f'{name}: insufficient deterministic model coverage: {h}')
-          print('Accuracy Engines 2.0 + 3.0 + prospective Real Feel verification production validation passed')
+          print('Accuracy Engines 2.0 + 3.0 + temperature/precip walk-forward + prospective Real Feel validation passed')
           PY
       - name: Commit updated skill data
         run: |
