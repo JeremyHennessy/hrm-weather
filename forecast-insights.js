@@ -35,7 +35,26 @@
     try{localStorage.setItem(key,JSON.stringify(cur))}catch{}let note=document.querySelector('#forecastChangeNotice');if(!changes.length){note?.remove();return}if(!note){note=document.createElement('div');note.id='forecastChangeNotice';note.className='forecastChangeNotice';document.querySelector('.dayBrief')?.prepend(note)}const text=`Forecast changed: ${changes.join(' · ')}.`;if(note.textContent!==text)note.textContent=text;
   }
   function paint(){if(painting)return;painting=true;try{const s=summary(),target=document.querySelector('#daySummary');if(s&&target){if(target.textContent!==s)target.textContent=s;target.dataset.source='engine3-summary'}paintUV();changeNotice()}finally{painting=false}}
-  if(!document.querySelector('#forecastInsightsStyle')){const st=document.createElement('style');st.id='forecastInsightsStyle';st.textContent='.forecastChangeNotice{margin:0 0 10px;padding:9px 11px;border:1px solid rgba(138,188,216,.28);border-radius:12px;background:rgba(8,37,55,.5);font-size:10px;color:#dcecf4}.daySummary[data-source="engine3-summary"]{line-height:1.45}';document.head.appendChild(st)}
+  if(!document.querySelector('#forecastInsightsStyle')){const st=document.createElement('style');st.id='forecastInsightsStyle';st.textContent=`
+    .forecastChangeNotice{margin:0 0 10px;padding:9px 11px;border:1px solid rgba(138,188,216,.28);border-radius:12px;background:rgba(8,37,55,.5);font-size:10px;color:#dcecf4}
+    #daySummary.heroSummary[data-source="engine3-summary"]{display:block!important;max-width:calc(100% - 22px)!important;width:auto!important;margin:12px 11px 0 3px!important;padding:10px 12px!important;box-sizing:border-box!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:14px!important;background:rgba(3,28,47,.46)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;color:#eef7fb!important;font-size:11px!important;line-height:1.5!important;letter-spacing:.005em!important;-webkit-line-clamp:unset!important;overflow:visible!important}
+    .confidenceOrb{top:16px!important;right:16px!important;bottom:auto!important;width:94px!important;height:94px!important;z-index:7!important}
+    .confidenceOrb:before{inset:5px!important;border-width:2px!important}
+    .confidenceOrb .wxConfidenceStable b{font-size:24px!important}
+    .confidenceOrb .wxConfidenceStable span{font-size:7.5px!important;margin-top:4px!important}
+    .confidenceOrb .wxConfidenceStable small{font-size:6.8px!important;line-height:1.15!important;max-width:70px!important;margin-top:3px!important}
+    .heroTop{padding-right:102px!important;min-height:74px!important}
+    .heroTop .place{max-width:210px!important;line-height:1.25!important}
+    #heroIcon{position:absolute!important;right:9px!important;top:112px!important;margin:0!important;font-size:54px!important;z-index:3!important}
+    @media(max-width:620px){
+      #daySummary.heroSummary[data-source="engine3-summary"]{max-width:calc(100% - 18px)!important;margin:12px 9px 0 2px!important;padding:10px 12px!important;font-size:11px!important;line-height:1.48!important}
+      .confidenceOrb{top:14px!important;right:14px!important;width:88px!important;height:88px!important}
+      .confidenceOrb .wxConfidenceStable b{font-size:22px!important}
+      .heroTop{padding-right:96px!important;min-height:70px!important}
+      .heroTop .place{max-width:190px!important}
+      #heroIcon{right:10px!important;top:110px!important;font-size:51px!important}
+    }
+  `;document.head.appendChild(st)}
   window.WXRefreshForecastInsights=paint;if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(paint,300),{once:true});else setTimeout(paint,300);window.addEventListener('wx-v3-ready',()=>setTimeout(paint,60));document.querySelector('#tabs')?.addEventListener('click',()=>setTimeout(paint,120));
   const summaryEl=document.querySelector('#daySummary');if(summaryEl)new MutationObserver(()=>{if(!painting&&summaryEl.dataset.source==='engine3-summary')queueMicrotask(paint)}).observe(summaryEl,{childList:true,subtree:true,characterData:true});setInterval(paint,30000);
 })();
