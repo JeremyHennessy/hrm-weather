@@ -26,6 +26,7 @@ on:
       - 'sw.js'
       - 'icons/**'
       - 'scripts/capture-ui.mjs'
+      - 'scripts/smoke-live.mjs'
       - '.github/workflows/screenshot-ui.yml'
 
 permissions:
@@ -64,6 +65,8 @@ jobs:
           done
           echo "Timed out waiting for GitHub Pages to serve $EXPECTED"
           exit 1
+      - name: Verify live mobile startup
+        run: node scripts/smoke-live.mjs
       - name: Capture current main with live weather APIs
         run: node scripts/capture-ui.mjs
       - name: Upload screenshots for visual review
