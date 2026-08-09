@@ -3,7 +3,6 @@ const WX8_ICONS={hrm:'◉',moncton:'⌂',shediac:'⛵',lunenburg:'⚓',wolfville
 const wx8OriginalNav=nav;
 const wx8OriginalLoad=load;
 let wx8TouchStart=null;
-
 function wx8LocalDate(){return new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Halifax',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())}
 function wx8NextDate(date){const [y,m,d]=date.split('-').map(Number);return new Date(Date.UTC(y,m-1,d)+86400000).toISOString().slice(0,10)}
 function wx8PrettyDate(){return new Intl.DateTimeFormat('en-CA',{timeZone:'America/Halifax',weekday:'long',month:'short',day:'numeric'}).format(new Date())}
