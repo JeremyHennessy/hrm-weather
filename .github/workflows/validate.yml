@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
@@ -53,17 +53,35 @@ jobs:
           import archive_backtest_90d as bt90
           import archive_backtest_multicycle as multi
           import engine31_policy as e31
+          import engine3_champion_gate as gate
+          import engine3_weighting as weighting
           import rain_timing_verifier as rain
+          import accuracy_engine_v2 as core
+          from datetime import timedelta
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
           assert pooling.nearby_leads(3) == {1,3,6}
           assert bt90.DAYS == 90 and callable(bt90.classify_regime) and callable(bt90.breakdown)
           assert multi.CYCLES == (0,6,12,18) and multi.DAYS == 21
-          assert e31.MIN_PROMOTION_SAMPLES >= 12 and e31.HALF_LIFE_DAYS > 0 and callable(e31.apply)
+          assert e31.MIN_PROMOTION_SAMPLES >= 12 and e31.HALF_LIFE_DAYS > 0 and e31.MIN_PROMOTION_WIN_RATE >= .55 and callable(e31.apply)
+          assert gate.MIN_PROMOTION_WIN_RATE >= .55 and gate.HALF_LIFE_DAYS > 0
+          assert weighting.HALF_LIFE_DAYS > 0 and weighting.MIN_EFFECTIVE_WEIGHT > 0
           assert callable(rain.build)
           assert rf.physical_real_feel(28,80,5)['value'] > rf.physical_real_feel(28,35,5)['value']
           assert rf.physical_real_feel(-5,35,30)['value'] < -5
+          now=core.utcnow()
+          rows=[]
+          for i in range(18):
+              actual=20.0
+              rows.append({'scored':True,'loc':'hrm','lead':3,'regime':'stable','issued':core.iso(now-timedelta(hours=i*8)),'actual_temperature':actual,'temperature_candidates':{'v2':21.2,'mos':20.4,'analog':20.7,'final_v3':20.8,'engine31':20.3}})
+          state={'forecasts':rows,'scores':{}}
+          d=gate.component_gate(state,{},'hrm',3,'stable','mos')
+          assert d['status']=='promotion-approved' and d['paired_win_rate'] >= .55, d
+          w=weighting.component_weights(state,{},'hrm',3,'stable',{'v2','mos','analog'},True,{'mos':d,'analog':{'max_boost':1.0}})
+          assert w['source'].startswith('prospective-decayed') and w['weights']['mos'] > 0, w
+          e=e31.gate(state,'hrm',3,'stable')
+          assert e['status']=='promotion-approved' and e['paired_win_rate'] >= .55, e
           PY
       - name: Verify current app wiring
         run: |
@@ -87,12 +105,15 @@ jobs:
           grep -q 'engine3-calibrated' forecast-ui-guard.js
           grep -q 'data/engine-v3.json' startup-fallback.js
           grep -q 'install_engine31' scripts/collect.py
+          grep -q 'iphone-se-1' scripts/layout-qa.mjs
+          grep -q 'iphone-pro-max' scripts/layout-qa.mjs
           test -f scripts/precipitation_walkforward.py
           test -f scripts/forecast_confidence_engine.py
           test -f scripts/release_guard.py
           test -f scripts/archive_backtest_v3.py
           test -f scripts/archive_backtest_90d.py
           test -f scripts/archive_backtest_multicycle.py
+          test -f scripts/layout-qa.mjs
           test -f .github/workflows/backtest-90d.yml
           test -f .github/workflows/backtest-multicycle.yml
           test -f icons/apple-touch-icon.png
