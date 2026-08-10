@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/server-truth-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
@@ -33,6 +33,7 @@ jobs:
             scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py scripts/release_guard.py \
             scripts/engine3_retro_backtest.py scripts/archive_backtest_v3.py \
             scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py \
+            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py \
             scripts/test_real_feel_champion.py
       - name: Validate data and architecture
         env:
@@ -43,6 +44,7 @@ jobs:
           python -m json.tool data/ledger.json >/dev/null
           python -m json.tool data/engine-v2.json >/dev/null
           python -m json.tool data/engine-v3.json >/dev/null
+          python -m json.tool data/engine32-family-benchmark.json >/dev/null
           python - <<'PY'
           import accuracy_engine_v3 as v3
           import accuracy_engine_v3_pooling as pooling
@@ -53,6 +55,8 @@ jobs:
           import real_feel_engine as rf
           import engine31_policy as e31
           import engine31_install as e31install
+          import engine32_family_benchmark as e32bench
+          import engine32_family_taxonomy as e32
           import engine3_champion_gate as gate
           import engine3_weighting as weighting
           import rain_timing_verifier as rain
@@ -68,6 +72,15 @@ jobs:
           assert gate.MIN_PROMOTION_WIN_RATE >= .55 and gate.HALF_LIFE_DAYS > 0
           assert weighting.HALF_LIFE_DAYS > 0 and weighting.MIN_EFFECTIVE_WEIGHT > 0
           assert callable(rain.build)
+          assert len(e32bench.EIGHT_FAMILIES)==8 and len(e32bench.TEN_FAMILIES)==10
+          assert {'kma','bom','cma'}.issubset(set(e32bench.TEN_FAMILIES)) and 'other' not in e32bench.TEN_FAMILIES
+          e32_result=core.load(e32.BENCHMARK_FILE,{})
+          assert e32_result.get('ledger_rows')==50394, e32_result
+          assert e32_result.get('paired_cases')==443, e32_result
+          assert e32_result.get('historical_winner')=='8-family', e32_result
+          assert e32_result.get('selected_for_prospective_shadow')=='8-family', e32_result
+          assert e32._selected()=='8-family'
+          assert e32._prospective_pair({'forecasts':[]})['promotion_allowed'] is False
           truth_probe={}
           e31install._attach_server_truth(truth_probe)
           truth=truth_probe.get('server_truth') or {}
@@ -134,10 +147,13 @@ jobs:
           grep -q "weather-consensus-v70" sw.js
           grep -q 'server-truth-ui.js' sw.js
           grep -q 'forecast-insights.js' sw.js
-          grep -q 'width:106px' forecast-insights.js
           grep -q 'placeConfidence' forecast-insights.js
+          grep -q 'placeHourly' forecast-insights.js
+          grep -q '<details><summary>' forecast-insights.js
           grep -q '.hero.uvGuidanceActive .metrics' forecast-insights.js
-          grep -q 'display:block!important' forecast-insights.js
+          grep -q 'Forecast Confidence is not a compact status pill' scripts/smoke-live.mjs
+          grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
+          grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
           grep -q 'syncLayout' uv-guidance.js
           grep -q 'UV guidance overlaps hero metrics' scripts/layout-qa.mjs
           grep -q 'live-current-provider-apparent' forecast-ui-guard.js
@@ -147,6 +163,9 @@ jobs:
           grep -q 'point_values' startup-fallback.js
           grep -q 'WX_REQUIRE_FAST_CURRENT' scripts/smoke-live.mjs
           grep -q 'provider-apparent-champion' scripts/accuracy_engine_v3_publish.py
+          grep -q 'engine32.apply' scripts/accuracy_engine_v3_publish.py
+          grep -q "engine32_family'" scripts/engine31_install.py
+          grep -q 'production_replacement' scripts/engine32_family_taxonomy.py
           grep -q 'comparative-independent-reference-replay' scripts/accuracy_engine_v3_verify.py
           grep -q 'data/engine-v3.json' startup-fallback.js
           grep -q '_attach_server_truth' scripts/engine31_install.py
@@ -155,6 +174,10 @@ jobs:
           grep -q 'iphone-pro-max' scripts/layout-qa.mjs
           test -f server-truth-ui.js
           test -f scripts/server-truth-qa.mjs
+          test -f scripts/hero-density-qa.mjs
+          test -f scripts/engine32_family_benchmark.py
+          test -f scripts/engine32_family_taxonomy.py
+          test -f data/engine32-family-benchmark.json
           test -f scripts/precipitation_walkforward.py
           test -f scripts/forecast_confidence_engine.py
           test -f scripts/release_guard.py
