@@ -61,8 +61,8 @@ jobs:
 
           assert v2.get('version') == '2.0'
           assert v3.get('version') == '3.0'
-          assert shadow.get('version') == '1.2'
-          assert 'real_feel_scores' in shadow
+          assert shadow.get('version') == '2.0'
+          assert 'real_feel_reference_scores' in shadow
           assert 'confidence_scores' in shadow
 
           walk=v3.get('walk_forward_verification') or {}
@@ -77,7 +77,11 @@ jobs:
           assert conf.get('version') == '2.0'
           assert conf.get('owner') == 'accuracy-engine-3'
           real=v3.get('real_feel') or {}
+          assert real.get('version') == '2.0'
           assert real.get('forecast_points_ready',0) >= len(v3.get('consensus') or {})
+          assert real.get('formula_validation') == 'comparative independent references; no synthetic single observed Real Feel target'
+          replay=v3.get('real_feel_formula_replay') or {}
+          assert replay.get('mode') == 'comparative-independent-reference-replay'
 
           e31=v3.get('engine31') or {}
           assert e31.get('version') == '3.1-challenger'
@@ -104,11 +108,13 @@ jobs:
               h1=(c.get('hours') or {}).get('1') or {}
               assert isinstance(h1.get('temperature_2m'), (int,float)), f'{name}: missing V3 temp'
               assert isinstance(h1.get('real_feel'), (int,float)), f'{name}: missing Real Feel'
+              assert h1.get('real_feel_source') in {'provider-apparent-champion','steadman-fallback','local-calibrated-last-resort'}, f'{name}: invalid Real Feel source'
               assert 'engine31_challenger' in h1
               fc=h1.get('forecast_confidence') or {}
               assert isinstance(fc.get('value'), (int,float)) and 50 <= fc['value'] <= 96, f'{name}: invalid confidence'
               rf=h1.get('real_feel_engine') or {}
-              assert rf.get('method') == 'physics-plus-local-verified-residual'
+              assert rf.get('method') == 'provider-apparent-production-with-steadman-fallback-and-local-shadow'
+              assert rf.get('local_calibration_role') == 'shadow-only'
               inputs=rf.get('inputs') or {}
               if fresh_models > 0:
                   assert inputs.get('shortwave_radiation') is not None, f'{name}: solar missing with live models'
@@ -116,7 +122,7 @@ jobs:
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3")
+          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay")
           PY
       - name: Commit updated skill data
         run: |
