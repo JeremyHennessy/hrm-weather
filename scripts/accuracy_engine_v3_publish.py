@@ -7,13 +7,20 @@ import accuracy_engine_v3 as v3
 import accuracy_engine_v3_verify as verify
 import accuracy_engine_v3_walkforward as walkforward
 import precipitation_walkforward as precip_walkforward
+import precip_nowcast_verifier as precip_nowcast
 import forecast_confidence_engine as confidence
 import engine3_champion_gate as champion
 import engine3_weighting as weighting
 import real_feel_engine as realfeel
 import engine32_family_taxonomy as engine32
+import rrfsv1_shadow as rrfsv1
 from accuracy_engine_v3_pooling import install as install_v3_pooling
 install_v3_pooling()
+
+
+def models_for_location(loc:dict)->list[tuple]:
+    fn=getattr(core,"models_for_location",None)
+    return list(fn(loc)) if callable(fn) else list(core.MODELS)
 
 
 def apply_adaptive_verification(engine:dict,state:dict,walk:dict)->None:
@@ -65,31 +72,14 @@ def apply_real_feel(engine:dict,ledger:list[dict],forecasts:dict,regimes:dict,st
             h["real_feel_engine"]=result
             if result.get("available"):
                 inputs=result.get("inputs") or {};provider=core.safe_float(inputs.get("provider_apparent_temperature"));steadman=core.safe_float(result.get("physical_real_feel"));calibrated=core.safe_float(result.get("real_feel"))
-                if provider is not None:
-                    production=provider;source="provider-apparent-champion"
-                elif steadman is not None:
-                    production=steadman;source="steadman-fallback"
-                else:
-                    production=calibrated;source="local-calibrated-last-resort"
+                if provider is not None:production=provider;source="provider-apparent-champion"
+                elif steadman is not None:production=steadman;source="steadman-fallback"
+                else:production=calibrated;source="local-calibrated-last-resort"
                 h["real_feel"]=production;h["real_feel_source"]=source
-                result["production_real_feel"]=production;result["production_source"]=source
-                result["validation_status"]="independent-formula-replay"
-                result["local_calibration_role"]="shadow-only"
-                sources[loc][lead_s]=source
-                shadow[loc][lead_s]={
-                    "provider_apparent":provider,"steadman":steadman,"local_calibrated":calibrated,
-                    "legacy_humidex_transition":core.safe_float(result.get("legacy_real_feel")),
-                }
-                ready+=1
+                result["production_real_feel"]=production;result["production_source"]=source;result["validation_status"]="independent-formula-replay";result["local_calibration_role"]="shadow-only"
+                sources[loc][lead_s]=source;shadow[loc][lead_s]={"provider_apparent":provider,"steadman":steadman,"local_calibrated":calibrated,"legacy_humidex_transition":core.safe_float(result.get("legacy_real_feel"))};ready+=1
     replay=verify.real_feel_replay(state)
-    engine["real_feel"]={
-        "version":"2.0",
-        "method":"provider apparent production champion; Steadman/wind-chill fallback; local residual remains shadow-only while independent formula replay accumulates",
-        "forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,
-        "production_sources":sources,"shadow_candidates":shadow,
-        "formula_validation":"comparative independent references; no synthetic single observed Real Feel target",
-        "replay_scored_rows":replay.get("scored_rows",0),
-    }
+    engine["real_feel"]={"version":"2.0","method":"provider apparent production champion; Steadman/wind-chill fallback; local residual remains shadow-only while independent formula replay accumulates","forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,"production_sources":sources,"shadow_candidates":shadow,"formula_validation":"comparative independent references; no synthetic single observed Real Feel target","replay_scored_rows":replay.get("scored_rows",0)}
     engine["real_feel_formula_replay"]=replay
 
 
@@ -98,25 +88,29 @@ def main()->None:
     jobs=[]
     with ThreadPoolExecutor(max_workers=16) as pool:
         for lname,loc in core.LOCATIONS.items():
-            for model,*_ in core.MODELS:jobs.append((lname,model,pool.submit(core.forecast_location,loc,model)))
+            for model,*_ in models_for_location(loc):jobs.append((lname,model,pool.submit(core.forecast_location,loc,model)))
         for lname,model,fut in jobs:
             try:result=fut.result()
             except Exception:result=None
             if result:forecasts[lname][model]=result
     regimes={}
     for lname,loc in core.LOCATIONS.items():
-        regime_fc=forecasts[lname].get("gem_hrdps_continental") or forecasts[lname].get("gem_regional") or forecasts[lname].get("ecmwf_ifs025") or forecasts[lname].get("gfs_seamless");regimes[lname]=core.classify_regime(observations.get(lname),regime_fc,loc)
+        regime_fc=forecasts[lname].get("ncep_hrrr_conus") or forecasts[lname].get("gem_hrdps_continental") or forecasts[lname].get("gem_regional") or forecasts[lname].get("ecmwf_ifs025") or forecasts[lname].get("gfs_seamless");regimes[lname]=core.classify_regime(observations.get(lname),regime_fc,loc)
     engine=v3.build_engine_v3(v2_engine,ledger,forecasts,observations,regimes)
-    walk=walkforward.build(ledger)
-    engine["walk_forward_verification"]=walk
-    engine["precipitation_walk_forward"]=precip_walkforward.build(ledger)
+    # Save/score the dense 0-6 h precipitation project before the Engine 3.1
+    # wrapper renders its rain-timing facade, so that facade sees this run's data.
+    engine["precipitation_nowcast_verification"]=precip_nowcast.update(ledger,forecasts,observations,v2_engine.get("nowcast") or {})
+    walk=walkforward.build(ledger);engine["walk_forward_verification"]=walk;engine["precipitation_walk_forward"]=precip_walkforward.build(ledger)
     apply_adaptive_verification(engine,verification,walk)
+    # RRFSv1 is deliberately downstream of the final production blend so its
+    # paired baseline is what the app would actually have issued.
+    engine["rrfsv1"]=rrfsv1.update(engine,forecasts,observations)
     engine32.apply(engine,ledger,forecasts,regimes,verification)
-    apply_real_feel(engine,ledger,forecasts,regimes,verification)
-    confidence.apply(engine,verification)
+    apply_real_feel(engine,ledger,forecasts,regimes,verification);confidence.apply(engine,verification)
     shadow_added=verify.add_current_forecasts(verification,engine);verify.save_state(verification)
-    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[]))};core.save(v3.ENGINE_V3,engine)
-    mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"));print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} engine32_ready={engine.get('engine32',{}).get('forecast_points_ready',0)} engine32_taxonomy={engine.get('engine32',{}).get('selected_taxonomy')} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
+    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[])};core.save(v3.ENGINE_V3,engine)
+    mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"))
+    print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} engine32_ready={engine.get('engine32',{}).get('forecast_points_ready',0)} engine32_taxonomy={engine.get('engine32',{}).get('selected_taxonomy')} precip06_rows={engine.get('precipitation_nowcast_verification',{}).get('rows',0)} rrfs_rows={engine.get('rrfsv1',{}).get('archived_rows',0)} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
 
 
 if __name__=="__main__":main()
