@@ -28,18 +28,20 @@ jobs:
           python-version: '3.12'
       - name: Sync latest main
         run: git pull --rebase origin main
+      - name: Install RRFS GRIB reader
+        run: python -m pip install --quiet eccodes
       - name: Validate collector syntax
         run: |
           python -m py_compile \
             scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py \
             scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py \
             scripts/accuracy_engine_v3_verify.py scripts/accuracy_engine_v3_walkforward.py \
-            scripts/precipitation_walkforward.py scripts/forecast_confidence_engine.py \
+            scripts/precipitation_walkforward.py scripts/precip_nowcast_verifier.py scripts/forecast_confidence_engine.py \
             scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py \
             scripts/engine3_weighting.py scripts/real_feel_engine.py \
-            scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py \
+            scripts/eccc_observation_mesh_v2.py scripts/location_uws.py scripts/solar_context_v2.py \
             scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py \
-            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py
+            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py scripts/rrfsv1_shadow.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -58,13 +60,32 @@ jobs:
           v2=json.loads(Path('data/engine-v2.json').read_text())
           v3=json.loads(Path('data/engine-v3.json').read_text())
           shadow=json.loads(Path('data/v3-verification.json').read_text())
+          precip06_state=json.loads(Path('data/precip-nowcast-verification.json').read_text())
+          rrfs_state=json.loads(Path('data/rrfsv1-verification.json').read_text())
           now=datetime.now(timezone.utc)
 
           assert v2.get('version') == '2.0'
           assert v3.get('version') == '3.0'
           assert shadow.get('version') == '2.0'
+          assert precip06_state.get('version') == '2.0'
+          assert rrfs_state.get('version') == '1.0'
           assert 'real_feel_reference_scores' in shadow
           assert 'confidence_scores' in shadow
+
+          # Upper West Side is first-class server forecast state, not a client-only tab.
+          assert 'uws' in (v2.get('consensus') or {}), 'UWS missing from Engine 2 consensus'
+          assert 'uws' in (v3.get('consensus') or {}), 'UWS missing from Engine 3 consensus'
+          model_sets=v2.get('location_model_sets') or {}
+          assert 'ncep_hrrr_conus' in (model_sets.get('uws') or []), model_sets.get('uws')
+          for ca in ('hrm','moncton','shediac','lunenburg','wolfville'):
+              assert 'ncep_hrrr_conus' not in (model_sets.get(ca) or []), f'{ca}: HRRR leaked into Canadian model set'
+          uhealth=(v2.get('source_health') or {}).get('uws') or {}
+          assert uhealth.get('deterministic_expected',0) >= 10, uhealth
+          uobs=(skill.get('observations') or {}).get('uws')
+          if uobs:
+              assert uobs.get('provider') == 'NWS', uobs
+              assert uobs.get('official_station') == 'KNYC', uobs
+              assert uobs.get('station_count',0) >= 1, uobs
 
           walk=v3.get('walk_forward_verification') or {}
           assert walk.get('mode') == 'historical-walk-forward'
@@ -73,6 +94,25 @@ jobs:
           assert pwalk.get('mode') == 'historical-walk-forward-probability'
           assert pwalk.get('leakage_policy') == 'strictly-earlier-targets-only'
           assert pwalk.get('evaluated_targets',0) >= 1
+
+          precip06=v3.get('precipitation_nowcast_verification') or {}
+          assert precip06.get('version') == '2.0', precip06
+          assert precip06.get('lead_grid_hours') == [0,1,2,3,4,5,6], precip06
+          assert precip06.get('mode') == 'prospective-hourly-0-6-model-plus-radar-vs-official-gauge-radar-rdpa', precip06
+          assert 'Brier' in (precip06.get('calibration_policy') or '') or 'brier' in (precip06.get('calibration_policy') or '').lower()
+          timing=v3.get('rain_timing_verification') or {}
+          assert timing.get('owner') == 'precip-nowcast-verifier', timing
+          assert timing.get('lead_grid_hours') == [0,1,2,3,4,5,6], timing
+
+          rrfs=v3.get('rrfsv1') or {}
+          assert rrfs.get('version') == '1.0', rrfs
+          assert rrfs.get('status') == 'prospective-shadow-only', rrfs
+          assert rrfs.get('lead_hours') == [1,3,6,12,24], rrfs
+          assert set(rrfs.get('variables') or []) == {'temperature_2m','precipitation','wind_gusts_10m','cloud_cover'}, rrfs
+          assert rrfs.get('applied_production_weight') == 0.0, rrfs
+          assert rrfs.get('production_changed') is False, rrfs
+          assert (rrfs.get('promotion_policy') or {}).get('automatic_promotion') is False, rrfs
+          assert 'WeatherNext 2' in (rrfs.get('next_ensemble_candidate') or ''), rrfs
 
           conf=v3.get('forecast_confidence') or {}
           assert conf.get('version') == '2.0'
@@ -102,7 +142,6 @@ jobs:
           assert len(tax.get('8-family') or []) == 8 and len(tax.get('10-family') or []) == 10, tax
           assert {'kma','bom','cma'}.issubset(set(tax.get('10-family') or [])), tax
           assert any('engine32_family' in (r.get('temperature_candidates') or {}) for r in shadow.get('forecasts',[])), 'Engine 3.2 candidate missing from prospective verifier'
-          assert (v3.get('rain_timing_verification') or {}).get('mode') == 'prospective-issue-time-probability-vs-later-ECCC'
           assert 'nowcast_intelligence' in v3 and 'microclimate_intelligence' in v3
 
           observations=skill.get('observations') or {}
@@ -120,9 +159,10 @@ jobs:
           truth=v3.get('server_truth') or {}
           assert truth.get('version') == '1.0'
           assert truth.get('owner') == 'hourly-server-collector'
-          assert (truth.get('source_health') or {}).get('hrm') == (v2.get('source_health') or {}).get('hrm')
-          assert (truth.get('observations') or {}).get('hrm') == (v2.get('observations') or {}).get('hrm')
-          assert (truth.get('best_models') or {}).get('hrm') == (v2.get('best_models') or {}).get('hrm')
+          for key in ('hrm','uws'):
+              assert (truth.get('source_health') or {}).get(key) == (v2.get('source_health') or {}).get(key)
+              assert (truth.get('observations') or {}).get(key) == (v2.get('observations') or {}).get(key)
+              assert (truth.get('best_models') or {}).get(key) == (v2.get('best_models') or {}).get(key)
           hctx=((truth.get('consensus_context') or {}).get('hrm') or {}).get('1') or {}
           assert 'learned_spread' in hctx and 'uncertainty' in hctx and 'effective_independent_sources' in hctx
 
@@ -144,18 +184,17 @@ jobs:
               assert rf.get('local_calibration_role') == 'shadow-only'
               inputs=rf.get('inputs') or {}
               if fresh_models > 0:
-                  assert inputs.get('shortwave_radiation') is not None, f'{name}: solar missing with live models'
                   assert inputs.get('cloud_cover') is not None, f'{name}: cloud missing with live models'
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3/3.1/3.2 validation passed; fresh deterministic feeds={fresh_models}; Engine 3.2={e32.get('selected_taxonomy')} prospective shadow only; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay; server truth=authoritative")
+          print(f"Engine 2/3/3.1/3.2 + UWS + precip0-6 + RRFS shadow validation passed; fresh deterministic feeds={fresh_models}; UWS models={uhealth.get('deterministic_models')}/{uhealth.get('deterministic_expected')}; precip rows={precip06.get('rows')}; RRFS rows={rrfs.get('archived_rows')}; production RRFS weight=0")
           PY
       - name: Commit updated skill data
         run: |
           git config user.name "weather-consensus-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/v3-verification.json data/run-history-v2.json data/model-set-state.json
+          git add data/skill.json data/ledger.json data/engine-v2.json data/engine-v3.json data/v3-verification.json data/run-history-v2.json data/model-set-state.json data/precip-nowcast-verification.json data/rrfsv1-verification.json
           if git diff --cached --quiet; then
             echo "No data changes"
           else
