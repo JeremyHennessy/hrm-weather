@@ -38,7 +38,8 @@ jobs:
             scripts/accuracy_engine_v3_publish.py scripts/engine3_champion_gate.py \
             scripts/engine3_weighting.py scripts/real_feel_engine.py \
             scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py \
-            scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py
+            scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py \
+            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py
       - name: Collect and verify forecasts
         env:
           WX_COLLECT_WORKERS: '16'
@@ -88,6 +89,19 @@ jobs:
           assert e31.get('status') == 'shadow-with-automatic-evidence-gated-promotion'
           assert e31.get('model_set_watch',{}).get('fingerprint')
           assert 'safety_fallbacks' in e31
+          e32=v3.get('engine32') or {}
+          assert e32.get('version') == '3.2-family-taxonomy-challenger', e32
+          assert e32.get('status') == 'historical-winner-prospective-shadow', e32
+          assert e32.get('selected_taxonomy') == '8-family', e32
+          assert e32.get('production_replacement') is False and e32.get('automatic_promotion') is False, e32
+          assert e32.get('forecast_points_ready',0) >= len(v3.get('consensus') or {}), e32
+          hist=e32.get('historical_benchmark') or {}
+          assert hist.get('ledger_rows') == 50394 and hist.get('paired_cases') == 443, hist
+          assert hist.get('historical_winner') == '8-family', hist
+          tax=e32.get('taxonomies') or {}
+          assert len(tax.get('8-family') or []) == 8 and len(tax.get('10-family') or []) == 10, tax
+          assert {'kma','bom','cma'}.issubset(set(tax.get('10-family') or [])), tax
+          assert any('engine32_family' in (r.get('temperature_candidates') or {}) for r in shadow.get('forecasts',[])), 'Engine 3.2 candidate missing from prospective verifier'
           assert (v3.get('rain_timing_verification') or {}).get('mode') == 'prospective-issue-time-probability-vs-later-ECCC'
           assert 'nowcast_intelligence' in v3 and 'microclimate_intelligence' in v3
 
@@ -119,6 +133,10 @@ jobs:
               assert isinstance(h1.get('real_feel'), (int,float)), f'{name}: missing Real Feel'
               assert h1.get('real_feel_source') in {'provider-apparent-champion','steadman-fallback','local-calibrated-last-resort'}, f'{name}: invalid Real Feel source'
               assert 'engine31_challenger' in h1
+              e32c=h1.get('engine32_family_challenger') or {}
+              assert e32c.get('available') is True and e32c.get('taxonomy') == '8-family', f'{name}: missing Engine 3.2 shadow'
+              assert isinstance(e32c.get('temperature_2m'), (int,float)), f'{name}: invalid Engine 3.2 temp'
+              assert e32c.get('role') == 'prospective-shadow-only', e32c
               fc=h1.get('forecast_confidence') or {}
               assert isinstance(fc.get('value'), (int,float)) and 50 <= fc['value'] <= 96, f'{name}: invalid confidence'
               rf=h1.get('real_feel_engine') or {}
@@ -131,7 +149,7 @@ jobs:
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay; server truth=authoritative")
+          print(f"Engine 2/3/3.1/3.2 validation passed; fresh deterministic feeds={fresh_models}; Engine 3.2={e32.get('selected_taxonomy')} prospective shadow only; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay; server truth=authoritative")
           PY
       - name: Commit updated skill data
         run: |
