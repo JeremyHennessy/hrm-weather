@@ -14,6 +14,7 @@ import engine3_weighting as weighting
 import real_feel_engine as realfeel
 import engine32_family_taxonomy as engine32
 import rrfsv1_shadow as rrfsv1
+import target_truth_archive as target_truth
 from accuracy_engine_v3_pooling import install as install_v3_pooling
 install_v3_pooling()
 
@@ -51,12 +52,7 @@ def apply_adaptive_verification(engine:dict,state:dict,walk:dict)->None:
             h["adaptive_skill"]={"mos":mos_skill,"analog":analog_skill,"observation_nudge":nudge_skill,"precipitation_calibration":pop_skill};h["component_weighting"]=wdiag
             loc_summary[lead_s]=h["adaptive_skill"];loc_gates[lead_s]={"mos":mg,"analog":ag,"observation_nudge":ng};loc_weights[lead_s]=wdiag
         summary[loc]=loc_summary;gate_summary[loc]=loc_gates;weight_summary[loc]=loc_weights
-    engine["verification"]={
-        "mode":"prospective-shadow-out-of-sample","minimum_samples_before_adaptation":verify.MIN_ADAPT_SAMPLES,
-        "adaptive_layers":["mos","analog","observation_nudge","precipitation_calibration"],"scores":state.get("scores",{}),"precip_scores":state.get("precip_scores",{}),
-        "real_feel_scores_legacy_synthetic":state.get("real_feel_scores",{}),"real_feel_reference_scores":state.get("real_feel_reference_scores",{}),
-        "confidence_scores":state.get("confidence_scores",{}),"adaptive_status":summary
-    }
+    engine["verification"]={"mode":"prospective-target-time-out-of-sample","target_time_tolerance_minutes":verify.TRUTH_MAX_OFFSET_MINUTES,"minimum_samples_before_adaptation":verify.MIN_ADAPT_SAMPLES,"adaptive_layers":["mos","analog","observation_nudge","precipitation_calibration"],"scores":state.get("scores",{}),"precip_scores":state.get("precip_scores",{}),"real_feel_scores_legacy_synthetic":state.get("real_feel_scores",{}),"real_feel_reference_scores":state.get("real_feel_reference_scores",{}),"confidence_scores":state.get("confidence_scores",{}),"adaptive_status":summary}
     engine["champion_challenger"]={"minimum_promotion_samples":champion.MIN_PROMOTION_SAMPLES,"promotion_margin":champion.PROMOTION_MARGIN,"demotion_margin":champion.DEMOTION_MARGIN,"policy":"no challenger boost without OOS win; evidence-backed underperformers may be damped","components":gate_summary}
     engine["learned_component_weights"]={"minimum_samples":weighting.MIN_WEIGHT_SAMPLES,"full_trust_samples":weighting.FULL_TRUST_SAMPLES,"hierarchy":"prospective location/lead/regime -> historical walk-forward location/lead -> production prior","weights":weight_summary}
 
@@ -75,16 +71,13 @@ def apply_real_feel(engine:dict,ledger:list[dict],forecasts:dict,regimes:dict,st
                 if provider is not None:production=provider;source="provider-apparent-champion"
                 elif steadman is not None:production=steadman;source="steadman-fallback"
                 else:production=calibrated;source="local-calibrated-last-resort"
-                h["real_feel"]=production;h["real_feel_source"]=source
-                result["production_real_feel"]=production;result["production_source"]=source;result["validation_status"]="independent-formula-replay";result["local_calibration_role"]="shadow-only"
-                sources[loc][lead_s]=source;shadow[loc][lead_s]={"provider_apparent":provider,"steadman":steadman,"local_calibrated":calibrated,"legacy_humidex_transition":core.safe_float(result.get("legacy_real_feel"))};ready+=1
+                h["real_feel"]=production;h["real_feel_source"]=source;result["production_real_feel"]=production;result["production_source"]=source;result["validation_status"]="independent-formula-replay";result["local_calibration_role"]="shadow-only";sources[loc][lead_s]=source;shadow[loc][lead_s]={"provider_apparent":provider,"steadman":steadman,"local_calibrated":calibrated,"legacy_humidex_transition":core.safe_float(result.get("legacy_real_feel"))};ready+=1
     replay=verify.real_feel_replay(state)
-    engine["real_feel"]={"version":"2.0","method":"provider apparent production champion; Steadman/wind-chill fallback; local residual remains shadow-only while independent formula replay accumulates","forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,"production_sources":sources,"shadow_candidates":shadow,"formula_validation":"comparative independent references; no synthetic single observed Real Feel target","replay_scored_rows":replay.get("scored_rows",0)}
-    engine["real_feel_formula_replay"]=replay
+    engine["real_feel"]={"version":"2.0","method":"provider apparent production champion; Steadman/wind-chill fallback; local residual remains shadow-only while independent formula replay accumulates","forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,"production_sources":sources,"shadow_candidates":shadow,"formula_validation":"comparative independent references; no synthetic single observed Real Feel target","replay_scored_rows":replay.get("scored_rows",0)};engine["real_feel_formula_replay"]=replay
 
 
 def main()->None:
-    v2_engine=core.load(core.ENGINE,{});ledger=core.load(core.LEDGER,[]);skill=core.load(core.SKILL,{});observations=skill.get("observations",{});forecasts={name:{} for name in core.LOCATIONS};verification=verify.load_state();shadow_scored=verify.score_due(verification,observations)
+    v2_engine=core.load(core.ENGINE,{});ledger=core.load(core.LEDGER,[]);skill=core.load(core.SKILL,{});observations=skill.get("observations",{});nowcasts=v2_engine.get("nowcast") or {};truth_state=target_truth.archive_current(observations,nowcasts);forecasts={name:{} for name in core.LOCATIONS};verification=verify.load_state();shadow_scored=verify.score_due(verification,observations,truth_state)
     jobs=[]
     with ThreadPoolExecutor(max_workers=16) as pool:
         for lname,loc in core.LOCATIONS.items():
@@ -99,18 +92,13 @@ def main()->None:
     engine=v3.build_engine_v3(v2_engine,ledger,forecasts,observations,regimes)
     engine.setdefault("architecture",{})["observation_nudging"]="live location-official model-error correction (ECCC for Canadian locations; NWS for Upper West Side) with 4h exponential decay"
     engine.setdefault("architecture",{})["official_observation_policy"]="location-specific official mesh: ECCC SWOB in Canada; NWS/KNYC-led mesh for Upper West Side"
-    # Save/score the dense 0-6 h precipitation project before the Engine 3.1
-    # wrapper renders its rain-timing facade, so that facade sees this run's data.
-    engine["precipitation_nowcast_verification"]=precip_nowcast.update(ledger,forecasts,observations,v2_engine.get("nowcast") or {})
+    engine.setdefault("architecture",{})["verification_truth_policy"]="official observations archived by actual valid timestamp; each variable matched independently to nearest target-time truth within 45 minutes"
+    engine["precipitation_nowcast_verification"]=precip_nowcast.update(ledger,forecasts,observations,nowcasts,truth_state)
     walk=walkforward.build(ledger);engine["walk_forward_verification"]=walk;engine["precipitation_walk_forward"]=precip_walkforward.build(ledger)
     apply_adaptive_verification(engine,verification,walk)
-    # RRFSv1 is deliberately downstream of the final production blend so its
-    # paired baseline is what the app would actually have issued.
-    engine["rrfsv1"]=rrfsv1.update(engine,forecasts,observations)
-    engine32.apply(engine,ledger,forecasts,regimes,verification)
-    apply_real_feel(engine,ledger,forecasts,regimes,verification);confidence.apply(engine,verification)
+    engine["rrfsv1"]=rrfsv1.update(engine,forecasts,observations);engine32.apply(engine,ledger,forecasts,regimes,verification);apply_real_feel(engine,ledger,forecasts,regimes,verification);confidence.apply(engine,verification)
     shadow_added=verify.add_current_forecasts(verification,engine);verify.save_state(verification)
-    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[]))};core.save(v3.ENGINE_V3,engine)
+    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[])),"target_truth_archive_updated_at":truth_state.get("updated_at")};core.save(v3.ENGINE_V3,engine)
     mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"))
     print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} engine32_ready={engine.get('engine32',{}).get('forecast_points_ready',0)} engine32_taxonomy={engine.get('engine32',{}).get('selected_taxonomy')} precip06_rows={engine.get('precipitation_nowcast_verification',{}).get('rows',0)} rrfs_rows={engine.get('rrfsv1',{}).get('archived_rows',0)} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
 
