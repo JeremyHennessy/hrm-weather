@@ -24,6 +24,7 @@ on:
       - 'uv-guidance.js'
       - 'weather-icons.js'
       - 'scripts/smoke-live.mjs'
+      - 'scripts/current-fallback-qa.mjs'
       - 'scripts/server-truth-qa.mjs'
       - 'scripts/hero-density-qa.mjs'
       - 'scripts/uws-location-qa.mjs'
@@ -66,6 +67,10 @@ jobs:
           WX_URL: http://127.0.0.1:4173/app.html
           WX_REQUIRE_FAST_CURRENT: '1'
         run: node scripts/smoke-live.mjs
+      - name: Verify official current fallback
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/current-fallback-qa.mjs
       - name: Verify server truth ownership
         env:
           WX_URL: http://127.0.0.1:4173/app.html
