@@ -66,6 +66,7 @@ def update(engine: dict[str, Any], forecasts: dict[str, Any], observations: dict
     _INDEX_CACHE.clear(); _MESSAGE_CACHE.clear(); _deadline = time.monotonic() + MAX_ISSUE_SECONDS
     try:
         out = _ORIG_UPDATE(engine, forecasts, observations)
+        out["availability_this_run"] = "available" if int(out.get("current_issue", {}).get("issued_this_run", 0)) > 0 else "no-rows-this-run"
         out["runtime_guard"] = {
             "max_issue_seconds": MAX_ISSUE_SECONDS,
             "index_cache_entries": len(_INDEX_CACHE),
@@ -79,7 +80,7 @@ def update(engine: dict[str, Any], forecasts: dict[str, Any], observations: dict
         # block production publication because an optional challenger failed.
         state = base._load()
         out = base.report(state, {"status": "runtime-error", "error": type(exc).__name__})
-        out["status"] = "prospective-shadow-unavailable-this-run"
+        out["availability_this_run"] = "runtime-error"
         out["runtime_guard"] = {
             "max_issue_seconds": MAX_ISSUE_SECONDS,
             "index_cache_entries": len(_INDEX_CACHE),
