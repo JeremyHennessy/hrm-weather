@@ -8,6 +8,8 @@ from eccc_observation_mesh_v2 import install as install_eccc_observation_mesh
 install_eccc_observation_mesh()
 from location_uws import install as install_uws
 install_uws()
+from uws_model_independence import install as install_uws_model_independence
+install_uws_model_independence()
 
 from solar_context_v2 import install as install_solar_context
 install_solar_context()
