@@ -24,6 +24,7 @@ on:
       - 'weather-icons.js'
       - 'scripts/smoke-live.mjs'
       - 'scripts/server-truth-qa.mjs'
+      - 'scripts/hero-density-qa.mjs'
       - 'scripts/layout-qa.mjs'
       - 'scripts/engine31_install.py'
       - '.github/workflows/pr-ui-smoke.yml'
@@ -67,6 +68,10 @@ jobs:
         env:
           WX_URL: http://127.0.0.1:4173/app.html
         run: node scripts/server-truth-qa.mjs
+      - name: Verify hero density contract
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/hero-density-qa.mjs
       - name: Check branch responsive UI
         env:
           WX_URL: http://127.0.0.1:4173/app.html
