@@ -10,6 +10,16 @@
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374108+00:00"
     },
+    "hrm:1:calibrated": {
+      "brier": 0.15734444444444445,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777748+00:00"
+    },
+    "hrm:1:raw": {
+      "brier": 0.17361111111111108,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777734+00:00"
+    },
     "lunenburg:0:calibrated": {
       "brier": 0.0625,
       "n": 1,
@@ -19,6 +29,16 @@
       "brier": 0.0625,
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374225+00:00"
+    },
+    "lunenburg:1:calibrated": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777861+00:00"
+    },
+    "lunenburg:1:raw": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777856+00:00"
     },
     "moncton:0:calibrated": {
       "brier": 0.0,
@@ -30,6 +50,16 @@
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374158+00:00"
     },
+    "moncton:1:calibrated": {
+      "brier": 0.07657680653876404,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777792+00:00"
+    },
+    "moncton:1:raw": {
+      "brier": 0.11111111111111113,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777786+00:00"
+    },
     "shediac:0:calibrated": {
       "brier": 0.0,
       "n": 1,
@@ -39,6 +69,16 @@
       "brier": 0.0,
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374193+00:00"
+    },
+    "shediac:1:calibrated": {
+      "brier": 0.03256636686390532,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777827+00:00"
+    },
+    "shediac:1:raw": {
+      "brier": 0.065025,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777823+00:00"
     },
     "uws:0:calibrated": {
       "brier": 0.0,
@@ -50,6 +90,16 @@
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374281+00:00"
     },
+    "uws:1:calibrated": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777942+00:00"
+    },
+    "uws:1:raw": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777937+00:00"
+    },
     "wolfville:0:calibrated": {
       "brier": 0.0,
       "n": 1,
@@ -59,6 +109,16 @@
       "brier": 0.0,
       "n": 1,
       "updated_at": "2026-08-10T15:06:31.374251+00:00"
+    },
+    "wolfville:1:calibrated": {
+      "brier": 0.01874792899408284,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777886+00:00"
+    },
+    "wolfville:1:raw": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T16:00:09.777881+00:00"
     }
   },
   "cycles": [],
@@ -71,12 +131,26 @@
       "rmse": 0.0999386023928138,
       "updated_at": "2026-08-10T15:06:31.374129+00:00"
     },
+    "hrm:1": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T16:00:09.777757+00:00"
+    },
     "moncton:0": {
       "bias": 0.0,
       "mae": 0.0,
       "n": 1,
       "rmse": 0.0,
       "updated_at": "2026-08-10T15:06:31.374170+00:00"
+    },
+    "moncton:1": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T16:00:09.777799+00:00"
     },
     "shediac:0": {
       "bias": 0.0,
@@ -85,12 +159,26 @@
       "rmse": 0.0,
       "updated_at": "2026-08-10T15:06:31.374202+00:00"
     },
+    "shediac:1": {
+      "bias": 0.004166666666666667,
+      "mae": 0.004166666666666667,
+      "n": 1,
+      "rmse": 0.004166666666666667,
+      "updated_at": "2026-08-10T16:00:09.777832+00:00"
+    },
     "wolfville:0": {
       "bias": 0.0,
       "mae": 0.0,
       "n": 1,
       "rmse": 0.0,
       "updated_at": "2026-08-10T15:06:31.374259+00:00"
+    },
+    "wolfville:1": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T16:00:09.777912+00:00"
     }
   },
   "rdpa6": {},
@@ -131,6 +219,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 39.666666666666664,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -153,8 +242,16 @@
       },
       "raw_probability": 41.666666666666664,
       "rdpa_6h_at_issue_mm": 0.0,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:56:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 23.695238095238096,
@@ -322,6 +419,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 27.67251461988304,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -344,8 +442,16 @@
       },
       "raw_probability": 33.333333333333336,
       "rdpa_6h_at_issue_mm": 1.7824,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 27.67251461988304,
@@ -513,6 +619,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 18.046153846153846,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -535,8 +642,16 @@
       },
       "raw_probability": 25.5,
       "rdpa_6h_at_issue_mm": 8.5878496,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 18.646153846153847,
@@ -704,6 +819,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": null,
       "calibrated_probability": 25.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -726,8 +842,16 @@
       },
       "raw_probability": 25.0,
       "rdpa_6h_at_issue_mm": 0.00094999996,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": null,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 25.75,
@@ -895,6 +1019,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 13.692307692307693,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -917,8 +1042,16 @@
       },
       "raw_probability": 25.0,
       "rdpa_6h_at_issue_mm": 0.021949999,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:57:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 13.692307692307693,
@@ -1086,6 +1219,7 @@
       "wet": false
     },
     {
+      "actual_precipitation_mm": null,
       "calibrated_probability": 25.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -1108,8 +1242,16 @@
       },
       "raw_probability": 25.0,
       "rdpa_6h_at_issue_mm": 0.0018999999,
-      "scored": false,
-      "target": "2026-08-10T16:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T16:00:09.777704+00:00",
+      "target": "2026-08-10T16:00:00+00:00",
+      "truth": {
+        "gauge_mm": null,
+        "observation_provider": "NWS",
+        "observation_time": "2026-08-10T15:35:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 75.0,
@@ -1240,8 +1382,1100 @@
       "rdpa_6h_at_issue_mm": 0.0018999999,
       "scored": false,
       "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 18.2,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.033124,
+        "raw_brier": 0.0625,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 18.2,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 18.2,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.15734444444444445,
+        "raw_brier": 0.17361111111111108,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 18.2,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 18.2,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 18.2,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 22.700000000000003,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 22.700000000000003,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.5,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 23.06666666666667,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 23.06666666666667,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.0,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.25000000000000006,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.25000000000000006,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 1.6666666666666667,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 25.581818181818186,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 25.581818181818186,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "hrm",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:16.851677+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.0,
+      "rdpa_6h_at_issue_mm": 0.0,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.0,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0,
+        "raw_brier": 0.0,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.0,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 0.0,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.0,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.07657680653876404,
+        "raw_brier": 0.11111111111111113,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.0,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 0.0,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 7.527777777777779,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 7.527777777777779,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 21.131666666666668,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 21.131666666666668,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.75,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 21.45666666666667,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0125,
+      "gated_probability": 21.45666666666667,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.5,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.37500000000000006,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.37500000000000006,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 2.5,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.3375,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.3375,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "moncton",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:18.207061+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 2.25,
+      "rdpa_6h_at_issue_mm": 1.7824,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 84.11764705882354,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0,
+        "raw_brier": 0.0,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.004166666666666667,
+      "gated_probability": 84.11764705882354,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 1.0,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 0.48750000000000004,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.03256636686390532,
+        "raw_brier": 0.065025,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 0.48750000000000004,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 3.25,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 20.246153846153845,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 20.246153846153845,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 31.0,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 23.4375,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.00625,
+      "gated_probability": 23.4375,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 36.25,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 24.4125,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.02291666666666667,
+      "gated_probability": 24.4125,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 42.75,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 17.698529411764703,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.010416666666666668,
+      "gated_probability": 17.698529411764703,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 21.25,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 15.598529411764705,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 15.598529411764705,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "shediac",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:20.286814+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 18.25,
+      "rdpa_6h_at_issue_mm": 8.5878496,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 25.0,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0625,
+        "raw_brier": 0.0625,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 25.0,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 25.75,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0625,
+        "raw_brier": 0.0625,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 25.75,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.75,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 26.25,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 26.25,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.25,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 27.25,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 27.25,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 27.25,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 28.25,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 28.25,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 28.25,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 28.5,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 28.5,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 28.5,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 27.75,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 27.75,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "lunenburg",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:21.686377+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 27.75,
+      "rdpa_6h_at_issue_mm": 0.00094999996,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 3.138888888888889,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0,
+        "raw_brier": 0.0,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 3.138888888888889,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 8.333333333333332,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 13.692307692307693,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.01874792899408284,
+        "raw_brier": 0.0625,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 13.692307692307693,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 13.692307692307693,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 13.692307692307693,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 21.44444444444445,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 21.44444444444445,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.5,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 21.77777777777778,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 21.77777777777778,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.0,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 24.951923076923077,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 24.951923076923077,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.25,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 24.743589743589745,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 24.743589743589745,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "wolfville",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:44.283154+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 26.0,
+      "rdpa_6h_at_issue_mm": 0.021949999,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 25.0,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0,
+        "raw_brier": 0.0,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 25.0,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 0,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 25.0,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T16:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 1.5,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": 0.0625,
+        "raw_brier": 0.0625,
+        "samples": 1,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 1.5,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 1,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 1.5,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T17:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 3.75,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.0,
+      "gated_probability": 3.75,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 2,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 3.75,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T18:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 8.75,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.06875,
+      "gated_probability": 8.75,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 3,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 8.75,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T19:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 41.5,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.06875,
+      "gated_probability": 41.5,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 4,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 41.5,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T20:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 28.0,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.06875,
+      "gated_probability": 28.0,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 5,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 28.0,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T21:00:00+00:00"
+    },
+    {
+      "calibrated_probability": 32.166666666666664,
+      "calibration_gate_at_issue": {
+        "calibrated_brier": null,
+        "raw_brier": null,
+        "samples": 0,
+        "status": "learning",
+        "use": "calibrated"
+      },
+      "forecast_intensity_mm_h": 0.05625,
+      "gated_probability": 32.166666666666664,
+      "issued": "2026-08-10T16:00:00+00:00",
+      "lead": 6,
+      "loc": "uws",
+      "radar_extrapolation_context": {
+        "available": true,
+        "checked_at": "2026-08-10T15:57:51.302548+00:00",
+        "layer": "Radar_1km_RainPrecipRate-Extrapolation",
+        "rain_rate_mm_h": 0.041748047,
+        "role": "issue-time-near-term-context-not-6h-extrapolation"
+      },
+      "raw_probability": 32.166666666666664,
+      "rdpa_6h_at_issue_mm": 0.0018999999,
+      "scored": false,
+      "target": "2026-08-10T22:00:00+00:00"
     }
   ],
-  "updated_at": "2026-08-10T15:32:01.092607+00:00",
+  "updated_at": "2026-08-10T16:00:10.032725+00:00",
   "version": "2.0"
 }
