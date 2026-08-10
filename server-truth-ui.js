@@ -10,8 +10,13 @@
     uws:[['UWS South',40.7745,-73.9840],['UWS Central',40.7870,-73.9754],['UWS North',40.7950,-73.9705]]
   };
   const TZ={uws:'America/New_York'};
-  const finite=v=>Number.isFinite(Number(v));
+  const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const num=v=>finite(v)?Number(v):null;
+  const us=()=>document.documentElement.dataset.wxUnits==='us';
+  const absTemp=v=>us()?Number(v)*9/5+32:Number(v);
+  const deltaTemp=v=>us()?Number(v)*9/5:Number(v);
+  const fmtAbs=(v,d=1)=>finite(v)?`${absTemp(v).toFixed(d)}°${us()?'F':''}`:'--';
+  const fmtDelta=(v,d=1)=>finite(v)?`${deltaTemp(v).toFixed(d)}°${us()?'F':''}`:'--';
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   const timezone=key=>TZ[key]||'America/Halifax';
   const text=(el,v)=>{if(el&&v!=null&&el.textContent!==String(v))el.textContent=String(v)};
@@ -44,7 +49,7 @@
     const obs=observation();if(!obs||Number(obs.station_count||0)<1)return false;
     const temp=num(obs?.values?.temperature_2m??obs.temp),count=Number(obs.station_count||0),src=officialSource(),station=obs.station||obs.stations?.map(x=>x.station).filter(Boolean).slice(0,3).join(' / ')||(src==='NWS'?'KNYC':'ECCC SWOB');
     const t=document.getElementById('officialTemp'),s=document.getElementById('officialStation'),line=document.getElementById('obsline');
-    if(t&&finite(temp)){text(t,`${fmt(temp,1)}°`);t.dataset.owner='engine3-server-truth'}
+    if(t&&finite(temp)){text(t,fmtAbs(temp,1));t.dataset.owner='engine3-server-truth';if(us())t.dataset.wxMetricTemp=String(temp)}
     if(s){text(s,`${officialDescriptor()} · ${count} station${count===1?'':'s'} · ${station}`);s.dataset.owner='engine3-server-truth'}
     if(line&&/unavailable|checking official|observation correction updating|corrected with/i.test(line.textContent||'')){text(line,`Server ${src} observation mesh · ${count} station${count===1?'':'s'} · current Real Feel remains live-input based`);line.dataset.owner='engine3-server-truth'}
     const officialSection=[...document.querySelectorAll('.section')].find(x=>x.querySelector('h2')?.textContent==='Official data'),tag=officialSection?.querySelector('.head span');if(tag)text(tag,src==='NWS'?'National Weather Service':'Environment Canada');
@@ -53,7 +58,7 @@
   function bestTemperatureModels(){return TRUTH?.best_models?.[locKey()]?.temperature_2m||[]}
   function paintScorecard(){
     const el=document.getElementById('scoreRows');if(!el)return false;const rows=bestTemperatureModels();
-    if(rows.length){const html=rows.slice(0,8).map((x,i)=>`<div class="scoreRow"><b>${i+1}. ${x.label||x.model}</b><span>${fmt(x.mae,2)}° MAE · bias ${Number(x.bias||0)>=0?'+':''}${fmt(x.bias||0,2)}° · n=${Number(x.n||0)}</span></div>`).join('');if(el.innerHTML!==html)el.innerHTML=html;el.dataset.owner='engine3-server-truth'}
+    if(rows.length){const html=rows.slice(0,8).map((x,i)=>`<div class="scoreRow"><b>${i+1}. ${x.label||x.model}</b><span>${fmtDelta(x.mae,2)} MAE · bias ${Number(x.bias||0)>=0?'+':''}${fmtDelta(x.bias||0,2)} · n=${Number(x.n||0)}</span></div>`).join('');if(el.innerHTML!==html)el.innerHTML=html;el.dataset.owner='engine3-server-truth'}
     const rain=document.getElementById('rainCal'),r=V3?.consensus?.[locKey()]?.hours?.['6']?.adaptive_skill?.precipitation_calibration;
     if(rain&&r){const suffix=finite(r.calibrated_brier)&&finite(r.raw_brier)?` · Brier ${fmt(r.raw_brier,3)} → ${fmt(r.calibrated_brier,3)}`:'';text(rain,`Server precipitation calibration: ${r.status||'learning'} · n=${Number(r.samples||0)}${suffix}`);rain.dataset.owner='engine3-server-truth'}
     return rows.length>0;
@@ -61,14 +66,14 @@
   function paintAccuracy(){
     if(!V3)return false;const verified=Number(V3.collector?.verified_ledger_rows||0),best=bestTemperatureModels()[0],ctx=leadContext('1'),unc=num(ctx?.uncertainty??V3.consensus?.[locKey()]?.hours?.['1']?.v2_uncertainty);
     const vc=document.getElementById('verifiedCount'),bs=document.getElementById('bestSkill'),ue=document.getElementById('uncertainty'),note=document.getElementById('skillNote');
-    if(vc){text(vc,String(verified));vc.dataset.owner='engine3-server-truth'}if(bs&&best){text(bs,best.label||best.model);bs.dataset.owner='engine3-server-truth'}if(ue&&finite(unc)){text(ue,`±${fmt(unc,1)}°`);ue.dataset.owner='engine3-server-truth'}
-    if(note){const spread=num(ctx?.learned_spread),ind=Number(ctx?.effective_independent_sources||0),msg=best?`${best.label||best.model} leads the server temperature scorecard at ${fmt(best.mae,2)}° MAE from ${Number(best.n||0)} verified cases.${finite(spread)?` Current family spread ${fmt(spread,2)}°.`:''}${ind?` ${ind} independent model families contributing.`:''}`:`Server verification has ${verified} scored ledger rows.`;text(note,msg);note.dataset.owner='engine3-server-truth'}
+    if(vc){text(vc,String(verified));vc.dataset.owner='engine3-server-truth'}if(bs&&best){text(bs,best.label||best.model);bs.dataset.owner='engine3-server-truth'}if(ue&&finite(unc)){text(ue,`±${fmtDelta(unc,1)}`);ue.dataset.owner='engine3-server-truth'}
+    if(note){const spread=num(ctx?.learned_spread),ind=Number(ctx?.effective_independent_sources||0),msg=best?`${best.label||best.model} leads the server temperature scorecard at ${fmtDelta(best.mae,2)} MAE from ${Number(best.n||0)} verified cases.${finite(spread)?` Current family spread ${fmtDelta(spread,2)}.`:''}${ind?` ${ind} independent model families contributing.`:''}`:`Server verification has ${verified} scored ledger rows.`;text(note,msg);note.dataset.owner='engine3-server-truth'}
     const mc=document.getElementById('modelCount'),feeds=Number(V3.collector?.deterministic_forecasts||0);if(mc&&feeds){text(mc,`${feeds} forecast feeds · Engine 3 server consensus`);mc.dataset.owner='engine3-server-truth'}return true;
   }
   function paintCoverage(){
     const chips=document.getElementById('chips'),h=sourceHealth(),ctx=leadContext('1'),obs=observation();if(!chips||!h)return false;
     const spread=num(ctx?.learned_spread),dm=Number(h.deterministic_models||0),de=Number(h.deterministic_expected||13),ind=Number(ctx?.effective_independent_sources||0),stations=Number(obs?.station_count||h.observation_stations||0),src=officialSource();
-    const vals=[finite(spread)?`model spread ${fmt(spread,1)}° · server`:'model spread learning',`${dm}/${de} models`,ind?`${ind} independent families`:'family coverage learning',stations?`${src} ${stations} stations`:`${src} observation unavailable`];const html=vals.map(v=>`<span class="chip">${v}</span>`).join('');if(chips.innerHTML!==html)chips.innerHTML=html;chips.dataset.owner='engine3-server-truth';return true;
+    const vals=[finite(spread)?`model spread ${fmtDelta(spread,1)} · server`:'model spread learning',`${dm}/${de} models`,ind?`${ind} independent families`:'family coverage learning',stations?`${src} ${stations} stations`:`${src} observation unavailable`];const html=vals.map(v=>`<span class="chip">${v}</span>`).join('');if(chips.innerHTML!==html)chips.innerHTML=html;chips.dataset.owner='engine3-server-truth';return true;
   }
   function paintRealFeelValidation(){const replay=V3?.real_feel_formula_replay,box=document.getElementById('v3RealFeel');if(!box||!replay)return false;const n=Number(replay.scored_rows||V3?.real_feel?.replay_scored_rows||0);text(box,n?`${n} replay rows`:'learning');box.dataset.owner='engine3-independent-replay';const span=box.parentElement?.querySelector('span');if(span)text(span,'independent formula replay');return true}
 
@@ -80,7 +85,7 @@
   async function ensurePointTruth(){const key=locKey(),fast=fastPointValues();if(fast){pointTruth=fast;pointTruthLoc=key;return fast}if(pointTruthLoc===key&&pointTruth?.length)return pointTruth;if(pointJob)return pointJob;pointJob=queryPointTruth(key).then(rows=>{if(locKey()===key){pointTruth=rows;pointTruthLoc=key;paintZones()}return rows}).catch(()=>[]).finally(()=>{pointJob=null});return pointJob}
   function paintZones(){
     const key=locKey(),values=fastPointValues()||(pointTruthLoc===key?pointTruth:null);if(!values?.length)return false;let changed=false;
-    for(const card of document.querySelectorAll('#zones .card')){const name=card.querySelector('small')?.textContent?.trim(),p=values.find(x=>x.name===name);if(!p)continue;const rf=card.querySelector('.zt'),sub=card.querySelector('.sub');if(rf&&finite(p.feel)){text(rf,`${fmt(p.feel,1)}°`);rf.dataset.owner='live-current-point-truth'}if(sub&&finite(p.air)){const current=sub.textContent||'',replacement=`Actual ${fmt(p.air,1)}°`,next=/actual\s*-?\d+(?:\.\d+)?°/i.test(current)?current.replace(/actual\s*-?\d+(?:\.\d+)?°/i,replacement):`${replacement}${current?` · ${current}`:''}`;text(sub,next);sub.dataset.owner='live-current-point-truth'}card.dataset.currentTruth='provider-apparent-current';changed=true}return changed;
+    for(const card of document.querySelectorAll('#zones .card')){const name=card.querySelector('small')?.textContent?.trim(),p=values.find(x=>x.name===name);if(!p)continue;const rf=card.querySelector('.zt'),sub=card.querySelector('.sub');if(rf&&finite(p.feel)){text(rf,fmtAbs(p.feel,1));rf.dataset.owner='live-current-point-truth';if(us())rf.dataset.wxMetricTemp=String(p.feel)}if(sub&&finite(p.air)){const current=sub.textContent||'',replacement=`Actual ${fmtAbs(p.air,1)}`,next=/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i.test(current)?current.replace(/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i,replacement):`${replacement}${current?` · ${current}`:''}`;text(sub,next);sub.dataset.owner='live-current-point-truth'}card.dataset.currentTruth='provider-apparent-current';changed=true}return changed;
   }
   function installOwnership(){try{window.wxHealth=paintHealth;window.wxScorecard=paintScorecard}catch{}}
   function paintAll(){if(!TRUTH||!V3)return false;paintHealth();paintOfficial();paintAccuracy();paintScorecard();paintCoverage();paintRealFeelValidation();paintZones();ensurePointTruth();document.documentElement.dataset.wxServerTruth=serverFresh()?'fresh':'loaded';return true}
