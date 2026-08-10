@@ -153,16 +153,16 @@
         "status": "not-configured"
       },
       "nbm": {
-        "apparent_temperature": 35.4,
-        "cloud_cover": 18.0,
+        "apparent_temperature": 35.1,
+        "cloud_cover": 20.0,
         "configured": true,
         "precipitation": 0.0,
         "provider": "NOAA NBM via Open-Meteo",
         "role": "challenger-only",
         "status": "ok",
-        "temperature": 32.2,
-        "wind_gust": 25.2,
-        "wind_speed": 9.0
+        "temperature": 32.1,
+        "wind_gust": 25.6,
+        "wind_speed": 9.4
       },
       "pirate_weather": {
         "configured": false,
@@ -723,63 +723,61 @@
     "moncton": {
       "precipitation": [
         {
-          "bias": -0.9386666666666668,
-          "brier": 0.24447733333333332,
-          "brier_n": 75,
+          "bias": -0.8481927710843374,
+          "brier": 0.2932180722891566,
+          "brier_n": 83,
           "label": "GFS",
-          "mae": 1.1413333333333326,
+          "mae": 1.0313253012048191,
           "model": "gfs_seamless",
-          "mse": 20.7512,
-          "n": 75,
-          "rmse": 4.5553485047798485,
+          "mse": 18.7510843373494,
+          "n": 83,
+          "rmse": 4.3302522256041165,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.457571+00:00"
+          "updated": "2026-08-10T19:31:59.815032+00:00"
         },
         {
-          "bias": -0.8186666666666663,
+          "bias": -0.7397590361445783,
           "label": "JMA",
-          "mae": 1.2106666666666663,
+          "mae": 1.0939759036144574,
           "model": "jma_seamless",
-          "mse": 19.397333333333332,
-          "n": 75,
-          "rmse": 4.404240380966204,
+          "mse": 17.52771084337349,
+          "n": 83,
+          "rmse": 4.186610901836173,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.458126+00:00"
+          "updated": "2026-08-10T19:31:59.815315+00:00"
         },
         {
-          "bias": -0.803999999999999,
+          "bias": -0.7253012048192762,
           "label": "ECMWF AIFS Single",
-          "mae": 1.2253333333333334,
+          "mae": 1.1084337349397593,
           "model": "ecmwf_aifs025_single",
-          "mse": 19.401733333333336,
-          "n": 75,
-          "rmse": 4.404739871244764,
+          "mse": 17.531807228915657,
+          "n": 83,
+          "rmse": 4.187100097790314,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.457445+00:00"
+          "updated": "2026-08-10T19:31:59.814987+00:00"
         },
         {
-          "bias": -0.6626666666666668,
-          "brier": 0.2979639999999998,
-          "brier_n": 75,
-          "label": "ECMWF IFS",
-          "mae": 1.2306666666666672,
-          "model": "ecmwf_ifs025",
-          "mse": 17.223866666666677,
-          "n": 75,
-          "rmse": 4.150164655368107,
+          "bias": -0.3512500000000001,
+          "label": "HRDPS",
+          "mae": 1.1112500000000003,
+          "model": "gem_hrdps_continental",
+          "mse": 19.741625000000003,
+          "n": 80,
+          "rmse": 4.443154847627978,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.457304+00:00"
+          "updated": "2026-08-10T19:31:59.814715+00:00"
         },
         {
-          "bias": -0.7120000000000004,
+          "bias": -0.6433734939759038,
           "label": "M\u00e9t\u00e9o-France",
-          "mae": 1.2320000000000002,
+          "mae": 1.1132530120481932,
           "model": "meteofrance_seamless",
-          "mse": 18.879466666666666,
-          "n": 75,
-          "rmse": 4.3450508244054715,
+          "mse": 17.059759036144584,
+          "n": 83,
+          "rmse": 4.130346115780684,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.457989+00:00"
+          "updated": "2026-08-10T19:31:59.815244+00:00"
         }
       ],
       "relative_humidity_2m": [
@@ -898,59 +896,59 @@
       ],
       "wind_gusts_10m": [
         {
-          "bias": -5.17,
+          "bias": -4.041666666666667,
           "label": "GRAPES",
-          "mae": 6.01,
+          "mae": 5.3666666666666645,
           "model": "cma_grapes_global",
-          "mse": 49.272999999999996,
-          "n": 20,
-          "rmse": 7.019472914685261,
+          "mse": 41.8925,
+          "n": 24,
+          "rmse": 6.472441579496874,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.139899+00:00"
+          "updated": "2026-08-10T19:31:59.815379+00:00"
         },
         {
-          "bias": -7.626315789473683,
+          "bias": -6.3478260869565215,
           "label": "ICON",
-          "mae": 7.7105263157894735,
+          "mae": 6.478260869565218,
           "model": "icon_seamless",
-          "mse": 105.39526315789473,
-          "n": 19,
-          "rmse": 10.266219516350443,
+          "mse": 87.22782608695651,
+          "n": 23,
+          "rmse": 9.339583828359618,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.139307+00:00"
+          "updated": "2026-08-10T19:31:59.815120+00:00"
         },
         {
-          "bias": -7.769999999999996,
+          "bias": -7.087499999999996,
           "label": "ECMWF IFS",
-          "mae": 7.769999999999996,
+          "mae": 7.087499999999996,
           "model": "ecmwf_ifs025",
-          "mse": 69.84299999999999,
-          "n": 20,
-          "rmse": 8.357212453922658,
+          "mse": 61.14374999999999,
+          "n": 24,
+          "rmse": 7.819446911387019,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.138861+00:00"
+          "updated": "2026-08-10T19:31:59.814934+00:00"
         },
         {
-          "bias": -10.709999999999997,
+          "bias": -9.716666666666663,
           "label": "UKMO",
-          "mae": 10.709999999999997,
+          "mae": 9.716666666666663,
           "model": "ukmo_seamless",
-          "mse": 161.973,
-          "n": 20,
-          "rmse": 12.72686135698822,
+          "mse": 138.76916666666662,
+          "n": 24,
+          "rmse": 11.780032540985047,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.139463+00:00"
+          "updated": "2026-08-10T19:31:59.815191+00:00"
         },
         {
-          "bias": -11.884999999999998,
+          "bias": -11.404166666666669,
           "label": "M\u00e9t\u00e9o-France",
-          "mae": 11.884999999999998,
+          "mae": 11.404166666666669,
           "model": "meteofrance_seamless",
-          "mse": 148.77749999999997,
-          "n": 20,
-          "rmse": 12.197438255633843,
+          "mse": 137.5220833333333,
+          "n": 24,
+          "rmse": 11.726980998250713,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.139618+00:00"
+          "updated": "2026-08-10T19:31:59.815262+00:00"
         }
       ],
       "wind_speed_10m": [
@@ -1014,61 +1012,61 @@
     "shediac": {
       "precipitation": [
         {
-          "bias": -0.5430555555555555,
-          "brier": 0.3480083333333334,
-          "brier_n": 72,
+          "bias": -0.48374999999999985,
+          "brier": 0.3170750000000001,
+          "brier_n": 80,
           "label": "ECMWF IFS",
-          "mae": 0.9708333333333338,
+          "mae": 0.8787500000000001,
           "model": "ecmwf_ifs025",
-          "mse": 13.958194444444446,
-          "n": 72,
-          "rmse": 3.736066707708047,
+          "mse": 12.562875000000002,
+          "n": 80,
+          "rmse": 3.544414620215869,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.458812+00:00"
+          "updated": "2026-08-10T19:31:59.815652+00:00"
         },
         {
-          "bias": -0.627777777777778,
+          "bias": -0.5650000000000003,
           "label": "GRAPES",
-          "mae": 0.9944444444444444,
+          "mae": 0.8949999999999999,
           "model": "cma_grapes_global",
-          "mse": 15.911388888888894,
-          "n": 72,
-          "rmse": 3.9889082326983774,
+          "mse": 14.320250000000005,
+          "n": 80,
+          "rmse": 3.784210617817143,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.459794+00:00"
+          "updated": "2026-08-10T19:31:59.816100+00:00"
         },
         {
-          "bias": -0.5652777777777778,
+          "bias": -0.5087499999999998,
           "label": "ECMWF AIFS Single",
-          "mae": 1.0180555555555557,
+          "mae": 0.9162500000000001,
           "model": "ecmwf_aifs025_single",
-          "mse": 15.141805555555546,
-          "n": 72,
-          "rmse": 3.891247300745038,
+          "mse": 13.627624999999991,
+          "n": 80,
+          "rmse": 3.6915613228009625,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.458953+00:00"
+          "updated": "2026-08-10T19:31:59.815723+00:00"
         },
         {
-          "bias": -0.5444444444444441,
+          "bias": -0.48999999999999977,
           "label": "JMA",
-          "mae": 1.0333333333333314,
+          "mae": 0.9299999999999983,
           "model": "jma_seamless",
-          "mse": 15.084166666666643,
-          "n": 72,
-          "rmse": 3.8838340163640677,
+          "mse": 13.57574999999998,
+          "n": 80,
+          "rmse": 3.684528463725037,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.459666+00:00"
+          "updated": "2026-08-10T19:31:59.816054+00:00"
         },
         {
-          "bias": -0.5500000000000002,
+          "bias": -0.49499999999999994,
           "label": "M\u00e9t\u00e9o-France",
-          "mae": 1.0750000000000002,
+          "mae": 0.9674999999999997,
           "model": "meteofrance_seamless",
-          "mse": 16.701666666666668,
-          "n": 72,
-          "rmse": 4.086767263579695,
+          "mse": 15.0315,
+          "n": 80,
+          "rmse": 3.8770478459776583,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T17:08:57.459525+00:00"
+          "updated": "2026-08-10T19:31:59.815985+00:00"
         }
       ],
       "relative_humidity_2m": [
@@ -1187,59 +1185,59 @@
       ],
       "wind_gusts_10m": [
         {
-          "bias": -3.34736842105263,
+          "bias": -2.4869565217391294,
           "label": "GRAPES",
-          "mae": 4.210526315789475,
+          "mae": 3.852173913043479,
           "model": "cma_grapes_global",
-          "mse": 21.86736842105261,
-          "n": 19,
-          "rmse": 4.676255812191267,
+          "mse": 18.932173913043457,
+          "n": 23,
+          "rmse": 4.3511118019471136,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.141539+00:00"
+          "updated": "2026-08-10T19:31:59.816117+00:00"
         },
         {
-          "bias": -12.526315789473685,
-          "label": "ECMWF IFS",
-          "mae": 12.526315789473685,
-          "model": "ecmwf_ifs025",
-          "mse": 163.04631578947362,
-          "n": 19,
-          "rmse": 12.76895907227655,
-          "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.140510+00:00"
-        },
-        {
-          "bias": -12.529999999999998,
+          "bias": -11.96086956521739,
           "label": "ICON",
-          "mae": 12.529999999999998,
+          "mae": 11.96086956521739,
           "model": "icon_seamless",
-          "mse": 168.77800000000002,
-          "n": 20,
-          "rmse": 12.991458732567333,
+          "mse": 158.59782608695656,
+          "n": 23,
+          "rmse": 12.593562882955585,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.140940+00:00"
+          "updated": "2026-08-10T19:31:59.815860+00:00"
         },
         {
-          "bias": -12.894736842105265,
-          "label": "UKMO",
-          "mae": 12.894736842105265,
-          "model": "ukmo_seamless",
-          "mse": 187.71368421052625,
-          "n": 19,
-          "rmse": 13.700864359978397,
+          "bias": -12.049999999999995,
+          "label": "HRDPS",
+          "mae": 12.274999999999999,
+          "model": "gem_hrdps_continental",
+          "mse": 224.92916666666665,
+          "n": 24,
+          "rmse": 14.997638703031443,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.141094+00:00"
+          "updated": "2026-08-10T19:31:59.815465+00:00"
         },
         {
-          "bias": -13.02631578947368,
-          "label": "GFS",
-          "mae": 13.02631578947368,
-          "model": "gfs_seamless",
-          "mse": 194.6826315789473,
-          "n": 19,
-          "rmse": 13.952871804003193,
+          "bias": -12.049999999999995,
+          "label": "GEM Seamless",
+          "mae": 12.274999999999999,
+          "model": "gem_seamless",
+          "mse": 224.92916666666665,
+          "n": 24,
+          "rmse": 14.997638703031443,
           "source": "github-actions-eccc-v2",
-          "updated": "2026-08-10T18:03:17.140782+00:00"
+          "updated": "2026-08-10T19:31:59.815597+00:00"
+        },
+        {
+          "bias": -12.347826086956522,
+          "label": "ECMWF IFS",
+          "mae": 12.347826086956522,
+          "model": "ecmwf_ifs025",
+          "mse": 157.69043478260866,
+          "n": 23,
+          "rmse": 12.557485209332667,
+          "source": "github-actions-eccc-v2",
+          "updated": "2026-08-10T19:31:59.815670+00:00"
         }
       ],
       "wind_speed_10m": [
@@ -1823,10 +1821,10 @@
     }
   },
   "collector": {
-    "history_rows": 50839,
-    "ledger_rows": 66323,
-    "scored_this_run": 1173,
-    "targets_added": 2723,
+    "history_rows": 50874,
+    "ledger_rows": 66379,
+    "scored_this_run": 326,
+    "targets_added": 56,
     "workers": 16
   },
   "consensus": {
@@ -1834,17 +1832,17 @@
       "hours": {
         "1": {
           "components": {
-            "learned": 26.942700990820608,
-            "nowcast": 27.43498087434843,
+            "learned": 26.924063430504248,
+            "nowcast": 27.441407543111804,
             "raw_ensemble": 26.5
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 2.857738033247041,
-          "learned_spread": 1.637078879690445,
+          "learned_spread": 1.6030090077647645,
           "target": "2026-08-10T20:00:00+00:00",
-          "temperature_2m": 27.314389848101836,
-          "uncertainty": 3.4377793090971407,
+          "temperature_2m": 27.31673554906508,
+          "uncertainty": 3.421686309219895,
           "weights": {
             "learned": 0.15,
             "nowcast": 0.8,
@@ -1853,17 +1851,17 @@
         },
         "12": {
           "components": {
-            "learned": 17.58323037573052,
-            "nowcast": 17.58323037573052,
+            "learned": 17.575813058086016,
+            "nowcast": 17.575813058086016,
             "raw_ensemble": 18.666666666666668
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.7363574011458177,
-          "learned_spread": 1.0633110491230788,
+          "learned_spread": 1.0615197529477503,
           "target": "2026-08-11T07:00:00+00:00",
-          "temperature_2m": 17.854089448464556,
-          "uncertainty": 1.6525168056884976,
+          "temperature_2m": 17.84852646023118,
+          "uncertainty": 1.6513647664262265,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -1872,17 +1870,17 @@
         },
         "24": {
           "components": {
-            "learned": 22.957794233190636,
-            "nowcast": 22.957794233190636,
+            "learned": 22.899741072063314,
+            "nowcast": 22.899741072063314,
             "raw_ensemble": 22.26666666666667
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 2.293953404544701,
-          "learned_spread": 0.7799440707226456,
+          "learned_spread": 0.8383122572695421,
           "target": "2026-08-11T19:00:00+00:00",
-          "temperature_2m": 22.785012341559643,
-          "uncertainty": 2.5797334691002485,
+          "temperature_2m": 22.741472470714154,
+          "uncertainty": 2.5979760312267985,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -1891,17 +1889,17 @@
         },
         "3": {
           "components": {
-            "learned": 25.363257516047966,
-            "nowcast": 25.9222116792504,
+            "learned": 25.333832749360706,
+            "nowcast": 25.90383845718244,
             "raw_ensemble": 24.433333333333334
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 1.9482185594936619,
-          "learned_spread": 1.5466373491770256,
+          "learned_spread": 1.4973869569587082,
           "target": "2026-08-10T22:00:00+00:00",
-          "temperature_2m": 25.633585303858084,
-          "uncertainty": 2.6373002096825813,
+          "temperature_2m": 25.614286517842096,
+          "uncertainty": 2.6087224852391855,
           "weights": {
             "learned": 0.25,
             "nowcast": 0.65,
@@ -1910,17 +1908,17 @@
         },
         "48": {
           "components": {
-            "learned": 24.777951742718898,
-            "nowcast": 24.777951742718898,
+            "learned": 24.74245144918503,
+            "nowcast": 24.74245144918503,
             "raw_ensemble": 24.833333333333332
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 2.5037749277618557,
-          "learned_spread": 0.7969809819077793,
+          "learned_spread": 0.7664227088452331,
           "target": "2026-08-12T19:00:00+00:00",
-          "temperature_2m": 24.800104378964672,
-          "uncertainty": 2.854067313059171,
+          "temperature_2m": 24.77880420284435,
+          "uncertainty": 2.8456853850318335,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -1929,17 +1927,17 @@
         },
         "6": {
           "components": {
-            "learned": 20.984625991580202,
-            "nowcast": 20.984625991580202,
+            "learned": 20.8727157337431,
+            "nowcast": 20.8727157337431,
             "raw_ensemble": 20.7
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.6480740698407864,
-          "learned_spread": 1.2061831359653947,
+          "learned_spread": 1.0429952104251297,
           "target": "2026-08-11T01:00:00+00:00",
-          "temperature_2m": 20.94193209284317,
-          "uncertainty": 1.6955464480477427,
+          "temperature_2m": 20.846808373681633,
+          "uncertainty": 1.5836158021975417,
           "weights": {
             "learned": 0.5,
             "nowcast": 0.35,
@@ -1948,17 +1946,17 @@
         },
         "72": {
           "components": {
-            "learned": 23.759414083026655,
-            "nowcast": 23.759414083026655,
+            "learned": 23.76222414306631,
+            "nowcast": 23.76222414306631,
             "raw_ensemble": 23.850000000000005
           },
           "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 2.3540744819709225,
-          "learned_spread": 1.3581224592115972,
+          "learned_spread": 1.3646394868882652,
           "target": "2026-08-13T19:00:00+00:00",
-          "temperature_2m": 23.795648449815996,
-          "uncertainty": 3.120460605742802,
+          "temperature_2m": 23.797334485839787,
+          "uncertainty": 3.1233025320888217,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -1970,9 +1968,9 @@
         "name": "marine_mixed",
         "precipitation": 0.0,
         "pressure_tendency_3h": -0.8000000000000682,
-        "relative_humidity": 55.63142425089057,
+        "relative_humidity": 55.57264969535443,
         "wind_direction": 238.0,
-        "wind_speed": 13.655475802438488
+        "wind_speed": 13.795581894399891
       },
       "source_independence": {}
     },
@@ -1980,17 +1978,17 @@
       "hours": {
         "1": {
           "components": {
-            "learned": 27.029266035807716,
-            "nowcast": 27.307316508951928,
+            "learned": 27.073923088542152,
+            "nowcast": 27.318480772135537,
             "raw_ensemble": 27.900000000000002
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 0.9797958971132721,
-          "learned_spread": 1.1685671664871105,
+          "learned_spread": 1.2428490109786263,
           "target": "2026-08-10T20:00:00+00:00",
-          "temperature_2m": 27.2952431125327,
-          "uncertainty": 1.8314815676920688,
+          "temperature_2m": 27.310873080989754,
+          "uncertainty": 1.8797471038133384,
           "weights": {
             "learned": 0.15,
             "nowcast": 0.8,
@@ -1999,17 +1997,17 @@
         },
         "12": {
           "components": {
-            "learned": 16.51044592340515,
-            "nowcast": 16.51044592340515,
+            "learned": 16.496900604192355,
+            "nowcast": 16.496900604192355,
             "raw_ensemble": 18.333333333333332
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 1.132352516764202,
-          "learned_spread": 1.8051785812199868,
+          "learned_spread": 1.9294367439784428,
           "target": "2026-08-11T07:00:00+00:00",
-          "temperature_2m": 16.966167775887197,
-          "uncertainty": 2.459731629145681,
+          "temperature_2m": 16.9560087864776,
+          "uncertainty": 2.552319753937268,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2018,17 +2016,17 @@
         },
         "24": {
           "components": {
-            "learned": 23.338409832291067,
-            "nowcast": 23.338409832291067,
+            "learned": 23.35056361785646,
+            "nowcast": 23.35056361785646,
             "raw_ensemble": 24.433333333333334
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 1.6418147141366344,
-          "learned_spread": 2.5628478303823585,
+          "learned_spread": 2.739583910048193,
           "target": "2026-08-11T19:00:00+00:00",
-          "temperature_2m": 23.612140707551635,
-          "uncertainty": 3.1698950066476157,
+          "temperature_2m": 23.62125604672568,
+          "uncertainty": 3.314417799805702,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2037,17 +2035,17 @@
         },
         "3": {
           "components": {
-            "learned": 23.811917089721206,
-            "nowcast": 24.708937817290902,
+            "learned": 23.795762388252804,
+            "nowcast": 24.696821791189606,
             "raw_ensemble": 25.816666666666666
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 0.9454569735788558,
-          "learned_spread": 0.9208569513692241,
+          "learned_spread": 0.9833765180544543,
           "target": "2026-08-10T22:00:00+00:00",
-          "temperature_2m": 24.595455520336056,
-          "uncertainty": 1.6472701863492627,
+          "temperature_2m": 24.583541428003116,
+          "uncertainty": 1.6830183950899098,
           "weights": {
             "learned": 0.25,
             "nowcast": 0.65,
@@ -2056,17 +2054,17 @@
         },
         "48": {
           "components": {
-            "learned": 24.632573042627886,
-            "nowcast": 24.632573042627886,
+            "learned": 24.63260872981426,
+            "nowcast": 24.63260872981426,
             "raw_ensemble": 25.883333333333336
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 0.42882267767561905,
-          "learned_spread": 1.579452536359325,
+          "learned_spread": 1.6885057826194405,
           "target": "2026-08-12T19:00:00+00:00",
-          "temperature_2m": 25.132877158910066,
-          "uncertainty": 1.96400985580645,
+          "temperature_2m": 25.13289857122189,
+          "uncertainty": 2.0527338300501254,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2075,17 +2073,17 @@
         },
         "6": {
           "components": {
-            "learned": 18.587600070525706,
-            "nowcast": 18.587600070525706,
+            "learned": 18.71082865202938,
+            "nowcast": 18.71082865202938,
             "raw_ensemble": 21.5
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 1.023067283548187,
-          "learned_spread": 1.435252070183191,
+          "learned_spread": 1.494237128578339,
           "target": "2026-08-11T01:00:00+00:00",
-          "temperature_2m": 19.02446005994685,
-          "uncertainty": 2.16495342557227,
+          "temperature_2m": 19.129204354224974,
+          "uncertainty": 2.2044998131898335,
           "weights": {
             "learned": 0.5,
             "nowcast": 0.35,
@@ -2094,17 +2092,17 @@
         },
         "72": {
           "components": {
-            "learned": 23.227316595618042,
-            "nowcast": 23.227316595618042,
+            "learned": 23.55517279037444,
+            "nowcast": 23.55517279037444,
             "raw_ensemble": 23.5
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 7,
           "ensemble_families": 3,
           "ensemble_spread": 1.5297058540778363,
-          "learned_spread": 2.1956697282723416,
+          "learned_spread": 2.1563296235092255,
           "target": "2026-08-13T19:00:00+00:00",
-          "temperature_2m": 23.336389957370823,
-          "uncertainty": 3.5100360839674543,
+          "temperature_2m": 23.533103674224662,
+          "uncertainty": 3.4855623936928,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2264,7 +2262,7 @@
         "pressure_tendency_3h": -1.0,
         "relative_humidity": 50.0,
         "wind_direction": 260.0,
-        "wind_speed": 19.8
+        "wind_speed": 17.6
       },
       "source_independence": {}
     },
@@ -2272,17 +2270,17 @@
       "hours": {
         "1": {
           "components": {
-            "learned": 27.337878532972987,
-            "nowcast": 27.384469633243242,
+            "learned": 27.608924966351363,
+            "nowcast": 27.45223124158784,
             "raw_ensemble": 26.666666666666668
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.20548046676563278,
-          "learned_spread": 0.606701603602584,
+          "learned_spread": 0.9145158088667326,
           "target": "2026-08-10T20:00:00+00:00",
-          "temperature_2m": 27.341590819873876,
-          "uncertainty": 1.3855312386006353,
+          "temperature_2m": 27.43645707155631,
+          "uncertainty": 1.5452990461368434,
           "weights": {
             "learned": 0.15,
             "nowcast": 0.8,
@@ -2291,17 +2289,17 @@
         },
         "12": {
           "components": {
-            "learned": 17.856647600981187,
-            "nowcast": 17.856647600981187,
+            "learned": 17.54019165085854,
+            "nowcast": 17.54019165085854,
             "raw_ensemble": 17.983333333333334
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.5572751165766842,
-          "learned_spread": 0.8454580857465228,
+          "learned_spread": 1.1517204658623108,
           "target": "2026-08-11T07:00:00+00:00",
-          "temperature_2m": 17.888319034069227,
-          "uncertainty": 1.5376392691871736,
+          "temperature_2m": 17.650977071477236,
+          "uncertainty": 1.7251072948887525,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2310,17 +2308,17 @@
         },
         "24": {
           "components": {
-            "learned": 22.822819542378063,
-            "nowcast": 22.822819542378063,
+            "learned": 23.237467099580808,
+            "nowcast": 23.237467099580808,
             "raw_ensemble": 22.933333333333334
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.8653836657164772,
-          "learned_spread": 1.9503595059211356,
+          "learned_spread": 2.128835973931348,
           "target": "2026-08-11T19:00:00+00:00",
-          "temperature_2m": 22.85044799011688,
-          "uncertainty": 2.362533936566818,
+          "temperature_2m": 23.16143365801894,
+          "uncertainty": 2.5118931113797816,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2329,17 +2327,17 @@
         },
         "3": {
           "components": {
-            "learned": 25.05160673360059,
-            "nowcast": 25.638705050200443,
+            "learned": 25.139798749043376,
+            "nowcast": 25.704849061782532,
             "raw_ensemble": 25.0
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.2160246899469301,
-          "learned_spread": 1.006092461015842,
+          "learned_spread": 0.9696077073816088,
           "target": "2026-08-10T22:00:00+00:00",
-          "temperature_2m": 25.428059966030435,
-          "uncertainty": 1.5378592769688564,
+          "temperature_2m": 25.49310157741949,
+          "uncertainty": 1.514241797686248,
           "weights": {
             "learned": 0.25,
             "nowcast": 0.65,
@@ -2348,17 +2346,17 @@
         },
         "48": {
           "components": {
-            "learned": 24.55392597703996,
-            "nowcast": 24.55392597703996,
+            "learned": 24.821330529055267,
+            "nowcast": 24.821330529055267,
             "raw_ensemble": 24.799999999999997
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.45460605656619435,
-          "learned_spread": 0.5774753814162363,
+          "learned_spread": 0.8901288952694653,
           "target": "2026-08-12T19:00:00+00:00",
-          "temperature_2m": 24.652355586223972,
-          "uncertainty": 1.4438969355045785,
+          "temperature_2m": 24.81279831743316,
+          "uncertainty": 1.5948949791165952,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2367,17 +2365,17 @@
         },
         "6": {
           "components": {
-            "learned": 21.76413046143315,
-            "nowcast": 21.76413046143315,
+            "learned": 21.477989153754006,
+            "nowcast": 21.477989153754006,
             "raw_ensemble": 21.383333333333336
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.22484562605386615,
-          "learned_spread": 0.9450663025237912,
+          "learned_spread": 1.1638919461735076,
           "target": "2026-08-11T01:00:00+00:00",
-          "temperature_2m": 21.70701089221818,
-          "uncertainty": 1.4252216992909237,
+          "temperature_2m": 21.463790780690907,
+          "uncertainty": 1.5788448430201345,
           "weights": {
             "learned": 0.5,
             "nowcast": 0.35,
@@ -2386,17 +2384,17 @@
         },
         "72": {
           "components": {
-            "learned": 23.826215355967037,
-            "nowcast": 23.826215355967037,
+            "learned": 24.397083735616455,
+            "nowcast": 24.397083735616455,
             "raw_ensemble": 25.083333333333332
           },
-          "effective_independent_sources": 7,
+          "effective_independent_sources": 8,
           "ensemble_families": 3,
           "ensemble_spread": 0.34721111093332657,
-          "learned_spread": 2.4180043091883077,
+          "learned_spread": 2.719767762609787,
           "target": "2026-08-13T19:00:00+00:00",
-          "temperature_2m": 24.329062546913555,
-          "uncertainty": 2.829861608160263,
+          "temperature_2m": 24.671583574703206,
+          "uncertainty": 3.091683775003131,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2410,7 +2408,7 @@
         "pressure_tendency_3h": -1.0,
         "relative_humidity": 50.0,
         "wind_direction": 264.0,
-        "wind_speed": 19.8
+        "wind_speed": 17.6
       },
       "source_independence": {}
     },
@@ -2418,17 +2416,17 @@
       "hours": {
         "1": {
           "components": {
-            "learned": 30.13233058170524,
-            "nowcast": 30.61042880006262,
-            "raw_ensemble": 32.575
+            "learned": 30.10316391503857,
+            "nowcast": 30.405756617414895,
+            "raw_ensemble": 32.25
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 1.5250000000000021,
-          "learned_spread": 0.864956868551947,
+          "ensemble_families": 3,
+          "ensemble_spread": 1.3272779161376378,
+          "learned_spread": 0.8564144799059047,
           "target": "2026-08-10T20:00:00+00:00",
-          "temperature_2m": 30.636942627305885,
-          "uncertainty": 1.9340940589587776,
+          "temperature_2m": 30.452579881187702,
+          "uncertainty": 1.7782173299413135,
           "weights": {
             "learned": 0.15,
             "nowcast": 0.8,
@@ -2437,17 +2435,17 @@
         },
         "12": {
           "components": {
-            "learned": 22.408925768890036,
-            "nowcast": 22.408925768890036,
-            "raw_ensemble": 24.25
+            "learned": 22.388092435556704,
+            "nowcast": 22.388092435556704,
+            "raw_ensemble": 24.0
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 2.049999999999999,
-          "learned_spread": 1.5956609035113265,
+          "ensemble_families": 3,
+          "ensemble_spread": 1.710750322714178,
+          "learned_spread": 1.5864337860455298,
           "target": "2026-08-11T07:00:00+00:00",
-          "temperature_2m": 22.86919432666753,
-          "uncertainty": 2.612328218083359,
+          "temperature_2m": 22.79106932666753,
+          "uncertainty": 2.3492687849995835,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2456,17 +2454,17 @@
         },
         "24": {
           "components": {
-            "learned": 29.82171328460295,
-            "nowcast": 29.82171328460295,
-            "raw_ensemble": 31.825000000000003
+            "learned": 29.78421328460295,
+            "nowcast": 29.78421328460295,
+            "raw_ensemble": 31.516666666666666
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 1.2750000000000004,
-          "learned_spread": 0.8544983126392489,
+          "ensemble_families": 3,
+          "ensemble_spread": 1.1286668635558017,
+          "learned_spread": 0.8811832684731525,
           "target": "2026-08-11T19:00:00+00:00",
-          "temperature_2m": 30.322534963452217,
-          "uncertainty": 1.796358393365432,
+          "temperature_2m": 30.21732663011888,
+          "uncertainty": 1.7092349027085276,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2475,17 +2473,17 @@
         },
         "3": {
           "components": {
-            "learned": 28.75606491959052,
-            "nowcast": 29.25949740790499,
-            "raw_ensemble": 30.45
+            "learned": 28.726898252923856,
+            "nowcast": 29.171828902577975,
+            "raw_ensemble": 30.833333333333332
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 2.0500000000000007,
-          "learned_spread": 1.4002255451192662,
+          "ensemble_families": 3,
+          "ensemble_spread": 1.7594190960528873,
+          "learned_spread": 1.4112362222223633,
           "target": "2026-08-10T22:00:00+00:00",
-          "temperature_2m": 29.252689545035874,
-          "uncertainty": 2.6492935996609637,
+          "temperature_2m": 29.22674668323998,
+          "uncertainty": 2.437779364599677,
           "weights": {
             "learned": 0.25,
             "nowcast": 0.65,
@@ -2494,17 +2492,17 @@
         },
         "48": {
           "components": {
-            "learned": 28.646303841345837,
-            "nowcast": 28.646303841345837,
-            "raw_ensemble": 31.675
+            "learned": 28.61713717467917,
+            "nowcast": 28.61713717467917,
+            "raw_ensemble": 30.883333333333336
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 0.3249999999999993,
-          "learned_spread": 2.048248467694029,
+          "ensemble_families": 3,
+          "ensemble_spread": 1.1506037062728802,
+          "learned_spread": 2.034804833174454,
           "target": "2026-08-12T19:00:00+00:00",
-          "temperature_2m": 29.857782304807504,
-          "uncertainty": 2.257435764281097,
+          "temperature_2m": 29.523615638140836,
+          "uncertainty": 2.5018771037849663,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2513,17 +2511,17 @@
         },
         "6": {
           "components": {
-            "learned": 25.689205112756643,
-            "nowcast": 25.689205112756643,
-            "raw_ensemble": 27.0
+            "learned": 25.66837177942331,
+            "nowcast": 25.66837177942331,
+            "raw_ensemble": 27.666666666666668
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 2.200000000000001,
-          "learned_spread": 2.2685621546805024,
+          "ensemble_families": 3,
+          "ensemble_spread": 2.028683207293726,
+          "learned_spread": 2.2665004583031947,
           "target": "2026-08-11T01:00:00+00:00",
-          "temperature_2m": 25.885824345843144,
-          "uncertainty": 3.42989096436409,
+          "temperature_2m": 25.968116012509814,
+          "uncertainty": 3.3211982266678883,
           "weights": {
             "learned": 0.5,
             "nowcast": 0.35,
@@ -2532,17 +2530,17 @@
         },
         "72": {
           "components": {
-            "learned": 28.220750449167003,
-            "nowcast": 28.220750449167003,
-            "raw_ensemble": 30.825000000000003
+            "learned": 28.191583782500338,
+            "nowcast": 28.191583782500338,
+            "raw_ensemble": 30.983333333333334
           },
           "effective_independent_sources": 8,
-          "ensemble_families": 2,
-          "ensemble_spread": 0.7249999999999996,
-          "learned_spread": 2.1832676079344315,
+          "ensemble_families": 3,
+          "ensemble_spread": 0.6328945848682505,
+          "learned_spread": 2.1987365516763973,
           "target": "2026-08-13T19:00:00+00:00",
-          "temperature_2m": 29.2624502695002,
-          "uncertainty": 2.441152779385219,
+          "temperature_2m": 29.308283602833537,
+          "uncertainty": 2.4293913689806783,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2554,9 +2552,9 @@
         "name": "frontal",
         "precipitation": 0.0,
         "pressure_tendency_3h": -3.6000000000001364,
-        "relative_humidity": 50.676510643562914,
+        "relative_humidity": 52.419559370124865,
         "wind_direction": 223.0,
-        "wind_speed": 11.339460992823225
+        "wind_speed": 9.568312178859374
       },
       "source_independence": {}
     },
@@ -2564,17 +2562,17 @@
       "hours": {
         "1": {
           "components": {
-            "learned": 27.00112955478657,
-            "nowcast": 26.700282388696646,
+            "learned": 26.604026640618578,
+            "nowcast": 26.976006660154646,
             "raw_ensemble": 26.816666666666666
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.25927248643506606,
-          "learned_spread": 0.6663860328135799,
+          "learned_spread": 0.6801994560050373,
           "target": "2026-08-10T20:00:00+00:00",
-          "temperature_2m": 26.751228677508635,
-          "uncertainty": 1.4009795908994458,
+          "temperature_2m": 26.912242657549836,
+          "uncertainty": 1.407602489816392,
           "weights": {
             "learned": 0.15,
             "nowcast": 0.8,
@@ -2583,17 +2581,17 @@
         },
         "12": {
           "components": {
-            "learned": 18.231805568282017,
-            "nowcast": 18.231805568282017,
+            "learned": 17.692939210020015,
+            "nowcast": 17.692939210020015,
             "raw_ensemble": 18.21666666666667
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.2953340857778226,
-          "learned_spread": 1.3482244913078434,
+          "learned_spread": 1.0172630920054944,
           "target": "2026-08-11T07:00:00+00:00",
-          "temperature_2m": 18.22802084287818,
-          "uncertainty": 1.910786479586945,
+          "temperature_2m": 17.823871074181678,
+          "uncertainty": 1.6935819702531545,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2602,17 +2600,17 @@
         },
         "24": {
           "components": {
-            "learned": 25.90164248985638,
-            "nowcast": 25.90164248985638,
+            "learned": 26.569573348588243,
+            "nowcast": 26.569573348588243,
             "raw_ensemble": 24.28333333333333
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.13123346456686266,
-          "learned_spread": 1.9708721633991622,
+          "learned_spread": 2.2253473191323305,
           "target": "2026-08-11T19:00:00+00:00",
-          "temperature_2m": 25.497065200725615,
-          "uncertainty": 2.393844929615686,
+          "temperature_2m": 25.998013344774513,
+          "uncertainty": 2.6073601886495243,
           "weights": {
             "learned": 0.65,
             "nowcast": 0.1,
@@ -2621,17 +2619,17 @@
         },
         "3": {
           "components": {
-            "learned": 25.284743814004194,
-            "nowcast": 25.613557860503143,
+            "learned": 24.653556698046057,
+            "nowcast": 25.265167523534544,
             "raw_ensemble": 24.53333333333333
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.5557777333511029,
-          "learned_spread": 0.8229818011081764,
+          "learned_spread": 0.3571594712171978,
           "target": "2026-08-10T22:00:00+00:00",
-          "temperature_2m": 25.42333189616142,
-          "uncertainty": 1.5612940725595814,
+          "temperature_2m": 25.0390813981423,
+          "uncertainty": 1.3740098340021347,
           "weights": {
             "learned": 0.25,
             "nowcast": 0.65,
@@ -2640,17 +2638,17 @@
         },
         "48": {
           "components": {
-            "learned": 25.40260731591462,
-            "nowcast": 25.40260731591462,
+            "learned": 25.00742576425926,
+            "nowcast": 25.00742576425926,
             "raw_ensemble": 24.78333333333333
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.779244648504064,
-          "learned_spread": 0.9427812179724142,
+          "learned_spread": 1.2268522771287584,
           "target": "2026-08-12T19:00:00+00:00",
-          "temperature_2m": 25.154897722882104,
-          "uncertainty": 1.5874539030627954,
+          "temperature_2m": 24.91778879188889,
+          "uncertainty": 1.7709714789583073,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2659,17 +2657,17 @@
         },
         "6": {
           "components": {
-            "learned": 20.441288203640777,
-            "nowcast": 20.441288203640777,
+            "learned": 19.885464022347104,
+            "nowcast": 19.885464022347104,
             "raw_ensemble": 20.3
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 1.219289410544791,
-          "learned_spread": 1.5154177696225863,
+          "learned_spread": 1.5994089453371125,
           "target": "2026-08-11T01:00:00+00:00",
-          "temperature_2m": 20.42009497309466,
-          "uncertainty": 2.377169632342702,
+          "temperature_2m": 19.94764441899504,
+          "uncertainty": 2.431574267602949,
           "weights": {
             "learned": 0.5,
             "nowcast": 0.35,
@@ -2678,17 +2676,17 @@
         },
         "72": {
           "components": {
-            "learned": 24.74952968062093,
-            "nowcast": 24.74952968062093,
+            "learned": 24.991191258873272,
+            "nowcast": 24.991191258873272,
             "raw_ensemble": 25.599999999999998
           },
-          "effective_independent_sources": 8,
+          "effective_independent_sources": 5,
           "ensemble_families": 3,
           "ensemble_spread": 0.5656854249492377,
-          "learned_spread": 2.476095001409556,
+          "learned_spread": 1.3180492707587108,
           "target": "2026-08-13T19:00:00+00:00",
-          "temperature_2m": 25.08971780837256,
-          "uncertainty": 2.9533922949452753,
+          "temperature_2m": 25.234714755323964,
+          "uncertainty": 2.080560855150433,
           "weights": {
             "learned": 0.57,
             "nowcast": 0.03,
@@ -2699,10 +2697,10 @@
       "regime": {
         "name": "mixed",
         "precipitation": 0.0,
-        "pressure_tendency_3h": -0.7000000000000455,
-        "relative_humidity": 55.0,
-        "wind_direction": 278.0,
-        "wind_speed": 11.6
+        "pressure_tendency_3h": -0.6000000000000227,
+        "relative_humidity": 58.0,
+        "wind_direction": 272.0,
+        "wind_speed": 9.9
       },
       "source_independence": {}
     }
@@ -2840,7 +2838,7 @@
   },
   "nowcast": {
     "hrm": {
-      "checked_at": "2026-08-10T19:15:10.194921+00:00",
+      "checked_at": "2026-08-10T19:30:34.243945+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2849,7 +2847,7 @@
       "rdpa_available": true
     },
     "lunenburg": {
-      "checked_at": "2026-08-10T19:15:14.797771+00:00",
+      "checked_at": "2026-08-10T19:30:39.774661+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2858,7 +2856,7 @@
       "rdpa_available": true
     },
     "moncton": {
-      "checked_at": "2026-08-10T19:15:11.010597+00:00",
+      "checked_at": "2026-08-10T19:30:35.816927+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2867,7 +2865,7 @@
       "rdpa_available": true
     },
     "shediac": {
-      "checked_at": "2026-08-10T19:15:13.702933+00:00",
+      "checked_at": "2026-08-10T19:30:38.558692+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2876,7 +2874,7 @@
       "rdpa_available": true
     },
     "uws": {
-      "checked_at": "2026-08-10T19:15:34.481750+00:00",
+      "checked_at": "2026-08-10T19:30:59.285046+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2885,7 +2883,7 @@
       "rdpa_available": true
     },
     "wolfville": {
-      "checked_at": "2026-08-10T19:15:16.464544+00:00",
+      "checked_at": "2026-08-10T19:30:41.199860+00:00",
       "radar_available": true,
       "radar_extrapolated_rain_rate": 0.041748047,
       "radar_extrapolation_available": true,
@@ -2901,11 +2899,11 @@
       "gust_station_count": 7,
       "method": "ECCC SWOB real-time mesh; distance + recency weighted; 10m wind in km/h; observed global solar normalized to W/m\u00b2",
       "solar_station_count": 0,
-      "station": "HALIFAX DOCKYARD / HALIFAX WINDSOR PARK / SHEARWATER RCS",
+      "station": "HALIFAX DOCKYARD / SHEARWATER RCS / HALIFAX WINDSOR PARK",
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 0.7309203086771027,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -2919,7 +2917,7 @@
           "station": "HALIFAX DOCKYARD",
           "temperature_2m": 28.4,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.8719249011929787,
+          "weight": 0.7759071485383939,
           "wind_direction_10m": 323.0,
           "wind_gusts_10m": 19.6,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -2927,7 +2925,29 @@
           "wind_speed_10m": 8.7
         },
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.009190137777777779,
+          "distance_km": 4.981788023468788,
+          "gust_source_field": "max_wnd_spd_10m_pst10mts",
+          "gust_source_uom": "km/h",
+          "lat": 44.63592,
+          "lon": -63.51489,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 60.0,
+          "shortwave_radiation": null,
+          "solar_source_field": null,
+          "solar_source_uom": null,
+          "station": "SHEARWATER RCS",
+          "temperature_2m": 26.9,
+          "time": "2026-08-10T19:30:00+00:00",
+          "weight": 0.7300335515847325,
+          "wind_direction_10m": 218.0,
+          "wind_gusts_10m": 20.9,
+          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
+          "wind_source_uom": "km/h",
+          "wind_speed_10m": 10.1
+        },
+        {
+          "age_hours": 0.5091901377777778,
           "distance_km": 2.750507296327102,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -2941,7 +2961,7 @@
           "station": "HALIFAX WINDSOR PARK",
           "temperature_2m": 28.2,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.7726728984285154,
+          "weight": 0.6875849336935913,
           "wind_direction_10m": 245.0,
           "wind_gusts_10m": 17.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -2949,29 +2969,7 @@
           "wind_speed_10m": 8.8
         },
         {
-          "age_hours": 0.019181839444444442,
-          "distance_km": 4.981788023468788,
-          "gust_source_field": "max_wnd_spd_10m_pst10mts",
-          "gust_source_uom": "km/h",
-          "lat": 44.63592,
-          "lon": -63.51489,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 61.0,
-          "shortwave_radiation": null,
-          "solar_source_field": null,
-          "solar_source_uom": null,
-          "station": "SHEARWATER RCS",
-          "temperature_2m": 26.7,
-          "time": "2026-08-10T19:14:00+00:00",
-          "weight": 0.7267254886958223,
-          "wind_direction_10m": 237.0,
-          "wind_gusts_10m": 15.2,
-          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
-          "wind_source_uom": "km/h",
-          "wind_speed_10m": 8.6
-        },
-        {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 4.8239568149733305,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -2985,7 +2983,7 @@
           "station": "SHEARWATER JETTY",
           "temperature_2m": 27.2,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.6616498082712735,
+          "weight": 0.588787882264089,
           "wind_direction_10m": 258.0,
           "wind_gusts_10m": 22.5,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -2993,7 +2991,7 @@
           "wind_speed_10m": 16.9
         },
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 6.029243076319814,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -3007,7 +3005,7 @@
           "station": "Shearwater",
           "temperature_2m": 28.2,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.6023442620526288,
+          "weight": 0.5360131568306697,
           "wind_direction_10m": 250.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -3015,7 +3013,7 @@
           "wind_speed_10m": 14.8
         },
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 6.150292404980393,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3029,7 +3027,7 @@
           "station": "MCNABS ISLAND (AUT)",
           "temperature_2m": 26.7,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.5966840034186519,
+          "weight": 0.5309762148524445,
           "wind_direction_10m": 222.0,
           "wind_gusts_10m": 31.0,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3037,7 +3035,7 @@
           "wind_speed_10m": 25.0
         },
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 7.074672516237647,
           "gust_source_field": "max_wnd_gst_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3051,7 +3049,7 @@
           "station": "HALIFAX KOOTENAY",
           "temperature_2m": 27.0,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.5553369875202158,
+          "weight": 0.4941823979050985,
           "wind_direction_10m": 247.0,
           "wind_gusts_10m": 28.9,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3059,7 +3057,7 @@
           "wind_speed_10m": 20.2
         },
         {
-          "age_hours": 0.2525151727777778,
+          "age_hours": 0.5091901377777778,
           "distance_km": 7.857396549617851,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3073,7 +3071,7 @@
           "station": "BEDFORD BASIN",
           "temperature_2m": 28.1,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.5229280629239411,
+          "weight": 0.4653423954733687,
           "wind_direction_10m": 294.0,
           "wind_gusts_10m": 15.3,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3081,16 +3079,16 @@
           "wind_speed_10m": 10.8
         }
       ],
-      "temp": 27.5990741688577,
-      "time": "2026-08-10T19:14:00+00:00",
+      "temp": 27.613855580647655,
+      "time": "2026-08-10T19:30:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 55.63142425089057,
+        "relative_humidity_2m": 55.57264969535443,
         "shortwave_radiation": null,
-        "temperature_2m": 27.5990741688577,
-        "wind_direction_10m": 259.56055402744,
-        "wind_gusts_10m": 21.0315344761752,
-        "wind_speed_10m": 13.655475802438488
+        "temperature_2m": 27.613855580647655,
+        "wind_direction_10m": 256.14956775422513,
+        "wind_gusts_10m": 21.891673185223794,
+        "wind_speed_10m": 13.795581894399891
       },
       "wind_station_count": 8
     },
@@ -3104,7 +3102,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.25382785944444447,
+          "age_hours": 0.5107107613888889,
           "distance_km": 2.194888387888291,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -3118,7 +3116,7 @@
           "station": "LUNENBURG",
           "temperature_2m": 27.4,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.8020586226311628,
+          "weight": 0.7136671986299855,
           "wind_direction_10m": 280.0,
           "wind_gusts_10m": 23.8,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -3142,20 +3140,20 @@
     "moncton": {
       "collection": "swob-realtime",
       "direction_station_count": 1,
-      "gust_station_count": 0,
+      "gust_station_count": 1,
       "method": "ECCC SWOB real-time mesh; distance + recency weighted; 10m wind in km/h; observed global solar normalized to W/m\u00b2",
       "solar_station_count": 0,
       "station": "Moncton/Greater Moncton Romeo Le",
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.25283193305555557,
+          "age_hours": 0.5095122227777777,
           "distance_km": 8.29891547501511,
-          "gust_source_field": null,
-          "gust_source_uom": null,
+          "gust_source_field": "max_wnd_spd_10m_pst1hr",
+          "gust_source_uom": "km/h",
           "lat": 46.1161,
           "lon": -64.6786,
-          "precipitation": null,
+          "precipitation": 0.0,
           "relative_humidity_2m": 50.0,
           "shortwave_radiation": null,
           "solar_source_field": null,
@@ -3163,44 +3161,44 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 27.4,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.5056064281684604,
-          "wind_direction_10m": 256.0,
-          "wind_gusts_10m": null,
-          "wind_source_field": "avg_wnd_spd_10m_pst2mts",
+          "weight": 0.44992715762982316,
+          "wind_direction_10m": 255.0,
+          "wind_gusts_10m": 34.2,
+          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 19.8
+          "wind_speed_10m": 17.6
         }
       ],
       "temp": 27.4,
       "time": "2026-08-10T19:00:00+00:00",
       "values": {
-        "precipitation": null,
+        "precipitation": 0.0,
         "relative_humidity_2m": 50.0,
         "shortwave_radiation": null,
         "temperature_2m": 27.4,
-        "wind_direction_10m": 256.0,
-        "wind_gusts_10m": null,
-        "wind_speed_10m": 19.8
+        "wind_direction_10m": 255.0,
+        "wind_gusts_10m": 34.2,
+        "wind_speed_10m": 17.6
       },
       "wind_station_count": 1
     },
     "shediac": {
       "collection": "swob-realtime",
       "direction_station_count": 1,
-      "gust_station_count": 0,
+      "gust_station_count": 1,
       "method": "ECCC SWOB real-time mesh; distance + recency weighted; 10m wind in km/h; observed global solar normalized to W/m\u00b2",
       "solar_station_count": 0,
       "station": "Moncton/Greater Moncton Romeo Le",
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.25354938527777776,
+          "age_hours": 0.5102730974999999,
           "distance_km": 15.6550109182535,
-          "gust_source_field": null,
-          "gust_source_uom": null,
+          "gust_source_field": "max_wnd_spd_10m_pst1hr",
+          "gust_source_uom": "km/h",
           "lat": 46.1161,
           "lon": -64.6786,
-          "precipitation": null,
+          "precipitation": 0.0,
           "relative_humidity_2m": 50.0,
           "shortwave_radiation": null,
           "solar_source_field": null,
@@ -3208,31 +3206,31 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 27.4,
           "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.30567327890993995,
-          "wind_direction_10m": 256.0,
-          "wind_gusts_10m": null,
-          "wind_source_field": "avg_wnd_spd_10m_pst2mts",
+          "weight": 0.27200602562735665,
+          "wind_direction_10m": 255.0,
+          "wind_gusts_10m": 34.2,
+          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 19.8
+          "wind_speed_10m": 17.6
         }
       ],
       "temp": 27.4,
       "time": "2026-08-10T19:00:00+00:00",
       "values": {
-        "precipitation": null,
+        "precipitation": 0.0,
         "relative_humidity_2m": 50.0,
         "shortwave_radiation": null,
         "temperature_2m": 27.4,
-        "wind_direction_10m": 256.0,
-        "wind_gusts_10m": null,
-        "wind_speed_10m": 19.8
+        "wind_direction_10m": 255.0,
+        "wind_gusts_10m": 34.2,
+        "wind_speed_10m": 17.6
       },
       "wind_station_count": 1
     },
     "uws": {
       "cloud_station_count": 3,
       "collection": "api.weather.gov/stations/{station}/observations/latest",
-      "gust_station_count": 2,
+      "gust_station_count": 0,
       "method": "NWS latest-observation urban mesh; Central Park KNYC anchored; distance + recency weighted",
       "official_station": "KNYC",
       "provider": "NWS",
@@ -3240,7 +3238,7 @@
       "station_count": 3,
       "stations": [
         {
-          "age_hours": 0.4093123547222222,
+          "age_hours": 0.6661329155555555,
           "cloud_cover": 20.0,
           "distance_km": 1.9295873605051554,
           "lat": 40.77,
@@ -3252,58 +3250,58 @@
           "temperature_2m": 29.4,
           "text_description": "Mostly Clear",
           "time": "2026-08-10T18:51:00+00:00",
-          "weight": 0.8955011167133444,
+          "weight": 0.7875864859601264,
           "wind_direction_10m": null,
           "wind_gusts_10m": null,
           "wind_speed_10m": 7.56
         },
         {
-          "age_hours": 0.25931235472222225,
-          "cloud_cover": 50.0,
+          "age_hours": 0.26613291555555557,
+          "cloud_cover": 20.0,
           "distance_km": 8.069821701364695,
           "lat": 40.78,
           "lon": -73.88,
           "precipitation": null,
-          "raw_id": "https://api.weather.gov/stations/KLGA/observations/2026-08-10T19:00:00+00:00",
-          "relative_humidity_2m": 43.375308450872,
+          "raw_id": "https://api.weather.gov/stations/KLGA/observations/2026-08-10T19:15:00+00:00",
+          "relative_humidity_2m": 45.911833266115,
           "station": "KLGA",
-          "temperature_2m": 32.0,
-          "text_description": "Partly Cloudy",
-          "time": "2026-08-10T19:00:00+00:00",
-          "weight": 0.506939868023915,
+          "temperature_2m": 31.0,
+          "text_description": "Mostly Clear",
+          "time": "2026-08-10T19:15:00+00:00",
+          "weight": 0.5052140054299185,
           "wind_direction_10m": 230.0,
-          "wind_gusts_10m": 25.92,
-          "wind_speed_10m": 16.668
+          "wind_gusts_10m": null,
+          "wind_speed_10m": 12.96
         },
         {
-          "age_hours": 0.32597902138888885,
+          "age_hours": 0.3494662488888889,
           "cloud_cover": 0.0,
           "distance_km": 10.103568789344344,
           "lat": 40.7,
           "lon": -74.01,
           "precipitation": null,
-          "raw_id": "https://api.weather.gov/stations/KJRB/observations/2026-08-10T18:56:00+00:00",
-          "relative_humidity_2m": 50.420833512336,
+          "raw_id": "https://api.weather.gov/stations/KJRB/observations/2026-08-10T19:10:00+00:00",
+          "relative_humidity_2m": 55.564587603211,
           "station": "KJRB",
-          "temperature_2m": 32.2,
+          "temperature_2m": 32.0,
           "text_description": "Clear",
-          "time": "2026-08-10T18:56:00+00:00",
-          "weight": 0.42162680167729727,
+          "time": "2026-08-10T19:10:00+00:00",
+          "weight": 0.41670433969016424,
           "wind_direction_10m": 230.0,
-          "wind_gusts_10m": 81.72,
-          "wind_speed_10m": 12.96
+          "wind_gusts_10m": null,
+          "wind_speed_10m": 9.252
         }
       ],
-      "temp": 30.76979487284841,
-      "time": "2026-08-10T19:00:00+00:00",
+      "temp": 30.506620851540333,
+      "time": "2026-08-10T19:15:00+00:00",
       "values": {
-        "cloud_cover": 23.714587833651702,
+        "cloud_cover": 15.124853324610317,
         "precipitation": null,
-        "relative_humidity_2m": 50.676510643562914,
-        "temperature_2m": 30.76979487284841,
+        "relative_humidity_2m": 52.419559370124865,
+        "temperature_2m": 30.506620851540333,
         "wind_direction_10m": 230.0,
-        "wind_gusts_10m": 51.25665734649238,
-        "wind_speed_10m": 11.339460992823225
+        "wind_gusts_10m": null,
+        "wind_speed_10m": 9.568312178859374
       },
       "wind_station_count": 3
     },
@@ -3317,38 +3315,38 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.020824059444444445,
+          "age_hours": 0.011048530555555556,
           "distance_km": 3.3534283259845368,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 55.0,
-          "shortwave_radiation": 481.2,
+          "relative_humidity_2m": 58.0,
+          "shortwave_radiation": 418.8,
           "solar_source_field": "avg_globl_solr_radn_pst1hr",
           "solar_source_uom": "W/m\u00b2",
           "station": "KENTVILLE CDA",
-          "temperature_2m": 26.6,
-          "time": "2026-08-10T19:14:00+00:00",
-          "weight": 0.821991307914799,
-          "wind_direction_10m": 276.0,
-          "wind_gusts_10m": 19.7,
+          "temperature_2m": 27.1,
+          "time": "2026-08-10T19:30:00+00:00",
+          "weight": 0.8256518890898563,
+          "wind_direction_10m": 274.0,
+          "wind_gusts_10m": 16.1,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 11.6
+          "wind_speed_10m": 9.9
         }
       ],
-      "temp": 26.6,
-      "time": "2026-08-10T19:14:00+00:00",
+      "temp": 27.1,
+      "time": "2026-08-10T19:30:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 55.0,
-        "shortwave_radiation": 481.2,
-        "temperature_2m": 26.6,
-        "wind_direction_10m": 276.0,
-        "wind_gusts_10m": 19.7,
-        "wind_speed_10m": 11.6
+        "relative_humidity_2m": 58.0,
+        "shortwave_radiation": 418.8,
+        "temperature_2m": 27.1,
+        "wind_direction_10m": 274.0,
+        "wind_gusts_10m": 16.1,
+        "wind_speed_10m": 9.9
       },
       "wind_station_count": 1
     }
@@ -3358,9 +3356,9 @@
       "name": "marine_mixed",
       "precipitation": 0.0,
       "pressure_tendency_3h": -0.8000000000000682,
-      "relative_humidity": 55.63142425089057,
+      "relative_humidity": 55.57264969535443,
       "wind_direction": 238.0,
-      "wind_speed": 13.655475802438488
+      "wind_speed": 13.795581894399891
     },
     "lunenburg": {
       "name": "offshore",
@@ -3376,7 +3374,7 @@
       "pressure_tendency_3h": -1.0,
       "relative_humidity": 50.0,
       "wind_direction": 260.0,
-      "wind_speed": 19.8
+      "wind_speed": 17.6
     },
     "shediac": {
       "name": "offshore",
@@ -3384,23 +3382,23 @@
       "pressure_tendency_3h": -1.0,
       "relative_humidity": 50.0,
       "wind_direction": 264.0,
-      "wind_speed": 19.8
+      "wind_speed": 17.6
     },
     "uws": {
       "name": "frontal",
       "precipitation": 0.0,
       "pressure_tendency_3h": -3.6000000000001364,
-      "relative_humidity": 50.676510643562914,
+      "relative_humidity": 52.419559370124865,
       "wind_direction": 223.0,
-      "wind_speed": 11.339460992823225
+      "wind_speed": 9.568312178859374
     },
     "wolfville": {
       "name": "mixed",
       "precipitation": 0.0,
-      "pressure_tendency_3h": -0.7000000000000455,
-      "relative_humidity": 55.0,
-      "wind_direction": 278.0,
-      "wind_speed": 11.6
+      "pressure_tendency_3h": -0.6000000000000227,
+      "relative_humidity": 58.0,
+      "wind_direction": 272.0,
+      "wind_speed": 9.9
     }
   },
   "source_health": {
@@ -3421,7 +3419,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 13,
+      "deterministic_models": 12,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_provider": "ECCC",
@@ -3447,7 +3445,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 11,
+      "deterministic_models": 13,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_provider": "ECCC",
@@ -3473,7 +3471,7 @@
       "challengers_configured": 0,
       "challengers_live": 0,
       "deterministic_expected": 13,
-      "deterministic_models": 13,
+      "deterministic_models": 9,
       "ensemble_expected": 4,
       "ensemble_products": 4,
       "observation_provider": "ECCC",
@@ -8910,7 +8908,7 @@
       "samples": 8
     },
     "shediac:cma_grapes_global:precipitation:24": {
-      "run_change_mae": 0.014285714285714287,
+      "run_change_mae": 0.028571428571428574,
       "run_spread": 0.04841229182759271,
       "samples": 8
     },
@@ -8920,7 +8918,7 @@
       "samples": 8
     },
     "shediac:cma_grapes_global:precipitation:48": {
-      "run_change_mae": 0.08571428571428572,
+      "run_change_mae": 0.17142857142857143,
       "run_spread": 0.2904737509655563,
       "samples": 8
     },
@@ -8935,143 +8933,143 @@
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:1": {
-      "run_change_mae": 10.571428571428571,
-      "run_spread": 30.066592756745816,
+      "run_change_mae": 10.714285714285714,
+      "run_spread": 27.69222589464415,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:12": {
-      "run_change_mae": 7.285714285714286,
-      "run_spread": 14.788086421170252,
+      "run_change_mae": 5.714285714285714,
+      "run_spread": 9.109576005501024,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:24": {
-      "run_change_mae": 7.714285714285714,
-      "run_spread": 12.668859459319927,
+      "run_change_mae": 10.0,
+      "run_spread": 11.682652738141282,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:3": {
-      "run_change_mae": 11.142857142857142,
-      "run_spread": 25.45062622019348,
+      "run_change_mae": 9.428571428571429,
+      "run_spread": 17.20782888687588,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:48": {
-      "run_change_mae": 4.428571428571429,
-      "run_spread": 12.673175411079892,
+      "run_change_mae": 9.142857142857142,
+      "run_spread": 18.867962264113206,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:6": {
-      "run_change_mae": 10.857142857142858,
-      "run_spread": 14.739402972983676,
+      "run_change_mae": 8.285714285714286,
+      "run_spread": 15.297058540778355,
       "samples": 8
     },
     "shediac:cma_grapes_global:relative_humidity_2m:72": {
-      "run_change_mae": 9.714285714285714,
-      "run_spread": 26.989581323169872,
+      "run_change_mae": 8.714285714285714,
+      "run_spread": 24.23033996872516,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:1": {
-      "run_change_mae": 1.9142857142857141,
-      "run_spread": 4.866916374872286,
+      "run_change_mae": 1.5714285714285714,
+      "run_spread": 4.064153509649949,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:12": {
-      "run_change_mae": 1.8142857142857147,
-      "run_spread": 4.7001163549427165,
+      "run_change_mae": 1.657142857142857,
+      "run_spread": 3.6581245194771594,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:24": {
-      "run_change_mae": 1.3714285714285714,
-      "run_spread": 3.891477065331364,
+      "run_change_mae": 1.8571428571428572,
+      "run_spread": 4.102057410617263,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:3": {
-      "run_change_mae": 1.7428571428571427,
-      "run_spread": 3.7327729304097774,
+      "run_change_mae": 1.485714285714286,
+      "run_spread": 2.476609325267108,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:48": {
-      "run_change_mae": 0.7999999999999997,
-      "run_spread": 2.2162750280594685,
+      "run_change_mae": 1.5857142857142854,
+      "run_spread": 3.3064331234730875,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:6": {
-      "run_change_mae": 2.257142857142857,
-      "run_spread": 3.3607802293515117,
+      "run_change_mae": 1.8857142857142857,
+      "run_spread": 3.9153344365456193,
       "samples": 8
     },
     "shediac:cma_grapes_global:temperature_2m:72": {
-      "run_change_mae": 1.857142857142857,
-      "run_spread": 5.035979919538996,
+      "run_change_mae": 1.8428571428571427,
+      "run_spread": 4.5961260861730056,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:1": {
       "run_change_mae": 2.2,
-      "run_spread": 5.638705525207005,
+      "run_spread": 6.215705913249114,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:12": {
-      "run_change_mae": 4.557142857142856,
-      "run_spread": 8.438592521860501,
+      "run_change_mae": 3.2285714285714278,
+      "run_spread": 4.455894971832257,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:24": {
-      "run_change_mae": 1.8999999999999997,
-      "run_spread": 4.322307688029625,
+      "run_change_mae": 4.314285714285715,
+      "run_spread": 8.381294276542258,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:3": {
-      "run_change_mae": 2.4142857142857155,
-      "run_spread": 7.0359678616378005,
+      "run_change_mae": 2.3714285714285728,
+      "run_spread": 6.796092627385239,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:48": {
-      "run_change_mae": 2.457142857142857,
-      "run_spread": 5.296564334547443,
+      "run_change_mae": 2.557142857142857,
+      "run_spread": 4.369997139587165,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:6": {
-      "run_change_mae": 3.6999999999999993,
-      "run_spread": 5.0225584864688235,
+      "run_change_mae": 2.942857142857142,
+      "run_spread": 4.142085827213144,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_gusts_10m:72": {
-      "run_change_mae": 1.2857142857142851,
-      "run_spread": 2.762132328473782,
+      "run_change_mae": 1.7714285714285707,
+      "run_spread": 3.7479994663820313,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:1": {
-      "run_change_mae": 1.5571428571428572,
-      "run_spread": 2.423324163210527,
+      "run_change_mae": 1.542857142857143,
+      "run_spread": 2.6823205904589407,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:12": {
-      "run_change_mae": 0.7000000000000001,
-      "run_spread": 1.394128311885244,
+      "run_change_mae": 0.6857142857142856,
+      "run_spread": 1.0629410849148695,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:24": {
-      "run_change_mae": 2.9285714285714284,
-      "run_spread": 2.705087798944796,
+      "run_change_mae": 3.9714285714285715,
+      "run_spread": 3.3443983016381287,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:3": {
-      "run_change_mae": 1.5714285714285714,
-      "run_spread": 2.7941624415913977,
+      "run_change_mae": 1.4714285714285713,
+      "run_spread": 2.8062152002296616,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:48": {
-      "run_change_mae": 1.2571428571428573,
-      "run_spread": 1.2970519457600762,
+      "run_change_mae": 1.2714285714285711,
+      "run_spread": 1.3162446581088183,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:6": {
-      "run_change_mae": 1.5999999999999999,
-      "run_spread": 2.2359282188836027,
+      "run_change_mae": 1.6285714285714286,
+      "run_spread": 2.0693824561931513,
       "samples": 8
     },
     "shediac:cma_grapes_global:wind_speed_10m:72": {
-      "run_change_mae": 0.6142857142857144,
-      "run_spread": 0.9191538228174867,
+      "run_change_mae": 0.9142857142857144,
+      "run_spread": 0.9419892515310352,
       "samples": 8
     },
     "shediac:ecmwf_aifs025_single:precipitation:1": {
@@ -14465,6 +14463,6 @@
       "samples": 8
     }
   },
-  "updated_at": "2026-08-10T19:15:08.862875+00:00",
+  "updated_at": "2026-08-10T19:30:32.866919+00:00",
   "version": "2.0"
 }
