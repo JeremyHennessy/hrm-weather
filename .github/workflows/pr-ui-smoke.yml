@@ -58,6 +58,7 @@ jobs:
       - name: Verify branch mobile startup
         env:
           WX_URL: http://127.0.0.1:4173/app.html
+          WX_REQUIRE_FAST_CURRENT: '1'
         run: node scripts/smoke-live.mjs
       - name: Check branch responsive UI
         env:

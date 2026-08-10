@@ -114,7 +114,7 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v68" sw.js
+          grep -q "weather-consensus-v69" sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'width:106px' forecast-insights.js
           grep -q 'placeConfidence' forecast-insights.js
@@ -124,6 +124,9 @@ jobs:
           grep -q 'UV guidance overlaps hero metrics' scripts/layout-qa.mjs
           grep -q 'live-current-provider-apparent' forecast-ui-guard.js
           grep -q 'Current Real Feel updating' startup-fallback.js
+          grep -q 'provider-apparent-fast-current' startup-fallback.js
+          grep -q 'provider-apparent-current' startup-fallback.js
+          grep -q 'WX_REQUIRE_FAST_CURRENT' scripts/smoke-live.mjs
           grep -q 'provider-apparent-champion' scripts/accuracy_engine_v3_publish.py
           grep -q 'comparative-independent-reference-replay' scripts/accuracy_engine_v3_verify.py
           grep -q 'data/engine-v3.json' startup-fallback.js

@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 // Verify the selected app URL without changing production code.
 
 const base=process.env.WX_URL||'https://jeremyhennessy.github.io/hrm-weather/app.html';
+const requireFastCurrent=process.env.WX_REQUIRE_FAST_CURRENT==='1';
 const url=`${base}${base.includes('?')?'&':'?'}smoke=${Date.now()}`;
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:393,height:852},deviceScaleFactor:3,isMobile:true,hasTouch:true});
@@ -33,6 +34,8 @@ try{
       feels:document.querySelector('#feels')?.textContent?.trim()||'',
       realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
       realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
+      currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
+      currentFast:window.__wxFastCurrent||null,
       actual:document.querySelector('#actual')?.textContent?.trim()||'',
       morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
       updated:document.querySelector('#updated')?.textContent?.trim()||'',
@@ -55,6 +58,8 @@ try{
   console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,confidence_samples:confidenceSamples,console_errors:errors},null,2));
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
+  if(requireFastCurrent&&state.currentFast?.painted!==true)throw new Error(`Lightweight current Real Feel path did not paint: ${JSON.stringify(state.currentFast)}`);
+  if(requireFastCurrent&&state.currentFast?.source!=='provider-apparent-current')throw new Error(`Lightweight current Real Feel source changed: ${JSON.stringify(state.currentFast)}`);
   if(state.confidenceOwner!=='engine3-empirical')throw new Error(`Forecast Confidence owner is not empirical Engine 3: ${state.confidenceOwner||'missing'}`);
   if(state.summaryOwner!=='engine3-summary'||!state.summary)throw new Error(`Engine 3 plain-English summary is not active: owner=${state.summaryOwner||'missing'}`);
   if(/forecast confidence is\s+\d+%/i.test(state.summary))throw new Error(`Summary redundantly repeats Forecast Confidence: ${state.summary}`);
@@ -85,6 +90,8 @@ try{
     feels:document.querySelector('#feels')?.textContent?.trim()||'',
     realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
     realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
+    currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
+    currentFast:window.__wxFastCurrent||null,
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
