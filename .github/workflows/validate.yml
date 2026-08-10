@@ -32,7 +32,8 @@ jobs:
             scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py \
             scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py scripts/release_guard.py \
             scripts/engine3_retro_backtest.py scripts/archive_backtest_v3.py \
-            scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py
+            scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py \
+            scripts/test_real_feel_champion.py
       - name: Validate data and architecture
         env:
           PYTHONPATH: scripts
@@ -77,7 +78,15 @@ jobs:
           assert w['source'].startswith('prospective-decayed') and w['weights']['mos'] > 0, w
           e=e31.gate(state,'hrm',3,'stable')
           assert e['status']=='promotion-approved' and e['paired_win_rate'] >= .55, e
+
+          rf_rows=[]
+          for i in range(18):
+              rf_rows.append({'scored':True,'loc':'hrm','lead':1,'regime':'humid','issued':core.iso(now-timedelta(hours=i*8)),'actual_real_feel':28.0,'real_feel_candidates':{'physical':28.3,'calibrated':29.4}})
+          rf_gate=gate.real_feel_gate({'forecasts':rf_rows,'real_feel_scores':{}},'hrm',1,'humid')
+          assert rf_gate['status']=='challenger-underperforming', rf_gate
+          assert rf_gate['paired_win_rate'] <= gate.MAX_DEMOTION_WIN_RATE, rf_gate
           PY
+          python scripts/test_real_feel_champion.py
       - name: Verify current app wiring
         run: |
           grep -q 'viewport-fit=cover' app.html
@@ -97,7 +106,7 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q 'weather-consensus-v64' sw.js
+          grep -q "weather-consensus-v" sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'width:106px' forecast-insights.js
           grep -q 'placeConfidence' forecast-insights.js

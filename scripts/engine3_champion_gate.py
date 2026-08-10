@@ -50,6 +50,22 @@ def _paired_temperature(state:dict[str,Any],loc:str,lead:int,regime:str,challeng
     return {"n":n,"effective_weight":den,"challenger_mae":cnum/den,"champion_mae":bnum/den,"win_rate":wins/den,"half_life_days":HALF_LIFE_DAYS}
 
 
+def _paired_real_feel(state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]|None:
+    """Compare calibrated Real Feel against physical Real Feel on identical OOS cases."""
+    now=core.utcnow();cnum=bnum=den=wins=0.0;n=0
+    for row in state.get("forecasts",[]):
+        if not row.get("scored") or row.get("loc")!=loc or int(row.get("lead",-1))!=int(lead):continue
+        if regime not in {"all","unknown"} and row.get("regime")!=regime:continue
+        actual=core.safe_float(row.get("actual_real_feel"));issued=core.parse_stamp(row.get("issued"));cand=row.get("real_feel_candidates") or {}
+        calibrated=core.safe_float(cand.get("calibrated"));physical=core.safe_float(cand.get("physical"))
+        if actual is None or calibrated is None or physical is None or not issued:continue
+        age=max(0.0,(now-issued).total_seconds()/86400.0);w=0.5**(age/HALF_LIFE_DAYS)
+        ce=abs(calibrated-actual);be=abs(physical-actual)
+        cnum+=ce*w;bnum+=be*w;wins+=(1.0 if ce<be else 0.5 if ce==be else 0.0)*w;den+=w;n+=1
+    if not den:return None
+    return {"n":n,"effective_weight":den,"challenger_mae":cnum/den,"champion_mae":bnum/den,"win_rate":wins/den,"half_life_days":HALF_LIFE_DAYS}
+
+
 def _paired_decision(stat:dict[str,Any]|None,source:str)->dict[str,Any]|None:
     if not stat:return None
     n=int(stat.get("n",0));eff=float(stat.get("effective_weight",0.0));cm=float(stat["challenger_mae"]);bm=max(0.05,float(stat["champion_mae"]));ratio=cm/bm;win=float(stat.get("win_rate",0.5))
@@ -73,10 +89,15 @@ def component_gate(state: dict[str, Any], walk: dict[str, Any], loc: str, lead: 
 
 
 def real_feel_gate(state: dict[str, Any], loc: str, lead: int, regime: str) -> dict[str, Any]:
+    for suffix in [regime,"all"]:
+        d=_paired_decision(_paired_real_feel(state,loc,lead,suffix),f"prospective-real-feel-paired-decayed:{suffix}")
+        if d and d.get("status")!="learning":return d
+        if d and int(d.get("samples",0))>=MIN_PROMOTION_SAMPLES and float(d.get("effective_weight",0))>=MIN_EFFECTIVE_WEIGHT:return d
+    # Aggregate score fallback is retained only while paired recent evidence is immature.
     scores=state.get("real_feel_scores",{})
     for suffix in [regime,"all"]:
         cal=scores.get(f"{loc}:{lead}:{suffix}:calibrated");physical=scores.get(f"{loc}:{lead}:{suffix}:physical")
-        d=_decision(cal,physical,"prospective-real-feel")
+        d=_decision(cal,physical,"prospective-real-feel-aggregate")
         if d:return d
     return {"status":"learning","samples":0,"max_boost":1.0,"source":"prospective-real-feel"}
 

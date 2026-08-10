@@ -105,7 +105,7 @@ def add_current_forecasts(state:dict[str,Any],engine:dict[str,Any])->int:
                 "loc":loc,"lead":lead,"regime":regime,"issued":core.iso(issued),"target":h.get("target"),
                 "temperature_candidates":temp_candidates,
                 "precip_candidates":{"raw":core.safe_float(h.get("raw_precipitation_probability")),"calibrated":core.safe_float(h.get("precipitation_probability"))},
-                "real_feel_candidates":{"calibrated":core.safe_float(h.get("real_feel")),"physical":core.safe_float(rfe.get("physical_real_feel")),"provider_apparent":core.safe_float(inputs.get("provider_apparent_temperature"))},
+                "real_feel_candidates":{"calibrated":core.safe_float(rfe.get("real_feel")),"physical":core.safe_float(rfe.get("physical_real_feel")),"production":core.safe_float(h.get("real_feel")),"provider_apparent":core.safe_float(inputs.get("provider_apparent_temperature"))},
                 "real_feel_context":{"wind_speed_10m":core.safe_float(inputs.get("wind_speed_10m")),"shortwave_radiation":core.safe_float(inputs.get("shortwave_radiation")),"cloud_cover":core.safe_float(inputs.get("cloud_cover")),"uv_index":core.safe_float(inputs.get("uv_index"))},
                 "issued_confidence":{"value":core.safe_float(fc.get("value")),"tolerance_c":core.safe_float(fc.get("tolerance_c")),"method":fc.get("method")},
                 "scored":False,
