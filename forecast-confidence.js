@@ -35,21 +35,22 @@
     if(document.getElementById('wx-confidence-lock-style'))return;
     const s=document.createElement('style');s.id='wx-confidence-lock-style';s.textContent=`
       .confidenceOrb.wxConfidenceLocked>strong,.confidenceOrb.wxConfidenceLocked>span,.confidenceOrb.wxConfidenceLocked>small{display:none!important}
-      .wxConfidenceStable{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0}
-      .wxConfidenceStable b{display:block;font-size:inherit;line-height:1;font-weight:700;color:inherit}
-      .wxConfidenceStable span{display:block;font-size:9px;line-height:1.15;margin-top:3px;color:inherit}
-      .wxConfidenceStable small{display:block;font-size:8px;line-height:1.2;margin-top:3px;color:var(--muted,#b7cad5)}
+      .wxConfidenceStable{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:5px;text-align:left;min-width:0;white-space:nowrap}
+      .wxConfidenceStable b{display:inline;font-size:inherit;line-height:1;font-weight:700;color:inherit}
+      .wxConfidenceStable span{display:inline;font-size:inherit;line-height:1;color:inherit;margin:0}
+      .wxConfidenceStable small{display:none!important}
     `;document.head.appendChild(s);
   }
   function paint(){
     style();const orb=document.querySelector('.confidenceOrb');if(!orb)return false;
     let stable=orb.querySelector('.wxConfidenceStable');if(!stable){stable=document.createElement('div');stable.className='wxConfidenceStable';stable.setAttribute('aria-live','off');orb.appendChild(stable)}
     const engine=cachedEngine(),loc=locKey();
-    if(!engine){if(!stable.dataset.ready)stable.innerHTML='<b>--%</b><span>Forecast Confidence</span><small>loading Engine 3</small>';orb.classList.add('wxConfidenceLocked');return false}
-    const locked=getLocked(engine,loc),feeds=Number(engine?.collector?.deterministic_forecasts||0),rev=revision(engine);
-    const empirical=locked.source==='engine3-empirical';
-    const html=`<b>${locked.score}%</b><span>Forecast Confidence</span><small>${label(locked.score)} · Engine 3${empirical?' calibrated':''}${feeds?` · ${feeds} feeds`:''}</small>`;
+    if(!engine){if(!stable.dataset.ready)stable.innerHTML='<b>--%</b><span>Confidence</span>';orb.classList.add('wxConfidenceLocked');orb.setAttribute('aria-label','Forecast Confidence loading');return false}
+    const locked=getLocked(engine,loc),feeds=Number(engine?.collector?.deterministic_forecasts||0),rev=revision(engine),status=label(locked.score);
+    const html=`<b>${locked.score}%</b><span>Confidence · ${status}</span>`;
     if(stable.innerHTML!==html)stable.innerHTML=html;
+    const empirical=locked.source==='engine3-empirical',detail=`Forecast Confidence ${locked.score}% · ${status} · Engine 3${empirical?' calibrated':''}${feeds?` · ${feeds} feeds`:''}`;
+    orb.setAttribute('aria-label',detail);orb.title=detail;
     stable.dataset.ready='1';stable.dataset.revision=rev;stable.dataset.location=loc;orb.classList.add('wxConfidenceLocked');orb.dataset.confidenceOwner=locked.source;orb.dataset.confidenceScore=String(locked.score);
     window.WX_FORECAST_CONFIDENCE={score:locked.score,revision:rev,location:loc,feeds,owner:locked.source,meta:locked.meta};
     return true;
