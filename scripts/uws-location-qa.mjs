@@ -20,14 +20,12 @@ async function waitUws(){
 }
 try{
   const r=await page.goto(url,{waitUntil:'domcontentloaded',timeout:20000});if(!r?.ok())throw Error(`HTTP ${r?.status()}`);
-  // Clean browser sessions must remain Halifax/HRM-first. UWS is additive.
   await page.waitForFunction(()=>document.querySelector('#tabs .tab.active')?.dataset?.k==='hrm',{timeout:8000});
   const defaultState=await page.evaluate(()=>({active:document.querySelector('#tabs .tab.active')?.dataset?.k||'',place:document.querySelector('#place')?.textContent?.trim()||'',firstTab:document.querySelector('#tabs .tab')?.dataset?.k||''}));
   if(defaultState.active!=='hrm'||defaultState.firstTab!=='hrm'||!/Halifax|Bedford|Dartmouth/i.test(defaultState.place))throw Error(`HRM primary/default regressed: ${JSON.stringify(defaultState)}`);
   await page.waitForFunction(()=>[...document.querySelectorAll('#tabs .tab')].some(x=>/Upper West Side/i.test(x.textContent||'')),{timeout:8000});
   await page.evaluate(()=>{const b=[...document.querySelectorAll('#tabs .tab')].find(x=>/Upper West Side/i.test(x.textContent||''));b?.click()});
   await waitUws();
-  // A location is not production-ready if it works only after clicking it.
   await page.reload({waitUntil:'domcontentloaded',timeout:20000});
   await waitUws();
   const state=await page.evaluate(()=>({
@@ -44,7 +42,7 @@ try{
   if(state.microDisplay!=='none')throw Error(`HRM microclimates remain visible in UWS: ${state.microDisplay}`);
   if(state.officialHead!=='National Weather Service')throw Error(`UWS official source header regressed: ${state.officialHead}`);
   if(state.heroLocation!=='Upper West Side')throw Error(`hero location not UWS: ${state.heroLocation}`);
-  if(state.sceneSource!=='wikimedia-commons')throw Error(`UWS scene source wrong: ${state.sceneSource}`);
+  if(state.sceneSource!=='local-vector-uws')throw Error(`UWS scene source wrong: ${state.sceneSource}`);
   if(state.fast?.painted&&state.fast?.location!=='uws')throw Error(`fast current painted wrong location: ${JSON.stringify(state.fast)}`);
   const heroFeel=num(state.feels),heroAir=num(state.actual);
   if(state.fast?.painted&&Number.isFinite(state.fast.feel)&&Number.isFinite(heroFeel)&&Math.abs(heroFeel-state.fast.feel)>0.6)throw Error(`UWS Real Feel diverged from current truth: hero=${heroFeel} fast=${state.fast.feel}`);
