@@ -11,6 +11,7 @@ import forecast_confidence_engine as confidence
 import engine3_champion_gate as champion
 import engine3_weighting as weighting
 import real_feel_engine as realfeel
+import engine32_family_taxonomy as engine32
 from accuracy_engine_v3_pooling import install as install_v3_pooling
 install_v3_pooling()
 
@@ -110,11 +111,12 @@ def main()->None:
     engine["walk_forward_verification"]=walk
     engine["precipitation_walk_forward"]=precip_walkforward.build(ledger)
     apply_adaptive_verification(engine,verification,walk)
+    engine32.apply(engine,ledger,forecasts,regimes,verification)
     apply_real_feel(engine,ledger,forecasts,regimes,verification)
     confidence.apply(engine,verification)
     shadow_added=verify.add_current_forecasts(verification,engine);verify.save_state(verification)
     engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[]))};core.save(v3.ENGINE_V3,engine)
-    mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"));print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
+    mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"));print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} engine32_ready={engine.get('engine32',{}).get('forecast_points_ready',0)} engine32_taxonomy={engine.get('engine32',{}).get('selected_taxonomy')} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
 
 
 if __name__=="__main__":main()

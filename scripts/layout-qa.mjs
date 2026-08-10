@@ -36,7 +36,7 @@ async function inspect(device){
     const heroEl=document.querySelector('.hero'),hero=r(heroEl),summary=r(document.querySelector('#daySummary')),orb=r(document.querySelector('.confidenceOrb')),place=r(document.querySelector('#place')),icon=r(document.querySelector('#heroIcon')),temp=r(document.querySelector('.heroTemp')),metricsEl=document.querySelector('.metrics'),metrics=r(metricsEl),uvEl=document.querySelector('#uvGuidance'),uv=visible(uvEl)?r(uvEl):null;
     if(!hero||!summary||!orb)issues.push('missing hero/summary/confidence geometry');
     else{
-      if(orb.width<104||orb.height<104)issues.push(`confidence shrunk ${orb.width}x${orb.height}`);
+      if(orb.width<80||orb.width>180||orb.height<24||orb.height>45)issues.push(`confidence status not compact ${orb.width}x${orb.height}`);
       if(orb.right>hero.right-4||orb.top<hero.top+4)issues.push('confidence outside hero safe edge');
       if(intersects(summary,orb))issues.push('summary overlaps confidence');
       if(intersects(place,orb))issues.push('place overlaps confidence');
@@ -48,14 +48,14 @@ async function inspect(device){
       if(uv&&metrics&&metrics.top<uv.bottom+8)issues.push(`hero metrics not below UV guidance ${metrics.top}<${uv.bottom+8}`);
       if(uv&&metrics&&hero.bottom<metrics.bottom+10)issues.push('hero does not contain UV guidance and metrics');
       if(uv){
-        const title=uvEl.querySelector('b'),detail=uvEl.querySelector('span'),tr=r(title),dr=r(detail),ts=title?getComputedStyle(title):null,ds=detail?getComputedStyle(detail):null;
-        if(!title||!detail)issues.push('UV guidance missing title/detail structure');
+        const details=uvEl.querySelector('details'),uvSummary=details?.querySelector('summary'),sr=r(uvSummary),ss=uvSummary?getComputedStyle(uvSummary):null;
+        if(!details||!uvSummary)issues.push('UV guidance missing collapsed details/summary structure');
         else{
-          if(ts.display!=='block'||ds.display!=='block')issues.push(`UV title/detail not block formatted ${ts.display}/${ds.display}`);
-          if(tr&&dr&&dr.top<tr.bottom)issues.push('UV detail collides with title');
-          if(parseFloat(ts.fontSize)>14)issues.push(`UV title font too large ${ts.fontSize}`);
-          if(parseFloat(ds.fontSize)>11.5)issues.push(`UV detail font too large ${ds.fontSize}`);
-          if(detail.scrollWidth>detail.clientWidth+3)issues.push('UV detail text horizontally clipped');
+          if(details.open)issues.push('UV guidance expanded by default');
+          if(!uvSummary.textContent.trim())issues.push('UV guidance summary is empty');
+          if(parseFloat(ss.fontSize)>14)issues.push(`UV summary font too large ${ss.fontSize}`);
+          if(sr&&(sr.left<uv.left||sr.right>uv.right+1))issues.push('UV summary escapes guidance container');
+          if(uvSummary.clientHeight>45)issues.push(`UV summary is not compact ${uvSummary.clientHeight}px`);
         }
       }
     }

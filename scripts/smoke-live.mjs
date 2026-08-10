@@ -65,9 +65,9 @@ try{
   if(/forecast confidence is\s+\d+%/i.test(state.summary))throw new Error(`Summary redundantly repeats Forecast Confidence: ${state.summary}`);
   const {hero,summary,confidence,confidenceParent}=state.layout||{};
   if(!hero||!summary||!confidence)throw new Error('Hero layout boxes are unavailable');
-  if(!String(confidenceParent).includes('heroTop'))throw new Error(`Confidence orb is not anchored in heroTop: ${confidenceParent}`);
-  if(confidence.width<104||confidence.height<104)throw new Error(`Confidence orb was shrunk: ${confidence.width}x${confidence.height}`);
-  if(confidence.right>hero.right-6||confidence.top<hero.top+6)throw new Error(`Confidence orb is not inside top-right hero safe area: ${JSON.stringify({hero,confidence})}`);
+  if(!String(confidenceParent).includes('heroTop'))throw new Error(`Confidence status is not anchored in heroTop: ${confidenceParent}`);
+  if(confidence.width<80||confidence.width>180||confidence.height<24||confidence.height>45)throw new Error(`Forecast Confidence is not a compact status pill: ${confidence.width}x${confidence.height}`);
+  if(confidence.right>hero.right-6||confidence.top<hero.top+6)throw new Error(`Confidence status is not inside top-right hero safe area: ${JSON.stringify({hero,confidence})}`);
   if(summary.left<hero.left+12||summary.right>hero.right-12)throw new Error(`Summary is too close to/cut by hero edges: ${JSON.stringify({hero,summary})}`);
   const overlap=summary.left<confidence.right&&summary.right>confidence.left&&summary.top<confidence.bottom&&summary.bottom>confidence.top;
   if(overlap)throw new Error(`Summary overlaps Forecast Confidence: ${JSON.stringify({summary,confidence})}`);

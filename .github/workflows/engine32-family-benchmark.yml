@@ -1,0 +1,50 @@
+name: Engine 3.2 family benchmark
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/engine32_family_benchmark.py'
+      - 'scripts/engine32_family_taxonomy.py'
+      - 'scripts/accuracy_engine_v3_publish.py'
+      - 'scripts/engine31_install.py'
+      - 'data/ledger.json'
+      - '.github/workflows/engine32-family-benchmark.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate benchmark syntax
+        run: python -m py_compile scripts/engine32_family_benchmark.py
+      - name: Run full ledger family-taxonomy walk-forward
+        run: python scripts/engine32_family_benchmark.py --write /tmp/engine32-family-benchmark.json
+      - name: Summarize benchmark
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/engine32-family-benchmark.json'))
+          c=r['comparison']
+          print(f"ledger_rows={r['ledger_rows']}")
+          print(f"paired_cases={c['paired_cases']}")
+          print(f"8_family_mae={c['8-family']['mae']:.6f}")
+          print(f"10_family_mae={c['10-family']['mae']:.6f}")
+          print(f"delta_10_minus_8_c={c['mae_delta_10_minus_8_c']:.6f}")
+          print(f"relative_improvement_10_vs_8={c['relative_mae_improvement_10_vs_8']:.6%}")
+          print(f"paired_win_rate_10={c['paired_win_rate_10_family']:.6%}")
+          print(f"historical_winner={c['historical_winner']}")
+          print(json.dumps({'by_lead':c['by_lead'],'by_location':c['by_location']},indent=2,sort_keys=True))
+          PY
+      - name: Upload benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: engine32-family-benchmark
+          path: /tmp/engine32-family-benchmark.json
+          retention-days: 30

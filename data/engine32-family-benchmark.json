@@ -1,0 +1,54 @@
+{
+  "version": "3.2-family-taxonomy-benchmark",
+  "created_at": "2026-08-10T11:41:11Z",
+  "source": {
+    "base_commit": "0d7ec510a54df4edabdd27d0d014c5d541e4d0ef",
+    "ledger_sha": "1ef78d592345665f4e3196bb59d0633c71475245",
+    "workflow_run": 31384581001,
+    "mode": "historical-walk-forward",
+    "leakage_policy": "strictly-earlier-targets-only",
+    "training_window_targets": 240
+  },
+  "ledger_rows": 50394,
+  "paired_cases": 443,
+  "taxonomies": {
+    "8-family": ["canada", "ecmwf", "noaa", "dwd", "ukmo", "meteofrance", "jma", "other"],
+    "10-family": ["canada", "ecmwf", "noaa", "dwd", "ukmo", "meteofrance", "jma", "kma", "bom", "cma"]
+  },
+  "preserved_distinct_in_10_family": ["kma", "bom", "cma"],
+  "scores": {
+    "8-family": {
+      "n": 443,
+      "mae": 0.9167010682299761,
+      "bias": 0.29656783289313726,
+      "rmse": 1.215682118782138
+    },
+    "10-family": {
+      "n": 443,
+      "mae": 0.9167872392046641,
+      "bias": 0.29630742647399483,
+      "rmse": 1.2157394585794516
+    }
+  },
+  "mae_delta_10_minus_8_c": 0.00008617097468799351,
+  "relative_mae_improvement_10_vs_8": -0.00009400117189170275,
+  "paired_win_rate_10_family": 0.49548532731376976,
+  "historical_winner": "8-family",
+  "selected_for_prospective_shadow": "8-family",
+  "production_changed": false,
+  "by_lead": {
+    "1": {"8-family_mae": 1.0142706969373674, "10-family_mae": 1.014385596542265, "n": 99},
+    "3": {"8-family_mae": 0.9345935584986562, "10-family_mae": 0.9348018757372153, "n": 99},
+    "6": {"8-family_mae": 0.9073443941675554, "10-family_mae": 0.9074584448942137, "n": 101},
+    "12": {"8-family_mae": 0.7877359455569689, "10-family_mae": 0.7876796945137277, "n": 95},
+    "24": {"8-family_mae": 0.9527410877322026, "10-family_mae": 0.9527410877322026, "n": 49}
+  },
+  "by_location": {
+    "hrm": {"8-family_mae": 0.8306402353229515, "10-family_mae": 0.8305886651055686, "n": 83},
+    "moncton": {"8-family_mae": 0.8525624011959008, "10-family_mae": 0.8524559047579753, "n": 95},
+    "shediac": {"8-family_mae": 0.8394901133987631, "10-family_mae": 0.8393678539018805, "n": 95},
+    "lunenburg": {"8-family_mae": 1.4176845125375765, "10-family_mae": 1.4177817530400447, "n": 91},
+    "wolfville": {"8-family_mae": 0.600014609704581, "10-family_mae": 0.6007150780325778, "n": 79}
+  },
+  "decision": "The 10-family taxonomy did not beat the 8-family incumbent on paired historical walk-forward evidence. Prospectively shadow the 8-family winner; keep 10-family documented but out of production and out of prospective selection until new evidence justifies another comparison."
+}

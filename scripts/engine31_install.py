@@ -62,16 +62,20 @@ def install()->None:
         before={(r.get('loc'),int(r.get('lead',-1)),r.get('issued')) for r in state.get('forecasts',[])}
         added=original_add(state,engine)
         issued=core.parse_stamp(engine.get('updated_at')) or core.utcnow();issued_s=core.iso(issued)
-        lookup={}
+        lookup31={};lookup32={}
         for loc,payload in (engine.get('consensus') or {}).items():
             for lead_s,h in (payload.get('hours') or {}).items():
-                c=h.get('engine31_challenger') or {};v=core.safe_float(c.get('temperature_2m'))
-                if v is not None:lookup[(loc,int(lead_s))]=v
+                c31=h.get('engine31_challenger') or {};v31=core.safe_float(c31.get('temperature_2m'))
+                if v31 is not None:lookup31[(loc,int(lead_s))]=v31
+                c32=h.get('engine32_family_challenger') or {};v32=core.safe_float(c32.get('temperature_2m'))
+                if v32 is not None:lookup32[(loc,int(lead_s))]=v32
         for row in state.get('forecasts',[]):
             ident=(row.get('loc'),int(row.get('lead',-1)),row.get('issued'))
             if ident in before or row.get('issued')!=issued_s:continue
-            v=lookup.get((row.get('loc'),int(row.get('lead',-1))))
-            if v is not None:(row.setdefault('temperature_candidates',{}))['engine31']=v
+            key=(row.get('loc'),int(row.get('lead',-1)));candidates=row.setdefault('temperature_candidates',{})
+            v31=lookup31.get(key);v32=lookup32.get(key)
+            if v31 is not None:candidates['engine31']=v31
+            if v32 is not None:candidates['engine32_family']=v32
         return added
 
     pub.apply_adaptive_verification=apply_with_engine31
