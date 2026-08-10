@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Runtime guard around the RRFSv1 shadow connector.
 
-RRFS is optional challenger data.  A NOAA/AWS transition, missing index, or slow
-range request must not delay the hourly production forecast materially.  This
+RRFS is optional challenger data. A NOAA/AWS transition, missing index, or slow
+range request must not delay or break the hourly production forecast. This
 module adds per-run caches, shorter I/O timeouts, a wall-clock issue budget and
 fail-soft reporting while leaving RRFS production weight at zero.
 """
@@ -21,6 +21,7 @@ _ORIG_RANGE = base._range
 _ORIG_INDEX = base._index
 _ORIG_MESSAGE = base._message
 _ORIG_FETCH_POINT = base.fetch_point
+_ORIG_UPDATE = base.update
 _deadline = 0.0
 
 
@@ -52,7 +53,7 @@ def _fetch_point(loc: dict[str, Any], cycle, forecast_hour: int):
 
 
 # The original functions resolve these module globals at call time, so replacing
-# them here makes index/message caching effective across all six locations.
+# them here makes caching effective across all six locations.
 base._text = _text
 base._range = _range
 base._index = _index
@@ -64,7 +65,7 @@ def update(engine: dict[str, Any], forecasts: dict[str, Any], observations: dict
     global _deadline
     _INDEX_CACHE.clear(); _MESSAGE_CACHE.clear(); _deadline = time.monotonic() + MAX_ISSUE_SECONDS
     try:
-        out = base.update(engine, forecasts, observations)
+        out = _ORIG_UPDATE(engine, forecasts, observations)
         out["runtime_guard"] = {
             "max_issue_seconds": MAX_ISSUE_SECONDS,
             "index_cache_entries": len(_INDEX_CACHE),
@@ -92,3 +93,8 @@ def update(engine: dict[str, Any], forecasts: dict[str, Any], observations: dict
         return out
     finally:
         _deadline = 0.0
+
+
+# Any later `import rrfsv1_shadow as rrfsv1` in this collector process receives
+# the guarded update path automatically.
+base.update = update
