@@ -49,15 +49,28 @@ def apply_adaptive_verification(engine:dict,state:dict,walk:dict)->None:
 
 
 def apply_real_feel(engine:dict,ledger:list[dict],forecasts:dict,regimes:dict,state:dict)->None:
-    ready=0;gates={}
+    ready=0;gates={};sources={}
     for loc,payload in (engine.get("consensus") or {}).items():
-        regime=((regimes.get(loc) or {}).get("name")) or "unknown";gates[loc]={}
+        regime=((regimes.get(loc) or {}).get("name")) or "unknown";gates[loc]={};sources[loc]={}
         for lead_s,h in (payload.get("hours") or {}).items():
             lead=int(lead_s);target=core.parse_stamp(h.get("target"))
             if not target:continue
-            result=realfeel.predict(ledger,forecasts.get(loc,{}),loc,lead,target,regime,corrected_temp=core.safe_float(h.get("temperature_2m")));rf_gate=champion.real_feel_gate(state,loc,lead,regime);result["champion_gate"]=rf_gate;gates[loc][lead_s]=rf_gate;h["real_feel_engine"]=result
-            if result.get("available"):h["real_feel"]=result.get("real_feel");ready+=1
-    engine["real_feel"]={"version":"1.1","method":"humidex/wind-chill physics + bounded radiant-load proxy + verified local residual calibration","forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,"champion_challenger":gates}
+            result=realfeel.predict(ledger,forecasts.get(loc,{}),loc,lead,target,regime,corrected_temp=core.safe_float(h.get("temperature_2m")))
+            rf_gate=champion.real_feel_gate(state,loc,lead,regime);result["champion_gate"]=rf_gate;gates[loc][lead_s]=rf_gate;h["real_feel_engine"]=result
+            if result.get("available"):
+                calibrated=core.safe_float(result.get("real_feel"));physical=core.safe_float(result.get("physical_real_feel"))
+                # Physical Real Feel is the production champion. The locally calibrated
+                # residual is promoted only after paired prospective OOS evidence proves it.
+                use_calibrated=rf_gate.get("status")=="promotion-approved" and calibrated is not None
+                production=calibrated if use_calibrated else physical
+                if production is None:production=calibrated
+                h["real_feel"]=production
+                h["real_feel_source"]="local-calibrated-challenger" if use_calibrated else "physical-real-feel-champion"
+                result["production_real_feel"]=production
+                result["production_source"]=h["real_feel_source"]
+                sources[loc][lead_s]=h["real_feel_source"]
+                ready+=1
+    engine["real_feel"]={"version":"1.2","method":"physical Real Feel champion + locally calibrated residual challenger; promotion requires paired prospective OOS win","forecast_points_ready":ready,"calibration_minimum_samples":realfeel.MIN_LOCAL_SAMPLES,"maximum_local_correction_c":realfeel.MAX_CORRECTION,"champion_challenger":gates,"production_sources":sources}
 
 
 def main()->None:
