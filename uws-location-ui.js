@@ -26,13 +26,18 @@
   const newYorkDaypart=(d=new Date())=>{const h=+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hour:'2-digit',hour12:false}).format(d);if(h>=5&&h<8)return'dawn';if(h>=8&&h<18)return'day';if(h>=18&&h<21)return'dusk';return'night'};
   const finite=v=>Number.isFinite(Number(v));
   const diag=(status,extra={})=>window.__wxUwsQuick={status,at:Date.now(),loc,stored:localStorage.getItem('wx-loc'),fast:window.__wxFastCurrent||null,...extra};
+  const officialSection=()=>[...document.querySelectorAll('.section')].find(s=>s.querySelector('h2')?.textContent==='Official data');
 
   function syncUwsChrome(){
     if(loc!=='uws')return;
-    const brand=document.querySelector('.brand h1'),hero=document.querySelector('.hero'),place=document.querySelector('#place'),kicker=document.querySelector('#kicker');
+    const brand=document.querySelector('.brand h1'),hero=document.querySelector('.hero'),place=document.querySelector('#place'),kicker=document.querySelector('#kicker'),zoneTitle=document.querySelector('#zoneTitle'),micro=document.querySelector('#microSection'),official=officialSection(),officialHead=official?.querySelector('.head span'),station=document.querySelector('#officialStation');
     if(brand&&brand.textContent!=='Upper West Side, NY')brand.textContent='Upper West Side, NY';
     if(place&&place.textContent!=='Upper West Side · Manhattan')place.textContent='Upper West Side · Manhattan';
     if(kicker&&kicker.textContent!=='UPPER WEST SIDE NY')kicker.textContent='UPPER WEST SIDE NY';
+    if(zoneTitle&&zoneTitle.textContent!=='Across the Upper West Side')zoneTitle.textContent='Across the Upper West Side';
+    if(micro)micro.style.display='none';
+    if(officialHead&&officialHead.textContent!=='National Weather Service')officialHead.textContent='National Weather Service';
+    if(station&&/ECCC|SWOB|checking official|official observation updating/i.test(station.textContent||''))station.textContent='NWS Central Park KNYC · official observation loading…';
     if(hero){if(hero.dataset.location!=='Upper West Side')hero.dataset.location='Upper West Side';const part=newYorkDaypart();if(hero.dataset.daypart!==part)hero.dataset.daypart=part}
   }
 
@@ -42,7 +47,7 @@
   dayName=function(d){try{return new Intl.DateTimeFormat('en-CA',{weekday:'short',timeZone:'UTC'}).format(new Date(d+'T12:00:00Z'))}catch{return d}};
 
   baseQ=async function(z){
-    const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:tz(),forecast_days:7,temperature_unit:'celsius',wind_speed_unit:'kmh',current:'temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m,weather_code',hourly:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,uv_index',daily:'temperature_2m_max,temperature_2m_min,apparent_temperature_max,precipitation_probability_max,precipitation_sum,weather_code,sunrise,sunset,uv_index_max'});
+    const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:tz(),forecast_days:7,temperature_unit:'celsius',wind_speed_unit:'kmh',current:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,uv_index',daily:'temperature_2m_max,temperature_2m_min,apparent_temperature_max,precipitation_probability_max,precipitation_sum,weather_code,sunrise,sunset,uv_index_max'});
     const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{cache:'no-store'});if(!r.ok)throw Error(r.status);return{z,d:await r.json()};
   };
   modelQ=async function(z,m){
@@ -81,8 +86,15 @@
   function weightedNws(rows,key){
     let num=0,den=0;for(const r of rows){if(!finite(r[key]))continue;const w=r.station==='KNYC'?1.6:r.station==='KJRB'?1.05:1;num+=Number(r[key])*w;den+=w}return den?num/den:null;
   }
+  function paintNwsOfficial(rows){
+    if(loc!=='uws'||!rows?.length)return;
+    const temp=weightedNws(rows,'temp'),t=document.querySelector('#officialTemp'),s=document.querySelector('#officialStation'),head=officialSection()?.querySelector('.head span');
+    if(t&&finite(temp)){t.textContent=`${Number(temp).toFixed(1)}°`;t.dataset.owner='live-nws-current-fallback'}
+    if(s){s.textContent=`NWS station mesh · ${rows.length} station${rows.length===1?'':'s'} · ${rows.map(x=>x.station).join(' / ')}`;s.dataset.owner='live-nws-current-fallback'}
+    if(head)head.textContent='National Weather Service';
+  }
   async function nwsPointValues(){
-    const rows=await nwsRows();if(!rows.length)return[];
+    const rows=await nwsRows();if(!rows.length)return[];paintNwsOfficial(rows);
     const blend={air:weightedNws(rows,'temp'),feel:weightedNws(rows,'feel')};
     const map={"UWS South":'KJRB',"UWS Central":'KNYC',"UWS North":'KLGA'};
     return L.uws.core.map(([name])=>{const r=rows.find(x=>x.station===map[name])||rows.find(x=>x.station==='KNYC')||rows[0];return{name,air:finite(r?.temp)?Number(r.temp):blend.air,feel:finite(r?.feel)?Number(r.feel):blend.feel,station:r?.station||'NWS',truth:'nws-observation-current'}}).filter(x=>finite(x.air)&&finite(x.feel));
@@ -113,8 +125,6 @@
     const official=(async()=>{const vals=await nwsPointValues();if(!vals.length)throw Error('nws-current-unavailable');return{source:'nws-apparent-fallback-current',vals}})();
     try{
       const first=await Promise.any([provider,official]);if(loc!==selected)return false;paintCurrent(first.vals,first.source);
-      // Provider apparent remains champion. If NWS won because the provider was
-      // slow, allow a later successful provider result to replace the fallback.
       if(first.source!=='provider-apparent-current')provider.then(x=>{if(loc===selected)paintCurrent(x.vals,x.source)}).catch(()=>{});
       return true;
     }catch(e){diag('error',{error:String(e?.message||e),aggregate:Array.isArray(e?.errors)?e.errors.map(x=>String(x?.message||x)):[]});return false}
@@ -122,7 +132,7 @@
 
   const priorObs=ecccObservation,priorAlerts=ecccAlerts,priorBacktest=runHistoricalBacktest;
   ecccObservation=async function(){
-    if(loc!=='uws')return priorObs();const rows=await nwsRows();if(!rows.length)return null;
+    if(loc!=='uws')return priorObs();const rows=await nwsRows();if(!rows.length)return null;paintNwsOfficial(rows);
     const anchor=rows.find(x=>x.station==='KNYC')||rows[0],temp=weightedNws(rows,'temp');return{temp,hour:new Date(anchor.time||Date.now()).getHours(),station:rows.map(x=>x.station).join(' · '),count:rows.length,provider:'NWS',officialStation:'KNYC'};
   };
   ecccAlerts=async function(){
@@ -134,13 +144,12 @@
 
   const priorRender=render;
   render=function(base,mods,official,alertData,loading){
-    priorRender(base,mods,official,alertData,loading);if(loc!=='uws')return;
-    const zoneTitle=document.getElementById('zoneTitle'),micro=document.getElementById('microSection'),officialHead=[...document.querySelectorAll('.section')].find(s=>s.querySelector('h2')?.textContent==='Official data');
-    if(zoneTitle)zoneTitle.textContent='Across the Upper West Side';if(micro)micro.style.display='none';
-    const station=document.getElementById('officialStation'),obsline=document.getElementById('obsline');if(station&&official)station.textContent=`NWS Central Park KNYC · ${official.station}`;if(obsline&&official)obsline.textContent=`Now corrected with NWS/KNYC observation (${fmt(official.temp)}° · ${official.count} station${official.count===1?'':'s'})`;
+    priorRender(base,mods,official,alertData,loading);if(loc!=='uws')return;syncUwsChrome();
+    const officialHead=officialSection(),station=document.getElementById('officialStation'),obsline=document.getElementById('obsline');
+    if(station&&official)station.textContent=`NWS Central Park KNYC · ${official.station}`;if(obsline&&official)obsline.textContent=`Now corrected with NWS/KNYC observation (${fmt(official.temp)}° · ${official.count} station${official.count===1?'':'s'})`;
     const hs=officialHead?.querySelector('.head span');if(hs)hs.textContent='National Weather Service';const cardSubs=officialHead?.querySelectorAll('.official .sub')||[];if(cardSubs[1]&&/ECCC/i.test(cardSubs[1].textContent))cardSubs[1].textContent=cardSubs[1].textContent.replace(/ECCC/gi,'NWS');
     const footer=[...document.querySelectorAll('.footer')].find(x=>/alerts remain authoritative/i.test(x.textContent||''));if(footer)footer.textContent='Weather Consensus · locally calibrated experimental forecast. NWS alerts remain authoritative for hazardous weather in New York.';
-    const upd=document.getElementById('updated');if(upd&&lastUpdated)upd.textContent=`Updated ${new Intl.DateTimeFormat('en-CA',{dateStyle:'medium',timeStyle:'short',timeZone:tz()}).format(lastUpdated)} · Upper West Side, Manhattan.`;syncUwsChrome();
+    const upd=document.getElementById('updated');if(upd&&lastUpdated)upd.textContent=`Updated ${new Intl.DateTimeFormat('en-CA',{dateStyle:'medium',timeStyle:'short',timeZone:tz()}).format(lastUpdated)} · Upper West Side, Manhattan.`;
   };
   if(typeof wxHealth==='function'){const oldHealth=wxHealth;wxHealth=function(){oldHealth();if(loc!=='uws')return;const el=document.getElementById('health');if(el)el.innerHTML=el.innerHTML.replace(/ECCC observation/gi,'NWS observation')}};
 
