@@ -17,6 +17,7 @@
   function currentPresentation(c){
     if(c?.source==='provider-apparent-current')return{feelSource:'provider-apparent-fast-current',owner:'live-current-provider-apparent'};
     if(c?.source==='nws-apparent-fallback-current')return{feelSource:'nws-apparent-fallback-current',owner:'live-current-nws-apparent-fallback'};
+    if(c?.source==='nws-stored-observation-steadman-current')return{feelSource:'nws-stored-observation-steadman-current',owner:'live-current-nws-apparent-fallback'};
     if(c?.source==='official-observation-steadman-current')return{feelSource:'official-observation-steadman-current',owner:'live-current-official-observation-fallback'};
     return{feelSource:c?.source||'live-current',owner:'live-current-input'};
   }
@@ -28,39 +29,18 @@
     document.documentElement.dataset.wxRealFeel=p.owner;document.documentElement.dataset.wxCurrentActual='live-current-input';return true;
   }
   function normalize(){
-    const e=engine(),key=locKey();
-    // Live current truth is independent of forecast freshness and should be
-    // restored even while server payloads are updating.
-    paintCurrentTruth(key);
-    if(!fresh(e))return false;
-    const row=nearest(e,key),feeds=Number(e?.collector?.deterministic_forecasts||0);
-    const modelCount=document.getElementById('modelCount');
+    const e=engine(),key=locKey();paintCurrentTruth(key);if(!fresh(e))return false;
+    const row=nearest(e,key),feeds=Number(e?.collector?.deterministic_forecasts||0),modelCount=document.getElementById('modelCount');
     if(modelCount&&feeds)modelCount.textContent=`${feeds} forecast feeds · Engine 3 server consensus`;
-    const warn=document.getElementById('warn');
-    if(warn&&/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(warn.textContent||'')){
-      warn.textContent='';warn.style.display='none';warn.dataset.serverConsensusCleared='1';
-    }
-    // If live current has not arrived, retain the narrow legacy plausibility guard
-    // for Actual. Never use Engine +1h when live current truth exists.
-    const engineAir=Number(row?.temperature_2m),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels'),hasCurrent=Boolean(currentTruth(key));
-    const feel=numberFrom(feelsEl?.textContent),shownAir=numberFrom(actual?.textContent);
-    const implausible=!hasCurrent&&finite(engineAir)&&finite(shownAir)&&(
-      Math.abs(shownAir-engineAir)>10 ||
-      (Math.abs(shownAir)<0.1&&engineAir>8) ||
-      (finite(feel)&&Math.abs(shownAir-feel)>14)
-    );
+    const warn=document.getElementById('warn');if(warn&&/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(warn.textContent||'')){warn.textContent='';warn.style.display='none';warn.dataset.serverConsensusCleared='1'}
+    const engineAir=Number(row?.temperature_2m),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels'),hasCurrent=Boolean(currentTruth(key)),feel=numberFrom(feelsEl?.textContent),shownAir=numberFrom(actual?.textContent);
+    const implausible=!hasCurrent&&finite(engineAir)&&finite(shownAir)&&(Math.abs(shownAir-engineAir)>10||(Math.abs(shownAir)<0.1&&engineAir>8)||(finite(feel)&&Math.abs(shownAir-feel)>14));
     if(actual&&implausible){actual.innerHTML=`Actual <b>${engineAir.toFixed(1)}°</b>`;actual.dataset.engine3Corrected='1'}
-    const firstHour=document.querySelector('#hours .hour');
-    const sub=firstHour?.querySelector('.sub'),hourAir=numberFrom(sub?.textContent);
-    if(sub&&finite(engineAir)&&finite(hourAir)&&Math.abs(hourAir-engineAir)>10){
-      sub.textContent=sub.textContent.replace(/Actual\s*-?\d+(?:\.\d+)?°/i,`Actual ${Math.round(engineAir)}°`);sub.dataset.engine3Corrected='1';
-    }
+    const firstHour=document.querySelector('#hours .hour'),sub=firstHour?.querySelector('.sub'),hourAir=numberFrom(sub?.textContent);if(sub&&finite(engineAir)&&finite(hourAir)&&Math.abs(hourAir-engineAir)>10){sub.textContent=sub.textContent.replace(/Actual\s*-?\d+(?:\.\d+)?°/i,`Actual ${Math.round(engineAir)}°`);sub.dataset.engine3Corrected='1'}
     document.documentElement.dataset.wxServerConsensus='fresh';paintCurrentTruth(key);return true;
   }
   window.WXNormalizeForecastUI=normalize;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',normalize,{once:true});else normalize();
   window.addEventListener('wx-v3-ready',normalize);window.addEventListener('wx-fast-current-ready',normalize);
-  let queued=false;
-  new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;normalize()})}).observe(document.body,{childList:true,subtree:true,characterData:true});
-  setInterval(normalize,5000);
+  let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;normalize()})}).observe(document.body,{childList:true,subtree:true,characterData:true});setInterval(normalize,5000);
 })();
