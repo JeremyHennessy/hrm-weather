@@ -13,27 +13,13 @@ from datetime import datetime, timezone
 from typing import Any
 
 import accuracy_engine_v2 as core
+from location_registry import REGISTRY
 
 LOCATION_KEY = "uws"
 HRRR_MODEL = ("ncep_hrrr_conus", "HRRR", "NOAA", "hrrr", 1.14)
 NWS_STATIONS = ("KNYC", "KJRB", "KLGA")
 
-UWS_LOCATION = {
-    "lat": 40.7870,
-    "lon": -73.9754,
-    "points": [
-        ("UWS South", 40.7745, -73.9840, "urban-south"),
-        ("UWS Central", 40.7870, -73.9754, "urban-core"),
-        ("UWS North", 40.7950, -73.9705, "urban-north"),
-    ],
-    "bbox": [-74.03, 40.73, -73.93, 40.83],
-    "coastal": True,
-    "country": "US",
-    "timezone": "America/New_York",
-    "official_source": "NWS",
-    "official_station": "KNYC",
-    "official_stations": list(NWS_STATIONS),
-}
+UWS_LOCATION = dict(REGISTRY[LOCATION_KEY])
 
 
 def _quantity(value: Any, *, wind: bool = False, precip: bool = False) -> float | None:

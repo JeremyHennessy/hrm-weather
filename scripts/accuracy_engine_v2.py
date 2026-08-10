@@ -37,46 +37,9 @@ LEDGER = DATA / "ledger.json"
 ENGINE = DATA / "engine-v2.json"
 RUN_HISTORY = DATA / "run-history-v2.json"
 
-LOCATIONS = {
-    "hrm": {
-        "lat": 44.6488, "lon": -63.5752,
-        "points": [
-            ("Halifax Peninsula", 44.6488, -63.5752, "coastal"),
-            ("Bedford", 44.7318, -63.6619, "basin"),
-            ("Dartmouth", 44.6661, -63.5676, "harbour"),
-        ],
-        "bbox": [-63.80, 44.48, -63.42, 44.84],
-        "coastal": True,
-    },
-    "moncton": {
-        "lat": 46.0878, "lon": -64.7782,
-        "points": [("Moncton", 46.0878, -64.7782, "inland")],
-        "bbox": [-64.95, 45.98, -64.62, 46.20],
-        "coastal": False,
-    },
-    "shediac": {
-        "lat": 46.2198, "lon": -64.5411,
-        "points": [("Shediac", 46.2198, -64.5411, "coastal")],
-        "bbox": [-64.68, 46.10, -64.40, 46.34],
-        "coastal": True,
-    },
-    "lunenburg": {
-        "lat": 44.377896, "lon": -64.309529,
-        "points": [("Lunenburg", 44.377896, -64.309529, "coastal")],
-        "bbox": [-64.46, 44.25, -64.15, 44.50],
-        "coastal": True,
-    },
-    "wolfville": {
-        "lat": 45.0791, "lon": -64.4383,
-        "points": [
-            ("Wolfville", 45.091713, -64.359242, "valley-east"),
-            ("Wolfville Core", 45.067858, -64.460234, "valley"),
-            ("Wolfville West", 45.077707, -64.495306, "valley-west"),
-        ],
-        "bbox": [-64.62, 44.98, -64.22, 45.20],
-        "coastal": False,
-    },
-}
+from location_registry import load_registry
+
+LOCATIONS = load_registry()
 
 # Deterministic model families. Multiple products from one family are deliberately
 # collapsed later so provider duplication cannot masquerade as independent agreement.

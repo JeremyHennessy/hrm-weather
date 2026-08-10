@@ -68,7 +68,7 @@ def score_due(state:dict[str,Any],observations:dict[str,Any],archive:dict[str,An
         if row.get("truth_complete"):continue
         target=core.parse_stamp(row.get("target"))
         if not target or target>now+timedelta(minutes=20):continue
-        loc=str(row.get("loc"));lead=int(row.get("lead",-1));regime=str(row.get("regime","unknown"));meta=row.setdefault("truth_variables",{})
+        loc=str(row.get("loc"));lead=int(row.get("lead",-1));regime=str(row.get("regime","unknown"));meta=row.setdefault("truth_variables",{});row_touched=False
 
         temp_hit=_truth_value(archive,observations,loc,target,"temperature_2m")
         if temp_hit:
@@ -82,7 +82,7 @@ def score_due(state:dict[str,Any],observations:dict[str,Any],archive:dict[str,An
                 issued_conf=row.get("issued_confidence") or {};conf=core.safe_float(issued_conf.get("value"));tol=core.safe_float(issued_conf.get("tolerance_c"));final=core.safe_float((row.get("temperature_candidates") or {}).get("final_v3"))
                 if conf is not None and tol is not None and final is not None:
                     hit=abs(final-actual)<=tol;bin_key=_confidence_bin(conf);_confidence_update(confidence_scores.setdefault(bin_key,{}),conf,hit);row["confidence_hit"]=hit;row["confidence_bin"]=bin_key
-                row["temperature_scored"]=True;row["scored"]=True;scored+=1
+                row["temperature_scored"]=True;row["scored"]=True;row_touched=True
         else:meta.setdefault("temperature_2m",{"available":False})
 
         precip_hit=_truth_value(archive,observations,loc,target,"precipitation")
@@ -95,7 +95,7 @@ def score_due(state:dict[str,Any],observations:dict[str,Any],archive:dict[str,An
                     p=core.safe_float(prob)
                     if p is None:continue
                     for key in _keys(loc,lead,regime,layer):_brier_update(precip_scores.setdefault(key,{}),p,wet)
-                row["precipitation_scored"]=True;scored+=1
+                row["precipitation_scored"]=True;row_touched=True
         else:meta.setdefault("precipitation",{"available":False})
 
         rh_hit=_truth_value(archive,observations,loc,target,"relative_humidity_2m");wind_hit=_truth_value(archive,observations,loc,target,"wind_speed_10m");solar_hit=_truth_value(archive,observations,loc,target,"shortwave_radiation")
@@ -112,10 +112,11 @@ def score_due(state:dict[str,Any],observations:dict[str,Any],archive:dict[str,An
                     p=core.safe_float(pred)
                     if p is None:continue
                     for key in _real_feel_reference_keys(loc,lead,regime,reference,candidate):_stat_update(reference_scores.setdefault(key,{}),p-float(reference_value))
-            row["actual_real_feel_references"]=refs;row["actual_real_feel_reference_inputs"]={"temperature_2m":actual,"relative_humidity_2m":rh,"wind_speed_10m":wind,"shortwave_radiation":solar,"temperature_source":meta.get("temperature_2m"),"humidity_source":meta.get("relative_humidity_2m"),"wind_source":meta.get("wind_speed_10m"),"solar_source":meta.get("shortwave_radiation")};row["actual_real_feel_reference_version"]="independent-v3-target-time";row["real_feel_scored"]=True;scored+=1
+            row["actual_real_feel_references"]=refs;row["actual_real_feel_reference_inputs"]={"temperature_2m":actual,"relative_humidity_2m":rh,"wind_speed_10m":wind,"shortwave_radiation":solar,"temperature_source":meta.get("temperature_2m"),"humidity_source":meta.get("relative_humidity_2m"),"wind_source":meta.get("wind_speed_10m"),"solar_source":meta.get("shortwave_radiation")};row["actual_real_feel_reference_version"]="independent-v3-target-time";row["real_feel_scored"]=True;row_touched=True
 
         row["truth_complete"]=bool(row.get("temperature_scored") and row.get("precipitation_scored") and row.get("real_feel_scored"))
         if row.get("temperature_scored") or row.get("precipitation_scored") or row.get("real_feel_scored"):row["scored_at"]=core.iso(now)
+        if row_touched:scored+=1
     cutoff=now-timedelta(days=MAX_AGE_DAYS);state["forecasts"]=[r for r in state.get("forecasts",[]) if (core.parse_stamp(r.get("issued")) or now)>=cutoff];state["updated_at"]=core.iso(now);return scored
 
 
