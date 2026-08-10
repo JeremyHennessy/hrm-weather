@@ -1,5 +1,9 @@
 (()=>{
   const CACHE_KEY='wx-engine-v3-startup';
+  // v5b's legacy location table is constructed later in the page.  Preserve a
+  // hard-refreshed UWS selection through startup, but temporarily give that
+  // legacy loader HRM until the UWS adapter has registered the new location.
+  try{if(localStorage.getItem('wx-loc')==='uws'){sessionStorage.setItem('wx-pending-loc','uws');localStorage.setItem('wx-loc','hrm')}}catch{}
   const LOC_LABELS={hrm:['HRM CORE','Halifax Peninsula · Bedford · Dartmouth'],moncton:['MONCTON NB','Downtown Moncton'],shediac:['SHEDIAC NB','Shediac town centre'],lunenburg:['LUNENBURG NS','Lunenburg'],wolfville:['WOLFVILLE NS','Wolfville · New Minas · Kentville'],uws:['UPPER WEST SIDE NY','Upper West Side · Manhattan']};
   const LOC_TZ={uws:'America/New_York'};
   const CURRENT_POINTS={
@@ -12,7 +16,7 @@
   const $=id=>document.getElementById(id),n=v=>Number.isFinite(Number(v))?Number(v):null,deg=v=>n(v)==null?'--°':`${Math.round(n(v))}°`,pct=v=>n(v)==null?'--%':`${Math.round(n(v))}%`;
   const avg=a=>{a=a.map(n).filter(Number.isFinite);return a.length?a.reduce((x,y)=>x+y,0)/a.length:null};
   const put=(id,text)=>{const e=$(id);if(e&&text!=null)e.textContent=text};
-  const localKey=()=>localStorage.getItem('wx-loc')||'hrm';
+  const localKey=()=>{try{return sessionStorage.getItem('wx-pending-loc')||localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   const timezone=key=>LOC_TZ[key]||'America/Halifax';
   const nearestHour=c=>{const h=c?.hours||{};return h['1']||h['3']||h['6']||Object.values(h)[0]||null};
   const forecastFeel=x=>n(x?.real_feel_engine?.inputs?.provider_apparent_temperature)??n(x?.real_feel);
