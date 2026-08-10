@@ -47,7 +47,7 @@
   dayName=function(d){try{return new Intl.DateTimeFormat('en-CA',{weekday:'short',timeZone:'UTC'}).format(new Date(d+'T12:00:00Z'))}catch{return d}};
 
   baseQ=async function(z){
-    const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:tz(),forecast_days:7,temperature_unit:'celsius',wind_speed_unit:'kmh',current:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,uv_index',daily:'temperature_2m_max,temperature_2m_min,apparent_temperature_max,precipitation_probability_max,precipitation_sum,weather_code,sunrise,sunset,uv_index_max'});
+    const p=new URLSearchParams({latitude:z[1],longitude:z[2],timezone:tz(),forecast_days:7,temperature_unit:'celsius',wind_speed_unit:'kmh',current:'temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m,weather_code',hourly:'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,uv_index',daily:'temperature_2m_max,temperature_2m_min,apparent_temperature_max,precipitation_probability_max,precipitation_sum,weather_code,sunrise,sunset,uv_index_max'});
     const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{cache:'no-store'});if(!r.ok)throw Error(r.status);return{z,d:await r.json()};
   };
   modelQ=async function(z,m){
