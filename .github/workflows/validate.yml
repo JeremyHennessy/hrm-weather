@@ -145,6 +145,7 @@ jobs:
           grep -q 'KNYC' uws-location-ui.js
           grep -q 'ncep_hrrr_conus' uws-location-ui.js
           grep -q 'wikimedia-commons' scene-images.js
+          grep -q "accuracy-v2.js?v=39" scene-images.js
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
           grep -q 'forecast-confidence.js' scene-images.js
@@ -165,7 +166,9 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v71" sw.js
+          grep -q "weather-consensus-v72" sw.js
+          grep -q "x!==null&&x!==undefined&&x!==''" accuracy-v2.js
+          grep -q 'wxCurrentActual' forecast-ui-guard.js
           grep -q 'uws-location-ui.js' sw.js
           grep -q 'server-truth-ui.js' sw.js
           grep -q 'forecast-insights.js' sw.js
@@ -173,6 +176,7 @@ jobs:
           grep -q 'placeHourly' forecast-insights.js
           grep -q '<details><summary>' forecast-insights.js
           grep -q 'Forecast Confidence is not a compact status pill' scripts/smoke-live.mjs
+          grep -q 'Current Actual drifted from fast live truth' scripts/smoke-live.mjs
           grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
           grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
           grep -q 'UWS location QA passed' scripts/uws-location-qa.mjs

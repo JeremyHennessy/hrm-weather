@@ -9,7 +9,9 @@
   };
   let V2=null,V2_SKILL={};
 
-  const finite=x=>Number.isFinite(Number(x));
+  // Missing weather values are not numeric zero. In particular Number(null)=0
+  // must never turn an intentionally unavailable current model blend into 0°C.
+  const finite=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x));
   const num=x=>finite(x)?Number(x):null;
   const clamp2=(x,a,b)=>Math.max(a,Math.min(b,x));
 
@@ -101,7 +103,8 @@
       // For forecast hours, the server-side V2 result is the three-engine blend
       // (nowcast + learned local + raw ensemble). It is interpolated between stored
       // lead anchors. Current conditions remain local/live and are observation-corrected
-      // by the existing render path.
+      // by the existing render path. A missing current learned value must remain null
+      // so v5b can fall back to the live base observation rather than manufacturing 0°C.
       const final=v2ServerTemp(lead);
       return finite(final)?Number(final):learned;
     };
