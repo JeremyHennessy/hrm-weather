@@ -2,7 +2,7 @@
    module becomes the sole writer once loaded so sunscreen guidance never flips
    between two independent renderers. */
 (()=>{
-  const finite=v=>Number.isFinite(Number(v));
+  const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   function engine(){if(window.WXAccuracyV3)return window.WXAccuracyV3;try{return JSON.parse(localStorage.getItem('wx-engine-v3-startup')||'null')?.engine||null}catch{return null}}
   function uvValue(){
