@@ -1,0 +1,34 @@
+name: Apply P0 numeric safety
+
+on:
+  push:
+    branches: [p0-truth-registry-precip]
+    paths:
+      - '.github/workflows/apply-p0-numeric-safety.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: p0-truth-registry-precip
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply exact replacements
+        run: python scripts/apply_numeric_safety.py
+      - name: Commit migration result
+        run: |
+          if git diff --quiet; then
+            echo 'Numeric predicates already clean'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add forecast-insights.js v5.js v6.js v6-extra.js v5b.js scripts/server-truth-qa.mjs
+          git commit -m 'Eliminate unsafe null numeric coercion repo-wide'
+          git push origin HEAD:p0-truth-registry-precip
