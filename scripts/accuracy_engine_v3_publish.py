@@ -97,6 +97,8 @@ def main()->None:
     for lname,loc in core.LOCATIONS.items():
         regime_fc=forecasts[lname].get("ncep_hrrr_conus") or forecasts[lname].get("gem_hrdps_continental") or forecasts[lname].get("gem_regional") or forecasts[lname].get("ecmwf_ifs025") or forecasts[lname].get("gfs_seamless");regimes[lname]=core.classify_regime(observations.get(lname),regime_fc,loc)
     engine=v3.build_engine_v3(v2_engine,ledger,forecasts,observations,regimes)
+    engine.setdefault("architecture",{})["observation_nudging"]="live location-official model-error correction (ECCC for Canadian locations; NWS for Upper West Side) with 4h exponential decay"
+    engine.setdefault("architecture",{})["official_observation_policy"]="location-specific official mesh: ECCC SWOB in Canada; NWS/KNYC-led mesh for Upper West Side"
     # Save/score the dense 0-6 h precipitation project before the Engine 3.1
     # wrapper renders its rain-timing facade, so that facade sees this run's data.
     engine["precipitation_nowcast_verification"]=precip_nowcast.update(ledger,forecasts,observations,v2_engine.get("nowcast") or {})
@@ -108,7 +110,7 @@ def main()->None:
     engine32.apply(engine,ledger,forecasts,regimes,verification)
     apply_real_feel(engine,ledger,forecasts,regimes,verification);confidence.apply(engine,verification)
     shadow_added=verify.add_current_forecasts(verification,engine);verify.save_state(verification)
-    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[])};core.save(v3.ENGINE_V3,engine)
+    engine["collector"]={"deterministic_forecasts":sum(len(x) for x in forecasts.values()),"verified_ledger_rows":sum(1 for x in ledger if x.get("scored")),"training_ledger_rows":len(ledger),"lead_pooling":True,"shadow_forecasts_scored":shadow_scored,"shadow_forecasts_added":shadow_added,"shadow_history_rows":len(verification.get("forecasts",[]))};core.save(v3.ENGINE_V3,engine)
     mos_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("mos") or {}).values() if item.get("available"));analog_ready=sum(1 for loc in engine.get("diagnostics",{}).values() for item in (loc.get("analogs") or {}).values() if item.get("available"))
     print(f"accuracy-v3 forecasts={engine['collector']['deterministic_forecasts']} verified={engine['collector']['verified_ledger_rows']} mos_ready={mos_ready} analog_ready={analog_ready} engine32_ready={engine.get('engine32',{}).get('forecast_points_ready',0)} engine32_taxonomy={engine.get('engine32',{}).get('selected_taxonomy')} precip06_rows={engine.get('precipitation_nowcast_verification',{}).get('rows',0)} rrfs_rows={engine.get('rrfsv1',{}).get('archived_rows',0)} realfeel_ready={engine.get('real_feel',{}).get('forecast_points_ready',0)} realfeel_replay={engine.get('real_feel_formula_replay',{}).get('scored_rows',0)} precip_oos={engine.get('precipitation_walk_forward',{}).get('evaluated_targets',0)} confidence_owner={engine.get('forecast_confidence',{}).get('owner')} shadow_scored={shadow_scored} shadow_added={shadow_added}")
 
