@@ -236,7 +236,7 @@ def main() -> None:
             "radar_extrapolation": bool((nowcasts.get(lname) or {}).get("radar_extrapolation_available")),
             "rdpa": bool((nowcasts.get(lname) or {}).get("rdpa_available")),
             "observation_stations": int((observations.get(lname) or {}).get("station_count", 0)),
-            "observation_provider": (observations.get(lname) or {}).get("provider") or "ECCC",
+            "observation_provider": (observations.get(lname) or {}).get("provider") or loc.get("official_source") or "ECCC",
             "challengers_configured": sum(1 for x in (benchmarks.get(lname) or {}).values() if x.get("configured")),
             "challengers_live": sum(1 for x in (benchmarks.get(lname) or {}).values() if x.get("status") == "ok"),
         }
