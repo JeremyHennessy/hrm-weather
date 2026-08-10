@@ -6,9 +6,12 @@
   L.uws={n:'Upper West Side',k:'UPPER WEST SIDE NY',s:'Upper West Side · Manhattan',tz:'America/New_York',country:'US',
     core:[['UWS South',40.7745,-73.9840],['UWS Central',40.7870,-73.9754],['UWS North',40.7950,-73.9705]],micro:[],bbox:[-74.03,40.73,-73.93,40.83]};
   if(!M.some(m=>m[0]==='ncep_hrrr_conus'))M.push(['ncep_hrrr_conus','HRRR','NOAA',1.14]);
+  try{if(sessionStorage.getItem('wx-pending-loc')==='uws'){loc='uws';localStorage.setItem('wx-loc','uws');sessionStorage.removeItem('wx-pending-loc')}}catch{}
   const tz=()=>L[loc]?.tz||'America/Halifax';
   const localHourKey=(d=new Date())=>new Intl.DateTimeFormat('sv-SE',{timeZone:tz(),year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hour12:false}).format(d).replace(' ','T').slice(0,13);
   const hourLabel=t=>{const h=Number(String(t||'').slice(11,13)),m=String(t||'').slice(14,16)||'00';if(!Number.isFinite(h))return'--';const ap=h>=12?'p.m.':'a.m.',hh=h%12||12;return m==='00'?`${hh} ${ap}`:`${hh}:${m} ${ap}`};
+  const newYorkDaypart=(d=new Date())=>{const h=+new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',hour:'2-digit',hour12:false}).format(d);if(h>=5&&h<8)return'dawn';if(h>=8&&h<18)return'day';if(h>=18&&h<21)return'dusk';return'night'};
+  function syncUwsChrome(){if(loc!=='uws')return;const brand=document.querySelector('.brand h1'),hero=document.querySelector('.hero');if(brand&&brand.textContent!=='Upper West Side, NY')brand.textContent='Upper West Side, NY';const kicker=document.querySelector('#kicker');if(kicker&&kicker.textContent!=='UPPER WEST SIDE NY')kicker.textContent='UPPER WEST SIDE NY';if(hero){if(hero.dataset.location!=='Upper West Side')hero.dataset.location='Upper West Side';const part=newYorkDaypart();if(hero.dataset.daypart!==part)hero.dataset.daypart=part}}
   idx=function(d){const n=localHourKey(),i=d?.hourly?.time?.findIndex(t=>t.slice(0,13)>=n)??-1;return i<0?0:i};
   hourName=function(t){return hourLabel(t)};
   clock=function(t){return hourLabel(t)};
@@ -51,12 +54,16 @@
     const station=document.getElementById('officialStation'),obsline=document.getElementById('obsline');if(station&&official)station.textContent=`NWS Central Park KNYC · ${official.station}`;if(obsline&&official)obsline.textContent=`Now corrected with NWS/KNYC observation (${fmt(official.temp)}° · ${official.count} station${official.count===1?'':'s'})`;
     const hs=officialHead?.querySelector('.head span');if(hs)hs.textContent='National Weather Service';const cardSubs=officialHead?.querySelectorAll('.official .sub')||[];if(cardSubs[1]&&/ECCC/i.test(cardSubs[1].textContent))cardSubs[1].textContent=cardSubs[1].textContent.replace(/ECCC/gi,'NWS');
     const footer=[...document.querySelectorAll('.footer')].find(x=>/alerts remain authoritative/i.test(x.textContent||''));if(footer)footer.textContent='Weather Consensus · locally calibrated experimental forecast. NWS alerts remain authoritative for hazardous weather in New York.';
-    const upd=document.getElementById('updated');if(upd&&lastUpdated)upd.textContent=`Updated ${new Intl.DateTimeFormat('en-CA',{dateStyle:'medium',timeStyle:'short',timeZone:tz()}).format(lastUpdated)} · Upper West Side, Manhattan.`;
+    const upd=document.getElementById('updated');if(upd&&lastUpdated)upd.textContent=`Updated ${new Intl.DateTimeFormat('en-CA',{dateStyle:'medium',timeStyle:'short',timeZone:tz()}).format(lastUpdated)} · Upper West Side, Manhattan.`;syncUwsChrome();
   };
   if(typeof wxHealth==='function'){
     const oldHealth=wxHealth;wxHealth=function(){oldHealth();if(loc!=='uws')return;const el=document.getElementById('health');if(el)el.innerHTML=el.innerHTML.replace(/ECCC observation/gi,'NWS observation')};
   }
+  const brand=document.querySelector('.brand h1'),hero=document.querySelector('.hero');
+  if(brand)new MutationObserver(syncUwsChrome).observe(brand,{childList:true,subtree:true,characterData:true});
+  if(hero)new MutationObserver(()=>{if(loc==='uws')queueMicrotask(syncUwsChrome)}).observe(hero,{attributes:true,attributeFilter:['data-location','data-daypart']});
   window.WX_LOCATION_TIMEZONE=tz;
-  nav();
-  if(loc==='uws')load().catch(()=>{});
+  nav();syncUwsChrome();
+  if(loc==='uws')load().catch(e=>console.warn('UWS reload failed',e));
+  setInterval(syncUwsChrome,2000);
 })();
