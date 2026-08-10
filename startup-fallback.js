@@ -1,6 +1,6 @@
 (()=>{
   const CACHE_KEY='wx-engine-v3-startup';
-  // v5b's legacy location table is constructed later in the page.  Preserve a
+  // v5b's legacy location table is constructed later in the page. Preserve a
   // hard-refreshed UWS selection through startup, but temporarily give that
   // legacy loader HRM until the UWS adapter has registered the new location.
   try{if(localStorage.getItem('wx-loc')==='uws'){sessionStorage.setItem('wx-pending-loc','uws');localStorage.setItem('wx-loc','hrm')}}catch{}
@@ -52,5 +52,5 @@
   }
   try{const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');if(cached?.engine)paint(cached.engine,'saved Engine 3')}catch{}
   async function boot(){const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),3000);try{const r=await fetch(`./data/engine-v3.json?startup=${Date.now()}`,{cache:'no-store',signal:ctrl.signal});if(!r.ok)throw Error(`engine ${r.status}`);const engine=await r.json();try{localStorage.setItem(CACHE_KEY,JSON.stringify({saved_at:Date.now(),engine}))}catch{};if(!window.__wxInitialForecastShown)paint(engine,'latest Engine 3')}catch(e){if(!window.__wxInitialForecastShown)console.warn('Static startup fallback unavailable',e)}finally{clearTimeout(timer)}}
-  window.__wxPaintStaticStartup=boot;fastCurrent();boot();
+  window.__wxPaintStaticStartup=boot;window.WXRefreshFastCurrent=fastCurrent;fastCurrent();boot();
 })();
