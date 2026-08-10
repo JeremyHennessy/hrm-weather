@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Upper West Side and Central Park scenic background">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6f98ad"/>
+      <stop offset="0.55" stop-color="#b9ced4"/>
+      <stop offset="1" stop-color="#e1ded0"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7da7ad"/>
+      <stop offset="1" stop-color="#355e65"/>
+    </linearGradient>
+    <linearGradient id="park" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#516d55"/>
+      <stop offset="1" stop-color="#233b31"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b5aa95"/>
+      <stop offset="1" stop-color="#716b5f"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1240" cy="150" r="78" fill="#f1d8a1" opacity="0.55" filter="url(#soft)"/>
+  <g opacity="0.18" fill="#fff">
+    <ellipse cx="260" cy="180" rx="190" ry="34"/>
+    <ellipse cx="510" cy="230" rx="145" ry="24"/>
+    <ellipse cx="1020" cy="105" rx="160" ry="26"/>
+  </g>
+  <g id="skyline">
+    <rect x="860" y="278" width="72" height="290" fill="#9b9185"/>
+    <rect x="870" y="252" width="52" height="26" fill="#81796f"/>
+    <rect x="943" y="222" width="96" height="346" fill="#a59d91"/>
+    <rect x="956" y="190" width="70" height="32" fill="#887f75"/>
+    <rect x="1048" y="304" width="74" height="264" fill="#8e8a82"/>
+    <rect x="1130" y="248" width="88" height="320" fill="#aaa395"/>
+    <polygon points="1148,248 1174,205 1200,248" fill="#817a70"/>
+    <rect x="1228" y="326" width="66" height="242" fill="#8f8e89"/>
+    <rect x="1302" y="286" width="98" height="282" fill="#a7a196"/>
+    <rect x="1410" y="342" width="74" height="226" fill="#8a8781"/>
+    <rect x="1492" y="312" width="108" height="256" fill="#a09b91"/>
+    <g fill="#d8d0bb" opacity="0.66">
+      <g transform="translate(875 300)"><rect width="8" height="16"/><rect x="22" width="8" height="16"/><rect x="44" width="8" height="16"/><rect y="38" width="8" height="16"/><rect x="22" y="38" width="8" height="16"/><rect x="44" y="38" width="8" height="16"/></g>
+      <g transform="translate(960 262)"><rect width="9" height="18"/><rect x="28" width="9" height="18"/><rect x="56" width="9" height="18"/><rect y="44" width="9" height="18"/><rect x="28" y="44" width="9" height="18"/><rect x="56" y="44" width="9" height="18"/></g>
+      <g transform="translate(1145 290)"><rect width="8" height="17"/><rect x="26" width="8" height="17"/><rect x="52" width="8" height="17"/><rect y="43" width="8" height="17"/><rect x="26" y="43" width="8" height="17"/><rect x="52" y="43" width="8" height="17"/></g>
+      <g transform="translate(1320 330)"><rect width="8" height="17"/><rect x="25" width="8" height="17"/><rect x="50" width="8" height="17"/><rect y="42" width="8" height="17"/><rect x="25" y="42" width="8" height="17"/><rect x="50" y="42" width="8" height="17"/></g>
+    </g>
+  </g>
+  <path d="M0 548 C190 500 320 526 475 500 C650 470 730 515 850 520 C1030 530 1160 490 1600 510 L1600 720 L0 720 Z" fill="#344c3d"/>
+  <g fill="#263d31">
+    <circle cx="95" cy="540" r="105"/><circle cx="220" cy="520" r="118"/><circle cx="360" cy="545" r="96"/><circle cx="500" cy="514" r="120"/><circle cx="660" cy="550" r="112"/><circle cx="780" cy="520" r="100"/>
+    <circle cx="900" cy="560" r="85"/><circle cx="1030" cy="540" r="105"/><circle cx="1170" cy="550" r="95"/><circle cx="1520" cy="555" r="118"/>
+  </g>
+  <path d="M75 650 C330 585 540 610 765 625 C1005 640 1190 600 1535 630 C1440 750 1270 807 1040 842 C755 885 445 850 190 785 Z" fill="url(#water)"/>
+  <path d="M62 646 C340 575 560 598 776 612 C1010 627 1225 590 1548 620" fill="none" stroke="#d8d0ba" stroke-width="12" opacity="0.8"/>
+  <path d="M55 655 C342 590 555 615 770 629 C1018 645 1217 607 1542 636" fill="none" stroke="#6d685d" stroke-width="4" opacity="0.75"/>
+  <path d="M0 770 C210 700 330 735 485 760 C650 785 770 760 920 785 C1105 815 1300 785 1600 720 L1600 1000 L0 1000 Z" fill="url(#park)"/>
+  <g fill="#1e342a">
+    <circle cx="55" cy="765" r="135"/><circle cx="180" cy="790" r="108"/><circle cx="1390" cy="760" r="115"/><circle cx="1530" cy="740" r="145"/>
+  </g>
+  <path d="M1130 1000 C1155 895 1240 820 1395 762 C1460 738 1518 713 1600 682 L1600 1000 Z" fill="url(#stone)" opacity="0.78"/>
+  <path d="M0 930 C220 850 420 860 615 905 C760 938 860 945 1040 925 L1110 1000 L0 1000 Z" fill="#20352b" opacity="0.88"/>
+  <g fill="#77927a" opacity="0.55">
+    <circle cx="325" cy="728" r="30"/><circle cx="405" cy="700" r="42"/><circle cx="520" cy="722" r="34"/><circle cx="975" cy="710" r="38"/><circle cx="1070" cy="695" r="45"/>
+  </g>
+  <path d="M195 785 C430 822 735 827 1030 805" fill="none" stroke="#d9ddd5" stroke-width="3" opacity="0.35"/>
+</svg>

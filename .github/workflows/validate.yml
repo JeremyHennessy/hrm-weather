@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/uws-current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
@@ -76,7 +76,6 @@ jobs:
           assert any(m[0]=='ncep_hrrr_conus' for m in location_uws.models_for_location(uws))
           assert all(m[0]!='ncep_hrrr_conus' for m in location_uws.models_for_location(core.LOCATIONS['hrm']))
           assert core.MODEL_META['ncep_hrrr_conus']['family']=='hrrr'
-
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
@@ -88,14 +87,12 @@ jobs:
           assert p06._gate(synthetic,'hrm',1)['status']=='calibration-disabled-worse-than-raw'
           dense=rain.build({'forecasts':[]})
           assert dense.get('owner')=='precip-nowcast-verifier' and dense.get('lead_grid_hours')==[0,1,2,3,4,5,6]
-
           assert rrfs.LEADS==(1,3,6,12,24) and rrfs.APPLIED_PRODUCTION_WEIGHT==0.0
           good={'n':40,'rrfs_mae':.8,'baseline_mae':1.0,'win_rate':.60}
           er=rrfs._eligibility(good,'temperature_2m')
           assert er['eligible_for_future_weight'] is True and er['applied_production_weight']==0.0
           assert rrfs.report({'rows':[],'scores':{}})['production_changed'] is False
           assert 'WeatherNext 2' in rrfs.report({'rows':[],'scores':{}})['next_ensemble_candidate']
-
           assert e31.MIN_PROMOTION_SAMPLES >= 12 and e31.HALF_LIFE_DAYS > 0 and e31.MIN_PROMOTION_WIN_RATE >= .55 and callable(e31.apply)
           assert callable(e31install._attach_server_truth)
           assert gate.MIN_PROMOTION_WIN_RATE >= .55 and gate.HALF_LIFE_DAYS > 0
@@ -109,14 +106,12 @@ jobs:
           assert e32_result.get('selected_for_prospective_shadow')=='8-family', e32_result
           assert e32._selected()=='8-family'
           assert e32._prospective_pair({'forecasts':[]})['promotion_allowed'] is False
-
           truth_probe={};e31install._attach_server_truth(truth_probe);truth=truth_probe.get('server_truth') or {}
           assert truth.get('owner') == 'hourly-server-collector', truth
           assert (truth.get('source_health') or {}).get('hrm'), truth
           assert (truth.get('observations') or {}).get('hrm'), truth
           assert (truth.get('best_models') or {}).get('hrm'), truth
           assert (truth.get('consensus_context') or {}).get('hrm'), truth
-
           assert rf.physical_real_feel(28,80,5)['value'] > rf.physical_real_feel(28,35,5)['value']
           assert rf.physical_real_feel(-5,35,30)['value'] < -5
           current=rf.physical_real_feel(19.0196,96.5174,5.3479)['value'];legacy=rf.legacy_physical_real_feel(19.0196,96.5174,5.3479)['value']
@@ -127,7 +122,6 @@ jobs:
           cold_refs=rf.independent_references(-5.0,75.0,30.0);assert 'eccc_wind_chill' in cold_refs
           replay=verify.real_feel_replay({'real_feel_reference_scores':{'hrm:1:all:bom_steadman_shade:provider_apparent':{'n':3,'mae':0.4,'bias':0.1,'rmse':0.5}},'forecasts':[]})
           assert replay['mode']=='comparative-independent-reference-replay'
-
           now=core.utcnow();rows=[]
           for i in range(18):rows.append({'scored':True,'loc':'hrm','lead':3,'regime':'stable','issued':core.iso(now-timedelta(hours=i*8)),'actual_temperature':20.0,'temperature_candidates':{'v2':21.2,'mos':20.4,'analog':20.7,'final_v3':20.8,'engine31':20.3}})
           state={'forecasts':rows,'scores':{}}
@@ -139,19 +133,23 @@ jobs:
       - name: Verify current app wiring
         run: |
           grep -q 'viewport-fit=cover' app.html
-          grep -q 'uws-location-ui.js' scene-images.js
+          grep -q "uws-location-ui.js?v=2" scene-images.js
           grep -q 'Upper West Side' startup-fallback.js
           grep -q 'America/New_York' startup-fallback.js
           grep -q 'official-observation-steadman-current' startup-fallback.js
           grep -q 'OFFICIAL_MAX_AGE_MS' startup-fallback.js
           grep -q 'KNYC' uws-location-ui.js
           grep -q 'ncep_hrrr_conus' uws-location-ui.js
-          grep -q 'wikimedia-commons' scene-images.js
+          grep -q 'nws-stored-observation-steadman-current' uws-location-ui.js
+          grep -q 'stored NWS observation stale' uws-location-ui.js
+          grep -q 'local-vector-uws' scene-images.js
+          grep -q 'backgrounds/generated/uws.svg' scene-images.js
+          ! grep -q 'upload.wikimedia.org' scene-images.js
           grep -q "accuracy-v2.js?v=39" scene-images.js
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
           grep -q 'forecast-confidence.js' scene-images.js
-          grep -q 'forecast-ui-guard.js?v=3' scene-images.js
+          grep -q 'forecast-ui-guard.js?v=4' scene-images.js
           grep -q 'uv-guidance.js' scene-images.js
           grep -q 'forecast-insights.js?v=3' scene-images.js
           ! grep -q "import('./accuracy-v3.js" deep-ui.js
@@ -168,8 +166,10 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v73" sw.js
+          grep -q "weather-consensus-v74" sw.js
+          grep -q 'backgrounds/generated/uws.svg' sw.js
           grep -q "x!==null&&x!==undefined&&x!==''" accuracy-v2.js
+          grep -q 'nws-stored-observation-steadman-current' forecast-ui-guard.js
           grep -q 'live-current-official-observation-fallback' forecast-ui-guard.js
           grep -q 'wxCurrentActual' forecast-ui-guard.js
           grep -q 'uws-location-ui.js' sw.js
@@ -182,6 +182,7 @@ jobs:
           grep -q 'official-observation-steadman-current' scripts/smoke-live.mjs
           grep -q 'Current Actual drifted from fast live truth' scripts/smoke-live.mjs
           grep -q 'Official current fallback QA passed' scripts/current-fallback-qa.mjs
+          grep -q 'UWS stored NWS current fallback QA passed' scripts/uws-current-fallback-qa.mjs
           grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
           grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
           grep -q 'UWS location QA passed' scripts/uws-location-qa.mjs
@@ -198,6 +199,7 @@ jobs:
           grep -q 'install_engine31' scripts/collect.py
           grep -q 'iphone-se-1' scripts/layout-qa.mjs
           grep -q 'iphone-pro-max' scripts/layout-qa.mjs
+          test -f backgrounds/generated/uws.svg
           test -f scripts/location_uws.py
           test -f scripts/precip_nowcast_verifier.py
           test -f scripts/rrfsv1_shadow.py
@@ -205,6 +207,7 @@ jobs:
           test -f data/rrfsv1-verification.json
           test -f scripts/uws-location-qa.mjs
           test -f scripts/current-fallback-qa.mjs
+          test -f scripts/uws-current-fallback-qa.mjs
           test -f server-truth-ui.js
           test -f scripts/server-truth-qa.mjs
           test -f scripts/hero-density-qa.mjs
