@@ -1,10 +1,10 @@
 /* Final UI truth layer for server-first Engine 3 operation.
    Keeps intentionally skipped client model calls from being reported as failures,
-   prevents broken live-base air temperature overwrites, and deliberately leaves
-   the current Real Feel owned by the live current-conditions renderer. A future
-   Engine 3 forecast row must never replace the value labelled RIGHT NOW. */
+   prevents broken live-base air temperature overwrites, and keeps RIGHT NOW
+   Real Feel + Actual owned by the live current-condition path. A future Engine 3
+   forecast row must never replace values labelled current. */
 (()=>{
-  const finite=v=>Number.isFinite(Number(v));
+  const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return 'hrm'}};
   function engine(){
     if(window.WXAccuracyV3)return window.WXAccuracyV3;
@@ -13,18 +13,34 @@
   function fresh(e){const t=e?.updated_at?Date.parse(e.updated_at):0;return !!t&&Date.now()-t<3*60*60*1000&&Number(e?.collector?.deterministic_forecasts||0)>=20}
   function nearest(e,key){const h=e?.consensus?.[key]?.hours||{};return h['1']||h['3']||h['6']||Object.values(h)[0]||null}
   function numberFrom(text){const m=String(text||'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null}
+  function currentTruth(key){const c=window.__wxFastCurrent;return c?.painted&&c.location===key&&finite(c.feel)&&finite(c.air)?c:null}
+  function paintCurrentTruth(key){
+    const c=currentTruth(key);if(!c)return false;
+    const feelsEl=document.getElementById('feels'),actual=document.getElementById('actual'),provider=c.source==='provider-apparent-current';
+    if(feelsEl){const next=`${Number(c.feel).toFixed(1)}°`;if(feelsEl.textContent!==next)feelsEl.textContent=next;feelsEl.dataset.currentSource=provider?'provider-apparent-fast-current':'nws-apparent-fallback-current';delete feelsEl.dataset.engine3RealFeel}
+    if(actual){const shown=numberFrom(actual.textContent);if(!finite(shown)||Math.abs(Number(shown)-Number(c.air))>.05)actual.innerHTML=`Actual <b>${Number(c.air).toFixed(1)}°</b>`;actual.dataset.currentSource=c.source||'live-current'}
+    document.documentElement.dataset.wxRealFeel=provider?'live-current-provider-apparent':'live-current-nws-apparent-fallback';
+    document.documentElement.dataset.wxCurrentActual='live-current-input';
+    return true;
+  }
   function normalize(){
-    const e=engine();if(!fresh(e))return false;
-    const key=locKey(),row=nearest(e,key),feeds=Number(e?.collector?.deterministic_forecasts||0);
+    const e=engine(),key=locKey();
+    // Live current truth is independent of forecast freshness and should be
+    // restored even while server payloads are updating.
+    paintCurrentTruth(key);
+    if(!fresh(e))return false;
+    const row=nearest(e,key),feeds=Number(e?.collector?.deterministic_forecasts||0);
     const modelCount=document.getElementById('modelCount');
     if(modelCount&&feeds)modelCount.textContent=`${feeds} forecast feeds · Engine 3 server consensus`;
     const warn=document.getElementById('warn');
     if(warn&&/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(warn.textContent||'')){
       warn.textContent='';warn.style.display='none';warn.dataset.serverConsensusCleared='1';
     }
-    const engineAir=Number(row?.temperature_2m),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels');
+    // If live current has not arrived, retain the narrow legacy plausibility guard
+    // for Actual. Never use Engine +1h when live current truth exists.
+    const engineAir=Number(row?.temperature_2m),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels'),hasCurrent=Boolean(currentTruth(key));
     const feel=numberFrom(feelsEl?.textContent),shownAir=numberFrom(actual?.textContent);
-    const implausible=finite(engineAir)&&finite(shownAir)&&(
+    const implausible=!hasCurrent&&finite(engineAir)&&finite(shownAir)&&(
       Math.abs(shownAir-engineAir)>10 ||
       (Math.abs(shownAir)<0.1&&engineAir>8) ||
       (finite(feel)&&Math.abs(shownAir-feel)>14)
@@ -36,12 +52,12 @@
       sub.textContent=sub.textContent.replace(/Actual\s*-?\d+(?:\.\d+)?°/i,`Actual ${Math.round(engineAir)}°`);sub.dataset.engine3Corrected='1';
     }
     document.documentElement.dataset.wxServerConsensus='fresh';
-    document.documentElement.dataset.wxRealFeel='live-current-provider-apparent';
+    paintCurrentTruth(key);
     return true;
   }
   window.WXNormalizeForecastUI=normalize;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',normalize,{once:true});else normalize();
-  window.addEventListener('wx-v3-ready',normalize);
+  window.addEventListener('wx-v3-ready',normalize);window.addEventListener('wx-fast-current-ready',normalize);
   let queued=false;
   new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;normalize()})}).observe(document.body,{childList:true,subtree:true,characterData:true});
   setInterval(normalize,5000);
