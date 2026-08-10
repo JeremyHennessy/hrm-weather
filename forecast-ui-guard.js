@@ -14,14 +14,18 @@
   function nearest(e,key){const h=e?.consensus?.[key]?.hours||{};return h['1']||h['3']||h['6']||Object.values(h)[0]||null}
   function numberFrom(text){const m=String(text||'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null}
   function currentTruth(key){const c=window.__wxFastCurrent;return c?.painted&&c.location===key&&finite(c.feel)&&finite(c.air)?c:null}
+  function currentPresentation(c){
+    if(c?.source==='provider-apparent-current')return{feelSource:'provider-apparent-fast-current',owner:'live-current-provider-apparent'};
+    if(c?.source==='nws-apparent-fallback-current')return{feelSource:'nws-apparent-fallback-current',owner:'live-current-nws-apparent-fallback'};
+    if(c?.source==='official-observation-steadman-current')return{feelSource:'official-observation-steadman-current',owner:'live-current-official-observation-fallback'};
+    return{feelSource:c?.source||'live-current',owner:'live-current-input'};
+  }
   function paintCurrentTruth(key){
-    const c=currentTruth(key);if(!c)return false;
-    const feelsEl=document.getElementById('feels'),actual=document.getElementById('actual'),provider=c.source==='provider-apparent-current';
-    if(feelsEl){const next=`${Number(c.feel).toFixed(1)}°`;if(feelsEl.textContent!==next)feelsEl.textContent=next;feelsEl.dataset.currentSource=provider?'provider-apparent-fast-current':'nws-apparent-fallback-current';delete feelsEl.dataset.engine3RealFeel}
+    const c=currentTruth(key);if(!c)return false;const p=currentPresentation(c);
+    const feelsEl=document.getElementById('feels'),actual=document.getElementById('actual');
+    if(feelsEl){const next=`${Number(c.feel).toFixed(1)}°`;if(feelsEl.textContent!==next)feelsEl.textContent=next;feelsEl.dataset.currentSource=p.feelSource;delete feelsEl.dataset.engine3RealFeel}
     if(actual){const shown=numberFrom(actual.textContent);if(!finite(shown)||Math.abs(Number(shown)-Number(c.air))>.05)actual.innerHTML=`Actual <b>${Number(c.air).toFixed(1)}°</b>`;actual.dataset.currentSource=c.source||'live-current'}
-    document.documentElement.dataset.wxRealFeel=provider?'live-current-provider-apparent':'live-current-nws-apparent-fallback';
-    document.documentElement.dataset.wxCurrentActual='live-current-input';
-    return true;
+    document.documentElement.dataset.wxRealFeel=p.owner;document.documentElement.dataset.wxCurrentActual='live-current-input';return true;
   }
   function normalize(){
     const e=engine(),key=locKey();
@@ -51,9 +55,7 @@
     if(sub&&finite(engineAir)&&finite(hourAir)&&Math.abs(hourAir-engineAir)>10){
       sub.textContent=sub.textContent.replace(/Actual\s*-?\d+(?:\.\d+)?°/i,`Actual ${Math.round(engineAir)}°`);sub.dataset.engine3Corrected='1';
     }
-    document.documentElement.dataset.wxServerConsensus='fresh';
-    paintCurrentTruth(key);
-    return true;
+    document.documentElement.dataset.wxServerConsensus='fresh';paintCurrentTruth(key);return true;
   }
   window.WXNormalizeForecastUI=normalize;
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',normalize,{once:true});else normalize();

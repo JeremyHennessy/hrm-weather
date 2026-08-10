@@ -12,6 +12,7 @@ page.on('pageerror',e=>errors.push(String(e)));
 const started=Date.now();
 const deadline=(ms,label)=>new Promise((_,reject)=>setTimeout(()=>reject(new Error(label)),ms));
 const firstNumber=text=>Number(String(text||'').match(/-?\d+(?:\.\d+)?/)?.[0]);
+const CURRENT_SOURCES=new Set(['provider-apparent-current','official-observation-steadman-current']);
 let exitCode=0;
 try{
   const resp=await Promise.race([page.goto(url,{waitUntil:'domcontentloaded',timeout:12000}),deadline(13000,'DOM startup deadline exceeded')]);
@@ -32,36 +33,14 @@ try{
   const state=await Promise.race([page.evaluate(()=>{
     const rect=el=>{if(!el)return null;const r=el.getBoundingClientRect();return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};
     return{
-      feels:document.querySelector('#feels')?.textContent?.trim()||'',
-      realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
-      realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
-      currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
-      currentFast:window.__wxFastCurrent||null,
-      actual:document.querySelector('#actual')?.textContent?.trim()||'',
-      actualOwner:document.documentElement.dataset.wxCurrentActual||'',
-      morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
-      updated:document.querySelector('#updated')?.textContent?.trim()||'',
-      modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
-      confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
-      confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
-      summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
-      summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
-      uvVisible:!document.querySelector('#uvGuidance')?.hidden,
-      uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
-      uvText:document.querySelector('#uvGuidance')?.textContent?.trim()||'',
-      warn:document.querySelector('#warn')?.textContent?.trim()||'',
-      initialShown:Boolean(window.__wxInitialForecastShown),
-      complete:Boolean(window.__wxHasCompleteForecast),
-      serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
-      requestHealth:window.WX_REQUEST_HEALTH||null,
-      layout:{hero:rect(document.querySelector('.hero')),summary:rect(document.querySelector('#daySummary')),confidence:rect(document.querySelector('.confidenceOrb')),confidenceParent:document.querySelector('.confidenceOrb')?.parentElement?.className||''}
+      feels:document.querySelector('#feels')?.textContent?.trim()||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',currentFast:window.__wxFastCurrent||null,actual:document.querySelector('#actual')?.textContent?.trim()||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',updated:document.querySelector('#updated')?.textContent?.trim()||'',modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',summary:document.querySelector('#daySummary')?.textContent?.trim()||'',summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',uvVisible:!document.querySelector('#uvGuidance')?.hidden,uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',uvText:document.querySelector('#uvGuidance')?.textContent?.trim()||'',warn:document.querySelector('#warn')?.textContent?.trim()||'',initialShown:Boolean(window.__wxInitialForecastShown),complete:Boolean(window.__wxHasCompleteForecast),serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,requestHealth:window.WX_REQUEST_HEALTH||null,layout:{hero:rect(document.querySelector('.hero')),summary:rect(document.querySelector('#daySummary')),confidence:rect(document.querySelector('.confidenceOrb')),confidenceParent:document.querySelector('.confidenceOrb')?.parentElement?.className||''}
     }
   }),deadline(2000,'Could not read live page state')]);
   console.log(JSON.stringify({ok:true,elapsed_ms:Date.now()-started,url,status:resp.status(),...state,confidence_samples:confidenceSamples,console_errors:errors},null,2));
   if(state.feels.includes('--'))throw new Error('Real Feel remained unavailable');
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
   if(requireFastCurrent&&state.currentFast?.painted!==true)throw new Error(`Lightweight current Real Feel path did not paint: ${JSON.stringify(state.currentFast)}`);
-  if(requireFastCurrent&&state.currentFast?.source!=='provider-apparent-current')throw new Error(`Lightweight current Real Feel source changed: ${JSON.stringify(state.currentFast)}`);
+  if(requireFastCurrent&&!CURRENT_SOURCES.has(state.currentFast?.source))throw new Error(`Lightweight current Real Feel source is not an approved current source: ${JSON.stringify(state.currentFast)}`);
   if(requireFastCurrent&&state.currentFast?.painted){
     const shownFeel=firstNumber(state.feels),shownAir=firstNumber(state.actual);
     if(Number.isFinite(shownFeel)&&Number.isFinite(state.currentFast.feel)&&Math.abs(shownFeel-state.currentFast.feel)>0.6)throw new Error(`Current Real Feel drifted from fast live truth: hero=${shownFeel} fast=${state.currentFast.feel}`);
@@ -82,40 +61,15 @@ try{
   if(state.uvVisible&&state.uvOwner!=='forecast-insights')throw new Error(`UV overlay has competing owner: ${state.uvOwner||'missing'}`);
   if(state.uvVisible&&!/SPF 30\+|SPF 50\+/i.test(state.uvText))throw new Error(`Visible UV guidance lacks sunscreen recommendation: ${state.uvText}`);
   if(state.serverConsensusFresh){
-    if(state.realFeelOwner!=='live-current-provider-apparent')throw new Error(`Headline Real Feel is not owned by live current inputs: owner=${state.realFeelOwner||'missing'}`);
+    const approvedOwner=state.currentFast?.source==='official-observation-steadman-current'?'live-current-official-observation-fallback':'live-current-provider-apparent';
+    if(state.realFeelOwner!==approvedOwner)throw new Error(`Headline Real Feel is not owned by the selected current source: owner=${state.realFeelOwner||'missing'} expected=${approvedOwner}`);
     if(state.realFeelDataset==='1')throw new Error('Headline Real Feel was overwritten by an Engine 3 forecast row');
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
     if(/No live weather feeds responded|model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Healthy Engine 3 consensus reported as feed failure: ${state.warn}`);
-    const air=firstNumber(state.actual),feel=firstNumber(state.feels);
-    if(Number.isFinite(air)&&Number.isFinite(feel)&&Math.abs(air)<0.1&&feel>10)throw new Error(`Bogus Actual temperature survived UI guard: ${state.actual}`);
+    const air=firstNumber(state.actual),feel=firstNumber(state.feels);if(Number.isFinite(air)&&Number.isFinite(feel)&&Math.abs(air)<0.1&&feel>10)throw new Error(`Bogus Actual temperature survived UI guard: ${state.actual}`);
   }
 }catch(err){
-  exitCode=1;
-  let state=null;
-  try{state=await Promise.race([page.evaluate(()=>({
-    readyState:document.readyState,
-    feels:document.querySelector('#feels')?.textContent?.trim()||'',
-    realFeelOwner:document.documentElement.dataset.wxRealFeel||'',
-    realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',
-    currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
-    currentFast:window.__wxFastCurrent||null,
-    actual:document.querySelector('#actual')?.textContent?.trim()||'',
-    actualOwner:document.documentElement.dataset.wxCurrentActual||'',
-    modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
-    confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
-    confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
-    summary:document.querySelector('#daySummary')?.textContent?.trim()||'',
-    summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',
-    uvVisible:!document.querySelector('#uvGuidance')?.hidden,
-    uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',
-    updated:document.querySelector('#updated')?.textContent?.trim()||'',
-    warn:document.querySelector('#warn')?.textContent?.trim()||'',
-    initialShown:Boolean(window.__wxInitialForecastShown),
-    complete:Boolean(window.__wxHasCompleteForecast),
-    requestHealth:window.WX_REQUEST_HEALTH||null
-  })),deadline(1500,'state read timeout')])}catch{}
+  exitCode=1;let state=null;
+  try{state=await Promise.race([page.evaluate(()=>({readyState:document.readyState,feels:document.querySelector('#feels')?.textContent?.trim()||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',realFeelDataset:document.querySelector('#feels')?.dataset?.engine3RealFeel||'',currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',currentFast:window.__wxFastCurrent||null,actual:document.querySelector('#actual')?.textContent?.trim()||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',summary:document.querySelector('#daySummary')?.textContent?.trim()||'',summaryOwner:document.querySelector('#daySummary')?.dataset?.source||'',uvVisible:!document.querySelector('#uvGuidance')?.hidden,uvOwner:document.querySelector('#uvGuidance')?.dataset?.owner||'',updated:document.querySelector('#updated')?.textContent?.trim()||'',warn:document.querySelector('#warn')?.textContent?.trim()||'',initialShown:Boolean(window.__wxInitialForecastShown),complete:Boolean(window.__wxHasCompleteForecast),requestHealth:window.WX_REQUEST_HEALTH||null})),deadline(1500,'state read timeout')])}catch{}
   console.error(JSON.stringify({ok:false,elapsed_ms:Date.now()-started,error:String(err?.stack||err),url,state,console_errors:errors},null,2));
-}finally{
-  try{await Promise.race([browser.close(),new Promise(resolve=>setTimeout(resolve,1500))])}catch{}
-  process.exit(exitCode);
-}
+}finally{try{await Promise.race([browser.close(),new Promise(resolve=>setTimeout(resolve,1500))])}catch{}process.exit(exitCode)}
