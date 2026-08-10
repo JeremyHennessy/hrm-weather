@@ -3,7 +3,8 @@
    NWS official observations/alerts, and a resilient current Real Feel path:
    provider apparent temperature when available, then NWS operational apparent
    metrics / the same deterministic Steadman-wind-chill fallback policy used by
-   the server engine. HRRR remains server-side UWS-only. */
+   the server engine. Server model id ncep_hrrr_conus (HRRR) remains UWS-only
+   and is never added to the Canadian/client independent-model denominator. */
 (()=>{
   if(typeof L==='undefined'||typeof M==='undefined')return;
 
