@@ -77,14 +77,14 @@ jobs:
           done
           echo "Timed out waiting for GitHub Pages to serve $EXPECTED"
           exit 1
+      - name: Verify New York US-units spin
+        run: node scripts/ny-units-qa.mjs
       - name: Verify live mobile startup
         run: node scripts/smoke-live.mjs
       - name: Verify live server truth ownership
         run: node scripts/server-truth-qa.mjs
       - name: Verify live Upper West Side location
         run: node scripts/uws-location-qa.mjs
-      - name: Verify New York US-units spin
-        run: node scripts/ny-units-qa.mjs
       - name: Check responsive UI across phone sizes
         run: node scripts/layout-qa.mjs
       - name: Capture current main with live weather APIs
