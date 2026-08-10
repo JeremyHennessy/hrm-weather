@@ -12,7 +12,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from typing import Any
 
@@ -31,7 +31,6 @@ def post_json(url: str, body: dict[str, Any], timeout: int = 18, headers: dict[s
 
 
 def recursive_number(obj: Any, names: set[str]) -> float | None:
-    """Find the first finite numeric value under one of a few known field names."""
     if isinstance(obj, dict):
         for k, v in obj.items():
             if k.lower() in names:
@@ -50,6 +49,43 @@ def recursive_number(obj: Any, names: set[str]) -> float | None:
     return None
 
 
+def models_for_location(lname: str, loc: dict[str, Any]) -> list[tuple]:
+    fn = getattr(core, "models_for_location", None)
+    if callable(fn):
+        return list(fn(loc))
+    return list(core.MODELS)
+
+
+def nbm_benchmark(loc: dict[str, Any]) -> dict[str, Any]:
+    """Open-Meteo NBM adapter for U.S. benchmark context only.
+
+    NBM is a post-processed blend and therefore is deliberately not counted as
+    an independent NWP-family vote.
+    """
+    if str(loc.get("country") or "CA").upper() != "US":
+        return {"configured": False, "status": "not-applicable", "role": "challenger-only"}
+    q = {
+        "latitude": loc["lat"], "longitude": loc["lon"], "timezone": "UTC",
+        "forecast_days": 2, "temperature_unit": "celsius", "wind_speed_unit": "kmh",
+        "models": "ncep_nbm_conus",
+        "current": "temperature_2m,apparent_temperature,precipitation,wind_speed_10m,wind_gusts_10m,cloud_cover",
+    }
+    try:
+        j = core.get_json("https://api.open-meteo.com/v1/forecast?" + urllib.parse.urlencode(q), timeout=18)
+        c = j.get("current") or {}
+        return {
+            "configured": True, "status": "ok", "role": "challenger-only", "provider": "NOAA NBM via Open-Meteo",
+            "temperature": core.safe_float(c.get("temperature_2m")),
+            "apparent_temperature": core.safe_float(c.get("apparent_temperature")),
+            "precipitation": core.safe_float(c.get("precipitation")),
+            "wind_speed": core.safe_float(c.get("wind_speed_10m")),
+            "wind_gust": core.safe_float(c.get("wind_gusts_10m")),
+            "cloud_cover": core.safe_float(c.get("cloud_cover")),
+        }
+    except Exception as e:
+        return {"configured": True, "status": "error", "role": "challenger-only", "error": type(e).__name__}
+
+
 def challenger_benchmarks(loc: dict[str, Any]) -> dict[str, Any]:
     """Fetch credential-gated meta/provider challengers.
 
@@ -58,7 +94,7 @@ def challenger_benchmarks(loc: dict[str, Any]) -> dict[str, Any]:
     models already present in Weather Consensus.
     """
     lat, lon = loc["lat"], loc["lon"]
-    out: dict[str, Any] = {}
+    out: dict[str, Any] = {"nbm": nbm_benchmark(loc)}
 
     pirate = os.getenv("PIRATE_WEATHER_API_KEY")
     if not pirate:
@@ -82,9 +118,7 @@ def challenger_benchmarks(loc: dict[str, Any]) -> dict[str, Any]:
         out["tomorrow_io"] = {"configured": False, "status": "not-configured", "role": "challenger-only"}
     else:
         try:
-            q = urllib.parse.urlencode({
-                "location": f"{lat},{lon}", "timesteps": "1h", "units": "metric", "apikey": tomorrow,
-            })
+            q = urllib.parse.urlencode({"location": f"{lat},{lon}", "timesteps": "1h", "units": "metric", "apikey": tomorrow})
             j = core.get_json("https://api.tomorrow.io/v4/weather/forecast?" + q, timeout=18)
             out["tomorrow_io"] = {
                 "configured": True, "status": "ok", "role": "challenger-only",
@@ -112,7 +146,6 @@ def challenger_benchmarks(loc: dict[str, Any]) -> dict[str, Any]:
             }
         except Exception as e:
             out["meteoblue"] = {"configured": True, "status": "error", "role": "challenger-only", "error": type(e).__name__}
-
     return out
 
 
@@ -148,6 +181,7 @@ def main() -> None:
     ensembles: dict[str, Any] = {k: {} for k in core.LOCATIONS}
     benchmarks: dict[str, Any] = {k: {} for k in core.LOCATIONS}
     forecasts: dict[str, dict[str, Any]] = {k: {} for k in core.LOCATIONS}
+    expected_models = {k: models_for_location(k, v) for k, v in core.LOCATIONS.items()}
 
     jobs = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
@@ -156,7 +190,7 @@ def main() -> None:
             jobs.append(("nowcast", pool.submit(nowcast_task, lname, loc)))
             jobs.append(("ensemble", pool.submit(ensemble_task, lname, loc)))
             jobs.append(("benchmark", pool.submit(benchmark_task, lname, loc)))
-            for model, *_ in core.MODELS:
+            for model, *_ in expected_models[lname]:
                 jobs.append(("forecast", pool.submit(forecast_task, lname, loc, model)))
 
         for kind, fut in jobs:
@@ -185,7 +219,8 @@ def main() -> None:
     source_health: dict[str, Any] = {}
     for lname, loc in core.LOCATIONS.items():
         regime_fc = (
-            forecasts[lname].get("gem_hrdps_continental")
+            forecasts[lname].get("ncep_hrrr_conus")
+            or forecasts[lname].get("gem_hrdps_continental")
             or forecasts[lname].get("gem_regional")
             or forecasts[lname].get("ecmwf_ifs025")
             or forecasts[lname].get("gfs_seamless")
@@ -194,13 +229,14 @@ def main() -> None:
         products = ensembles.get(lname) or {}
         source_health[lname] = {
             "deterministic_models": len(forecasts[lname]),
-            "deterministic_expected": len(core.MODELS),
+            "deterministic_expected": len(expected_models[lname]),
             "ensemble_products": sum(1 for e in products.values() if e.get("variables")),
             "ensemble_expected": len(core.ENSEMBLE_META),
             "radar": bool((nowcasts.get(lname) or {}).get("radar_available")),
             "radar_extrapolation": bool((nowcasts.get(lname) or {}).get("radar_extrapolation_available")),
             "rdpa": bool((nowcasts.get(lname) or {}).get("rdpa_available")),
             "observation_stations": int((observations.get(lname) or {}).get("station_count", 0)),
+            "observation_provider": (observations.get(lname) or {}).get("provider") or "ECCC",
             "challengers_configured": sum(1 for x in (benchmarks.get(lname) or {}).values() if x.get("configured")),
             "challengers_live": sum(1 for x in (benchmarks.get(lname) or {}).values() if x.get("status") == "ok"),
         }
@@ -214,12 +250,7 @@ def main() -> None:
     ledger = [e for e in ledger if (core.parse_stamp(e.get("issued")) or now) > now - timedelta(days=45)]
     history = [e for e in history if (core.parse_stamp(e.get("issued")) or now) > now - timedelta(days=14)]
 
-    state = {
-        "version": 2,
-        "updated_at": core.iso(now),
-        "observations": observations,
-        "skills": skill,
-    }
+    state = {"version": 2, "updated_at": core.iso(now), "observations": observations, "skills": skill}
     engine = {
         "version": "2.0",
         "updated_at": core.iso(now),
@@ -231,9 +262,11 @@ def main() -> None:
             "run_stability": True,
             "regime_conditioning": True,
             "parallel_collection": True,
+            "location_specific_model_sets": True,
             "metrics": ["MAE", "bias", "RMSE", "Brier", "CRPS", "run-change MAE"],
         },
         "model_families": {m: core.MODEL_META[m]["family"] for m in core.MODEL_META},
+        "location_model_sets": {loc: [m[0] for m in rows] for loc, rows in expected_models.items()},
         "ensemble_products": core.ENSEMBLE_META,
         "observations": observations,
         "nowcast": nowcasts,
@@ -243,13 +276,7 @@ def main() -> None:
         "best_models": {loc: core.aggregate_best_models(skill, loc) for loc in core.LOCATIONS},
         "source_health": source_health,
         "benchmarks": benchmarks,
-        "collector": {
-            "workers": MAX_WORKERS,
-            "scored_this_run": scored,
-            "targets_added": added,
-            "ledger_rows": len(ledger),
-            "history_rows": len(history),
-        },
+        "collector": {"workers": MAX_WORKERS, "scored_this_run": scored, "targets_added": added, "ledger_rows": len(ledger), "history_rows": len(history)},
     }
     core.save(core.SKILL, state)
     core.save(core.LEDGER, ledger)
