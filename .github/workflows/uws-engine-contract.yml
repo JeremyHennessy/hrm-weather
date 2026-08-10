@@ -1,0 +1,108 @@
+name: UWS and short-range engine contract
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/location_uws.py'
+      - 'scripts/uws_model_independence.py'
+      - 'scripts/accuracy_engine_v2_runner.py'
+      - 'scripts/accuracy_engine_v3_publish.py'
+      - 'scripts/accuracy_engine_v3_verify.py'
+      - 'scripts/precip_nowcast_verifier.py'
+      - 'scripts/rain_timing_verifier.py'
+      - 'scripts/rrfsv1_shadow.py'
+      - 'scripts/rrfsv1_runtime.py'
+      - 'scripts/collect.py'
+      - 'data/precip-nowcast-verification.json'
+      - 'data/rrfsv1-verification.json'
+      - '.github/workflows/uws-engine-contract.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/location_uws.py'
+      - 'scripts/uws_model_independence.py'
+      - 'scripts/accuracy_engine_v2_runner.py'
+      - 'scripts/accuracy_engine_v3_publish.py'
+      - 'scripts/accuracy_engine_v3_verify.py'
+      - 'scripts/precip_nowcast_verifier.py'
+      - 'scripts/rain_timing_verifier.py'
+      - 'scripts/rrfsv1_shadow.py'
+      - 'scripts/rrfsv1_runtime.py'
+      - 'scripts/collect.py'
+      - '.github/workflows/uws-engine-contract.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install RRFS GRIB reader
+        run: python -m pip install --quiet eccodes
+      - name: Compile new modules
+        run: |
+          python -m py_compile \
+            scripts/location_uws.py scripts/uws_model_independence.py \
+            scripts/accuracy_engine_v2_runner.py scripts/accuracy_engine_v3_publish.py scripts/accuracy_engine_v3_verify.py \
+            scripts/precip_nowcast_verifier.py scripts/rain_timing_verifier.py \
+            scripts/rrfsv1_shadow.py scripts/rrfsv1_runtime.py scripts/collect.py
+      - name: Verify UWS and shadow boundaries
+        env:
+          PYTHONPATH: scripts
+        run: |
+          python - <<'PY'
+          import accuracy_engine_v2 as core
+          import location_uws
+          import uws_model_independence as independence
+          import precip_nowcast_verifier as p06
+          import rain_timing_verifier as timing
+          import rrfsv1_shadow as rrfs
+          import rrfsv1_runtime as runtime
+
+          location_uws.install()
+          independence.install()
+          uws=core.LOCATIONS['uws']
+          assert uws['country']=='US'
+          assert uws['timezone']=='America/New_York'
+          assert uws['official_station']=='KNYC'
+          assert len(uws['points'])==3
+          assert any(m[0]=='ncep_hrrr_conus' for m in location_uws.models_for_location(uws))
+          assert all(m[0]!='ncep_hrrr_conus' for m in location_uws.models_for_location(core.LOCATIONS['hrm']))
+          assert core.MODEL_META['ncep_hrrr_conus']['family']=='noaa'
+
+          assert p06.LEADS==tuple(range(7))
+          assert p06.MIN_GATE_SAMPLES>=20
+          synthetic={'brier':{'uws:3:raw':{'n':20,'brier':.08},'uws:3:calibrated':{'n':20,'brier':.12}}}
+          gate=p06._gate(synthetic,'uws',3)
+          assert gate['status']=='calibration-disabled-worse-than-raw'
+          assert gate['use']=='raw'
+          dense=timing.build({'forecasts':[]})
+          assert dense['owner']=='precip-nowcast-verifier'
+          assert dense['lead_grid_hours']==[0,1,2,3,4,5,6]
+
+          assert rrfs.LEADS==(1,3,6,12,24)
+          assert set(rrfs.VARIABLES)=={'temperature_2m','precipitation','wind_gusts_10m','cloud_cover'}
+          assert rrfs.APPLIED_PRODUCTION_WEIGHT==0.0
+          evidence={'n':40,'rrfs_mae':.8,'baseline_mae':1.0,'win_rate':.60}
+          eligible=rrfs._eligibility(evidence,'temperature_2m')
+          assert eligible['eligible_for_future_weight'] is True
+          assert eligible['applied_production_weight']==0.0
+          report=rrfs.report({'rows':[],'scores':{}})
+          assert report['production_changed'] is False
+          assert report['promotion_policy']['automatic_promotion'] is False
+          assert 'WeatherNext 2' in report['next_ensemble_candidate']
+          assert runtime.MAX_ISSUE_SECONDS<=75
+          assert rrfs.update is runtime.update
+          guarded=runtime.update
+          # Runtime guard is optional infrastructure; its exported policy must
+          # remain non-production even before any live RRFS row is available.
+          fallback=rrfs.report({'rows':[],'scores':{}})
+          assert fallback['applied_production_weight']==0.0
+          print('UWS / precipitation 0-6 / RRFS shadow contract: PASS')
+          PY
