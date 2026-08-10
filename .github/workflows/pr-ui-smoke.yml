@@ -8,6 +8,7 @@ on:
       - 'v5b.js'
       - 'v6-extra.js'
       - 'v7-final.js'
+      - 'uws-location-ui.js'
       - 'startup-fallback.js'
       - 'v8-ui.js'
       - 'v11-layout.js'
@@ -25,6 +26,7 @@ on:
       - 'scripts/smoke-live.mjs'
       - 'scripts/server-truth-qa.mjs'
       - 'scripts/hero-density-qa.mjs'
+      - 'scripts/uws-location-qa.mjs'
       - 'scripts/layout-qa.mjs'
       - 'scripts/engine31_install.py'
       - '.github/workflows/pr-ui-smoke.yml'
@@ -72,6 +74,10 @@ jobs:
         env:
           WX_URL: http://127.0.0.1:4173/app.html
         run: node scripts/hero-density-qa.mjs
+      - name: Verify Upper West Side location
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/uws-location-qa.mjs
       - name: Check branch responsive UI
         env:
           WX_URL: http://127.0.0.1:4173/app.html
