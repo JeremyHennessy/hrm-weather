@@ -2,9 +2,9 @@
   const CACHE_KEY='wx-engine-v3-startup';
   const LOC_LABELS={hrm:['HRM CORE','Halifax Peninsula · Bedford · Dartmouth'],moncton:['MONCTON NB','Downtown Moncton'],shediac:['SHEDIAC NB','Shediac town centre'],lunenburg:['LUNENBURG NS','Lunenburg'],wolfville:['WOLFVILLE NS','Wolfville · New Minas · Kentville']};
   const CURRENT_POINTS={
-    hrm:[[44.6488,-63.5752],[44.7318,-63.6619],[44.6661,-63.5676]],
-    moncton:[[46.0878,-64.7782]],shediac:[[46.2198,-64.5411]],lunenburg:[[44.377896,-64.309529]],
-    wolfville:[[45.091713,-64.359242],[45.067858,-64.460234],[45.077707,-64.495306]]
+    hrm:[['Halifax Peninsula',44.6488,-63.5752],['Bedford',44.7318,-63.6619],['Dartmouth',44.6661,-63.5676]],
+    moncton:[['Moncton',46.0878,-64.7782]],shediac:[['Shediac',46.2198,-64.5411]],lunenburg:[['Lunenburg',44.377896,-64.309529]],
+    wolfville:[['Wolfville',45.091713,-64.359242],['Wolfville Core',45.067858,-64.460234],['Wolfville West',45.077707,-64.495306]]
   };
   const nativeCurrentFetch=window.fetch.bind(window);
   const $=id=>document.getElementById(id),n=v=>Number.isFinite(Number(v))?Number(v):null,deg=v=>n(v)==null?'--°':`${Math.round(n(v))}°`,pct=v=>n(v)==null?'--%':`${Math.round(n(v))}%`;
@@ -39,20 +39,22 @@
   async function fastCurrent(){
     const key=localKey(),points=CURRENT_POINTS[key]||CURRENT_POINTS.hrm,ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),6000);window.__wxFastCurrent={location:key,painted:false,status:'loading',started_at:Date.now()};
     try{
-      const jobs=points.map(async([lat,lon])=>{
+      const jobs=points.map(async([name,lat,lon])=>{
         const p=new URLSearchParams({latitude:String(lat),longitude:String(lon),timezone:'America/Halifax',forecast_days:'1',temperature_unit:'celsius',wind_speed_unit:'kmh',current:'temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m,weather_code'});
-        const r=await nativeCurrentFetch(`https://api.open-meteo.com/v1/forecast?${p}`,{cache:'no-store',signal:ctrl.signal});if(!r.ok)throw Error(`current ${r.status}`);const d=await r.json();return d?.current||null;
+        const r=await nativeCurrentFetch(`https://api.open-meteo.com/v1/forecast?${p}`,{cache:'no-store',signal:ctrl.signal});if(!r.ok)throw Error(`current ${r.status}`);const d=await r.json();return{name,current:d?.current||null};
       });
-      const settled=await Promise.allSettled(jobs),rows=settled.filter(x=>x.status==='fulfilled'&&x.value&&n(x.value.apparent_temperature)!=null).map(x=>x.value);
+      const settled=await Promise.allSettled(jobs),rows=settled.filter(x=>x.status==='fulfilled'&&x.value?.current&&n(x.value.current.apparent_temperature)!=null).map(x=>x.value);
       if(localKey()!==key)return false;
-      const feel=avg(rows.map(x=>x.apparent_temperature)),air=avg(rows.map(x=>x.temperature_2m)),wind=avg(rows.map(x=>x.wind_speed_10m)),gust=avg(rows.map(x=>x.wind_gusts_10m));
+      const feel=avg(rows.map(x=>x.current.apparent_temperature)),air=avg(rows.map(x=>x.current.temperature_2m)),wind=avg(rows.map(x=>x.current.wind_speed_10m)),gust=avg(rows.map(x=>x.current.wind_gusts_10m));
       if(!Number.isFinite(feel))throw Error('current apparent temperature unavailable');
+      const point_values=rows.map(x=>({name:x.name,feel:n(x.current.apparent_temperature),air:n(x.current.temperature_2m),humidity:n(x.current.relative_humidity_2m),wind:n(x.current.wind_speed_10m),gust:n(x.current.wind_gusts_10m)}));
       const feels=$('feels');if(feels){feels.textContent=`${feel.toFixed(1)}°`;feels.dataset.currentSource='provider-apparent-fast-current';delete feels.dataset.engine3RealFeel}
       const actual=$('actual');if(actual&&Number.isFinite(air))actual.innerHTML=`Actual <b>${air.toFixed(1)}°</b>`;
       put('range','Current Real Feel · live inputs');if(Number.isFinite(wind))put('wind',`${Math.round(wind)} / ${Number.isFinite(gust)?Math.round(gust):'--'}`);
       put('obsline',`Live current conditions · ${rows.length}/${points.length} core point${points.length===1?'':'s'}; official observation correction updating`);
       document.documentElement.dataset.wxRealFeel='live-current-provider-apparent';
-      window.__wxFastCurrent={location:key,painted:true,status:'ready',source:'provider-apparent-current',feel,air,points:rows.length,total_points:points.length,elapsed_ms:Date.now()-(window.__wxFastCurrent?.started_at||Date.now())};
+      window.__wxFastCurrent={location:key,painted:true,status:'ready',source:'provider-apparent-current',feel,air,points:rows.length,total_points:points.length,point_values,elapsed_ms:Date.now()-(window.__wxFastCurrent?.started_at||Date.now())};
+      window.dispatchEvent(new CustomEvent('wx-fast-current-ready',{detail:window.__wxFastCurrent}));
       return true;
     }catch(e){window.__wxFastCurrent={...(window.__wxFastCurrent||{}),location:key,painted:false,status:'unavailable',error:String(e?.message||e)};return false}finally{clearTimeout(timer)}
   }

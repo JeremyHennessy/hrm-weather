@@ -14,6 +14,7 @@ on:
       - 'scene-images.js'
       - 'accuracy-v2.js'
       - 'accuracy-v3.js'
+      - 'server-truth-ui.js'
       - 'atomic-render.js'
       - 'daily-card-fix.js'
       - 'forecast-confidence.js'
@@ -22,7 +23,9 @@ on:
       - 'uv-guidance.js'
       - 'weather-icons.js'
       - 'scripts/smoke-live.mjs'
+      - 'scripts/server-truth-qa.mjs'
       - 'scripts/layout-qa.mjs'
+      - 'scripts/engine31_install.py'
       - '.github/workflows/pr-ui-smoke.yml'
 
 permissions:
@@ -60,6 +63,10 @@ jobs:
           WX_URL: http://127.0.0.1:4173/app.html
           WX_REQUIRE_FAST_CURRENT: '1'
         run: node scripts/smoke-live.mjs
+      - name: Verify server truth ownership
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/server-truth-qa.mjs
       - name: Check branch responsive UI
         env:
           WX_URL: http://127.0.0.1:4173/app.html

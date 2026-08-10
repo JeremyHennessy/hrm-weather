@@ -32,20 +32,21 @@
     const section=[...document.querySelectorAll('.section')].find(s=>s.querySelector('h2')?.textContent.trim()==='Accuracy engine');
     if(!section||document.getElementById('v3Engine'))return;
     const grid=document.getElementById('v2EngineGrid')||section.querySelector('.accuracy');
-    const box=document.createElement('div');box.id='v3Engine';box.className='v3Engine';box.innerHTML='<div><small>LOCAL MOS</small><b id="v3Mos">learning</b><span>verified-target regression</span></div><div><small>ANALOGS</small><b id="v3Analog">learning</b><span>similar historical setups</span></div><div><small>REAL FEEL</small><b id="v3RealFeel">learning</b><span>local calibrated physics</span></div><div><small>RAIN CALIBRATION</small><b id="v3Rain">learning</b><span>observed reliability</span></div><div><small>OBS NUDGE</small><b id="v3Nudge">--</b><span>live local model error</span></div><div><small>WALK-FORWARD</small><b id="v3Walk">learning</b><span>strict out-of-sample check</span></div>';grid?.insertAdjacentElement('afterend',box);
+    const box=document.createElement('div');box.id='v3Engine';box.className='v3Engine';box.innerHTML='<div><small>LOCAL MOS</small><b id="v3Mos">learning</b><span>verified-target regression</span></div><div><small>ANALOGS</small><b id="v3Analog">learning</b><span>similar historical setups</span></div><div><small>REAL FEEL</small><b id="v3RealFeel">learning</b><span>independent formula replay</span></div><div><small>RAIN CALIBRATION</small><b id="v3Rain">learning</b><span>observed reliability</span></div><div><small>OBS NUDGE</small><b id="v3Nudge">--</b><span>live local model error</span></div><div><small>WALK-FORWARD</small><b id="v3Walk">learning</b><span>strict out-of-sample check</span></div>';grid?.insertAdjacentElement('afterend',box);
     const st=document.createElement('style');st.id='v3-style';st.textContent='.v3Engine{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}.v3Engine>div{border:1px solid var(--line);border-radius:15px;padding:10px;background:#0b243555}.v3Engine small,.v3Engine span{display:block;color:var(--muted);font-size:9px}.v3Engine b{display:block;font-size:15px;margin:4px 0}@media(max-width:620px){.v3Engine{grid-template-columns:repeat(2,1fr)}}';document.head.appendChild(st);
   }
   function render(){
     ensureUI();if(!V3)return;const d=V3.diagnostics?.[locKey()]||{},h=V3.consensus?.[locKey()]?.hours?.['6']||{};
-    const mos=d.mos?.['6']||{},analog=d.analogs?.['6']||{},rain=d.precip_calibration?.['6']||{},nudge=h.components?.observation_nudge,rf=h.real_feel_engine||{};
-    const wf=V3.walk_forward_verification?.locations?.[locKey()]?.['6']?.scores?.v3_reconstructed||{};
+    const mos=d.mos?.['6']||{},analog=d.analogs?.['6']||{},rain=d.precip_calibration?.['6']||{},nudge=h.components?.observation_nudge;
+    const replay=V3.real_feel_formula_replay||{},wf=V3.walk_forward_verification?.locations?.[locKey()]?.['6']?.scores?.v3_reconstructed||{};
     const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
     set('v3Mos',mos.available?`${mos.samples} samples`:`${mos.samples||0}/12`);set('v3Analog',analog.available?`${analog.neighbors} matches`:'learning');set('v3Rain',rain.samples?`${rain.samples} scored`:'learning');set('v3Nudge',finite(nudge)?`${Number(nudge)>=0?'+':''}${Number(nudge).toFixed(1)}°`:'--');
-    set('v3RealFeel',rf.available?`${rf.local_correction?.samples||0} samples`:'learning');set('v3Walk',wf.n?`${wf.mae?.toFixed?.(2)??'--'}° MAE`:'learning');
+    set('v3RealFeel',Number(replay.scored_rows||0)?`${Number(replay.scored_rows)} replay rows`:'learning');set('v3Walk',wf.n?`${wf.mae?.toFixed?.(2)??'--'}° MAE`:'learning');
     const feeds=Number(V3.collector?.deterministic_forecasts||0),mc=document.getElementById('modelCount');if(mc&&feeds)mc.textContent=`${feeds} forecast feeds · Engine 3 server consensus`;
-    const note=document.getElementById('v2EngineNote');if(note)note.textContent=`V3: local MOS + historical analogs + observation nudging + calibrated Real Feel + calibrated rain · ${V3.collector?.verified_ledger_rows??0} verified ledger rows.`;
+    const note=document.getElementById('v2EngineNote');if(note)note.textContent=`V3: local MOS + historical analogs + observation nudging + independent Real Feel replay + calibrated rain · ${V3.collector?.verified_ledger_rows??0} verified ledger rows.`;
   }
   async function loadV3(){try{const r=await fetch('data/engine-v3.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(r.status);V3=await r.json();install();render()}catch{ensureUI()}}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadV3,{once:true});else loadV3();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(!V3||!fresh()))loadV3()});setInterval(render,60000);
 })();
+import('./server-truth-ui.js?v=1').catch(()=>{});

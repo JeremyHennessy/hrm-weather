@@ -103,6 +103,15 @@ jobs:
               dt=datetime.fromisoformat(stamp.replace('Z','+00:00'))
               assert now-dt <= timedelta(hours=6), f'{name}: stale observation'
 
+          truth=v3.get('server_truth') or {}
+          assert truth.get('version') == '1.0'
+          assert truth.get('owner') == 'hourly-server-collector'
+          assert (truth.get('source_health') or {}).get('hrm') == (v2.get('source_health') or {}).get('hrm')
+          assert (truth.get('observations') or {}).get('hrm') == (v2.get('observations') or {}).get('hrm')
+          assert (truth.get('best_models') or {}).get('hrm') == (v2.get('best_models') or {}).get('hrm')
+          hctx=((truth.get('consensus_context') or {}).get('hrm') or {}).get('1') or {}
+          assert 'learned_spread' in hctx and 'uncertainty' in hctx and 'effective_independent_sources' in hctx
+
           fresh_models=(v3.get('collector') or {}).get('deterministic_forecasts',0)
           for name,c in (v3.get('consensus') or {}).items():
               h1=(c.get('hours') or {}).get('1') or {}
@@ -122,7 +131,7 @@ jobs:
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay")
+          print(f"Engine 2/3/3.1 validation passed; fresh deterministic feeds={fresh_models}; confidence owner=accuracy-engine-3; Real Feel=v2 independent replay; server truth=authoritative")
           PY
       - name: Commit updated skill data
         run: |
