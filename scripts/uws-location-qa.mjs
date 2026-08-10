@@ -8,6 +8,7 @@ const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:393,height:852},deviceScaleFactor:3,isMobile:true,hasTouch:true});
 const errors=[];page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});page.on('pageerror',e=>errors.push(String(e)));
 let code=0;
+async function diagnostic(){try{return await page.evaluate(()=>({loc:localStorage.getItem('wx-loc'),pending:sessionStorage.getItem('wx-pending-loc'),place:document.querySelector('#place')?.textContent?.trim()||'',feels:document.querySelector('#feels')?.textContent?.trim()||'',currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,refreshFastType:typeof window.WXRefreshFastCurrent,refreshUwsType:typeof window.WXRefreshUWSCurrent,zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),requestHealth:window.WX_REQUEST_HEALTH||null}))}catch{return null}}
 async function waitUws(){
   await page.waitForFunction(()=>localStorage.getItem('wx-loc')==='uws',{timeout:8000});
   await page.waitForFunction(()=>/Upper West Side|Manhattan/i.test(document.querySelector('#place')?.textContent||''),{timeout:15000});
@@ -21,17 +22,11 @@ try{
   await page.waitForFunction(()=>[...document.querySelectorAll('#tabs .tab')].some(x=>/Upper West Side/i.test(x.textContent||'')),{timeout:8000});
   await page.evaluate(()=>{const b=[...document.querySelectorAll('#tabs .tab')].find(x=>/Upper West Side/i.test(x.textContent||''));b?.click()});
   await waitUws();
-  // A location is not production-ready if it works only after clicking it.
-  // Reload with UWS persisted to exercise the startup/load-order recovery path.
   await page.reload({waitUntil:'domcontentloaded',timeout:20000});
   await waitUws();
   const state=await page.evaluate(()=>({
     loc:localStorage.getItem('wx-loc'),pending:sessionStorage.getItem('wx-pending-loc'),place:document.querySelector('#place')?.textContent?.trim()||'',brand:document.querySelector('.brand h1')?.textContent?.trim()||'',feels:document.querySelector('#feels')?.textContent?.trim()||'',actual:document.querySelector('#actual')?.textContent?.trim()||'',
-    timezone:typeof window.WX_LOCATION_TIMEZONE==='function'?window.WX_LOCATION_TIMEZONE():'',
-    zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),
-    official:document.querySelector('#officialStation')?.textContent?.trim()||'',officialHead:[...document.querySelectorAll('.section')].find(x=>x.querySelector('h2')?.textContent==='Official data')?.querySelector('.head span')?.textContent?.trim()||'',
-    heroLocation:document.querySelector('.hero')?.dataset?.location||'',daypart:document.querySelector('.hero')?.dataset?.daypart||'',sceneSource:document.querySelector('.hero')?.dataset?.sceneSource||'',modelLabels:[...document.querySelectorAll('#models .model b')].map(x=>x.textContent.trim()),
-    fast:window.__wxFastCurrent||null,scrollWidth:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth),innerWidth:innerWidth
+    timezone:typeof window.WX_LOCATION_TIMEZONE==='function'?window.WX_LOCATION_TIMEZONE():'',zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),official:document.querySelector('#officialStation')?.textContent?.trim()||'',officialHead:[...document.querySelectorAll('.section')].find(x=>x.querySelector('h2')?.textContent==='Official data')?.querySelector('.head span')?.textContent?.trim()||'',heroLocation:document.querySelector('.hero')?.dataset?.location||'',daypart:document.querySelector('.hero')?.dataset?.daypart||'',sceneSource:document.querySelector('.hero')?.dataset?.sceneSource||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,scrollWidth:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth),innerWidth:innerWidth
   }));
   if(state.loc!=='uws'||state.pending)throw Error(`location persistence failed: loc=${state.loc} pending=${state.pending}`);
   if(!/Upper West Side|Manhattan/i.test(state.place))throw Error(`wrong place label: ${state.place}`);
@@ -45,6 +40,5 @@ try{
   if(state.scrollWidth>state.innerWidth+2)throw Error(`horizontal overflow ${state.scrollWidth}>${state.innerWidth}`);
   if(/KNYC|NWS/i.test(state.official)&&/Environment Canada/i.test(state.officialHead))throw Error(`UWS NWS observation still labelled Environment Canada: ${state.officialHead}`);
   if(errors.length)throw Error(`console errors: ${errors.join(' | ')}`);
-  await page.screenshot({path:'screenshots/uws-location-qa.png',fullPage:true});
-  console.log('UWS location QA passed',state);
-}catch(e){code=1;console.error(e?.stack||String(e))}finally{await browser.close().catch(()=>{});process.exit(code)}
+  await page.screenshot({path:'screenshots/uws-location-qa.png',fullPage:true});console.log('UWS location QA passed',state);
+}catch(e){code=1;console.error('UWS QA diagnostic',await diagnostic());console.error(e?.stack||String(e));try{await page.screenshot({path:'screenshots/uws-location-failure.png',fullPage:true})}catch{}}finally{await browser.close().catch(()=>{});process.exit(code)}
