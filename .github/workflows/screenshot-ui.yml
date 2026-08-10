@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - 'app.html'
+      - 'ny.html'
+      - 'us-units.js'
       - 'v4.css'
       - 'v11-reference.css'
       - 'request-manager.js'
@@ -35,6 +37,7 @@ on:
       - 'scripts/smoke-live.mjs'
       - 'scripts/server-truth-qa.mjs'
       - 'scripts/uws-location-qa.mjs'
+      - 'scripts/ny-units-qa.mjs'
       - 'scripts/layout-qa.mjs'
       - '.github/workflows/screenshot-ui.yml'
 
@@ -80,6 +83,8 @@ jobs:
         run: node scripts/server-truth-qa.mjs
       - name: Verify live Upper West Side location
         run: node scripts/uws-location-qa.mjs
+      - name: Verify New York US-units spin
+        run: node scripts/ny-units-qa.mjs
       - name: Check responsive UI across phone sizes
         run: node scripts/layout-qa.mjs
       - name: Capture current main with live weather APIs
