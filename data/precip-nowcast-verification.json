@@ -1,11 +1,102 @@
 {
-  "brier": {},
+  "brier": {
+    "hrm:0:calibrated": {
+      "brier": 0.033124,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374120+00:00"
+    },
+    "hrm:0:raw": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374108+00:00"
+    },
+    "lunenburg:0:calibrated": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374230+00:00"
+    },
+    "lunenburg:0:raw": {
+      "brier": 0.0625,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374225+00:00"
+    },
+    "moncton:0:calibrated": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374163+00:00"
+    },
+    "moncton:0:raw": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374158+00:00"
+    },
+    "shediac:0:calibrated": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374197+00:00"
+    },
+    "shediac:0:raw": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374193+00:00"
+    },
+    "uws:0:calibrated": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374285+00:00"
+    },
+    "uws:0:raw": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374281+00:00"
+    },
+    "wolfville:0:calibrated": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374255+00:00"
+    },
+    "wolfville:0:raw": {
+      "brier": 0.0,
+      "n": 1,
+      "updated_at": "2026-08-10T15:06:31.374251+00:00"
+    }
+  },
   "cycles": [],
   "events": {},
-  "intensity": {},
+  "intensity": {
+    "hrm:0": {
+      "bias": -0.0999386023928138,
+      "mae": 0.0999386023928138,
+      "n": 1,
+      "rmse": 0.0999386023928138,
+      "updated_at": "2026-08-10T15:06:31.374129+00:00"
+    },
+    "moncton:0": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T15:06:31.374170+00:00"
+    },
+    "shediac:0": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T15:06:31.374202+00:00"
+    },
+    "wolfville:0": {
+      "bias": 0.0,
+      "mae": 0.0,
+      "n": 1,
+      "rmse": 0.0,
+      "updated_at": "2026-08-10T15:06:31.374259+00:00"
+    }
+  },
   "rdpa6": {},
   "rows": [
     {
+      "actual_precipitation_mm": 0.0999386023928138,
       "calibrated_probability": 18.2,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -28,8 +119,16 @@
       },
       "raw_probability": 25.0,
       "rdpa_6h_at_issue_mm": 0.0,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0999386023928138,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:01:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 39.666666666666664,
@@ -188,6 +287,7 @@
       "target": "2026-08-10T21:00:00+00:00"
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 0.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -210,8 +310,16 @@
       },
       "raw_probability": 0.0,
       "rdpa_6h_at_issue_mm": 1.7824,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 27.67251461988304,
@@ -370,6 +478,7 @@
       "target": "2026-08-10T21:00:00+00:00"
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 0.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -392,8 +501,16 @@
       },
       "raw_probability": 0.0,
       "rdpa_6h_at_issue_mm": 8.5878496,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 18.046153846153846,
@@ -552,6 +669,7 @@
       "target": "2026-08-10T21:00:00+00:00"
     },
     {
+      "actual_precipitation_mm": null,
       "calibrated_probability": 25.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -574,8 +692,16 @@
       },
       "raw_probability": 25.0,
       "rdpa_6h_at_issue_mm": 0.00094999996,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": null,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:00:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 25.0,
@@ -734,6 +860,7 @@
       "target": "2026-08-10T21:00:00+00:00"
     },
     {
+      "actual_precipitation_mm": 0.0,
       "calibrated_probability": 0.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -756,8 +883,16 @@
       },
       "raw_probability": 0.0,
       "rdpa_6h_at_issue_mm": 0.021949999,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": 0.0,
+        "observation_provider": "ECCC",
+        "observation_time": "2026-08-10T15:03:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 13.692307692307693,
@@ -916,6 +1051,7 @@
       "target": "2026-08-10T21:00:00+00:00"
     },
     {
+      "actual_precipitation_mm": null,
       "calibrated_probability": 0.0,
       "calibration_gate_at_issue": {
         "calibrated_brier": null,
@@ -938,8 +1074,16 @@
       },
       "raw_probability": 0.0,
       "rdpa_6h_at_issue_mm": 0.0018999999,
-      "scored": false,
-      "target": "2026-08-10T15:00:00+00:00"
+      "scored": true,
+      "scored_at": "2026-08-10T15:06:31.374076+00:00",
+      "target": "2026-08-10T15:00:00+00:00",
+      "truth": {
+        "gauge_mm": null,
+        "observation_provider": "NWS",
+        "observation_time": "2026-08-10T14:40:00+00:00",
+        "radar_rate_mm_h": 0.0
+      },
+      "wet": false
     },
     {
       "calibrated_probability": 25.0,
@@ -1098,6 +1242,6 @@
       "target": "2026-08-10T21:00:00+00:00"
     }
   ],
-  "updated_at": "2026-08-10T15:02:51.545225+00:00",
+  "updated_at": "2026-08-10T15:06:31.374394+00:00",
   "version": "2.0"
 }
