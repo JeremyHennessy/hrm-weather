@@ -18,10 +18,13 @@ function installStableRenderer(){
 installStableRenderer();
 
 const nativeFetch=window.fetch.bind(window);
-const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0,timeouts:0,serverModelSkips:0,clientModelFallbacks:0,falseWarningsSuppressed:0};
+window.WX_NATIVE_FETCH=nativeFetch;
+const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0,timeouts:0,serverModelSkips:0,clientModelFallbacks:0,falseWarningsSuppressed:0,currentFastLane:0};
 const cache=new Map(),pending=new Map(),queue=[];const MAX_ACTIVE=4,CACHE_MS=5*60*1000,MIN_GAP_MS=100;let active=0,lastStart=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function requestKind(input){try{const h=new URL(typeof input==='string'?input:input.url,location.href).hostname;if(h==='api.open-meteo.com')return'openmeteo';if(h==='api.weather.gc.ca')return'eccc'}catch{}return null}
-function isClientModelRequest(input){try{const u=new URL(typeof input==='string'?input:input.url,location.href);return u.hostname==='api.open-meteo.com'&&u.searchParams.has('models')}catch{return false}}
+function parsedUrl(input){try{return new URL(typeof input==='string'?input:input.url,location.href)}catch{return null}}
+function requestKind(input){const u=parsedUrl(input);if(!u)return null;if(u.hostname==='api.open-meteo.com')return'openmeteo';if(u.hostname==='api.weather.gc.ca')return'eccc';return null}
+function isClientModelRequest(input){const u=parsedUrl(input);return !!u&&u.hostname==='api.open-meteo.com'&&u.searchParams.has('models')}
+function isLightweightCurrentRequest(input){const u=parsedUrl(input);return !!u&&u.hostname==='api.open-meteo.com'&&u.searchParams.has('current')&&!u.searchParams.has('hourly')&&!u.searchParams.has('daily')&&!u.searchParams.has('models')}
 function serverConsensusFresh(){
   let e=window.WXAccuracyV3;
   if(!e)try{e=JSON.parse(localStorage.getItem('wx-engine-v3-startup')||'null')?.engine||null}catch{}
@@ -35,6 +38,9 @@ async function timedNativeFetch(input,init,timeoutMs){const controller=new Abort
 async function runRequest(input,init,key,kind){const signal=init?.signal,maxAttempts=1,timeoutMs=kind==='eccc'?4000:7000;for(let attempt=0;attempt<maxAttempts;attempt++){if(signal?.aborted)throw new DOMException('Aborted','AbortError');try{const execute=async()=>{state.started++;const r=await timedNativeFetch(input,init,timeoutMs);if(r.status===429)state.rateLimited++;return snapshot(r)};const snap=kind==='openmeteo'?await schedule(execute,signal):await execute();if(snap.status>=200&&snap.status<300){state.success++;cache.set(key,{at:Date.now(),snap})}else state.failed++;return snap}catch(err){if(signal?.aborted)throw err;state.failed++;throw err}}}
 window.fetch=async function(input,init={}){
   const kind=requestKind(input);if(!kind||(init.method||'GET').toUpperCase()!=='GET')return nativeFetch(input,init);
+  // Current-only calls are the app's sub-second/low-latency startup and location
+  // switch path. They deliberately bypass the model queue but still use no-store.
+  if(isLightweightCurrentRequest(input)){state.currentFastLane++;return nativeFetch(input,{...init,cache:'no-store'})}
   if(isClientModelRequest(input)&&serverConsensusFresh()){state.serverModelSkips++;return new Response('{"server_consensus":true}',{status:503,headers:{'content-type':'application/json','x-weather-consensus':'server-v3'}})}
   if(isClientModelRequest(input))state.clientModelFallbacks++;
   const key=typeof input==='string'?input:input.url,hit=cache.get(key);if(hit&&Date.now()-hit.at<CACHE_MS){state.cacheHits++;return snapToResponse(hit.snap)}let p=pending.get(key);if(!p){p=runRequest(input,init,key,kind).finally(()=>pending.delete(key));pending.set(key,p)}return snapToResponse(await p)

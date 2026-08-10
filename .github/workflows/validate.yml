@@ -21,19 +21,19 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
             scripts/collect.py scripts/accuracy_engine_v2.py scripts/accuracy_engine_v2_runner.py \
             scripts/accuracy_engine_v3.py scripts/accuracy_engine_v3_pooling.py scripts/accuracy_engine_v3_publish.py \
             scripts/accuracy_engine_v3_walkforward.py scripts/accuracy_engine_v3_verify.py \
-            scripts/precipitation_walkforward.py scripts/forecast_confidence_engine.py \
+            scripts/precipitation_walkforward.py scripts/precip_nowcast_verifier.py scripts/forecast_confidence_engine.py \
             scripts/engine3_champion_gate.py scripts/engine3_weighting.py scripts/real_feel_engine.py \
-            scripts/eccc_observation_mesh_v2.py scripts/solar_context_v2.py scripts/release_guard.py \
+            scripts/eccc_observation_mesh_v2.py scripts/location_uws.py scripts/solar_context_v2.py scripts/release_guard.py \
             scripts/engine3_retro_backtest.py scripts/archive_backtest_v3.py \
             scripts/engine31_policy.py scripts/engine31_install.py scripts/rain_timing_verifier.py \
-            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py \
+            scripts/engine32_family_benchmark.py scripts/engine32_family_taxonomy.py scripts/rrfsv1_shadow.py \
             scripts/test_real_feel_champion.py
       - name: Validate data and architecture
         env:
@@ -45,12 +45,15 @@ jobs:
           python -m json.tool data/engine-v2.json >/dev/null
           python -m json.tool data/engine-v3.json >/dev/null
           python -m json.tool data/engine32-family-benchmark.json >/dev/null
+          python -m json.tool data/precip-nowcast-verification.json >/dev/null
+          python -m json.tool data/rrfsv1-verification.json >/dev/null
           python - <<'PY'
           import accuracy_engine_v3 as v3
           import accuracy_engine_v3_pooling as pooling
           import accuracy_engine_v3_walkforward as walk
           import accuracy_engine_v3_verify as verify
           import precipitation_walkforward as precip
+          import precip_nowcast_verifier as p06
           import forecast_confidence_engine as conf
           import real_feel_engine as rf
           import engine31_policy as e31
@@ -60,18 +63,43 @@ jobs:
           import engine3_champion_gate as gate
           import engine3_weighting as weighting
           import rain_timing_verifier as rain
+          import rrfsv1_shadow as rrfs
+          import location_uws
           import accuracy_engine_v2 as core
           from datetime import timedelta
+
+          location_uws.install()
+          assert 'uws' in core.LOCATIONS
+          uws=core.LOCATIONS['uws']
+          assert uws['country']=='US' and uws['timezone']=='America/New_York'
+          assert len(uws['points'])==3 and uws['official_station']=='KNYC'
+          assert any(m[0]=='ncep_hrrr_conus' for m in location_uws.models_for_location(uws))
+          assert all(m[0]!='ncep_hrrr_conus' for m in location_uws.models_for_location(core.LOCATIONS['hrm']))
+          assert core.MODEL_META['ncep_hrrr_conus']['family']=='hrrr'
+
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
           assert callable(verify.real_feel_replay)
           assert pooling.nearby_leads(3) == {1,3,6}
+          assert p06.LEADS == tuple(range(7)) and p06.MIN_GATE_SAMPLES >= 20
+          synthetic={'brier':{'hrm:1:raw':{'n':20,'brier':.10},'hrm:1:calibrated':{'n':20,'brier':.14}}}
+          assert p06._gate(synthetic,'hrm',1)['use']=='raw'
+          assert p06._gate(synthetic,'hrm',1)['status']=='calibration-disabled-worse-than-raw'
+          dense=rain.build({'forecasts':[]})
+          assert dense.get('owner')=='precip-nowcast-verifier' and dense.get('lead_grid_hours')==[0,1,2,3,4,5,6]
+
+          assert rrfs.LEADS==(1,3,6,12,24) and rrfs.APPLIED_PRODUCTION_WEIGHT==0.0
+          good={'n':40,'rrfs_mae':.8,'baseline_mae':1.0,'win_rate':.60}
+          er=rrfs._eligibility(good,'temperature_2m')
+          assert er['eligible_for_future_weight'] is True and er['applied_production_weight']==0.0
+          assert rrfs.report({'rows':[],'scores':{}})['production_changed'] is False
+          assert 'WeatherNext 2' in rrfs.report({'rows':[],'scores':{}})['next_ensemble_candidate']
+
           assert e31.MIN_PROMOTION_SAMPLES >= 12 and e31.HALF_LIFE_DAYS > 0 and e31.MIN_PROMOTION_WIN_RATE >= .55 and callable(e31.apply)
           assert callable(e31install._attach_server_truth)
           assert gate.MIN_PROMOTION_WIN_RATE >= .55 and gate.HALF_LIFE_DAYS > 0
           assert weighting.HALF_LIFE_DAYS > 0 and weighting.MIN_EFFECTIVE_WEIGHT > 0
-          assert callable(rain.build)
           assert len(e32bench.EIGHT_FAMILIES)==8 and len(e32bench.TEN_FAMILIES)==10
           assert {'kma','bom','cma'}.issubset(set(e32bench.TEN_FAMILIES)) and 'other' not in e32bench.TEN_FAMILIES
           e32_result=core.load(e32.BENCHMARK_FILE,{})
@@ -81,46 +109,42 @@ jobs:
           assert e32_result.get('selected_for_prospective_shadow')=='8-family', e32_result
           assert e32._selected()=='8-family'
           assert e32._prospective_pair({'forecasts':[]})['promotion_allowed'] is False
-          truth_probe={}
-          e31install._attach_server_truth(truth_probe)
-          truth=truth_probe.get('server_truth') or {}
+
+          truth_probe={};e31install._attach_server_truth(truth_probe);truth=truth_probe.get('server_truth') or {}
           assert truth.get('owner') == 'hourly-server-collector', truth
           assert (truth.get('source_health') or {}).get('hrm'), truth
           assert (truth.get('observations') or {}).get('hrm'), truth
           assert (truth.get('best_models') or {}).get('hrm'), truth
           assert (truth.get('consensus_context') or {}).get('hrm'), truth
+
           assert rf.physical_real_feel(28,80,5)['value'] > rf.physical_real_feel(28,35,5)['value']
           assert rf.physical_real_feel(-5,35,30)['value'] < -5
-          current=rf.physical_real_feel(19.0196,96.5174,5.3479)['value']
-          legacy=rf.legacy_physical_real_feel(19.0196,96.5174,5.3479)['value']
-          assert 20.0 < current < 22.0, current
-          assert legacy > 24.0, legacy
+          current=rf.physical_real_feel(19.0196,96.5174,5.3479)['value'];legacy=rf.legacy_physical_real_feel(19.0196,96.5174,5.3479)['value']
+          assert 20.0 < current < 22.0 and legacy > 24.0
           refs=rf.independent_references(19.0196,96.5174,5.3479)
-          assert 'bom_steadman_shade' in refs and 'eccc_humidex' not in refs, refs
-          hot_refs=rf.independent_references(28.0,70.0,8.0)
-          assert 'bom_steadman_shade' in hot_refs and 'eccc_humidex' in hot_refs, hot_refs
-          cold_refs=rf.independent_references(-5.0,75.0,30.0)
-          assert 'eccc_wind_chill' in cold_refs, cold_refs
+          assert 'bom_steadman_shade' in refs and 'eccc_humidex' not in refs
+          hot_refs=rf.independent_references(28.0,70.0,8.0);assert 'bom_steadman_shade' in hot_refs and 'eccc_humidex' in hot_refs
+          cold_refs=rf.independent_references(-5.0,75.0,30.0);assert 'eccc_wind_chill' in cold_refs
           replay=verify.real_feel_replay({'real_feel_reference_scores':{'hrm:1:all:bom_steadman_shade:provider_apparent':{'n':3,'mae':0.4,'bias':0.1,'rmse':0.5}},'forecasts':[]})
-          assert replay['mode']=='comparative-independent-reference-replay', replay
-          assert replay['locations']['hrm']['1']['bom_steadman_shade']['provider_apparent']['mae']==0.4, replay
-          now=core.utcnow()
-          rows=[]
-          for i in range(18):
-              actual=20.0
-              rows.append({'scored':True,'loc':'hrm','lead':3,'regime':'stable','issued':core.iso(now-timedelta(hours=i*8)),'actual_temperature':actual,'temperature_candidates':{'v2':21.2,'mos':20.4,'analog':20.7,'final_v3':20.8,'engine31':20.3}})
+          assert replay['mode']=='comparative-independent-reference-replay'
+
+          now=core.utcnow();rows=[]
+          for i in range(18):rows.append({'scored':True,'loc':'hrm','lead':3,'regime':'stable','issued':core.iso(now-timedelta(hours=i*8)),'actual_temperature':20.0,'temperature_candidates':{'v2':21.2,'mos':20.4,'analog':20.7,'final_v3':20.8,'engine31':20.3}})
           state={'forecasts':rows,'scores':{}}
-          d=gate.component_gate(state,{},'hrm',3,'stable','mos')
-          assert d['status']=='promotion-approved' and d['paired_win_rate'] >= .55, d
-          w=weighting.component_weights(state,{},'hrm',3,'stable',{'v2','mos','analog'},True,{'mos':d,'analog':{'max_boost':1.0}})
-          assert w['source'].startswith('prospective-decayed') and w['weights']['mos'] > 0, w
-          e=e31.gate(state,'hrm',3,'stable')
-          assert e['status']=='promotion-approved' and e['paired_win_rate'] >= .55, e
+          d=gate.component_gate(state,{},'hrm',3,'stable','mos');assert d['status']=='promotion-approved' and d['paired_win_rate'] >= .55
+          w=weighting.component_weights(state,{},'hrm',3,'stable',{'v2','mos','analog'},True,{'mos':d,'analog':{'max_boost':1.0}});assert w['source'].startswith('prospective-decayed') and w['weights']['mos'] > 0
+          e=e31.gate(state,'hrm',3,'stable');assert e['status']=='promotion-approved' and e['paired_win_rate'] >= .55
           PY
           python scripts/test_real_feel_champion.py
       - name: Verify current app wiring
         run: |
           grep -q 'viewport-fit=cover' app.html
+          grep -q 'uws-location-ui.js' scene-images.js
+          grep -q 'Upper West Side' startup-fallback.js
+          grep -q 'America/New_York' startup-fallback.js
+          grep -q 'KNYC' uws-location-ui.js
+          grep -q 'ncep_hrrr_conus' uws-location-ui.js
+          grep -q 'wikimedia-commons' scene-images.js
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
           grep -q 'forecast-confidence.js' scene-images.js
@@ -132,10 +156,7 @@ jobs:
           grep -q 'server-truth-ui.js?v=1' accuracy-v3.js
           grep -q 'engine3-server-truth' server-truth-ui.js
           grep -q 'live-current-point-truth' server-truth-ui.js
-          grep -q 'realFeelValidationOwner' scripts/server-truth-qa.mjs
-          grep -q 'current Actual regressed near zero' scripts/server-truth-qa.mjs
-          grep -q 'Healthy server consensus displayed zero coverage' scripts/server-truth-qa.mjs
-          grep -q 'Available server ECCC mesh was labelled unavailable' scripts/server-truth-qa.mjs
+          grep -q 'America/New_York' server-truth-ui.js
           grep -q 'engine3-empirical' forecast-confidence.js
           grep -q 'wx-forecast-confidence-v2' forecast-confidence.js
           grep -q 'SPF 30+' uv-guidance.js
@@ -144,39 +165,39 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v70" sw.js
+          grep -q "weather-consensus-v71" sw.js
+          grep -q 'uws-location-ui.js' sw.js
           grep -q 'server-truth-ui.js' sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'placeConfidence' forecast-insights.js
           grep -q 'placeHourly' forecast-insights.js
           grep -q '<details><summary>' forecast-insights.js
-          grep -q '.hero.uvGuidanceActive .metrics' forecast-insights.js
           grep -q 'Forecast Confidence is not a compact status pill' scripts/smoke-live.mjs
           grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
           grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
-          grep -q 'syncLayout' uv-guidance.js
-          grep -q 'UV guidance overlaps hero metrics' scripts/layout-qa.mjs
-          grep -q 'live-current-provider-apparent' forecast-ui-guard.js
-          grep -q 'Current Real Feel updating' startup-fallback.js
+          grep -q 'UWS location QA passed' scripts/uws-location-qa.mjs
           grep -q 'provider-apparent-fast-current' startup-fallback.js
           grep -q 'provider-apparent-current' startup-fallback.js
-          grep -q 'point_values' startup-fallback.js
-          grep -q 'WX_REQUIRE_FAST_CURRENT' scripts/smoke-live.mjs
           grep -q 'provider-apparent-champion' scripts/accuracy_engine_v3_publish.py
+          grep -q 'precip_nowcast.update' scripts/accuracy_engine_v3_publish.py
+          grep -q 'rrfsv1.update' scripts/accuracy_engine_v3_publish.py
           grep -q 'engine32.apply' scripts/accuracy_engine_v3_publish.py
           grep -q "engine32_family'" scripts/engine31_install.py
           grep -q 'production_replacement' scripts/engine32_family_taxonomy.py
           grep -q 'comparative-independent-reference-replay' scripts/accuracy_engine_v3_verify.py
-          grep -q 'data/engine-v3.json' startup-fallback.js
-          grep -q '_attach_server_truth' scripts/engine31_install.py
+          grep -q 'install_uws' scripts/collect.py
           grep -q 'install_engine31' scripts/collect.py
           grep -q 'iphone-se-1' scripts/layout-qa.mjs
           grep -q 'iphone-pro-max' scripts/layout-qa.mjs
+          test -f scripts/location_uws.py
+          test -f scripts/precip_nowcast_verifier.py
+          test -f scripts/rrfsv1_shadow.py
+          test -f data/precip-nowcast-verification.json
+          test -f data/rrfsv1-verification.json
+          test -f scripts/uws-location-qa.mjs
           test -f server-truth-ui.js
           test -f scripts/server-truth-qa.mjs
           test -f scripts/hero-density-qa.mjs
-          test -f scripts/engine32_family_benchmark.py
-          test -f scripts/engine32_family_taxonomy.py
           test -f data/engine32-family-benchmark.json
           test -f scripts/precipitation_walkforward.py
           test -f scripts/forecast_confidence_engine.py

@@ -12,6 +12,7 @@ on:
       - 'v5b.js'
       - 'v6-extra.js'
       - 'v7-final.js'
+      - 'uws-location-ui.js'
       - 'v8-ui.js'
       - 'v11-layout.js'
       - 'scene-images.js'
@@ -33,6 +34,7 @@ on:
       - 'scripts/capture-ui.mjs'
       - 'scripts/smoke-live.mjs'
       - 'scripts/server-truth-qa.mjs'
+      - 'scripts/uws-location-qa.mjs'
       - 'scripts/layout-qa.mjs'
       - '.github/workflows/screenshot-ui.yml'
 
@@ -76,6 +78,8 @@ jobs:
         run: node scripts/smoke-live.mjs
       - name: Verify live server truth ownership
         run: node scripts/server-truth-qa.mjs
+      - name: Verify live Upper West Side location
+        run: node scripts/uws-location-qa.mjs
       - name: Check responsive UI across phone sizes
         run: node scripts/layout-qa.mjs
       - name: Capture current main with live weather APIs
