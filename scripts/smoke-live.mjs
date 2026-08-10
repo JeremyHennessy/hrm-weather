@@ -11,6 +11,7 @@ page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
 page.on('pageerror',e=>errors.push(String(e)));
 const started=Date.now();
 const deadline=(ms,label)=>new Promise((_,reject)=>setTimeout(()=>reject(new Error(label)),ms));
+const firstNumber=text=>Number(String(text||'').match(/-?\d+(?:\.\d+)?/)?.[0]);
 let exitCode=0;
 try{
   const resp=await Promise.race([page.goto(url,{waitUntil:'domcontentloaded',timeout:12000}),deadline(13000,'DOM startup deadline exceeded')]);
@@ -37,6 +38,7 @@ try{
       currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
       currentFast:window.__wxFastCurrent||null,
       actual:document.querySelector('#actual')?.textContent?.trim()||'',
+      actualOwner:document.documentElement.dataset.wxCurrentActual||'',
       morning:document.querySelector('#morningFeel')?.textContent?.trim()||'',
       updated:document.querySelector('#updated')?.textContent?.trim()||'',
       modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
@@ -60,6 +62,12 @@ try{
   if(!state.initialShown)throw new Error('Initial forecast render flag was not set');
   if(requireFastCurrent&&state.currentFast?.painted!==true)throw new Error(`Lightweight current Real Feel path did not paint: ${JSON.stringify(state.currentFast)}`);
   if(requireFastCurrent&&state.currentFast?.source!=='provider-apparent-current')throw new Error(`Lightweight current Real Feel source changed: ${JSON.stringify(state.currentFast)}`);
+  if(requireFastCurrent&&state.currentFast?.painted){
+    const shownFeel=firstNumber(state.feels),shownAir=firstNumber(state.actual);
+    if(Number.isFinite(shownFeel)&&Number.isFinite(state.currentFast.feel)&&Math.abs(shownFeel-state.currentFast.feel)>0.6)throw new Error(`Current Real Feel drifted from fast live truth: hero=${shownFeel} fast=${state.currentFast.feel}`);
+    if(Number.isFinite(shownAir)&&Number.isFinite(state.currentFast.air)&&Math.abs(shownAir-state.currentFast.air)>0.6)throw new Error(`Current Actual drifted from fast live truth: hero=${shownAir} fast=${state.currentFast.air}`);
+    if(state.actualOwner!=='live-current-input')throw new Error(`Current Actual is not owned by live inputs: ${state.actualOwner||'missing'}`);
+  }
   if(state.confidenceOwner!=='engine3-empirical')throw new Error(`Forecast Confidence owner is not empirical Engine 3: ${state.confidenceOwner||'missing'}`);
   if(state.summaryOwner!=='engine3-summary'||!state.summary)throw new Error(`Engine 3 plain-English summary is not active: owner=${state.summaryOwner||'missing'}`);
   if(/forecast confidence is\s+\d+%/i.test(state.summary))throw new Error(`Summary redundantly repeats Forecast Confidence: ${state.summary}`);
@@ -78,8 +86,7 @@ try{
     if(state.realFeelDataset==='1')throw new Error('Headline Real Feel was overwritten by an Engine 3 forecast row');
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
     if(/No live weather feeds responded|model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Healthy Engine 3 consensus reported as feed failure: ${state.warn}`);
-    const air=Number(state.actual.match(/-?\d+(?:\.\d+)?/)?.[0]);
-    const feel=Number(state.feels.match(/-?\d+(?:\.\d+)?/)?.[0]);
+    const air=firstNumber(state.actual),feel=firstNumber(state.feels);
     if(Number.isFinite(air)&&Number.isFinite(feel)&&Math.abs(air)<0.1&&feel>10)throw new Error(`Bogus Actual temperature survived UI guard: ${state.actual}`);
   }
 }catch(err){
@@ -93,6 +100,7 @@ try{
     currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',
     currentFast:window.__wxFastCurrent||null,
     actual:document.querySelector('#actual')?.textContent?.trim()||'',
+    actualOwner:document.documentElement.dataset.wxCurrentActual||'',
     modelCount:document.querySelector('#modelCount')?.textContent?.trim()||'',
     confidence:document.querySelector('.wxConfidenceStable b')?.textContent?.trim()||'',
     confidenceOwner:document.querySelector('.confidenceOrb')?.dataset?.confidenceOwner||'',
