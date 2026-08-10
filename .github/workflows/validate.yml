@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/uws-current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
@@ -139,19 +139,21 @@ jobs:
       - name: Verify current app wiring
         run: |
           grep -q 'viewport-fit=cover' app.html
-          grep -q 'uws-location-ui.js' scene-images.js
+          grep -q "uws-location-ui.js?v=2" scene-images.js
           grep -q 'Upper West Side' startup-fallback.js
           grep -q 'America/New_York' startup-fallback.js
           grep -q 'official-observation-steadman-current' startup-fallback.js
           grep -q 'OFFICIAL_MAX_AGE_MS' startup-fallback.js
           grep -q 'KNYC' uws-location-ui.js
           grep -q 'ncep_hrrr_conus' uws-location-ui.js
+          grep -q 'nws-stored-observation-steadman-current' uws-location-ui.js
+          grep -q 'stored NWS observation stale' uws-location-ui.js
           grep -q 'wikimedia-commons' scene-images.js
           grep -q "accuracy-v2.js?v=39" scene-images.js
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
           grep -q 'forecast-confidence.js' scene-images.js
-          grep -q 'forecast-ui-guard.js?v=3' scene-images.js
+          grep -q 'forecast-ui-guard.js?v=4' scene-images.js
           grep -q 'uv-guidance.js' scene-images.js
           grep -q 'forecast-insights.js?v=3' scene-images.js
           ! grep -q "import('./accuracy-v3.js" deep-ui.js
@@ -168,8 +170,9 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v73" sw.js
+          grep -q "weather-consensus-v74" sw.js
           grep -q "x!==null&&x!==undefined&&x!==''" accuracy-v2.js
+          grep -q 'nws-stored-observation-steadman-current' forecast-ui-guard.js
           grep -q 'live-current-official-observation-fallback' forecast-ui-guard.js
           grep -q 'wxCurrentActual' forecast-ui-guard.js
           grep -q 'uws-location-ui.js' sw.js
@@ -182,6 +185,7 @@ jobs:
           grep -q 'official-observation-steadman-current' scripts/smoke-live.mjs
           grep -q 'Current Actual drifted from fast live truth' scripts/smoke-live.mjs
           grep -q 'Official current fallback QA passed' scripts/current-fallback-qa.mjs
+          grep -q 'UWS stored NWS current fallback QA passed' scripts/uws-current-fallback-qa.mjs
           grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
           grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
           grep -q 'UWS location QA passed' scripts/uws-location-qa.mjs
@@ -205,6 +209,7 @@ jobs:
           test -f data/rrfsv1-verification.json
           test -f scripts/uws-location-qa.mjs
           test -f scripts/current-fallback-qa.mjs
+          test -f scripts/uws-current-fallback-qa.mjs
           test -f server-truth-ui.js
           test -f scripts/server-truth-qa.mjs
           test -f scripts/hero-density-qa.mjs
