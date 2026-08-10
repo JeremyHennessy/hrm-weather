@@ -33,7 +33,7 @@
       const wind=document.getElementById('wind');if(wind){const txt=wind.textContent||'';if(!/mph/i.test(txt)){const vals=[...txt.matchAll(/-?\d+(?:\.\d+)?/g)].map(x=>Number(x[0]));if(vals.length)set(wind,vals.map(v=>Math.round(kmhToMph(v))).join(' / ')+' mph')}}
       const total=document.getElementById('rainTotal');if(total)set(total,replaceMm(total.textContent||''));
       for(const id of ['rainTiming','radarArrival']){const el=document.getElementById(id);if(el)set(el,replaceMm(el.textContent||''))}
-      const summary=document.getElementById('daySummary');if(summary){let t=summary.textContent||'';if(!t.includes('°F'))t=replaceTemps(t);t=replaceKmh(t);set(summary,t)}
+      const summary=document.getElementById('daySummary');if(summary){let t=summary.textContent||'';if(!t.includes('°F'))t=replaceTemps(t);t=replaceKmh(t);set(summary,t);summary.dataset.source='us-units'}
       const advice=document.getElementById('advice');if(advice){let t=advice.textContent||'';if(!t.includes('°F'))t=replaceTemps(t);set(advice,t)}
       const uncertainty=document.getElementById('uncertainty');if(uncertainty){const t=uncertainty.textContent||'',m=t.match(/-?\d+(?:\.\d+)?/);if(m&&!t.includes('°F'))set(uncertainty,`±${deltaCToF(Number(m[0])).toFixed(1)}°F`)}
       deltaNode(document.getElementById('v3Nudge'),'nudge');deltaNode(document.getElementById('v3Walk'));
