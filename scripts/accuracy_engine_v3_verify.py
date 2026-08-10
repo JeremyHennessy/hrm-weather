@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Prospective shadow verification for Accuracy Engine 3.0.
 
-Scores forecasts only after their target time against the ECCC observation mesh.
+Scores forecasts only after their target time against each location's official
+observation mesh (ECCC for Canadian locations; NWS for Upper West Side).
 Tracks temperature MAE, precipitation Brier score, independent Real Feel formula
 replay, and the reliability of the single Engine-3 Forecast Confidence value.
 
 Real Feel deliberately has no synthetic single "observed feels-like" target. Each
 issued candidate is replayed against external operational/formula references built
-from target-time ECCC meteorology, and those references remain separate.
+from target-time official meteorology, and those references remain separate.
 """
 from __future__ import annotations
 from datetime import timedelta
@@ -59,7 +60,7 @@ def score_due(state:dict[str,Any],observations:dict[str,Any])->int:
         if not target or target>now+timedelta(minutes=20):continue
         obs=observations.get(row.get("loc")) or {};obs_time=core.parse_stamp(obs.get("time"))
         if not obs_time or abs((obs_time-target).total_seconds())>2.5*3600:continue
-        values=obs.get("values") or {};actual=core.safe_float(values.get("temperature_2m"))
+        values=obs.get("values") or {};actual=core.safe_float(values.get("temperature_2m"));provider=str(obs.get("provider") or "ECCC")
         if actual is not None:
             for layer,pred in (row.get("temperature_candidates") or {}).items():
                 p=core.safe_float(pred)
@@ -90,7 +91,7 @@ def score_due(state:dict[str,Any],observations:dict[str,Any])->int:
         row["actual_real_feel_references"]=refs
         row["actual_real_feel_reference_inputs"]={
             "temperature_2m":actual,"relative_humidity_2m":rh,"wind_speed_10m":wind,"shortwave_radiation":solar,
-            "temperature_source":"ECCC","humidity_source":"ECCC" if rh is not None else None,"wind_source":"ECCC" if wind is not None else None,"solar_source":"ECCC" if solar is not None else None,
+            "temperature_source":provider,"humidity_source":provider if rh is not None else None,"wind_source":provider if wind is not None else None,"solar_source":provider if solar is not None else None,
         }
         row["actual_real_feel_reference_version"]="independent-v2"
         row["scored_at"]=core.iso(now);scored+=1
@@ -129,7 +130,7 @@ def real_feel_replay(state:dict[str,Any])->dict[str,Any]:
     scored_rows=sum(1 for r in state.get('forecasts',[]) if r.get('actual_real_feel_reference_version')=='independent-v2' and r.get('actual_real_feel_references'))
     return {
         "version":"2.0","mode":"comparative-independent-reference-replay","scored_rows":scored_rows,
-        "method":"Issued Real Feel candidates are compared prospectively against separate external references derived from target-time ECCC meteorology; no candidate formula is declared observed human-perception truth.",
+        "method":"Issued Real Feel candidates are compared prospectively against separate external references derived from target-time location-official meteorology; no candidate formula is declared observed human-perception truth.",
         "references":{
             "bom_steadman_shade":"Steadman apparent temperature using observed temperature, humidity and wind",
             "eccc_humidex":"ECCC Humidex only when air temperature is at least 20 C and Humidex is at least 1 C above air temperature",
