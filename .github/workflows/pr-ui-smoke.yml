@@ -1,0 +1,72 @@
+name: PR UI smoke
+
+on:
+  pull_request:
+    paths:
+      - 'app.html'
+      - 'request-manager.js'
+      - 'v5b.js'
+      - 'v6-extra.js'
+      - 'v7-final.js'
+      - 'startup-fallback.js'
+      - 'v8-ui.js'
+      - 'v11-layout.js'
+      - 'scene-images.js'
+      - 'accuracy-v2.js'
+      - 'accuracy-v3.js'
+      - 'atomic-render.js'
+      - 'daily-card-fix.js'
+      - 'forecast-confidence.js'
+      - 'forecast-ui-guard.js'
+      - 'forecast-insights.js'
+      - 'uv-guidance.js'
+      - 'weather-icons.js'
+      - 'scripts/smoke-live.mjs'
+      - 'scripts/layout-qa.mjs'
+      - '.github/workflows/pr-ui-smoke.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-ui-smoke-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Serve PR branch locally
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/weather-pr-http.log 2>&1 &
+          for i in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:4173/app.html >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/weather-pr-http.log || true
+          exit 1
+      - name: Verify branch mobile startup
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/smoke-live.mjs
+      - name: Check branch responsive UI
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/layout-qa.mjs
+      - name: Upload branch UI QA
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-ui-smoke
+          path: screenshots/
+          retention-days: 7

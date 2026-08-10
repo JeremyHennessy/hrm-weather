@@ -47,6 +47,7 @@ jobs:
           import accuracy_engine_v3 as v3
           import accuracy_engine_v3_pooling as pooling
           import accuracy_engine_v3_walkforward as walk
+          import accuracy_engine_v3_verify as verify
           import precipitation_walkforward as precip
           import forecast_confidence_engine as conf
           import real_feel_engine as rf
@@ -59,6 +60,7 @@ jobs:
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
+          assert callable(verify.real_feel_replay)
           assert pooling.nearby_leads(3) == {1,3,6}
           assert e31.MIN_PROMOTION_SAMPLES >= 12 and e31.HALF_LIFE_DAYS > 0 and e31.MIN_PROMOTION_WIN_RATE >= .55 and callable(e31.apply)
           assert gate.MIN_PROMOTION_WIN_RATE >= .55 and gate.HALF_LIFE_DAYS > 0
@@ -66,6 +68,19 @@ jobs:
           assert callable(rain.build)
           assert rf.physical_real_feel(28,80,5)['value'] > rf.physical_real_feel(28,35,5)['value']
           assert rf.physical_real_feel(-5,35,30)['value'] < -5
+          current=rf.physical_real_feel(19.0196,96.5174,5.3479)['value']
+          legacy=rf.legacy_physical_real_feel(19.0196,96.5174,5.3479)['value']
+          assert 20.0 < current < 22.0, current
+          assert legacy > 24.0, legacy
+          refs=rf.independent_references(19.0196,96.5174,5.3479)
+          assert 'bom_steadman_shade' in refs and 'eccc_humidex' not in refs, refs
+          hot_refs=rf.independent_references(28.0,70.0,8.0)
+          assert 'bom_steadman_shade' in hot_refs and 'eccc_humidex' in hot_refs, hot_refs
+          cold_refs=rf.independent_references(-5.0,75.0,30.0)
+          assert 'eccc_wind_chill' in cold_refs, cold_refs
+          replay=verify.real_feel_replay({'real_feel_reference_scores':{'hrm:1:all:bom_steadman_shade:provider_apparent':{'n':3,'mae':0.4,'bias':0.1,'rmse':0.5}},'forecasts':[]})
+          assert replay['mode']=='comparative-independent-reference-replay', replay
+          assert replay['locations']['hrm']['1']['bom_steadman_shade']['provider_apparent']['mae']==0.4, replay
           now=core.utcnow()
           rows=[]
           for i in range(18):
@@ -78,13 +93,6 @@ jobs:
           assert w['source'].startswith('prospective-decayed') and w['weights']['mos'] > 0, w
           e=e31.gate(state,'hrm',3,'stable')
           assert e['status']=='promotion-approved' and e['paired_win_rate'] >= .55, e
-
-          rf_rows=[]
-          for i in range(18):
-              rf_rows.append({'scored':True,'loc':'hrm','lead':1,'regime':'humid','issued':core.iso(now-timedelta(hours=i*8)),'actual_real_feel':28.0,'real_feel_candidates':{'physical':28.3,'calibrated':29.4}})
-          rf_gate=gate.real_feel_gate({'forecasts':rf_rows,'real_feel_scores':{}},'hrm',1,'humid')
-          assert rf_gate['status']=='challenger-underperforming', rf_gate
-          assert rf_gate['paired_win_rate'] <= gate.MAX_DEMOTION_WIN_RATE, rf_gate
           PY
           python scripts/test_real_feel_champion.py
       - name: Verify current app wiring
@@ -93,7 +101,7 @@ jobs:
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
           grep -q 'forecast-confidence.js' scene-images.js
-          grep -q 'forecast-ui-guard.js' scene-images.js
+          grep -q 'forecast-ui-guard.js?v=2' scene-images.js
           grep -q 'uv-guidance.js' scene-images.js
           grep -q 'forecast-insights.js?v=3' scene-images.js
           ! grep -q "import('./accuracy-v3.js" deep-ui.js
@@ -106,7 +114,7 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v" sw.js
+          grep -q "weather-consensus-v68" sw.js
           grep -q 'forecast-insights.js' sw.js
           grep -q 'width:106px' forecast-insights.js
           grep -q 'placeConfidence' forecast-insights.js
@@ -114,7 +122,10 @@ jobs:
           grep -q 'display:block!important' forecast-insights.js
           grep -q 'syncLayout' uv-guidance.js
           grep -q 'UV guidance overlaps hero metrics' scripts/layout-qa.mjs
-          grep -q 'engine3-calibrated' forecast-ui-guard.js
+          grep -q 'live-current-provider-apparent' forecast-ui-guard.js
+          grep -q 'Current Real Feel updating' startup-fallback.js
+          grep -q 'provider-apparent-champion' scripts/accuracy_engine_v3_publish.py
+          grep -q 'comparative-independent-reference-replay' scripts/accuracy_engine_v3_verify.py
           grep -q 'data/engine-v3.json' startup-fallback.js
           grep -q 'install_engine31' scripts/collect.py
           grep -q 'iphone-se-1' scripts/layout-qa.mjs

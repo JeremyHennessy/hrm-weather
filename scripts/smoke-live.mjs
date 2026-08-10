@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-// Diagnostic trigger: verify current main after the refreshed collector without changing production code.
+// Verify the selected app URL without changing production code.
 
 const base=process.env.WX_URL||'https://jeremyhennessy.github.io/hrm-weather/app.html';
 const url=`${base}${base.includes('?')?'&':'?'}smoke=${Date.now()}`;
@@ -69,7 +69,8 @@ try{
   if(state.uvVisible&&state.uvOwner!=='forecast-insights')throw new Error(`UV overlay has competing owner: ${state.uvOwner||'missing'}`);
   if(state.uvVisible&&!/SPF 30\+|SPF 50\+/i.test(state.uvText))throw new Error(`Visible UV guidance lacks sunscreen recommendation: ${state.uvText}`);
   if(state.serverConsensusFresh){
-    if(state.realFeelOwner!=='engine3-calibrated'||state.realFeelDataset!=='1')throw new Error(`Headline Real Feel is not owned by calibrated Engine 3: owner=${state.realFeelOwner||'missing'} dataset=${state.realFeelDataset||'missing'}`);
+    if(state.realFeelOwner!=='live-current-provider-apparent')throw new Error(`Headline Real Feel is not owned by live current inputs: owner=${state.realFeelOwner||'missing'}`);
+    if(state.realFeelDataset==='1')throw new Error('Headline Real Feel was overwritten by an Engine 3 forecast row');
     if(!/forecast feeds · Engine 3 server consensus/i.test(state.modelCount))throw new Error(`Server model status is stale: ${state.modelCount}`);
     if(/No live weather feeds responded|model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(state.warn))throw new Error(`Healthy Engine 3 consensus reported as feed failure: ${state.warn}`);
     const air=Number(state.actual.match(/-?\d+(?:\.\d+)?/)?.[0]);

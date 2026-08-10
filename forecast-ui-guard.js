@@ -1,7 +1,8 @@
 /* Final UI truth layer for server-first Engine 3 operation.
    Keeps intentionally skipped client model calls from being reported as failures,
-   prevents broken live-base air temperature overwrites, and makes the locally
-   calibrated Engine 3 Real Feel the single authoritative headline value. */
+   prevents broken live-base air temperature overwrites, and deliberately leaves
+   the current Real Feel owned by the live current-conditions renderer. A future
+   Engine 3 forecast row must never replace the value labelled RIGHT NOW. */
 (()=>{
   const finite=v=>Number.isFinite(Number(v));
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return 'hrm'}};
@@ -21,12 +22,7 @@
     if(warn&&/model\/location feeds were unavailable|consensus is using the feeds that responded/i.test(warn.textContent||'')){
       warn.textContent='';warn.style.display='none';warn.dataset.serverConsensusCleared='1';
     }
-    const engineAir=Number(row?.temperature_2m),engineFeel=Number(row?.real_feel),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels');
-    if(feelsEl&&finite(engineFeel)){
-      const desired=`${engineFeel.toFixed(1)}°`;
-      if(feelsEl.textContent!==desired)feelsEl.textContent=desired;
-      feelsEl.dataset.engine3RealFeel='1';
-    }
+    const engineAir=Number(row?.temperature_2m),actual=document.getElementById('actual'),feelsEl=document.getElementById('feels');
     const feel=numberFrom(feelsEl?.textContent),shownAir=numberFrom(actual?.textContent);
     const implausible=finite(engineAir)&&finite(shownAir)&&(
       Math.abs(shownAir-engineAir)>10 ||
@@ -40,7 +36,7 @@
       sub.textContent=sub.textContent.replace(/Actual\s*-?\d+(?:\.\d+)?°/i,`Actual ${Math.round(engineAir)}°`);sub.dataset.engine3Corrected='1';
     }
     document.documentElement.dataset.wxServerConsensus='fresh';
-    if(finite(engineFeel))document.documentElement.dataset.wxRealFeel='engine3-calibrated';
+    document.documentElement.dataset.wxRealFeel='live-current-provider-apparent';
     return true;
   }
   window.WXNormalizeForecastUI=normalize;
