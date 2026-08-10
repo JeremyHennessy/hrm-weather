@@ -18,6 +18,11 @@ function installStableRenderer(){
 installStableRenderer();
 
 const nativeFetch=window.fetch.bind(window);
+// Lightweight current-condition refreshes must not wait behind the queued
+// multi-model request manager. This is intentionally transport-only: callers
+// still define/own weather semantics and cannot bypass server-consensus model
+// policy with it.
+window.WX_NATIVE_FETCH=nativeFetch;
 const state=window.WX_REQUEST_HEALTH={started:0,success:0,failed:0,retries:0,rateLimited:0,cacheHits:0,queued:0,active:0,timeouts:0,serverModelSkips:0,clientModelFallbacks:0,falseWarningsSuppressed:0};
 const cache=new Map(),pending=new Map(),queue=[];const MAX_ACTIVE=4,CACHE_MS=5*60*1000,MIN_GAP_MS=100;let active=0,lastStart=0;const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function requestKind(input){try{const h=new URL(typeof input==='string'?input:input.url,location.href).hostname;if(h==='api.open-meteo.com')return'openmeteo';if(h==='api.weather.gc.ca')return'eccc'}catch{}return null}
