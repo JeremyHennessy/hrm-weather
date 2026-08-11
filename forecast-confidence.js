@@ -4,7 +4,7 @@
 (()=>{
   const STORE='wx-forecast-confidence-v2';
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-  const finite=v=>Number.isFinite(Number(v));
+  const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   function cachedEngine(){
     if(window.WXAccuracyV3)return window.WXAccuracyV3;

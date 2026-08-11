@@ -1,0 +1,46 @@
+name: P0 truth contracts
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax
+        run: |
+          node --check location-registry.js
+          node --check startup-fallback.js
+          node --check server-truth-ui.js
+          python -m py_compile scripts/location_registry.py scripts/generate_location_registry.py scripts/target_truth_archive.py scripts/accuracy_engine_v3_verify.py scripts/precip_nowcast_verifier.py scripts/accuracy_engine_v3_publish.py scripts/test_p0_truth_contracts.py
+      - name: Canonical registry generated artifact
+        run: |
+          python -m json.tool locations.json >/dev/null
+          python scripts/generate_location_registry.py --check
+      - name: Target-time and null-safety contracts
+        env:
+          PYTHONPATH: scripts
+        run: python scripts/test_p0_truth_contracts.py
+      - name: Original app wiring is registry-first
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          app=Path('app.html').read_text()
+          assert app.index('location-registry.js') < app.index('startup-fallback.js')
+          assert 'Wolfville Core' not in Path('startup-fallback.js').read_text()
+          assert 'Wolfville West' not in Path('startup-fallback.js').read_text()
+          assert 'Wolfville Core' not in Path('server-truth-ui.js').read_text()
+          assert 'Wolfville West' not in Path('server-truth-ui.js').read_text()
+          PY
+          grep -q "'./location-registry.js'" sw.js

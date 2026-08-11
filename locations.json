@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "locations": {
+    "hrm": {
+      "label": "HRM CORE",
+      "place": "Halifax Peninsula · Bedford · Dartmouth",
+      "lat": 44.6488,
+      "lon": -63.5752,
+      "timezone": "America/Halifax",
+      "country": "CA",
+      "official_source": "ECCC",
+      "coastal": true,
+      "bbox": [-63.80, 44.48, -63.42, 44.84],
+      "points": [
+        {"name": "Halifax Peninsula", "lat": 44.6488, "lon": -63.5752, "kind": "coastal"},
+        {"name": "Bedford", "lat": 44.7318, "lon": -63.6619, "kind": "basin"},
+        {"name": "Dartmouth", "lat": 44.6661, "lon": -63.5676, "kind": "harbour"}
+      ]
+    },
+    "moncton": {
+      "label": "MONCTON NB",
+      "place": "Downtown Moncton",
+      "lat": 46.0878,
+      "lon": -64.7782,
+      "timezone": "America/Moncton",
+      "country": "CA",
+      "official_source": "ECCC",
+      "coastal": false,
+      "bbox": [-64.95, 45.98, -64.62, 46.20],
+      "points": [{"name": "Moncton", "lat": 46.0878, "lon": -64.7782, "kind": "inland"}]
+    },
+    "shediac": {
+      "label": "SHEDIAC NB",
+      "place": "Shediac town centre",
+      "lat": 46.2198,
+      "lon": -64.5411,
+      "timezone": "America/Moncton",
+      "country": "CA",
+      "official_source": "ECCC",
+      "coastal": true,
+      "bbox": [-64.68, 46.10, -64.40, 46.34],
+      "points": [{"name": "Shediac", "lat": 46.2198, "lon": -64.5411, "kind": "coastal"}]
+    },
+    "lunenburg": {
+      "label": "LUNENBURG NS",
+      "place": "Lunenburg",
+      "lat": 44.377896,
+      "lon": -64.309529,
+      "timezone": "America/Halifax",
+      "country": "CA",
+      "official_source": "ECCC",
+      "coastal": true,
+      "bbox": [-64.46, 44.25, -64.15, 44.50],
+      "points": [{"name": "Lunenburg", "lat": 44.377896, "lon": -64.309529, "kind": "coastal"}]
+    },
+    "wolfville": {
+      "label": "WOLFVILLE NS",
+      "place": "Wolfville · New Minas · Kentville",
+      "lat": 45.0791,
+      "lon": -64.4383,
+      "timezone": "America/Halifax",
+      "country": "CA",
+      "official_source": "ECCC",
+      "coastal": false,
+      "bbox": [-64.62, 44.98, -64.22, 45.20],
+      "points": [
+        {"name": "Wolfville", "lat": 45.091713, "lon": -64.359242, "kind": "valley-east"},
+        {"name": "New Minas", "lat": 45.067858, "lon": -64.460234, "kind": "valley"},
+        {"name": "Kentville", "lat": 45.077707, "lon": -64.495306, "kind": "valley-west"}
+      ]
+    },
+    "uws": {
+      "label": "UPPER WEST SIDE NY",
+      "place": "Upper West Side · Manhattan",
+      "lat": 40.7870,
+      "lon": -73.9754,
+      "timezone": "America/New_York",
+      "country": "US",
+      "official_source": "NWS",
+      "official_station": "KNYC",
+      "official_stations": ["KNYC", "KJRB", "KLGA"],
+      "coastal": true,
+      "bbox": [-74.03, 40.73, -73.93, 40.83],
+      "points": [
+        {"name": "UWS South", "lat": 40.7745, "lon": -73.9840, "kind": "urban-south"},
+        {"name": "UWS Central", "lat": 40.7870, "lon": -73.9754, "kind": "urban-core"},
+        {"name": "UWS North", "lat": 40.7950, "lon": -73.9705, "kind": "urban-north"}
+      ]
+    }
+  }
+}

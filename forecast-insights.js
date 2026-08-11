@@ -1,7 +1,7 @@
 /* Engine-owned plain-English forecast summary, meaningful-change notice, and
    time-aware sun protection guidance. Uses the same Engine 3 snapshot as the UI. */
 (()=>{
-  const finite=v=>Number.isFinite(Number(v));
+  const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const loc=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   const engine=()=>window.WXAccuracyV3||(()=>{try{return JSON.parse(localStorage.getItem('wx-engine-v3-startup')||'null')?.engine||null}catch{return null}})();
   const hours=()=>engine()?.consensus?.[loc()]?.hours||{};

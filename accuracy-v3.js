@@ -1,7 +1,7 @@
 /* Weather Consensus Accuracy Engine 3.0 client integration */
 (()=>{
   let V3=null;
-  const finite=x=>Number.isFinite(Number(x));
+  const finite=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x));
   const locKey=()=>typeof loc!=='undefined'?loc:'hrm';
   const fresh=()=>{const t=V3?.updated_at?Date.parse(V3.updated_at):0;return !!t&&Date.now()-t<3*60*60*1000};
   function atLead(lead){

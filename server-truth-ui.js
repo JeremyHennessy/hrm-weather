@@ -3,13 +3,8 @@
    Real Feel validation status, feed coverage and spread. Browser-local skill is
    retained only for legacy diagnostics and must not overwrite these fields. */
 (()=>{
-  const POINTS={
-    hrm:[['Halifax Peninsula',44.6488,-63.5752],['Bedford',44.7318,-63.6619],['Dartmouth',44.6661,-63.5676]],
-    moncton:[['Moncton',46.0878,-64.7782]],shediac:[['Shediac',46.2198,-64.5411]],lunenburg:[['Lunenburg',44.377896,-64.309529]],
-    wolfville:[['Wolfville',45.091713,-64.359242],['Wolfville Core',45.067858,-64.460234],['Wolfville West',45.077707,-64.495306]],
-    uws:[['UWS South',40.7745,-73.9840],['UWS Central',40.7870,-73.9754],['UWS North',40.7950,-73.9705]]
-  };
-  const TZ={uws:'America/New_York'};
+  const REGISTRY=window.WX_LOCATION_REGISTRY?.locations||{};
+  const POINTS=Object.fromEntries(Object.entries(REGISTRY).map(([k,v])=>[k,(v.points||[]).map(p=>[p[0],p[1],p[2]])]));
   const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
   const num=v=>finite(v)?Number(v):null;
   const us=()=>document.documentElement.dataset.wxUnits==='us';
@@ -18,7 +13,7 @@
   const fmtAbs=(v,d=1)=>finite(v)?`${absTemp(v).toFixed(d)}°${us()?'F':''}`:'--';
   const fmtDelta=(v,d=1)=>finite(v)?`${deltaTemp(v).toFixed(d)}°${us()?'F':''}`:'--';
   const locKey=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
-  const timezone=key=>TZ[key]||'America/Halifax';
+  const timezone=key=>REGISTRY[key]?.timezone||'America/Halifax';
   const text=(el,v)=>{if(el&&v!=null&&el.textContent!==String(v))el.textContent=String(v)};
   const fmt=(v,d=1)=>finite(v)?Number(v).toFixed(d):'--';
   let V3=null,TRUTH=null,pointTruth=null,pointTruthLoc=null,pointJob=null,queued=false;

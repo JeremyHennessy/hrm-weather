@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 """Compatibility entry point for the Weather Consensus hourly collector."""
+import accuracy_engine_v2 as core
+from location_registry import install_core_locations
+
+# locations.json is the canonical location source. Replace the legacy literals
+# before any observation/model adapter captures core.LOCATIONS.
+install_core_locations(core)
+
 from eccc_observation_mesh_v2 import install as install_eccc_observation_mesh
 
 # Canadian official observations remain ECCC SWOB. Install the U.S. location

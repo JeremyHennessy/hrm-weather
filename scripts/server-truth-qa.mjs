@@ -37,7 +37,7 @@ try{
     if(state.officialOwner!=='engine3-server-truth')throw new Error(`Official observation is not server-owned: ${state.officialOwner||'missing'}`);
   }
   for(const p of state.pointValues){
-    if(!Number.isFinite(Number(p.air))||Math.abs(Number(p.air))<=8)continue;const card=state.zones.find(z=>z.name===p.name);if(!card)continue;
+    if(p.air===null||p.air===undefined||p.air===''||!Number.isFinite(Number(p.air))||Math.abs(Number(p.air))<=8)continue;const card=state.zones.find(z=>z.name===p.name);if(!card)continue;
     if(!Number.isFinite(card.actual)||Math.abs(card.actual)<0.5)throw new Error(`${p.name} current Actual regressed near zero while input air=${p.air}: ${card.actualText}`);
     if(Math.abs(card.actual-Number(p.air))>2.0)throw new Error(`${p.name} current Actual diverges from current input: input=${p.air}; card=${card.actual}`);
   }

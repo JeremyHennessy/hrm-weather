@@ -59,7 +59,7 @@ async function ecccObservation(){
   const url=`https://api.weather.gc.ca/collections/climate-hourly/items?bbox=${b.join(',')}&limit=200&filter=${encodeURIComponent(filter)}&f=json`;
   try{
     const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error(r.status);const j=await r.json();
-    const fs=(j.features||[]).filter(x=>Number.isFinite(Number(x.properties?.TEMP)));
+    const fs=(j.features||[]).filter(x=>x.properties?.TEMP!==null&&x.properties?.TEMP!==undefined&&x.properties?.TEMP!==''&&Number.isFinite(Number(x.properties?.TEMP)));
     fs.sort((a,b)=>Number(b.properties?.LOCAL_HOUR??-1)-Number(a.properties?.LOCAL_HOUR??-1));
     if(!fs.length)return null;
     const latest=Number(fs[0].properties.LOCAL_HOUR);
