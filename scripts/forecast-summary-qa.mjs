@@ -8,18 +8,17 @@ let code=0;
 try{
   const r=await page.goto(url,{waitUntil:'domcontentloaded',timeout:20000});if(!r?.ok())throw Error(`HTTP ${r?.status()}`);
   await page.waitForFunction(()=>document.querySelector('#daySummary')&&document.querySelector('#hours')&&typeof window.WXRefreshForecastSummary==='function',{timeout:15000});
-  await page.evaluate(()=>{
+  const state=await page.evaluate(()=>{
     localStorage.setItem('wx-loc','hrm');
     window.__wxFastCurrent={location:'hrm',painted:true,status:'ready',source:'qa-current',feel:23,air:20,points:3,total_points:3,point_values:[]};
     const rain=[5,10,15,20,65,40,25,10,5,5,5,5];
     const feels=[23,23,22,22,21,21,21,20,20,20,20,19];
     const hours=document.querySelector('#hours');
     hours.innerHTML=rain.map((p,i)=>`<div class="card hour"><small>${i+1} p.m.</small><b>${feels[i]}°</b><div class="sub">Actual ${feels[i]-2}°</div><small>Rain ${p}% · Amount 0.0 mm</small></div>`).join('');
-    window.dispatchEvent(new CustomEvent('wx-fast-current-ready',{detail:window.__wxFastCurrent}));
     window.WXRefreshForecastSummary();
+    const s=document.querySelector('#daySummary');
+    return{text:s.textContent.trim(),source:s.dataset.source,count:Number(s.dataset.hourlyCount||0)};
   });
-  await page.waitForFunction(()=>document.querySelector('#daySummary')?.dataset?.source==='live-current-hourly-summary',{timeout:5000});
-  const state=await page.evaluate(()=>{const s=document.querySelector('#daySummary');return{text:s.textContent.trim(),source:s.dataset.source,count:Number(s.dataset.hourlyCount||0)}});
   if(state.source!=='live-current-hourly-summary')throw Error(`wrong summary owner: ${state.source}`);
   if(state.count!==12)throw Error(`summary did not inspect all 12 rendered hours: ${state.count}`);
   if(!state.text.includes('23°C'))throw Error(`summary did not use live current Real Feel: ${state.text}`);
