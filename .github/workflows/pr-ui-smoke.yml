@@ -30,6 +30,7 @@ on:
       - 'scripts/uws-current-fallback-qa.mjs'
       - 'scripts/server-truth-qa.mjs'
       - 'scripts/hero-density-qa.mjs'
+      - 'scripts/forecast-summary-qa.mjs'
       - 'scripts/daily-detail-qa.mjs'
       - 'scripts/uws-location-qa.mjs'
       - 'scripts/layout-qa.mjs'
@@ -87,6 +88,10 @@ jobs:
         env:
           WX_URL: http://127.0.0.1:4173/app.html
         run: node scripts/hero-density-qa.mjs
+      - name: Verify live-current forecast summary
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/forecast-summary-qa.mjs
       - name: Verify daily forecast drill-down
         env:
           WX_URL: http://127.0.0.1:4173/app.html
