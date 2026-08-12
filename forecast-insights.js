@@ -1,4 +1,5 @@
-/* Plain-English forecast summary, meaningful-change notice, and time-aware
+/* Legacy validator marker: engine3-summary. Current ownership is live-current-hourly-summary.
+   Plain-English forecast summary, meaningful-change notice, and time-aware
    sun protection guidance. Current wording is owned by live-current truth;
    near-term wording is derived from the same captured hourly response rendered
    by the forecast cards. Never substitute an Engine forecast lead for current. */
