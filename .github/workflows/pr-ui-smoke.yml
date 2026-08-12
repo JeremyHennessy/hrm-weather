@@ -18,16 +18,19 @@ on:
       - 'server-truth-ui.js'
       - 'atomic-render.js'
       - 'daily-card-fix.js'
+      - 'daily-detail.js'
       - 'forecast-confidence.js'
       - 'forecast-ui-guard.js'
       - 'forecast-insights.js'
       - 'uv-guidance.js'
       - 'weather-icons.js'
+      - 'sw.js'
       - 'scripts/smoke-live.mjs'
       - 'scripts/current-fallback-qa.mjs'
       - 'scripts/uws-current-fallback-qa.mjs'
       - 'scripts/server-truth-qa.mjs'
       - 'scripts/hero-density-qa.mjs'
+      - 'scripts/daily-detail-qa.mjs'
       - 'scripts/uws-location-qa.mjs'
       - 'scripts/layout-qa.mjs'
       - 'scripts/engine31_install.py'
@@ -84,6 +87,10 @@ jobs:
         env:
           WX_URL: http://127.0.0.1:4173/app.html
         run: node scripts/hero-density-qa.mjs
+      - name: Verify daily forecast drill-down
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/daily-detail-qa.mjs
       - name: Verify Upper West Side location
         env:
           WX_URL: http://127.0.0.1:4173/app.html
