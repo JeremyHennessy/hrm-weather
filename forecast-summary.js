@@ -1,11 +1,12 @@
-/* Final plain-English forecast summary owner.
+/* Final plain-English forecast summary owner for the original metric app.
    Current conditions come from the exact live-current object that owns the hero.
    Near-term trend/rain come from the same 12 hourly cards shown to the user.
-   No forecast lead is allowed to masquerade as current conditions. */
+   No forecast lead is allowed to masquerade as current conditions.
+   The separate New York U.S.-units spin keeps its existing presentation layer. */
 (()=>{
+  if(new URLSearchParams(location.search).get('units')==='us')return;
   const SOURCE='live-current-hourly-summary';
   const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
-  const num=v=>finite(v)?Number(v):null;
   const loc=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
   const tz=()=>{try{return typeof window.WX_LOCATION_TIMEZONE==='function'?window.WX_LOCATION_TIMEZONE():(loc()==='uws'?'America/New_York':'America/Halifax')}catch{return loc()==='uws'?'America/New_York':'America/Halifax'}};
   const localHour=()=>{try{return Number(new Intl.DateTimeFormat('en-CA',{timeZone:tz(),hour:'2-digit',hour12:false}).format(new Date()))}catch{return new Date().getHours()}};
