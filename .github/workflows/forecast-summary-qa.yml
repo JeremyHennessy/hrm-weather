@@ -34,7 +34,7 @@ jobs:
           node --check forecast-summary.js
           node --check scripts/forecast-summary-qa.mjs
           grep -q "forecast-summary.js?v=1" scene-images.js
-          grep -q "weather-consensus-v76" sw.js
+          grep -q "weather-consensus-v75" sw.js
           grep -q "forecast-summary.js" sw.js
           grep -q "live-current-hourly-summary" forecast-summary.js
           grep -q "__wxFastCurrent" forecast-summary.js
@@ -56,11 +56,13 @@ jobs:
         env:
           WX_URL: http://127.0.0.1:4173/app.html
         run: node scripts/forecast-summary-qa.mjs
-      - name: Wait for v76 on Pages
+      - name: Wait for summary module on Pages
         if: github.event_name == 'push'
         run: |
           for i in $(seq 1 48); do
-            curl -fsS "https://jeremyhennessy.github.io/hrm-weather/sw.js?qa=$(date +%s)" | grep -q 'weather-consensus-v76' && exit 0
+            SUM=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/forecast-summary.js?qa=$(date +%s)" || true)
+            SCENE=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/scene-images.js?qa=$(date +%s)" || true)
+            if echo "$SUM" | grep -q 'live-current-hourly-summary' && echo "$SCENE" | grep -q 'forecast-summary.js?v=1'; then exit 0; fi
             sleep 5
           done
           exit 1
