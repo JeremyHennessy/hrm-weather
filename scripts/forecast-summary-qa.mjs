@@ -7,19 +7,23 @@ const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFac
 let code=0;
 try{
   const r=await page.goto(url,{waitUntil:'domcontentloaded',timeout:20000});if(!r?.ok())throw Error(`HTTP ${r?.status()}`);
-  await page.waitForFunction(()=>window.__wxFastCurrent?.painted&&document.querySelectorAll('#hours .hour').length>=8,{timeout:20000});
-  await page.waitForFunction(()=>document.querySelector('#daySummary')?.dataset?.source==='live-current-hourly-summary',{timeout:8000});
-  const state=await page.evaluate(()=>{
-    const summary=document.querySelector('#daySummary');
-    const cards=[...document.querySelectorAll('#hours .hour')].slice(0,12).map(card=>{const smalls=[...card.querySelectorAll('small')],txt=smalls.map(x=>x.textContent).join(' '),m=txt.match(/Rain\s+(\d+(?:\.\d+)?)%/i);return{time:smalls[0]?.textContent?.trim()||'',rain:m?Number(m[1]):null}}).filter(x=>Number.isFinite(x.rain));
-    const peak=cards.length?cards.reduce((a,b)=>b.rain>a.rain?b:a,cards[0]):null;
-    return{text:summary?.textContent?.trim()||'',source:summary?.dataset?.source||'',count:Number(summary?.dataset?.hourlyCount||0),fast:window.__wxFastCurrent,peak};
+  await page.waitForFunction(()=>document.querySelector('#daySummary')&&document.querySelector('#hours')&&typeof window.WXRefreshForecastSummary==='function',{timeout:15000});
+  await page.evaluate(()=>{
+    localStorage.setItem('wx-loc','hrm');
+    window.__wxFastCurrent={location:'hrm',painted:true,status:'ready',source:'qa-current',feel:23,air:20,points:3,total_points:3,point_values:[]};
+    const rain=[5,10,15,20,65,40,25,10,5,5,5,5];
+    const feels=[23,23,22,22,21,21,21,20,20,20,20,19];
+    const hours=document.querySelector('#hours');
+    hours.innerHTML=rain.map((p,i)=>`<div class="card hour"><small>${i+1} p.m.</small><b>${feels[i]}°</b><div class="sub">Actual ${feels[i]-2}°</div><small>Rain ${p}% · Amount 0.0 mm</small></div>`).join('');
+    window.dispatchEvent(new CustomEvent('wx-fast-current-ready',{detail:window.__wxFastCurrent}));
+    window.WXRefreshForecastSummary();
   });
+  await page.waitForFunction(()=>document.querySelector('#daySummary')?.dataset?.source==='live-current-hourly-summary',{timeout:5000});
+  const state=await page.evaluate(()=>{const s=document.querySelector('#daySummary');return{text:s.textContent.trim(),source:s.dataset.source,count:Number(s.dataset.hourlyCount||0)}});
   if(state.source!=='live-current-hourly-summary')throw Error(`wrong summary owner: ${state.source}`);
-  if(state.count<8)throw Error(`summary did not inspect rendered hourly series: ${state.count}`);
-  const rf=Math.round(Number(state.fast?.feel));if(!state.text.includes(`${rf}°C`))throw Error(`summary does not use live current Real Feel ${rf}°C: ${state.text}`);
-  if(/next 12 hours/i.test(state.text)&&state.count<12)throw Error(`generic 12h wording without 12 displayed hours: ${state.text}`);
-  if(state.peak&&state.peak.rain>=20){const p=Math.round(state.peak.rain);if(!state.text.includes(`${p}%`))throw Error(`summary missed displayed peak rain ${p}%: ${state.text}`)}
+  if(state.count!==12)throw Error(`summary did not inspect all 12 rendered hours: ${state.count}`);
+  if(!state.text.includes('23°C'))throw Error(`summary did not use live current Real Feel: ${state.text}`);
+  if(!state.text.includes('65%')||!state.text.includes('5 p.m.'))throw Error(`summary missed displayed rain peak/timing: ${state.text}`);
   if(/undefined|null|NaN/i.test(state.text))throw Error(`invalid missing-value prose: ${state.text}`);
   console.log('Forecast summary QA passed',state);
 }catch(e){code=1;console.error(e?.stack||String(e))}finally{await browser.close().catch(()=>{});process.exit(code)}
