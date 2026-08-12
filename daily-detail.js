@@ -1,6 +1,6 @@
-/* Tappable 7-day drill-down. Captures the same Open-Meteo base responses that
-   feed the compact daily cards, then expands a selected day without issuing a
-   second forecast request or changing the forecast engine. */
+/* Tappable 7-day drill-down. Uses the same Open-Meteo base responses that feed
+   the compact daily cards, then expands a selected day without issuing a second
+   forecast request or changing the forecast engine. */
 (()=>{
   if(window.__wxDailyDetailInstalled)return;
   window.__wxDailyDetailInstalled=true;
@@ -16,41 +16,14 @@
   };
   const LOC_LABEL={hrm:'Halifax',moncton:'Moncton',shediac:'Shediac',lunenburg:'Lunenburg',wolfville:'Wolfville Area',uws:'Upper West Side'};
   const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
-  const num=v=>finite(v)?Number(v):null;
   const avg=a=>{const v=a.filter(finite).map(Number);return v.length?v.reduce((x,y)=>x+y,0)/v.length:null};
   const max=a=>{const v=a.filter(finite).map(Number);return v.length?Math.max(...v):null};
   const fmt=(v,d=0)=>finite(v)?Number(v).toFixed(d):'--';
   const loc=()=>{try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}};
-  const key=(lat,lon)=>`${Number(lat).toFixed(4)},${Number(lon).toFixed(4)}`;
   const close=(a,b,t=.0025)=>Math.abs(Number(a)-Number(b))<=t;
 
-  function requestUrl(input){
-    try{return new URL(typeof input==='string'?input:input?.url||String(input),location.href)}catch{return null}
-  }
-  function shouldCapture(u){
-    if(!u||u.hostname!=='api.open-meteo.com'||!u.pathname.includes('/v1/forecast'))return false;
-    return !u.searchParams.has('models')&&u.searchParams.get('forecast_days')==='7'&&u.searchParams.has('hourly')&&u.searchParams.has('daily');
-  }
-  const priorFetch=window.fetch.bind(window);
-  window.fetch=async function(input,init){
-    const u=requestUrl(input),locAtRequest=loc(),capture=shouldCapture(u);
-    const response=await priorFetch(input,init);
-    if(capture&&response.ok){
-      const clone=response.clone();
-      clone.json().then(data=>{
-        if(!data?.hourly?.time?.length||!data?.daily?.time?.length)return;
-        const lat=num(u.searchParams.get('latitude')),lon=num(u.searchParams.get('longitude'));
-        if(lat===null||lon===null)return;
-        const bucket=STORE[locAtRequest]||(STORE[locAtRequest]={points:{},timezone:u.searchParams.get('timezone')||data.timezone||'America/Halifax',updatedAt:0});
-        bucket.timezone=u.searchParams.get('timezone')||data.timezone||bucket.timezone;
-        bucket.points[key(lat,lon)]={lat,lon,data,capturedAt:Date.now()};
-        bucket.updatedAt=Date.now();
-        window.dispatchEvent(new CustomEvent('wx-daily-detail-data',{detail:{loc:locAtRequest,lat,lon}}));
-      }).catch(()=>{});
-    }
-    return response;
-  };
-
+  // request-manager.js captures the exact base forecast responses before v5b.js
+  // renders them. This module only maps that already-collected snapshot to detail UI.
   function corePayloads(k=loc()){
     const bucket=STORE[k],wanted=CORE[k]||[];if(!bucket?.points)return[];
     const pts=Object.values(bucket.points);
