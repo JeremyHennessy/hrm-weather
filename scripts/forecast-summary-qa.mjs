@@ -28,5 +28,5 @@ try{
   if(/99°C|98°C/.test(result.summary))throw Error(`summary leaked Engine +1h into current wording: ${result.summary}`);
   if(!/80%/.test(result.summary)||!/Rain is likely|meaningful shower chance/i.test(result.summary))throw Error(`summary missed intermediate hourly rain spike: ${result.summary}`);
   if(/NaN|undefined|null/i.test(result.summary))throw Error(`invalid numeric text leaked into summary: ${result.summary}`);
-  console.log('Forecast summary QA passed',result.summary);
+  console.log('Forecast live-current/full-hourly summary QA passed',result.summary);
 }catch(e){code=1;console.error(e?.stack||String(e))}finally{await browser.close().catch(()=>{});process.exit(code)}
