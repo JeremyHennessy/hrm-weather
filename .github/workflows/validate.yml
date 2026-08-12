@@ -21,7 +21,7 @@ jobs:
           python-version: '3.12'
       - name: JavaScript syntax
         run: |
-          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/uws-current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
+          for f in request-manager.js v5b.js v6-extra.js v7-final.js uws-location-ui.js startup-fallback.js v8-ui.js v11-layout.js scene-images.js accuracy-v2.js accuracy-v3.js server-truth-ui.js atomic-render.js daily-card-fix.js daily-detail.js forecast-confidence.js forecast-ui-guard.js uv-guidance.js forecast-insights.js deep-ui.js weather-icons.js sw.js scripts/capture-ui.mjs scripts/smoke-live.mjs scripts/current-fallback-qa.mjs scripts/uws-current-fallback-qa.mjs scripts/server-truth-qa.mjs scripts/hero-density-qa.mjs scripts/daily-detail-qa.mjs scripts/uws-location-qa.mjs scripts/layout-qa.mjs; do node --check "$f"; done
       - name: Python syntax
         run: |
           python -m py_compile \
@@ -148,6 +148,7 @@ jobs:
           grep -q "accuracy-v2.js?v=39" scene-images.js
           grep -q 'accuracy-v3.js' scene-images.js
           grep -q 'daily-card-fix.js' scene-images.js
+          grep -q "daily-detail.js?v=1" daily-card-fix.js
           grep -q 'forecast-confidence.js' scene-images.js
           grep -q 'forecast-ui-guard.js?v=4' scene-images.js
           grep -q 'uv-guidance.js' scene-images.js
@@ -166,7 +167,12 @@ jobs:
           grep -q 'engine3-summary' forecast-insights.js
           grep -q "dataset.owner='forecast-insights'" forecast-insights.js
           grep -q 'WXRefreshForecastInsights' uv-guidance.js
-          grep -q "weather-consensus-v74" sw.js
+          grep -q 'isDailyDetailBaseRequest' request-manager.js
+          grep -q 'wx-daily-detail-data' request-manager.js
+          grep -q "el.dataset.owner='daily-detail'" daily-detail.js
+          grep -q 'Real Feel first · swipe for the full day' daily-detail.js
+          grep -q "weather-consensus-v75" sw.js
+          grep -q 'daily-detail.js' sw.js
           grep -q 'backgrounds/generated/uws.svg' sw.js
           grep -q "x!==null&&x!==undefined&&x!==''" accuracy-v2.js
           grep -q 'nws-stored-observation-steadman-current' forecast-ui-guard.js
@@ -185,6 +191,7 @@ jobs:
           grep -q 'UWS stored NWS current fallback QA passed' scripts/uws-current-fallback-qa.mjs
           grep -q 'Next 12 hours is not directly below the hero' scripts/hero-density-qa.mjs
           grep -q 'Real Feel hierarchy regressed' scripts/hero-density-qa.mjs
+          grep -q 'Daily detail QA passed' scripts/daily-detail-qa.mjs
           grep -q 'UWS location QA passed' scripts/uws-location-qa.mjs
           grep -q 'provider-apparent-fast-current' startup-fallback.js
           grep -q 'provider-apparent-current' startup-fallback.js
@@ -199,6 +206,8 @@ jobs:
           grep -q 'install_engine31' scripts/collect.py
           grep -q 'iphone-se-1' scripts/layout-qa.mjs
           grep -q 'iphone-pro-max' scripts/layout-qa.mjs
+          test -f daily-detail.js
+          test -f scripts/daily-detail-qa.mjs
           test -f backgrounds/generated/uws.svg
           test -f scripts/location_uws.py
           test -f scripts/precip_nowcast_verifier.py

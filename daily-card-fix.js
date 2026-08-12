@@ -1,4 +1,5 @@
 /* 7-day forecast readability: Real Feel first, actual secondary, rain % explicit. */
+import('./daily-detail.js?v=1').catch(()=>{});
 (()=>{
   function parseRain(text){
     const pct=text.match(/(?:Rain\s*)?(\d+(?:\.\d+)?)%/i)?.[1]||'--';

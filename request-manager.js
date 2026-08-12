@@ -25,6 +25,18 @@ function parsedUrl(input){try{return new URL(typeof input==='string'?input:input
 function requestKind(input){const u=parsedUrl(input);if(!u)return null;if(u.hostname==='api.open-meteo.com')return'openmeteo';if(u.hostname==='api.weather.gc.ca')return'eccc';return null}
 function isClientModelRequest(input){const u=parsedUrl(input);return !!u&&u.hostname==='api.open-meteo.com'&&u.searchParams.has('models')}
 function isLightweightCurrentRequest(input){const u=parsedUrl(input);return !!u&&u.hostname==='api.open-meteo.com'&&u.searchParams.has('current')&&!u.searchParams.has('hourly')&&!u.searchParams.has('daily')&&!u.searchParams.has('models')}
+function isDailyDetailBaseRequest(input){const u=parsedUrl(input);return !!u&&u.hostname==='api.open-meteo.com'&&u.pathname.includes('/v1/forecast')&&!u.searchParams.has('models')&&u.searchParams.get('forecast_days')==='7'&&u.searchParams.has('hourly')&&u.searchParams.has('daily')}
+function currentLocKey(){try{return localStorage.getItem('wx-loc')||'hrm'}catch{return'hrm'}}
+function captureDailyDetail(input,response,locKey){
+  if(!response?.ok||!isDailyDetailBaseRequest(input))return;
+  const u=parsedUrl(input),lat=Number(u?.searchParams.get('latitude')),lon=Number(u?.searchParams.get('longitude'));if(!Number.isFinite(lat)||!Number.isFinite(lon))return;
+  response.clone().json().then(data=>{
+    if(!data?.hourly?.time?.length||!data?.daily?.time?.length)return;
+    const store=window.__wxDailyDetailRaw=window.__wxDailyDetailRaw||{},bucket=store[locKey]||(store[locKey]={points:{},timezone:u.searchParams.get('timezone')||data.timezone||'America/Halifax',updatedAt:0});
+    bucket.timezone=u.searchParams.get('timezone')||data.timezone||bucket.timezone;bucket.updatedAt=Date.now();bucket.points[`${lat.toFixed(4)},${lon.toFixed(4)}`]={lat,lon,data,capturedAt:Date.now()};
+    window.dispatchEvent(new CustomEvent('wx-daily-detail-data',{detail:{loc:locKey,lat,lon}}));
+  }).catch(()=>{});
+}
 function serverConsensusFresh(){
   let e=window.WXAccuracyV3;
   if(!e)try{e=JSON.parse(localStorage.getItem('wx-engine-v3-startup')||'null')?.engine||null}catch{}
@@ -43,7 +55,9 @@ window.fetch=async function(input,init={}){
   if(isLightweightCurrentRequest(input)){state.currentFastLane++;return nativeFetch(input,{...init,cache:'no-store'})}
   if(isClientModelRequest(input)&&serverConsensusFresh()){state.serverModelSkips++;return new Response('{"server_consensus":true}',{status:503,headers:{'content-type':'application/json','x-weather-consensus':'server-v3'}})}
   if(isClientModelRequest(input))state.clientModelFallbacks++;
-  const key=typeof input==='string'?input:input.url,hit=cache.get(key);if(hit&&Date.now()-hit.at<CACHE_MS){state.cacheHits++;return snapToResponse(hit.snap)}let p=pending.get(key);if(!p){p=runRequest(input,init,key,kind).finally(()=>pending.delete(key));pending.set(key,p)}return snapToResponse(await p)
+  const detailLoc=currentLocKey(),captureDetail=isDailyDetailBaseRequest(input),key=typeof input==='string'?input:input.url,hit=cache.get(key);
+  if(hit&&Date.now()-hit.at<CACHE_MS){state.cacheHits++;const out=snapToResponse(hit.snap);if(captureDetail)captureDailyDetail(input,out,detailLoc);return out}
+  let p=pending.get(key);if(!p){p=runRequest(input,init,key,kind).finally(()=>pending.delete(key));pending.set(key,p)}const out=snapToResponse(await p);if(captureDetail)captureDailyDetail(input,out,detailLoc);return out
 };
 function suppressFalseLegacyWarning(){
   const el=document.getElementById('warn');if(!el||!serverConsensusFresh())return;
