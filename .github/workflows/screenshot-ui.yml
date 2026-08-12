@@ -25,6 +25,7 @@ on:
       - 'server-truth-ui.js'
       - 'atomic-render.js'
       - 'daily-card-fix.js'
+      - 'daily-detail.js'
       - 'forecast-confidence.js'
       - 'forecast-ui-guard.js'
       - 'forecast-insights.js'
@@ -36,6 +37,7 @@ on:
       - 'scripts/capture-ui.mjs'
       - 'scripts/smoke-live.mjs'
       - 'scripts/server-truth-qa.mjs'
+      - 'scripts/daily-detail-qa.mjs'
       - 'scripts/uws-location-qa.mjs'
       - 'scripts/ny-units-qa.mjs'
       - 'scripts/layout-qa.mjs'
@@ -83,6 +85,8 @@ jobs:
         run: node scripts/smoke-live.mjs
       - name: Verify live server truth ownership
         run: node scripts/server-truth-qa.mjs
+      - name: Verify live daily forecast drill-down
+        run: node scripts/daily-detail-qa.mjs
       - name: Verify live Upper West Side location
         run: node scripts/uws-location-qa.mjs
       - name: Check responsive UI across phone sizes
