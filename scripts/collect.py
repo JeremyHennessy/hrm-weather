@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Compatibility entry point for the Weather Consensus hourly collector."""
+# Operational restart marker: 2026-08-21. No forecast logic is changed here;
+# this scripts/** update retriggers the existing hourly collector after the
+# observed Aug 16-21 publication gap.
 from eccc_observation_mesh_v2 import install as install_eccc_observation_mesh
 
 install_eccc_observation_mesh()
