@@ -45,6 +45,7 @@
   function dailyBlend(baseCloud,dayIndex){
     if(!finite(baseCloud))return null;if(dayIndex<=0||dayIndex>3)return Number(baseCloud);const ec=engineCloud(dayIndex*24);return finite(ec)?clamp(Number(ec)*.62+Number(baseCloud)*.38,0,100):Number(baseCloud);
   }
+  function clearCloud(el){if(!el)return;delete el.dataset.cloudSky;delete el.dataset.cloudCover}
   function setIcon(el,cloud,code,label){
     if(!el||!finite(cloud)||!dryCode(code))return false;const sky=classify(cloud),rounded=Math.round(Number(cloud)),aria=`${label||'Sky'}: ${sky?.replace('-',' ')||'mixed'}, ${rounded}% cloud`;
     if(el.dataset.cloudSky===sky&&Number(el.dataset.cloudCover)===rounded){if(el.getAttribute('aria-label')!==aria)el.setAttribute('aria-label',aria);return true}
@@ -53,13 +54,15 @@
   function applyDays(s){
     const cards=[...document.querySelectorAll('#days .v11Day')].slice(0,7);if(!cards.length)return;
     const byDate=new Map();for(const row of s.hourly||[]){const date=String(row.time||'').slice(0,10),hour=Number(String(row.time||'').slice(11,13));if(!date||!Number.isFinite(hour)||hour<9||hour>17)continue;const group=byDate.get(date)||[];group.push(row);byDate.set(date,group)}
-    const dates=[...byDate.keys()].sort();cards.forEach((card,i)=>{const rows=byDate.get(dates[i])||[];if(!rows.length)return;const codes=rows.flatMap(r=>r.codes||[]).filter(finite).map(Number);if(!codes.length||codes.some(c=>!dryCode(c)))return;const cloud=dailyBlend(avg(rows.map(r=>r.cloud)),i),icon=card.querySelector('.v11DayWx');if(setIcon(icon,cloud,codes[0],`Daytime sky for ${card.querySelector('.v11DayName')?.textContent?.trim()||dates[i]}`))card.dataset.cloudConsensus=String(Math.round(cloud))});
+    const dates=[...byDate.keys()].sort();cards.forEach((card,i)=>{const rows=byDate.get(dates[i])||[],icon=card.querySelector('.v11DayWx');if(!rows.length)return;const codes=rows.flatMap(r=>r.codes||[]).filter(finite).map(Number);if(!codes.length||codes.some(c=>!dryCode(c))){clearCloud(icon);delete card.dataset.cloudConsensus;return}const cloud=dailyBlend(avg(rows.map(r=>r.cloud)),i);if(setIcon(icon,cloud,codes[0],`Daytime sky for ${card.querySelector('.v11DayName')?.textContent?.trim()||dates[i]}`))card.dataset.cloudConsensus=String(Math.round(cloud))});
   }
   function apply(s=snapshot){
     if(loc()!=='hrm'||!s)return false;const nowKey=localHourKey(),start=s.hourly.findIndex(x=>String(x.time).slice(0,13)>=nowKey),i0=start<0?0:start;
-    const hero=document.querySelector('#heroIcon'),heroCloud=s.currentCloud;
-    if(setIcon(hero,heroCloud,s.currentCode,'Current sky')){const h=document.querySelector('.hero');if(h){h.dataset.condition=heroCondition(heroCloud);h.dataset.cloudSky='family-aware-plus-hourly';h.dataset.cloudCover=Math.round(Number(heroCloud))}}
-    const cards=[...document.querySelectorAll('#hours .hour')].slice(0,12);cards.forEach((card,j)=>{const row=s.hourly[i0+j];if(!row)return;const code=row.codes.find(c=>!dryCode(c))??row.codes[0];const cloud=blended(row.cloud,j);setIcon(card.querySelector('.wx'),cloud,code,`Sky at ${card.querySelector('small')?.textContent?.trim()||row.time}`);card.dataset.cloudConsensus=finite(cloud)?String(Math.round(cloud)):''});
+    const hero=document.querySelector('#heroIcon'),heroEl=document.querySelector('.hero'),heroCloud=s.currentCloud;
+    if(dryCode(s.currentCode)){
+      if(setIcon(hero,heroCloud,s.currentCode,'Current sky')&&heroEl){heroEl.dataset.condition=heroCondition(heroCloud);heroEl.dataset.cloudSky='family-aware-plus-hourly';heroEl.dataset.cloudCover=Math.round(Number(heroCloud))}
+    }else{clearCloud(hero);if(heroEl){delete heroEl.dataset.cloudSky;delete heroEl.dataset.cloudCover}}
+    const cards=[...document.querySelectorAll('#hours .hour')].slice(0,12);cards.forEach((card,j)=>{const row=s.hourly[i0+j];if(!row)return;const code=row.codes.find(c=>!dryCode(c))??row.codes[0],icon=card.querySelector('.wx');if(!dryCode(code)){clearCloud(icon);delete card.dataset.cloudConsensus;return}const cloud=blended(row.cloud,j);setIcon(icon,cloud,code,`Sky at ${card.querySelector('small')?.textContent?.trim()||row.time}`);card.dataset.cloudConsensus=finite(cloud)?String(Math.round(cloud)):''});
     applyDays(s);document.documentElement.dataset.wxCloudSky='halifax-family-cloud-consensus';return true;
   }
   async function refresh(force=false){try{const s=await refreshData(force);return apply(s)}catch(e){console.warn('Halifax cloud consensus unavailable',e);return false}}
