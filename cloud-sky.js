@@ -33,7 +33,7 @@
     if(loc()!=='hrm')return null;if(!force&&snapshot&&Date.now()-lastFetch<8*60*1000)return snapshot;if(pending)return pending;
     pending=Promise.allSettled(POINTS.map(fetchPoint)).then(settled=>{
       const rows=settled.filter(x=>x.status==='fulfilled'&&x.value?.data?.hourly?.time?.length).map(x=>x.value);if(!rows.length)throw Error('cloud-only forecast unavailable');
-      const times=rows[0].data.hourly.time||[],currentCloud=avg(rows.map(x=>x.data.current?.cloud_cover)),currentCode=rows.map(x=>x.data.current?.weather_code).find(dryCode)??rows[0].data.current?.weather_code;
+      const times=rows[0].data.hourly.time||[],currentCloud=avg(rows.map(x=>x.data.current?.cloud_cover)),currentCodes=rows.map(x=>x.data.current?.weather_code).filter(finite).map(Number),currentCode=currentCodes.find(c=>!dryCode(c))??currentCodes[0];
       const hourly=times.map((time,i)=>({time,cloud:avg(rows.map(x=>x.data.hourly?.cloud_cover?.[i])),codes:rows.map(x=>x.data.hourly?.weather_code?.[i]).filter(finite).map(Number)}));
       snapshot={currentCloud,currentCode,hourly,points:rows.length,updatedAt:Date.now()};lastFetch=Date.now();return snapshot;
     }).finally(()=>pending=null);return pending;
@@ -42,23 +42,28 @@
     const ec=engineCloud(lead);if(!finite(ec))return finite(baseCloud)?Number(baseCloud):null;if(!finite(baseCloud))return Number(ec);
     const ew=lead<=12?.72:.62;return clamp(Number(ec)*ew+Number(baseCloud)*(1-ew),0,100);
   }
+  function dailyBlend(baseCloud,dayIndex){
+    if(!finite(baseCloud))return null;if(dayIndex<=0||dayIndex>3)return Number(baseCloud);const ec=engineCloud(dayIndex*24);return finite(ec)?clamp(Number(ec)*.62+Number(baseCloud)*.38,0,100):Number(baseCloud);
+  }
   function setIcon(el,cloud,code,label){
     if(!el||!finite(cloud)||!dryCode(code))return false;const sky=classify(cloud),rounded=Math.round(Number(cloud)),aria=`${label||'Sky'}: ${sky?.replace('-',' ')||'mixed'}, ${rounded}% cloud`;
-    // weather-icons.js converts the emoji to SVG after this write. If the cloud
-    // state is unchanged, do not replace that SVG with text again; this keeps the
-    // two MutationObservers from repainting each other indefinitely.
     if(el.dataset.cloudSky===sky&&Number(el.dataset.cloudCover)===rounded){if(el.getAttribute('aria-label')!==aria)el.setAttribute('aria-label',aria);return true}
     el.textContent=iconFor(cloud);el.dataset.cloudSky=sky||'';el.dataset.cloudCover=rounded;el.setAttribute('aria-label',aria);return true;
+  }
+  function applyDays(s){
+    const cards=[...document.querySelectorAll('#days .v11Day')].slice(0,7);if(!cards.length)return;
+    const byDate=new Map();for(const row of s.hourly||[]){const date=String(row.time||'').slice(0,10),hour=Number(String(row.time||'').slice(11,13));if(!date||!Number.isFinite(hour)||hour<9||hour>17)continue;const group=byDate.get(date)||[];group.push(row);byDate.set(date,group)}
+    const dates=[...byDate.keys()].sort();cards.forEach((card,i)=>{const rows=byDate.get(dates[i])||[];if(!rows.length)return;const codes=rows.flatMap(r=>r.codes||[]).filter(finite).map(Number);if(!codes.length||codes.some(c=>!dryCode(c)))return;const cloud=dailyBlend(avg(rows.map(r=>r.cloud)),i),icon=card.querySelector('.v11DayWx');if(setIcon(icon,cloud,codes[0],`Daytime sky for ${card.querySelector('.v11DayName')?.textContent?.trim()||dates[i]}`))card.dataset.cloudConsensus=String(Math.round(cloud))});
   }
   function apply(s=snapshot){
     if(loc()!=='hrm'||!s)return false;const nowKey=localHourKey(),start=s.hourly.findIndex(x=>String(x.time).slice(0,13)>=nowKey),i0=start<0?0:start;
     const hero=document.querySelector('#heroIcon'),heroCloud=s.currentCloud;
     if(setIcon(hero,heroCloud,s.currentCode,'Current sky')){const h=document.querySelector('.hero');if(h){h.dataset.condition=heroCondition(heroCloud);h.dataset.cloudSky='family-aware-plus-hourly';h.dataset.cloudCover=Math.round(Number(heroCloud))}}
     const cards=[...document.querySelectorAll('#hours .hour')].slice(0,12);cards.forEach((card,j)=>{const row=s.hourly[i0+j];if(!row)return;const code=row.codes.find(c=>!dryCode(c))??row.codes[0];const cloud=blended(row.cloud,j);setIcon(card.querySelector('.wx'),cloud,code,`Sky at ${card.querySelector('small')?.textContent?.trim()||row.time}`);card.dataset.cloudConsensus=finite(cloud)?String(Math.round(cloud)):''});
-    document.documentElement.dataset.wxCloudSky='halifax-family-cloud-consensus';return true;
+    applyDays(s);document.documentElement.dataset.wxCloudSky='halifax-family-cloud-consensus';return true;
   }
   async function refresh(force=false){try{const s=await refreshData(force);return apply(s)}catch(e){console.warn('Halifax cloud consensus unavailable',e);return false}}
-  function start(){refresh();window.addEventListener('wx-v3-ready',()=>setTimeout(()=>refresh(true),80));window.addEventListener('wx-daily-detail-data',()=>setTimeout(()=>apply(),40));document.querySelector('#tabs')?.addEventListener('click',()=>setTimeout(()=>{if(loc()==='hrm')refresh(true)},100));const hours=document.querySelector('#hours');if(hours)new MutationObserver(()=>queueMicrotask(()=>apply())).observe(hours,{childList:true,subtree:true});setInterval(()=>{if(loc()==='hrm')refresh(true)},10*60*1000)}
-  window.WXCloudSky={classify,iconFor,engineCloud,blended,refresh,apply,getSnapshot:()=>snapshot};
+  function start(){refresh();window.addEventListener('wx-v3-ready',()=>setTimeout(()=>refresh(true),80));window.addEventListener('wx-daily-detail-data',()=>setTimeout(()=>apply(),40));document.querySelector('#tabs')?.addEventListener('click',()=>setTimeout(()=>{if(loc()==='hrm')refresh(true)},100));const hours=document.querySelector('#hours');if(hours)new MutationObserver(()=>queueMicrotask(()=>apply())).observe(hours,{childList:true,subtree:true});const days=document.querySelector('#days');if(days)new MutationObserver(()=>queueMicrotask(()=>applyDays(snapshot||{hourly:[]}))).observe(days,{childList:true,subtree:true});setInterval(()=>{if(loc()==='hrm')refresh(true)},10*60*1000)}
+  window.WXCloudSky={classify,iconFor,engineCloud,blended,dailyBlend,refresh,apply,getSnapshot:()=>snapshot};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
