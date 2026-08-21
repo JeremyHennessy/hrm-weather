@@ -40,12 +40,15 @@
   }
   function blended(baseCloud,lead){
     const ec=engineCloud(lead);if(!finite(ec))return finite(baseCloud)?Number(baseCloud):null;if(!finite(baseCloud))return Number(ec);
-    // Engine family consensus dominates from +1h onward; base cloud provides the
-    // hourly timing resolution absent from the sparse Engine 3 lead grid.
     const ew=lead<=12?.72:.62;return clamp(Number(ec)*ew+Number(baseCloud)*(1-ew),0,100);
   }
   function setIcon(el,cloud,code,label){
-    if(!el||!finite(cloud)||!dryCode(code))return false;const sky=classify(cloud);el.textContent=iconFor(cloud);el.dataset.cloudSky=sky||'';el.dataset.cloudCover=Math.round(Number(cloud));el.setAttribute('aria-label',`${label||'Sky'}: ${sky?.replace('-',' ')||'mixed'}, ${Math.round(Number(cloud))}% cloud`);return true;
+    if(!el||!finite(cloud)||!dryCode(code))return false;const sky=classify(cloud),rounded=Math.round(Number(cloud)),aria=`${label||'Sky'}: ${sky?.replace('-',' ')||'mixed'}, ${rounded}% cloud`;
+    // weather-icons.js converts the emoji to SVG after this write. If the cloud
+    // state is unchanged, do not replace that SVG with text again; this keeps the
+    // two MutationObservers from repainting each other indefinitely.
+    if(el.dataset.cloudSky===sky&&Number(el.dataset.cloudCover)===rounded){if(el.getAttribute('aria-label')!==aria)el.setAttribute('aria-label',aria);return true}
+    el.textContent=iconFor(cloud);el.dataset.cloudSky=sky||'';el.dataset.cloudCover=rounded;el.setAttribute('aria-label',aria);return true;
   }
   function apply(s=snapshot){
     if(loc()!=='hrm'||!s)return false;const nowKey=localHourKey(),start=s.hourly.findIndex(x=>String(x.time).slice(0,13)>=nowKey),i0=start<0?0:start;
