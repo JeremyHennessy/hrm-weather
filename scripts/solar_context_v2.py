@@ -5,6 +5,10 @@ Keeps Accuracy Engine 2's stable deterministic request untouched. A second small
 request asks each model for cloud cover and shortwave radiation; GFS is also
 asked for hourly UV index. Unsupported model/variable combinations simply leave
 that context empty instead of dropping the model's normal forecast.
+
+Cloud cover itself is not treated as observed truth. Canadian ECCC SWOB
+shortwave radiation is available in the official observation mesh, so forecast
+shortwave is prospectively verified as an independent solar/cloud reference.
 """
 from __future__ import annotations
 
@@ -70,4 +74,9 @@ def install() -> None:
     for var in CONTEXT_VARS:
         if var not in core.VARS:
             core.VARS.append(var)
+    # Shortwave has a real ECCC SWOB observation counterpart. Add it to the
+    # prospective verifier; cloud_cover itself remains a model consensus until a
+    # direct observed cloud truth source is added.
+    if "shortwave_radiation" not in core.VERIFY_VARS:
+        core.VERIFY_VARS.append("shortwave_radiation")
     core.forecast_point = forecast_point_with_context
