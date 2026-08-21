@@ -24,6 +24,13 @@ if _shediac:
 
 from solar_context_v2 import install as install_solar_context
 install_solar_context()
+
+# Cloud cover is already collected per deterministic model. Promote that signal
+# into Engine 3 as its own family-aware sky product without touching temperature,
+# Real Feel, precipitation, or existing component weights.
+from cloud_consensus_install import install as install_cloud_consensus
+install_cloud_consensus()
+
 import rrfsv1_runtime  # noqa: F401
 from engine31_install import install as install_engine31
 install_engine31()
