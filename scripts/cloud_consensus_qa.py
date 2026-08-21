@@ -3,7 +3,6 @@
 from __future__ import annotations
 from datetime import datetime, timezone
 import accuracy_engine_v2 as core
-import accuracy_engine_v3 as v3
 import cloud_consensus_engine as cloud
 import solar_context_v2 as solar
 
@@ -30,13 +29,13 @@ forecasts={
 }
 r=cloud.cloud_consensus(forecasts,target)
 assert r['available'] is True
-# Three Canadian products collapse to one institutional family rather than three votes.
+# Two Canadian products collapse to one institutional family rather than two votes.
 assert r['independent_families']==4, r
 assert 60 <= r['cloud_cover'] <= 75, r
 assert r['sky_condition'] in {'partly-cloudy','mostly-cloudy'}, r
 
 engine={'consensus':{'hrm':{'hours':{'1':{'target':key}}}}}
-cloud.apply(engine,forecasts)
+cloud.apply(engine,{'hrm':forecasts})
 h=engine['consensus']['hrm']['hours']['1']
 assert h['cloud_consensus']['role']=='family-aware-cloud-consensus'
 assert h['cloud_independent_families']==4
