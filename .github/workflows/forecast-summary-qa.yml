@@ -1,0 +1,73 @@
+name: Forecast summary QA
+
+on:
+  pull_request:
+    paths:
+      - 'forecast-summary.js'
+      - 'scene-images.js'
+      - 'sw.js'
+      - 'scripts/forecast-summary-qa.mjs'
+      - '.github/workflows/forecast-summary-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'forecast-summary.js'
+      - 'scene-images.js'
+      - 'sw.js'
+      - 'scripts/forecast-summary-qa.mjs'
+      - '.github/workflows/forecast-summary-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and wiring
+        run: |
+          node --check forecast-summary.js
+          node --check scripts/forecast-summary-qa.mjs
+          grep -q "forecast-summary.js?v=1" scene-images.js
+          grep -q "weather-consensus-v75" sw.js
+          grep -q "forecast-summary.js" sw.js
+          grep -q "live-current-hourly-summary" forecast-summary.js
+          grep -q "__wxFastCurrent" forecast-summary.js
+          ! grep -q "const h1=row(1)" forecast-summary.js
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Serve PR branch
+        if: github.event_name == 'pull_request'
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/weather-summary-http.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:4173/app.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/weather-summary-http.log || true
+          exit 1
+      - name: Verify branch summary
+        if: github.event_name == 'pull_request'
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/forecast-summary-qa.mjs
+      - name: Wait for summary module on Pages
+        if: github.event_name == 'push'
+        run: |
+          for i in $(seq 1 48); do
+            SUM=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/forecast-summary.js?qa=$(date +%s)" || true)
+            SCENE=$(curl -fsS "https://jeremyhennessy.github.io/hrm-weather/scene-images.js?qa=$(date +%s)" || true)
+            if echo "$SUM" | grep -q 'live-current-hourly-summary' && echo "$SCENE" | grep -q 'forecast-summary.js?v=1'; then exit 0; fi
+            sleep 5
+          done
+          exit 1
+      - name: Verify live summary
+        if: github.event_name == 'push'
+        env:
+          WX_URL: https://jeremyhennessy.github.io/hrm-weather/app.html
+        run: node scripts/forecast-summary-qa.mjs
