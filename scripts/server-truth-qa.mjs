@@ -4,11 +4,39 @@ const base=process.env.WX_URL||'https://jeremyhennessy.github.io/hrm-weather/app
 const url=`${base}${base.includes('?')?'&':'?'}servertruth=${Date.now()}`;
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:393,height:852},deviceScaleFactor:3,isMobile:true,hasTouch:true});
-const errors=[];page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});page.on('pageerror',e=>errors.push(String(e)));
+const errors=[],responses=[],requestFailures=[];
+page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+page.on('pageerror',e=>errors.push(String(e)));
+page.on('response',r=>{if(/(?:app\.html|scene-images\.js|server-truth-ui\.js|accuracy-v3\.js|engine-v[23]\.json)(?:\?|$)/.test(r.url()))responses.push({url:r.url(),status:r.status()})});
+page.on('requestfailed',r=>{if(/(?:app\.html|scene-images\.js|server-truth-ui\.js|accuracy-v3\.js|engine-v[23]\.json)(?:\?|$)/.test(r.url()))requestFailures.push({url:r.url(),error:r.failure()?.errorText||'request failed'})});
 let exitCode=0;
+async function diagnostics(){
+  return page.evaluate(()=>{
+    const fn=typeof window.wxHealth==='function'?Function.prototype.toString.call(window.wxHealth):'';
+    const resources=performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/(?:scene-images\.js|server-truth-ui\.js|accuracy-v3\.js|engine-v[23]\.json)(?:\?|$)/.test(x));
+    return{
+      readyState:document.readyState,
+      hasHealth:Boolean(document.querySelector('#health')),
+      healthOwner:document.querySelector('#health')?.dataset?.owner||'',
+      healthText:document.querySelector('#health')?.textContent?.trim()||'',
+      hasServerTruthRefresh:typeof window.WXRefreshServerTruthUI==='function',
+      hasServerTruth:Boolean(window.WXServerTruth),
+      serverTruthOwner:window.WXServerTruth?.owner||'',
+      hasAccuracyV3:Boolean(window.WXAccuracyV3),
+      accuracyV3Feeds:Number(window.WXAccuracyV3?.collector?.deterministic_forecasts||0),
+      hasServerConsensusFreshFn:typeof window.WX_SERVER_CONSENSUS_FRESH==='function',
+      wxHealthType:typeof window.wxHealth,
+      wxHealthLooksServerOwned:/engine3-server-truth/.test(fn),
+      completeForecast:Boolean(window.__wxHasCompleteForecast),
+      resources
+    };
+  });
+}
 try{
   const resp=await page.goto(url,{waitUntil:'domcontentloaded',timeout:15000});if(!resp?.ok())throw new Error(`App HTTP ${resp?.status()??'no response'}`);
-  await page.waitForFunction(()=>document.querySelector('#health')?.dataset?.owner==='engine3-server-truth',{timeout:15000});
+  const healthOwned=await page.waitForFunction(()=>document.querySelector('#health')?.dataset?.owner==='engine3-server-truth',{timeout:15000}).then(()=>true).catch(()=>false);
+  const bootstrap=await diagnostics();
+  if(!healthOwned)throw new Error(`Server truth bootstrap did not acquire Data Health ownership: ${JSON.stringify({bootstrap,responses,requestFailures})}`);
   await page.waitForFunction(()=>document.querySelector('#scoreRows')?.dataset?.owner==='engine3-server-truth',{timeout:10000});
   await page.waitForFunction(()=>document.querySelector('#chips')?.dataset?.owner==='engine3-server-truth',{timeout:10000});
   await page.waitForFunction(()=>Array.isArray(window.__wxFastCurrent?.point_values)&&window.__wxFastCurrent.point_values.length>0,{timeout:10000});
@@ -46,5 +74,9 @@ try{
   if(state.chipsOwner!=='engine3-server-truth'||!/model spread/i.test(state.chips))throw new Error(`Model spread/coverage is not server-owned: owner=${state.chipsOwner}; text=${state.chips}`);
   if(state.realFeelValidationOwner!=='engine3-independent-replay')throw new Error(`Real Feel validation status is stale: owner=${state.realFeelValidationOwner||'missing'}; text=${state.realFeelValidation}`);
   if(errors.length)throw new Error(`Console errors: ${errors.join(' | ')}`);
-  console.log(JSON.stringify({ok:true,url,state,console_errors:errors},null,2));
-}catch(err){exitCode=1;console.error(JSON.stringify({ok:false,url,error:String(err?.stack||err),console_errors:errors},null,2))}finally{await browser.close().catch(()=>{});process.exit(exitCode)}
+  console.log(JSON.stringify({ok:true,url,bootstrap,state,responses,requestFailures,console_errors:errors},null,2));
+}catch(err){
+  exitCode=1;
+  const bootstrap=await diagnostics().catch(()=>null);
+  console.error(JSON.stringify({ok:false,url,error:String(err?.stack||err),bootstrap,responses,requestFailures,console_errors:errors},null,2));
+}finally{await browser.close().catch(()=>{});process.exit(exitCode)}
