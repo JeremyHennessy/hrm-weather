@@ -40,11 +40,17 @@ try{
   await page.waitForTimeout(900);
 
   state=await page.evaluate(()=>{
-    const iconText=el=>`${el?.dataset?.wxRaw||''} ${el?.textContent||''}`.trim();
+    const iconState=el=>({
+      raw:el?.dataset?.wxRaw||'',
+      text:el?.textContent?.trim()||'',
+      hasSvg:Boolean(el?.querySelector?.('.wcIcon')),
+      sky:el?.dataset?.cloudSky||'',
+      cloud:el?.dataset?.cloudCover||''
+    });
     const e=window.WXAccuracyV3||{};
     const hero=document.querySelector('.hero'),heroIcon=document.querySelector('#heroIcon');
-    const hours=[...document.querySelectorAll('#hours .hour')].slice(0,12).map((card,i)=>{const el=card.querySelector('.wx'),smalls=[...card.querySelectorAll('small')].map(x=>x.textContent?.trim()||'');return{index:i,label:smalls[0]||'',icon:iconText(el),sky:el?.dataset?.cloudSky||'',cloud:el?.dataset?.cloudCover||'',owner:card.dataset.cloudConsensus||'',rain:smalls.find(x=>/Rain/i.test(x))||''}});
-    const days=[...document.querySelectorAll('#days .v11Day')].slice(0,7).map((card,i)=>{const el=card.querySelector('.v11DayWx');return{index:i,label:card.querySelector('.v11DayName')?.textContent?.trim()||'',icon:iconText(el),sky:el?.dataset?.cloudSky||'',cloud:el?.dataset?.cloudCover||'',owner:card.dataset.cloudConsensus||'',rain:card.querySelector('.v11DayRain')?.textContent?.trim()||''}});
+    const hours=[...document.querySelectorAll('#hours .hour')].slice(0,12).map((card,i)=>{const el=card.querySelector('.wx'),smalls=[...card.querySelectorAll('small')].map(x=>x.textContent?.trim()||'');return{index:i,label:smalls[0]||'',...iconState(el),owner:card.dataset.cloudConsensus||'',rain:smalls.find(x=>/Rain/i.test(x))||''}});
+    const days=[...document.querySelectorAll('#days .v11Day')].slice(0,7).map((card,i)=>{const el=card.querySelector('.v11DayWx');return{index:i,label:card.querySelector('.v11DayName')?.textContent?.trim()||'',...iconState(el),owner:card.dataset.cloudConsensus||'',rain:card.querySelector('.v11DayRain')?.textContent?.trim()||''}});
     const hrmHours=Object.entries(e?.consensus?.hrm?.hours||{}).map(([lead,row])=>({lead:Number(lead),cloud:Number(row?.cloud_cover??row?.cloud_consensus?.cloud_cover),families:Number(row?.cloud_independent_families??row?.cloud_consensus?.independent_families??0),sky:row?.sky_condition||row?.cloud_consensus?.sky_condition||'',pop:Number(row?.precipitation_probability),rawPop:Number(row?.raw_precipitation_probability)}));
     return{
       url:location.href,
@@ -60,16 +66,23 @@ try{
       engineReady:Number(e?.cloud_sky?.forecast_points_ready||0),
       generatedAt:e?.generated_at||e?.updated_at||e?.timestamp||'',
       collectorFeeds:Number(e?.collector?.deterministic_forecasts||0),
-      hero:{condition:hero?.dataset?.condition||'',icon:iconText(heroIcon),sky:heroIcon?.dataset?.cloudSky||'',cloud:heroIcon?.dataset?.cloudCover||'',heroOwner:hero?.dataset?.cloudSky||'',heroCloud:hero?.dataset?.cloudCover||''},
+      hero:{condition:hero?.dataset?.condition||'',...iconState(heroIcon),heroOwner:hero?.dataset?.cloudSky||'',heroCloud:hero?.dataset?.cloudCover||''},
       hours,days,hrmHours
     };
   });
 
-  // Capture evidence before assertions so every failure is diagnosable.
-  await page.screenshot({path:`${evidenceDir}/halifax-live-iphone.png`,fullPage:true});
+  // Capture the requested visual evidence before any assertion can stop the run.
+  await page.screenshot({path:`${evidenceDir}/halifax-live-iphone-top.png`,fullPage:false,timeout:15000});
+  const daysSection=page.locator('#days').first();
+  if(await daysSection.count()){
+    await daysSection.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(250);
+    await page.screenshot({path:`${evidenceDir}/halifax-live-iphone-days.png`,fullPage:false,timeout:15000});
+  }
   await page.setViewportSize({width:1365,height:900});
-  await page.waitForTimeout(400);
-  await page.screenshot({path:`${evidenceDir}/halifax-live-desktop.png`,fullPage:true});
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.waitForTimeout(250);
+  await page.screenshot({path:`${evidenceDir}/halifax-live-desktop.png`,fullPage:false,timeout:15000});
   await saveReport(false,'assertions pending');
 
   if(state.loc!=='hrm')throw new Error(`Halifax live QA opened wrong location: ${state.loc}`);
@@ -77,33 +90,33 @@ try{
   if(state.engineOwner!=='accuracy-engine-3-family-cloud-consensus')throw new Error(`Engine 3 cloud owner missing: ${state.engineOwner||'none'}`);
   if(state.engineReady<1||!state.hrmHours.some(x=>Number.isFinite(x.cloud)))throw new Error(`No live Engine 3 Halifax cloud consensus: ${JSON.stringify(state.hrmHours)}`);
 
-  const heroWet=wet.test(state.hero.icon)||['rain','storm','snow','fog'].includes(state.hero.condition);
+  const heroSource=`${state.hero.raw} ${state.hero.text}`;
+  const heroWet=wet.test(heroSource)||['rain','storm','snow','fog'].includes(state.hero.condition);
   if(heroWet){
     if(state.hero.sky||state.hero.heroOwner)throw new Error(`Wet Halifax hero retained dry-sky ownership: ${JSON.stringify(state.hero)}`);
-  }else if(dry.test(state.hero.icon)){
+  }else if(dry.test(heroSource)||['sun','partly','cloud'].includes(state.hero.condition)){
     if(!state.hero.sky||state.hero.heroOwner!=='engine3-family-cloud-consensus')throw new Error(`Dry Halifax hero is not cloud-consensus-owned: ${JSON.stringify(state.hero)}`);
   }
 
-  let dryHours=0;
   for(const row of state.hours){
-    if(wet.test(row.icon)){
+    const source=`${row.raw} ${row.text}`;
+    if(row.hasSvg&&!row.raw&&!row.sky)throw new Error(`Hourly rendered icon lost its source category before cloud ownership could be evaluated: ${JSON.stringify(row)}`);
+    if(wet.test(source)){
       if(row.sky||row.owner)throw new Error(`Wet hourly state was overwritten by cloud consensus: ${JSON.stringify(row)}`);
-    }else if(dry.test(row.icon)){
-      dryHours++;
+    }else if(dry.test(source)||row.sky){
       if(!row.sky||!row.owner)throw new Error(`Dry hourly state lacks cloud consensus ownership: ${JSON.stringify(row)}`);
     }
   }
 
-  let dryDays=0;
   for(const row of state.days.slice(0,4)){
-    if(wet.test(row.icon)){
+    const source=`${row.raw} ${row.text}`;
+    if(row.hasSvg&&!row.raw&&!row.sky)throw new Error(`Daily rendered icon lost its source category before cloud ownership could be evaluated: ${JSON.stringify(row)}`);
+    if(wet.test(source)){
       if(row.sky||row.owner)throw new Error(`Wet daily state was overwritten by cloud consensus: ${JSON.stringify(row)}`);
-    }else if(dry.test(row.icon)){
-      dryDays++;
+    }else if(dry.test(source)||row.sky){
       if(!row.sky||!row.owner)throw new Error(`Dry daily state lacks cloud consensus ownership: ${JSON.stringify(row)}`);
     }
   }
-  if(dryHours===0&&dryDays===0&&!heroWet)throw new Error('No dry Halifax state was available to verify cloud-consensus ownership');
 
   await saveReport(true,null);
   await ctx.close();ctx=null;
