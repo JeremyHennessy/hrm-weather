@@ -1,0 +1,47 @@
+name: Verify published Halifax cloud data
+
+on:
+  push:
+    branches: [agent/verify-published-cloud-20260901]
+    paths:
+      - '.github/workflows/verify-published-cloud.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect published Engine 3 cloud state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          e=json.loads(Path('data/engine-v3.json').read_text())
+          cloud=e.get('cloud_sky') or {}
+          assert cloud.get('owner') == 'accuracy-engine-3-family-cloud-consensus', cloud
+          assert cloud.get('status') == 'production-dry-sky-classifier', cloud
+          assert cloud.get('forecast_points_ready',0) >= 1, cloud
+          h=(e.get('consensus') or {}).get('hrm',{}).get('hours',{})
+          summary={}
+          for lead in ('1','3','6','12','24','48','72'):
+              row=h.get(lead) or {}
+              cc=row.get('cloud_consensus') or {}
+              if row:
+                  summary[lead]={
+                      'cloud_cover': row.get('cloud_cover'),
+                      'sky_condition': row.get('sky_condition'),
+                      'independent_families': row.get('cloud_independent_families'),
+                      'available': cc.get('available'),
+                      'family_spread': row.get('cloud_cover_spread'),
+                      'target': row.get('target'),
+                  }
+          assert summary.get('1',{}).get('cloud_cover') is not None, summary
+          assert summary.get('1',{}).get('independent_families',0) >= 2, summary
+          print('CLOUD_OWNER', cloud.get('owner'))
+          print('CLOUD_READY', cloud.get('forecast_points_ready'))
+          print('HRM_CLOUD', json.dumps(summary, sort_keys=True))
+          PY
