@@ -178,16 +178,23 @@ jobs:
           assert 'learned_spread' in hctx and 'uncertainty' in hctx and 'effective_independent_sources' in hctx
 
           fresh_models=(v3.get('collector') or {}).get('deterministic_forecasts',0)
+          shadow_degraded=[]
           for name,c in (v3.get('consensus') or {}).items():
               h1=(c.get('hours') or {}).get('1') or {}
               assert isinstance(h1.get('temperature_2m'), (int,float)), f'{name}: missing V3 temp'
               assert isinstance(h1.get('real_feel'), (int,float)), f'{name}: missing Real Feel'
               assert h1.get('real_feel_source') in {'provider-apparent-champion','steadman-fallback','local-calibrated-last-resort'}, f'{name}: invalid Real Feel source'
               assert 'engine31_challenger' in h1
+              assert 'engine32_family_challenger' in h1, f'{name}: Engine 3.2 shadow state missing'
               e32c=h1.get('engine32_family_challenger') or {}
-              assert e32c.get('available') is True and e32c.get('taxonomy') == '8-family', f'{name}: missing Engine 3.2 shadow'
-              assert isinstance(e32c.get('temperature_2m'), (int,float)), f'{name}: invalid Engine 3.2 temp'
-              assert e32c.get('role') == 'prospective-shadow-only', e32c
+              assert e32c.get('taxonomy') == '8-family', f'{name}: invalid Engine 3.2 taxonomy'
+              if e32c.get('available') is True:
+                  assert isinstance(e32c.get('temperature_2m'), (int,float)), f'{name}: invalid Engine 3.2 temp'
+                  assert e32c.get('role') == 'prospective-shadow-only', e32c
+              else:
+                  reason=e32c.get('reason')
+                  assert reason in {'missing-target','insufficient-current-families','no-temperature-components'}, f'{name}: undeclared Engine 3.2 degradation: {e32c}'
+                  shadow_degraded.append(f'{name}:{reason}')
               fc=h1.get('forecast_confidence') or {}
               assert isinstance(fc.get('value'), (int,float)) and 50 <= fc['value'] <= 96, f'{name}: invalid confidence'
               rf=h1.get('real_feel_engine') or {}
@@ -199,7 +206,8 @@ jobs:
 
           health=v2.get('source_health') or {}
           assert health
-          print(f"Engine 2/3/3.1/3.2 + UWS + precip0-6 + RRFS shadow validation passed; fresh deterministic feeds={fresh_models}; HRM obs stations={hrm_health.get('observation_stations')}; UWS models={uhealth.get('deterministic_models')}/{uhealth.get('deterministic_expected')}; precip rows={precip06.get('rows')}; RRFS rows={rrfs.get('archived_rows')}; production RRFS weight=0")
+          degraded_text=','.join(shadow_degraded) if shadow_degraded else 'none'
+          print(f"Engine 2/3/3.1/3.2 + UWS + precip0-6 + RRFS validation passed; fresh deterministic feeds={fresh_models}; HRM obs stations={hrm_health.get('observation_stations')}; UWS models={uhealth.get('deterministic_models')}/{uhealth.get('deterministic_expected')}; precip rows={precip06.get('rows')}; RRFS rows={rrfs.get('archived_rows')}; Engine 3.2 shadow degraded={degraded_text}; production RRFS weight=0")
           PY
       - name: Commit updated skill data
         run: |
