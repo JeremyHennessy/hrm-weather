@@ -1,0 +1,70 @@
+name: Halifax cloud consensus QA
+
+on:
+  pull_request:
+    paths:
+      - 'cloud-sky.js'
+      - 'scene-images.js'
+      - 'sw.js'
+      - 'scripts/cloud_consensus_engine.py'
+      - 'scripts/cloud_consensus_install.py'
+      - 'scripts/cloud_consensus_qa.py'
+      - 'scripts/cloud-sky-qa.mjs'
+      - 'scripts/collect.py'
+      - '.github/workflows/cloud-consensus-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'cloud-sky.js'
+      - 'scene-images.js'
+      - 'sw.js'
+      - 'scripts/cloud_consensus_engine.py'
+      - 'scripts/cloud_consensus_install.py'
+      - 'scripts/cloud_consensus_qa.py'
+      - 'scripts/cloud-sky-qa.mjs'
+      - 'scripts/collect.py'
+      - '.github/workflows/cloud-consensus-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  cloud:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and server cloud contract
+        env:
+          PYTHONPATH: scripts
+        run: |
+          python -m py_compile scripts/cloud_consensus_engine.py scripts/cloud_consensus_install.py scripts/cloud_consensus_qa.py scripts/collect.py
+          node --check cloud-sky.js
+          node --check scripts/cloud-sky-qa.mjs
+          python scripts/cloud_consensus_qa.py
+          grep -q "cloud-sky.js?v=1" scene-images.js
+          grep -q "cloud-sky.js" sw.js
+          grep -q "weather-consensus-v75" sw.js
+          ! grep -q "open-meteo.com" cloud-sky.js
+          grep -q "install_cloud_consensus" scripts/collect.py
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Serve branch
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/cloud-http.log 2>&1 &
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:4173/app.html >/dev/null && exit 0; sleep 1; done
+          cat /tmp/cloud-http.log || true
+          exit 1
+      - name: Verify Halifax sky classification
+        env:
+          WX_URL: http://127.0.0.1:4173/app.html
+        run: node scripts/cloud-sky-qa.mjs
