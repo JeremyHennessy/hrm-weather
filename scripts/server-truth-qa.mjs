@@ -14,6 +14,7 @@ async function diagnostics(){
   return page.evaluate(()=>{
     const fn=typeof window.wxHealth==='function'?Function.prototype.toString.call(window.wxHealth):'';
     const resources=performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/(?:scene-images\.js|server-truth-ui\.js|accuracy-v3\.js|engine-v[23]\.json)(?:\?|$)/.test(x));
+    const fast=window.__wxFastCurrent||{};
     return{
       readyState:document.readyState,
       hasHealth:Boolean(document.querySelector('#health')),
@@ -28,25 +29,35 @@ async function diagnostics(){
       wxHealthType:typeof window.wxHealth,
       wxHealthLooksServerOwned:/engine3-server-truth/.test(fn),
       completeForecast:Boolean(window.__wxHasCompleteForecast),
+      fastCurrent:{location:fast.location||'',painted:Boolean(fast.painted),status:fast.status||'',source:fast.source||'',pointNames:Array.isArray(fast.point_values)?fast.point_values.map(x=>x?.name||''):[],error:fast.error||''},
+      zoneTruth:[...document.querySelectorAll('#zones .card')].map(x=>({name:x.querySelector('small')?.textContent?.trim()||'',truth:x.dataset.currentTruth||''})),
       resources
     };
   });
 }
 try{
   const resp=await page.goto(url,{waitUntil:'domcontentloaded',timeout:15000});if(!resp?.ok())throw new Error(`App HTTP ${resp?.status()??'no response'}`);
-  const healthOwned=await page.waitForFunction(()=>document.querySelector('#health')?.dataset?.owner==='engine3-server-truth',{timeout:15000}).then(()=>true).catch(()=>false);
+  const healthOwned=await page.waitForFunction(()=>document.querySelector('#health')?.dataset?.owner==='engine3-server-truth',null,{timeout:15000}).then(()=>true).catch(()=>false);
   const bootstrap=await diagnostics();
   if(!healthOwned)throw new Error(`Server truth bootstrap did not acquire Data Health ownership: ${JSON.stringify({bootstrap,responses,requestFailures})}`);
-  await page.waitForFunction(()=>document.querySelector('#scoreRows')?.dataset?.owner==='engine3-server-truth',{timeout:10000});
-  await page.waitForFunction(()=>document.querySelector('#chips')?.dataset?.owner==='engine3-server-truth',{timeout:10000});
-  await page.waitForFunction(()=>Array.isArray(window.__wxFastCurrent?.point_values)&&window.__wxFastCurrent.point_values.length>0,{timeout:10000});
-  await page.waitForFunction(()=>[...document.querySelectorAll('#zones .card')].some(x=>x.dataset.currentTruth==='provider-apparent-current'),{timeout:10000});
+  await page.waitForFunction(()=>document.querySelector('#scoreRows')?.dataset?.owner==='engine3-server-truth',null,{timeout:10000});
+  await page.waitForFunction(()=>document.querySelector('#chips')?.dataset?.owner==='engine3-server-truth',null,{timeout:10000});
+  await page.waitForFunction(()=>Array.isArray(window.__wxFastCurrent?.point_values)&&window.__wxFastCurrent.point_values.length>0,null,{timeout:10000});
+  const fastSource=await page.evaluate(()=>window.__wxFastCurrent?.source||'');
+  // Per-zone `provider-apparent-current` ownership is only a valid hard
+  // requirement when the fast-current layer actually has provider point truth.
+  // If that layer is legitimately using the fresh official ECCC fallback, the
+  // separate current-fallback QA owns that contract; this test must not turn a
+  // provider outage into a false server-truth failure.
+  if(fastSource==='provider-apparent-current'){
+    await page.waitForFunction(()=>[...document.querySelectorAll('#zones .card')].some(x=>x.dataset.currentTruth==='provider-apparent-current'),null,{timeout:10000});
+  }
   const state=await page.evaluate(()=>{
     const n=t=>{const m=String(t||'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null};
     const loc=localStorage.getItem('wx-loc')||'hrm',engine=window.WXServerTruth?.engine||window.WXAccuracyV3||null,truth=window.WXServerTruth?.truth||engine?.server_truth||null,obs=truth?.observations?.[loc]||null;
     const zones=[...document.querySelectorAll('#zones .card')].map(card=>({name:card.querySelector('small')?.textContent?.trim()||'',feel:card.querySelector('.zt')?.textContent?.trim()||'',actualText:card.querySelector('.sub')?.textContent?.trim()||'',actual:n(card.querySelector('.sub')?.textContent),owner:card.querySelector('.sub')?.dataset?.owner||'',truth:card.dataset.currentTruth||''}));
     return{
-      loc,serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
+      loc,fastCurrentSource:window.__wxFastCurrent?.source||'',serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
       feeds:Number(engine?.collector?.deterministic_forecasts||0),health:document.querySelector('#health')?.textContent?.trim()||'',healthOwner:document.querySelector('#health')?.dataset?.owner||'',
       officialTemp:document.querySelector('#officialTemp')?.textContent?.trim()||'',officialStation:document.querySelector('#officialStation')?.textContent?.trim()||'',officialOwner:document.querySelector('#officialStation')?.dataset?.owner||'',
       serverObsStations:Number(obs?.station_count||0),verified:document.querySelector('#verifiedCount')?.textContent?.trim()||'',verifiedOwner:document.querySelector('#verifiedCount')?.dataset?.owner||'',
@@ -69,6 +80,7 @@ try{
     if(!Number.isFinite(card.actual)||Math.abs(card.actual)<0.5)throw new Error(`${p.name} current Actual regressed near zero while input air=${p.air}: ${card.actualText}`);
     if(Math.abs(card.actual-Number(p.air))>2.0)throw new Error(`${p.name} current Actual diverges from current input: input=${p.air}; card=${card.actual}`);
   }
+  if(state.fastCurrentSource==='provider-apparent-current'&&!state.zones.some(z=>z.truth==='provider-apparent-current'))throw new Error(`Provider current point truth did not reach any zone card: ${JSON.stringify(state.zones)}`);
   if(state.verifiedOwner!=='engine3-server-truth')throw new Error(`Verified forecast count is not server-owned: ${state.verifiedOwner||'missing'}`);
   if(state.scoreOwner!=='engine3-server-truth'||!/MAE/i.test(state.scorecard))throw new Error(`Model scorecard is not server-owned: owner=${state.scoreOwner}; text=${state.scorecard}`);
   if(state.chipsOwner!=='engine3-server-truth'||!/model spread/i.test(state.chips))throw new Error(`Model spread/coverage is not server-owned: owner=${state.chipsOwner}; text=${state.chips}`);
