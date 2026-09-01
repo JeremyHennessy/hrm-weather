@@ -3,7 +3,6 @@
 # Operational restart marker: 2026-08-21. No forecast logic is changed here;
 # this main-branch scripts/** update intentionally retriggers the existing hourly
 # collector after the observed Aug 16-21 publication gap.
-from datetime import datetime, timedelta, timezone
 import json
 from pathlib import Path
 
@@ -39,41 +38,90 @@ from accuracy_engine_v2_runner import main as run_v2
 from accuracy_engine_v3_publish import main as run_v3
 
 
-def bound_published_ledger(days: int = 30) -> None:
-    """Keep the committed verification ledger below GitHub's file-size ceiling.
+PUBLISHED_LEDGER_MAX_BYTES = 90_000_000
+PUBLISHED_LEDGER_TARGET_BYTES = 85_000_000
 
-    Engine 2/3 complete their scoring and verification first. The durable skill
-    aggregates remain in skill.json; this only removes old raw target rows from
-    the file that is committed by the hourly workflow. A 30-day raw window keeps
-    substantially more verification history than the active target-scoring
-    window while restoring reliable publication.
+
+def _encode_ledger(rows: list) -> bytes:
+    """Stable, line-oriented JSON with less whitespace than the training writer."""
+    text = json.dumps(
+        rows,
+        indent=0,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ) + "\n"
+    return text.encode("utf-8")
+
+
+def bound_published_ledger() -> None:
+    """Keep the committed raw ledger safely below GitHub's 100 MB hard limit.
+
+    Engine 2 and Engine 3 consume the full in-run ledger before this function is
+    called. The publication copy is first re-encoded without indentation while
+    preserving every row. Only if that is still larger than 90 MB are the oldest
+    rows that are explicitly already scored removed until the file is near 85 MB.
+    Unscored/future targets, malformed rows, and durable learned aggregates are
+    never discarded here.
     """
     path = Path(__file__).resolve().parents[1] / "data" / "ledger.json"
     if not path.exists():
         return
     try:
         rows = json.loads(path.read_text())
-    except (OSError, json.JSONDecodeError):
-        return
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"cannot read verification ledger for publication: {exc}") from exc
     if not isinstance(rows, list):
+        raise RuntimeError("verification ledger is not a JSON array")
+
+    original_rows = len(rows)
+    payload = _encode_ledger(rows)
+    if len(payload) <= PUBLISHED_LEDGER_MAX_BYTES:
+        path.write_bytes(payload)
+        print(
+            f"published ledger compacted with all rows preserved: "
+            f"rows={original_rows} bytes={len(payload)}"
+        )
         return
-    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
-    kept = []
-    for row in rows:
-        stamp = row.get("issued") if isinstance(row, dict) else None
-        try:
-            dt = datetime.fromisoformat(str(stamp).replace("Z", "+00:00"))
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-        except (TypeError, ValueError):
-            # Preserve malformed/legacy rows rather than silently deleting data.
-            kept.append(row)
+
+    bytes_to_remove = len(payload) - PUBLISHED_LEDGER_TARGET_BYTES
+    drop_indexes: set[int] = set()
+    estimated_removed = 0
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict) or row.get("scored") is not True:
             continue
-        if dt > cutoff:
-            kept.append(row)
-    if len(kept) != len(rows):
-        path.write_text(json.dumps(kept, indent=2) + "\n")
-        print(f"published ledger bounded to {days}d: {len(rows)} -> {len(kept)} rows")
+        row_bytes = len(
+            json.dumps(
+                row,
+                indent=0,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ).encode("utf-8")
+        ) + 2
+        drop_indexes.add(index)
+        estimated_removed += row_bytes
+        if estimated_removed >= bytes_to_remove:
+            break
+
+    if estimated_removed < bytes_to_remove:
+        raise RuntimeError(
+            "published ledger exceeds safe GitHub size and there are not enough "
+            "already-scored rows to remove without touching active targets"
+        )
+
+    kept = [row for index, row in enumerate(rows) if index not in drop_indexes]
+    payload = _encode_ledger(kept)
+    if len(payload) > PUBLISHED_LEDGER_MAX_BYTES:
+        raise RuntimeError(
+            f"published ledger remains too large after scored-row trim: {len(payload)} bytes"
+        )
+
+    path.write_bytes(payload)
+    print(
+        f"published ledger bounded by byte headroom: rows={original_rows}->{len(kept)} "
+        f"removed_scored={len(drop_indexes)} bytes={len(payload)}"
+    )
 
 
 if __name__ == '__main__':
