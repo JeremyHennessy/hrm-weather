@@ -3,6 +3,8 @@ import { chromium } from 'playwright';
 const url=process.env.WX_URL||'http://127.0.0.1:4173/app.html';
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,isMobile:true,hasTouch:true});
+const isDry=s=>/[☀🌤⛅🌥☁]/u.test(String(s||''));
+const isRain=s=>/🌧/u.test(String(s||''));
 let code=0;
 try{
   const r=await page.goto(`${url}${url.includes('?')?'&':'?'}cloudqa=${Date.now()}`,{waitUntil:'domcontentloaded',timeout:20000});
@@ -13,8 +15,10 @@ try{
 
   // Reproduce the production import-order race deliberately: render weather
   // icons to SVG while Halifax cloud ownership is disabled. The SVG renderer
-  // must preserve the original categorical weather type in data-wx-raw so the
-  // Halifax dry-sky controller can safely take ownership afterward.
+  // must preserve the categorical weather type in data-wx-raw so the Halifax
+  // dry-sky controller can safely take ownership afterward. Other presentation
+  // layers may legitimately choose a different dry glyph before SVG conversion,
+  // so the invariant here is dry-vs-wet category rather than one exact dry emoji.
   await page.evaluate(()=>{
     localStorage.setItem('wx-loc','uws');
     const hero=document.querySelector('.hero');hero.dataset.condition='partly';
@@ -40,8 +44,8 @@ try{
     hours:[...document.querySelectorAll('#hours .wx')].map(x=>x.dataset.wxRaw||''),
     days:[...document.querySelectorAll('#days .v11DayWx')].map(x=>x.dataset.wxRaw||'')
   }));
-  if(!source.hero.includes('⛅')||!source.hours[0]?.includes('☀')||!source.hours[1]?.includes('☀')||!source.hours[2]?.includes('🌧'))throw Error(`SVG renderer lost hourly weather categories: ${JSON.stringify(source)}`);
-  if(!source.days[0]?.includes('☀')||!source.days[1]?.includes('☀')||!source.days[2]?.includes('🌧'))throw Error(`SVG renderer lost daily weather categories: ${JSON.stringify(source)}`);
+  if(!isDry(source.hero)||!isDry(source.hours[0])||!isDry(source.hours[1])||!isRain(source.hours[2]))throw Error(`SVG renderer lost hourly weather categories: ${JSON.stringify(source)}`);
+  if(!isDry(source.days[0])||!isDry(source.days[1])||!isRain(source.days[2]))throw Error(`SVG renderer lost daily weather categories: ${JSON.stringify(source)}`);
 
   const state=await page.evaluate(()=>{
     localStorage.setItem('wx-loc','hrm');
@@ -57,9 +61,9 @@ try{
   if(state.hero!=='cloud'||Number(state.heroCloud)<85)throw Error(`hero did not become cloudy: ${JSON.stringify(state)}`);
   if(!state.cards[0]?.sky||Number(state.cards[0].cloud)<85)throw Error(`first dry SVG hourly card not family-cloud-controlled: ${JSON.stringify(state.cards)}`);
   if(!state.cards[1]?.sky||Number(state.cards[1].cloud)<85)throw Error(`second dry SVG hourly card not family-cloud-controlled: ${JSON.stringify(state.cards[1])}`);
-  if(state.cards[2]?.sky||!state.cards[2]?.raw.includes('🌧'))throw Error(`rain SVG hour was incorrectly replaced or lost category: ${JSON.stringify(state.cards[2])}`);
+  if(state.cards[2]?.sky||!isRain(state.cards[2]?.raw))throw Error(`rain SVG hour was incorrectly replaced or lost category: ${JSON.stringify(state.cards[2])}`);
   if(!state.days[1]?.sky||Number(state.days[1].cloud)<80)throw Error(`tomorrow dry SVG daily card not cloud-controlled: ${JSON.stringify(state.days)}`);
-  if(state.days[2]?.sky||state.days[2]?.cloud||!state.days[2]?.raw.includes('🌧'))throw Error(`wet SVG daily card was incorrectly replaced or lost category: ${JSON.stringify(state.days[2])}`);
-  if(state.wetHero.condition!=='rain'||state.wetHero.sky||state.wetHero.heroOwner||!state.wetHero.raw.includes('🌧'))throw Error(`wet current state retained cloud ownership or lost rain type: ${JSON.stringify(state.wetHero)}`);
+  if(state.days[2]?.sky||state.days[2]?.cloud||!isRain(state.days[2]?.raw))throw Error(`wet SVG daily card was incorrectly replaced or lost category: ${JSON.stringify(state.days[2])}`);
+  if(state.wetHero.condition!=='rain'||state.wetHero.sky||state.wetHero.heroOwner||!isRain(state.wetHero.raw))throw Error(`wet current state retained cloud ownership or lost rain type: ${JSON.stringify(state.wetHero)}`);
   console.log('Halifax cloud sky SVG handoff QA passed',state);
 }catch(e){code=1;console.error(e?.stack||String(e))}finally{await browser.close().catch(()=>{});process.exit(code)}
