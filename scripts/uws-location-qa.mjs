@@ -13,7 +13,9 @@ page.on('requestfailed',r=>requestFailures.push({url:r.url(),resourceType:r.reso
 page.on('response',r=>{if(r.status()>=400)badResponses.push({url:r.url(),resourceType:r.request().resourceType(),status:r.status()})});
 let code=0;
 const num=t=>{const m=String(t||'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null};
-async function diagnostic(){try{return await page.evaluate(()=>({loc:localStorage.getItem('wx-loc'),pending:sessionStorage.getItem('wx-pending-loc'),active:document.querySelector('#tabs .tab.active')?.dataset?.k||'',place:document.querySelector('#place')?.textContent?.trim()||'',feels:document.querySelector('#feels')?.textContent?.trim()||'',actual:document.querySelector('#actual')?.textContent?.trim()||'',currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,refreshFastType:typeof window.WXRefreshFastCurrent,refreshUwsType:typeof window.WXRefreshUWSCurrent,zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),requestHealth:window.WX_REQUEST_HEALTH||null,resources:performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/api\.open-meteo\.com|api\.weather\.gov|backgrounds\/generated\/uws|engine-v3\.json/.test(x))}))}catch{return null}}
+const isAlertRequest=x=>/^https:\/\/api\.weather\.gov\/alerts\/active\?/i.test(String(x?.url||''));
+const isNavigationAbort=x=>String(x?.error||'')==='net::ERR_ABORTED';
+async function diagnostic(){try{return await page.evaluate(()=>({loc:localStorage.getItem('wx-loc'),pending:sessionStorage.getItem('wx-pending-loc'),active:document.querySelector('#tabs .tab.active')?.dataset?.k||'',place:document.querySelector('#place')?.textContent?.trim()||'',feels:document.querySelector('#feels')?.textContent?.trim()||'',actual:document.querySelector('#actual')?.textContent?.trim()||'',currentSource:document.querySelector('#feels')?.dataset?.currentSource||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,refreshFastType:typeof window.WXRefreshFastCurrent,refreshUwsType:typeof window.WXRefreshUWSCurrent,zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),warning:document.querySelector('#warn')?.textContent?.trim()||'',requestHealth:window.WX_REQUEST_HEALTH||null,resources:performance.getEntriesByType('resource').map(x=>x.name).filter(x=>/api\.open-meteo\.com|api\.weather\.gov|backgrounds\/generated\/uws|engine-v3\.json/.test(x))}))}catch{return null}}
 async function waitUws(){
   await page.waitForFunction(()=>localStorage.getItem('wx-loc')==='uws',null,{timeout:8000});
   await page.waitForFunction(()=>/Upper West Side|Manhattan/i.test(document.querySelector('#place')?.textContent||''),null,{timeout:15000});
@@ -34,7 +36,7 @@ try{
   await waitUws();
   const state=await page.evaluate(()=>({
     loc:localStorage.getItem('wx-loc'),pending:sessionStorage.getItem('wx-pending-loc'),place:document.querySelector('#place')?.textContent?.trim()||'',brand:document.querySelector('.brand h1')?.textContent?.trim()||'',feels:document.querySelector('#feels')?.textContent?.trim()||'',actual:document.querySelector('#actual')?.textContent?.trim()||'',
-    timezone:typeof window.WX_LOCATION_TIMEZONE==='function'?window.WX_LOCATION_TIMEZONE():'',zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),official:document.querySelector('#officialStation')?.textContent?.trim()||'',officialHead:[...document.querySelectorAll('.section')].find(x=>x.querySelector('h2')?.textContent==='Official data')?.querySelector('.head span')?.textContent?.trim()||'',zoneTitle:document.querySelector('#zoneTitle')?.textContent?.trim()||'',microDisplay:getComputedStyle(document.querySelector('#microSection')).display,heroLocation:document.querySelector('.hero')?.dataset?.location||'',daypart:document.querySelector('.hero')?.dataset?.daypart||'',sceneSource:document.querySelector('.hero')?.dataset?.sceneSource||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,scrollWidth:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth),innerWidth:innerWidth
+    timezone:typeof window.WX_LOCATION_TIMEZONE==='function'?window.WX_LOCATION_TIMEZONE():'',zones:[...document.querySelectorAll('#zones .card small')].map(x=>x.textContent.trim()),official:document.querySelector('#officialStation')?.textContent?.trim()||'',officialHead:[...document.querySelectorAll('.section')].find(x=>x.querySelector('h2')?.textContent==='Official data')?.querySelector('.head span')?.textContent?.trim()||'',zoneTitle:document.querySelector('#zoneTitle')?.textContent?.trim()||'',microDisplay:getComputedStyle(document.querySelector('#microSection')).display,heroLocation:document.querySelector('.hero')?.dataset?.location||'',daypart:document.querySelector('.hero')?.dataset?.daypart||'',sceneSource:document.querySelector('.hero')?.dataset?.sceneSource||'',realFeelOwner:document.documentElement.dataset.wxRealFeel||'',actualOwner:document.documentElement.dataset.wxCurrentActual||'',fast:window.__wxFastCurrent||null,uwsQuick:window.__wxUwsQuick||null,warning:document.querySelector('#warn')?.textContent?.trim()||'',scrollWidth:Math.max(document.documentElement.scrollWidth,document.body.scrollWidth),innerWidth:innerWidth
   }));
   if(state.loc!=='uws'||state.pending)throw Error(`location persistence failed: loc=${state.loc} pending=${state.pending}`);
   if(!/Upper West Side|Manhattan/i.test(state.place))throw Error(`wrong place label: ${state.place}`);
@@ -54,7 +56,27 @@ try{
   if(state.fast?.painted&&state.actualOwner!=='live-current-input')throw Error(`UWS Actual ownership regressed: ${state.actualOwner}`);
   if(state.scrollWidth>state.innerWidth+2)throw Error(`horizontal overflow ${state.scrollWidth}>${state.innerWidth}`);
   if(/KNYC|NWS/i.test(state.official)&&/Environment Canada/i.test(state.officialHead))throw Error(`UWS NWS observation still labelled Environment Canada: ${state.officialHead}`);
-  if(errors.length)throw Error(`console errors: ${errors.join(' | ')}; request failures=${JSON.stringify(requestFailures)}; HTTP errors=${JSON.stringify(badResponses)}`);
-  if(requestFailures.length)throw Error(`request failures without console error: ${JSON.stringify(requestFailures)}`);
-  await page.screenshot({path:'screenshots/uws-location-qa.png',fullPage:true});console.log('UWS location QA passed',{defaultState,...state,requestFailures,badResponses});
+
+  // NWS alerts are explicitly best-effort in uws-location-ui.js: a failed
+  // alerts request is caught and becomes an empty alert list. Keep that
+  // auxiliary transport separate from the UWS location/current contract while
+  // preserving strict failure for every other non-aborted request.
+  const optionalAlertFailures=requestFailures.filter(isAlertRequest);
+  const navigationAborts=requestFailures.filter(isNavigationAbort);
+  const fatalRequestFailures=requestFailures.filter(x=>!isNavigationAbort(x)&&!isAlertRequest(x));
+  const optionalAlertHttp=badResponses.filter(isAlertRequest);
+  const fatalHttp=badResponses.filter(x=>!isAlertRequest(x));
+  const expectedAlertConsole=optionalAlertFailures.some(x=>/ERR_HTTP2_PROTOCOL_ERROR/.test(x.error))||optionalAlertHttp.length>0;
+  const unexpectedConsoleErrors=errors.filter(e=>{
+    if(expectedAlertConsole&&/^Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR$/i.test(e))return false;
+    if(optionalAlertHttp.length&&/^Failed to load resource: the server responded with a status of \d+/i.test(e))return false;
+    return true;
+  });
+  if(fatalRequestFailures.length)throw Error(`authoritative request failures: ${JSON.stringify(fatalRequestFailures)}`);
+  if(fatalHttp.length)throw Error(`authoritative HTTP errors: ${JSON.stringify(fatalHttp)}`);
+  if(unexpectedConsoleErrors.length)throw Error(`unexpected console errors: ${unexpectedConsoleErrors.join(' | ')}`);
+  if((optionalAlertFailures.length||optionalAlertHttp.length)&&/(unable to load|forecast unavailable|current conditions unavailable|weather data unavailable|alert.*(?:failed|error))/i.test(state.warning))throw Error(`optional NWS alert transport surfaced a false primary warning: ${state.warning}`);
+
+  await page.screenshot({path:'screenshots/uws-location-qa.png',fullPage:true});
+  console.log('UWS location QA passed',{defaultState,...state,optionalAlertFailures,navigationAborts,optionalAlertHttp});
 }catch(e){code=1;console.error('UWS QA diagnostic',{state:await diagnostic(),requestFailures,badResponses,consoleErrors:errors});console.error(e?.stack||String(e));try{await page.screenshot({path:'screenshots/uws-location-failure.png',fullPage:true})}catch{}}finally{await browser.close().catch(()=>{});process.exit(code)}
