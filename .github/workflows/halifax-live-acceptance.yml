@@ -1,0 +1,48 @@
+name: Halifax live acceptance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'cloud-sky.js'
+      - 'scene-images.js'
+      - 'scripts/cloud_consensus_engine.py'
+      - 'scripts/cloud_consensus_install.py'
+      - 'scripts/halifax-live-qa.mjs'
+      - '.github/workflows/halifax-live-acceptance.yml'
+  pull_request:
+    paths:
+      - 'scripts/halifax-live-qa.mjs'
+      - '.github/workflows/halifax-live-acceptance.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: halifax-live-acceptance
+  cancel-in-progress: true
+
+jobs:
+  live-halifax:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.54.2
+          npx playwright install --with-deps chromium
+      - name: Verify Halifax production owner and capture UI
+        run: node scripts/halifax-live-qa.mjs
+      - name: Upload Halifax acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: halifax-live-acceptance
+          path: screenshots/
+          retention-days: 14
