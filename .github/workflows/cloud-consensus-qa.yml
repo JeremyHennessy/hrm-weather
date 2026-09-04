@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'cloud-sky.js'
+      - 'weather-icons.js'
       - 'scene-images.js'
       - 'sw.js'
       - 'scripts/cloud_consensus_engine.py'
@@ -16,6 +17,7 @@ on:
     branches: [main]
     paths:
       - 'cloud-sky.js'
+      - 'weather-icons.js'
       - 'scene-images.js'
       - 'sw.js'
       - 'scripts/cloud_consensus_engine.py'
@@ -46,10 +48,13 @@ jobs:
         run: |
           python -m py_compile scripts/cloud_consensus_engine.py scripts/cloud_consensus_install.py scripts/cloud_consensus_qa.py scripts/collect.py
           node --check cloud-sky.js
+          node --check weather-icons.js
           node --check scripts/cloud-sky-qa.mjs
           python scripts/cloud_consensus_qa.py
           grep -q "cloud-sky.js?v=1" scene-images.js
+          grep -q "weather-icons.js" scene-images.js
           grep -q "cloud-sky.js" sw.js
+          grep -q "weather-icons.js" sw.js
           grep -q "weather-consensus-v75" sw.js
           ! grep -q "open-meteo.com" cloud-sky.js
           grep -q "install_cloud_consensus" scripts/collect.py
