@@ -47,7 +47,7 @@
     if(s==='sunny')return'clear night';if(s==='mostly-sunny')return'mostly clear';return s?.replace('-',' ')||'mixed';
   }
 
-  function clearCloud(el){if(!el)return;delete el.dataset.cloudSky;delete el.dataset.cloudCover;delete el.dataset.solarPhase}
+  function clearCloud(el){if(!el)return;delete el.dataset.cloudSky;delete el.dataset.cloudCover}
   function rawIcon(el){return `${el?.dataset?.wxRaw||''} ${el?.textContent||''}`}
   function isDryIcon(el){const raw=rawIcon(el);if(/[⛈🌧🌦🌨❄🌫]/u.test(raw))return false;return /[☀🌤⛅🌥☁🌙]/u.test(raw)||Boolean(el?.dataset?.cloudSky)}
   function setIcon(el,cloud,label,night=false){
