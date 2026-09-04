@@ -30,8 +30,8 @@
   function storm(){return svg(`${cloudShape('url(#wcCloudDark)')}<path d="M35 46h-8l4-9h9l-5 8h6l-11 14 5-13Z" fill="#ffd457" filter="url(#wcShadow)"/><g stroke="url(#wcRain)" stroke-width="2.5" stroke-linecap="round"><path d="M18 49l-2 5M49 49l-2 5"/></g>`)}
   function replace(el){
     if(!el || el.querySelector?.('.wcIcon'))return;
-    const fn=icons[clean(el.textContent)];
-    if(fn)el.innerHTML=fn();
+    const raw=clean(el.textContent),fn=icons[raw];
+    if(fn){if(!el.dataset.wxRaw)el.dataset.wxRaw=raw;el.innerHTML=fn()}
   }
   function decorate(root=document){
     if(root.matches?.('#heroIcon,.wx,.v11DayWx'))replace(root);
