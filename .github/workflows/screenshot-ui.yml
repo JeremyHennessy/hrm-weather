@@ -79,6 +79,10 @@ jobs:
           done
           echo "Timed out waiting for GitHub Pages to serve $EXPECTED"
           exit 1
+      - name: Capture deployed GitHub Pages UI
+        env:
+          WX_URL: https://jeremyhennessy.github.io/hrm-weather/app.html
+        run: node scripts/capture-ui.mjs
       - name: Verify New York US-units spin
         run: node scripts/ny-units-qa.mjs
       - name: Verify live mobile startup
@@ -91,10 +95,6 @@ jobs:
         run: node scripts/uws-location-qa.mjs
       - name: Check responsive UI across phone sizes
         run: node scripts/layout-qa.mjs
-      - name: Capture deployed GitHub Pages UI
-        env:
-          WX_URL: https://jeremyhennessy.github.io/hrm-weather/app.html
-        run: node scripts/capture-ui.mjs
       - name: Upload screenshots for visual review
         if: always()
         uses: actions/upload-artifact@v4
