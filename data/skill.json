@@ -6,11 +6,11 @@
       "gust_station_count": 7,
       "method": "ECCC SWOB real-time mesh; distance + recency weighted; 10m wind in km/h; observed global solar normalized to W/m\u00b2",
       "solar_station_count": 0,
-      "station": "HALIFAX DOCKYARD / HALIFAX WINDSOR PARK / SHEARWATER RCS",
+      "station": "HALIFAX DOCKYARD / SHEARWATER RCS / HALIFAX WINDSOR PARK",
       "station_count": 8,
       "stations": [
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 0.7309203086771027,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -24,7 +24,7 @@
           "station": "HALIFAX DOCKYARD",
           "temperature_2m": 14.7,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.8523655805381886,
+          "weight": 0.8006138183701784,
           "wind_direction_10m": 15.0,
           "wind_gusts_10m": 15.9,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -32,7 +32,29 @@
           "wind_speed_10m": 10.0
         },
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.023562606944444443,
+          "distance_km": 4.981788023468788,
+          "gust_source_field": "max_wnd_spd_10m_pst10mts",
+          "gust_source_uom": "km/h",
+          "lat": 44.63592,
+          "lon": -63.51489,
+          "precipitation": 0.0,
+          "relative_humidity_2m": 59.0,
+          "shortwave_radiation": null,
+          "solar_source_field": null,
+          "solar_source_uom": null,
+          "station": "SHEARWATER RCS",
+          "temperature_2m": 16.3,
+          "time": "2026-09-25T13:25:00+00:00",
+          "weight": 0.7252798306024574,
+          "wind_direction_10m": 37.0,
+          "wind_gusts_10m": 16.9,
+          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
+          "wind_source_uom": "km/h",
+          "wind_speed_10m": 9.1
+        },
+        {
+          "age_hours": 0.44022927361111114,
           "distance_km": 2.750507296327102,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -46,7 +68,7 @@
           "station": "HALIFAX WINDSOR PARK",
           "temperature_2m": 14.8,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.755340032993715,
+          "weight": 0.7094792208774094,
           "wind_direction_10m": 25.0,
           "wind_gusts_10m": 8.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -54,29 +76,7 @@
           "wind_speed_10m": 2.3
         },
         {
-          "age_hours": 0.019094950555555556,
-          "distance_km": 4.981788023468788,
-          "gust_source_field": "max_wnd_spd_10m_pst10mts",
-          "gust_source_uom": "km/h",
-          "lat": 44.63592,
-          "lon": -63.51489,
-          "precipitation": 0.0,
-          "relative_humidity_2m": 60.0,
-          "shortwave_radiation": null,
-          "solar_source_field": null,
-          "solar_source_uom": null,
-          "station": "SHEARWATER RCS",
-          "temperature_2m": 15.9,
-          "time": "2026-09-25T13:17:00+00:00",
-          "weight": 0.7267541912490942,
-          "wind_direction_10m": 35.0,
-          "wind_gusts_10m": 16.9,
-          "wind_source_field": "avg_wnd_spd_10m_pst10mts",
-          "wind_source_uom": "km/h",
-          "wind_speed_10m": 8.8
-        },
-        {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 4.8239568149733305,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -90,7 +90,7 @@
           "station": "SHEARWATER JETTY",
           "temperature_2m": 14.1,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.6468074511560544,
+          "weight": 0.607536243888875,
           "wind_direction_10m": 40.0,
           "wind_gusts_10m": 16.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -98,7 +98,7 @@
           "wind_speed_10m": 8.9
         },
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 6.029243076319814,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -112,7 +112,7 @@
           "station": "Shearwater",
           "temperature_2m": 13.9,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.5888322674416929,
+          "weight": 0.5530810497045199,
           "wind_direction_10m": 40.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -120,7 +120,7 @@
           "wind_speed_10m": 13.0
         },
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 6.150292404980393,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -134,7 +134,7 @@
           "station": "MCNABS ISLAND (AUT)",
           "temperature_2m": 13.8,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.5832989816851503,
+          "weight": 0.5478837198981219,
           "wind_direction_10m": 14.0,
           "wind_gusts_10m": 19.4,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -142,7 +142,7 @@
           "wind_speed_10m": 15.3
         },
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 7.074672516237647,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -156,7 +156,7 @@
           "station": "HALIFAX KOOTENAY",
           "temperature_2m": 13.5,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.5428794763337459,
+          "weight": 0.5099183031158192,
           "wind_direction_10m": 38.0,
           "wind_gusts_10m": 15.6,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -164,7 +164,7 @@
           "wind_speed_10m": 7.4
         },
         {
-          "age_hours": 0.30242828388888887,
+          "age_hours": 0.44022927361111114,
           "distance_km": 7.857396549617851,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -178,7 +178,7 @@
           "station": "BEDFORD BASIN",
           "temperature_2m": 16.5,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.5111975599320855,
+          "weight": 0.4801599686138529,
           "wind_direction_10m": 3.0,
           "wind_gusts_10m": 9.5,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -186,16 +186,16 @@
           "wind_speed_10m": 5.4
         }
       ],
-      "temp": 14.667780914618517,
-      "time": "2026-09-25T13:17:00+00:00",
+      "temp": 14.737231754795914,
+      "time": "2026-09-25T13:25:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 67.49307371640195,
+        "relative_humidity_2m": 67.28130316118153,
         "shortwave_radiation": null,
-        "temperature_2m": 14.667780914618517,
-        "wind_direction_10m": 26.3230994131328,
-        "wind_gusts_10m": 14.599212351999704,
-        "wind_speed_10m": 8.789293307537797
+        "temperature_2m": 14.737231754795914,
+        "wind_direction_10m": 26.696981639815544,
+        "wind_gusts_10m": 14.621612131524957,
+        "wind_speed_10m": 8.83348518290523
       },
       "wind_station_count": 8
     },
@@ -209,7 +209,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.3035263836111111,
+          "age_hours": 0.4412570269444444,
           "distance_km": 2.194888387888291,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
@@ -223,7 +223,7 @@
           "station": "LUNENBURG",
           "temperature_2m": 14.0,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.7841430476841774,
+          "weight": 0.736556998987623,
           "wind_direction_10m": 31.0,
           "wind_gusts_10m": 19.0,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -231,13 +231,13 @@
           "wind_speed_10m": 11.2
         }
       ],
-      "temp": 14.0,
+      "temp": 14.000000000000002,
       "time": "2026-09-25T13:00:00+00:00",
       "values": {
         "precipitation": null,
         "relative_humidity_2m": 72.0,
         "shortwave_radiation": null,
-        "temperature_2m": 14.0,
+        "temperature_2m": 14.000000000000002,
         "wind_direction_10m": 31.0,
         "wind_gusts_10m": 19.0,
         "wind_speed_10m": 11.2
@@ -254,7 +254,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.30264376750000005,
+          "age_hours": 0.4404527086111111,
           "distance_km": 8.29891547501511,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -268,7 +268,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 13.3,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.4942872439871295,
+          "weight": 0.46427469214233147,
           "wind_direction_10m": 354.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -299,7 +299,7 @@
       "station_count": 1,
       "stations": [
         {
-          "age_hours": 0.30321045583333334,
+          "age_hours": 0.4410299152777778,
           "distance_km": 15.844943086314007,
           "gust_source_field": null,
           "gust_source_uom": null,
@@ -313,7 +313,7 @@
           "station": "Moncton/Greater Moncton Romeo Le",
           "temperature_2m": 13.3,
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.2954267999139466,
+          "weight": 0.27748749838140074,
           "wind_direction_10m": 354.0,
           "wind_gusts_10m": null,
           "wind_source_field": "avg_wnd_spd_10m_pst2mts",
@@ -337,7 +337,7 @@
     "uws": {
       "cloud_station_count": 3,
       "collection": "api.weather.gov/stations/{station}/observations/latest",
-      "gust_station_count": 2,
+      "gust_station_count": 3,
       "method": "NWS latest-observation urban mesh; Central Park KNYC anchored; distance + recency weighted",
       "official_station": "KNYC",
       "provider": "NWS",
@@ -345,7 +345,7 @@
       "station_count": 3,
       "stations": [
         {
-          "age_hours": 0.4592313680555556,
+          "age_hours": 0.5921171583333333,
           "cloud_cover": 0.0,
           "distance_km": 1.9295873605051554,
           "lat": 40.77,
@@ -357,13 +357,13 @@
           "temperature_2m": 15.0,
           "text_description": "Clear",
           "time": "2026-09-25T12:51:00+00:00",
-          "weight": 0.8734264825965942,
+          "weight": 0.8172794387887745,
           "wind_direction_10m": 50.0,
           "wind_gusts_10m": 37.08,
           "wind_speed_10m": 14.76
         },
         {
-          "age_hours": 0.30923136805555557,
+          "age_hours": 0.4421171583333333,
           "cloud_cover": 0.0,
           "distance_km": 8.069821701364695,
           "lat": 40.78,
@@ -375,40 +375,40 @@
           "temperature_2m": 16.0,
           "text_description": "Clear",
           "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.4944434993461261,
+          "weight": 0.4626588656403255,
           "wind_direction_10m": 20.0,
           "wind_gusts_10m": 40.752,
           "wind_speed_10m": 29.628
         },
         {
-          "age_hours": 0.30923136805555557,
+          "age_hours": 0.358783825,
           "cloud_cover": 0.0,
           "distance_km": 10.103568789344344,
           "lat": 40.7,
           "lon": -74.01,
           "precipitation": null,
-          "raw_id": "https://api.weather.gov/stations/KJRB/observations/2026-09-25T13:00:00+00:00",
+          "raw_id": "https://api.weather.gov/stations/KJRB/observations/2026-09-25T13:05:00+00:00",
           "relative_humidity_2m": 51.746906785263,
           "station": "KJRB",
           "temperature_2m": 17.0,
           "text_description": "Clear",
-          "time": "2026-09-25T13:00:00+00:00",
-          "weight": 0.4251722552217518,
-          "wind_direction_10m": 30.0,
-          "wind_gusts_10m": null,
-          "wind_speed_10m": 20.376
+          "time": "2026-09-25T13:05:00+00:00",
+          "weight": 0.41476751761460684,
+          "wind_direction_10m": 40.0,
+          "wind_gusts_10m": 44.46,
+          "wind_speed_10m": 24.084
         }
       ],
-      "temp": 15.750003531381552,
-      "time": "2026-09-25T13:00:00+00:00",
+      "temp": 15.76248861841475,
+      "time": "2026-09-25T13:05:00+00:00",
       "values": {
         "cloud_cover": 0.0,
         "precipitation": null,
-        "relative_humidity_2m": 53.387035003949705,
-        "temperature_2m": 15.750003531381552,
-        "wind_direction_10m": 37.00332954163668,
-        "wind_gusts_10m": 38.407316597020696,
-        "wind_speed_10m": 20.19163631717071
+        "relative_humidity_2m": 53.37065324282478,
+        "temperature_2m": 15.76248861841475,
+        "wind_direction_10m": 39.434829024490064,
+        "wind_gusts_10m": 39.88866895759347,
+        "wind_speed_10m": 21.100985089447466
       },
       "wind_station_count": 3
     },
@@ -422,29 +422,29 @@
       "station_count": 2,
       "stations": [
         {
-          "age_hours": 0.020837960277777776,
+          "age_hours": 0.025232631944444445,
           "distance_km": 3.3534283259845368,
           "gust_source_field": "max_wnd_spd_10m_pst10mts",
           "gust_source_uom": "km/h",
           "lat": 45.067305,
           "lon": -64.477603,
           "precipitation": 0.0,
-          "relative_humidity_2m": 77.0,
-          "shortwave_radiation": 469.7,
+          "relative_humidity_2m": 75.0,
+          "shortwave_radiation": 501.6,
           "solar_source_field": "avg_globl_solr_radn_pst1hr",
           "solar_source_uom": "W/m\u00b2",
           "station": "KENTVILLE CDA",
-          "temperature_2m": 13.6,
-          "time": "2026-09-25T13:17:00+00:00",
-          "weight": 0.821986114129311,
-          "wind_direction_10m": 27.0,
-          "wind_gusts_10m": 8.9,
+          "temperature_2m": 14.1,
+          "time": "2026-09-25T13:25:00+00:00",
+          "weight": 0.8203457716280408,
+          "wind_direction_10m": 45.0,
+          "wind_gusts_10m": 9.6,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
           "wind_source_uom": "km/h",
-          "wind_speed_10m": 5.9
+          "wind_speed_10m": 6.4
         },
         {
-          "age_hours": 0.18139351583333332,
+          "age_hours": 0.31912152083333334,
           "distance_km": 11.05056600786515,
           "gust_source_field": "max_wnd_spd_10m_pst1hr",
           "gust_source_uom": "km/h",
@@ -458,7 +458,7 @@
           "station": "South Alton",
           "temperature_2m": 15.9,
           "time": "2026-09-25T13:07:22+00:00",
-          "weight": 0.4271396872905609,
+          "weight": 0.40121901794009907,
           "wind_direction_10m": 57.0,
           "wind_gusts_10m": 20.2,
           "wind_source_field": "avg_wnd_spd_10m_pst10mts",
@@ -466,16 +466,16 @@
           "wind_speed_10m": 9.0
         }
       ],
-      "temp": 14.386487061312465,
-      "time": "2026-09-25T13:17:00+00:00",
+      "temp": 14.69120419846703,
+      "time": "2026-09-25T13:25:00+00:00",
       "values": {
         "precipitation": 0.0,
-        "relative_humidity_2m": 77.0,
-        "shortwave_radiation": 469.7,
-        "temperature_2m": 14.386487061312465,
-        "wind_direction_10m": 37.15870196482373,
-        "wind_gusts_10m": 12.764045127317752,
-        "wind_speed_10m": 6.960047778290712
+        "relative_humidity_2m": 75.0,
+        "shortwave_radiation": 501.6,
+        "temperature_2m": 14.69120419846703,
+        "wind_direction_10m": 48.93469797352327,
+        "wind_gusts_10m": 13.081535835416954,
+        "wind_speed_10m": 7.253961620007932
       },
       "wind_station_count": 2
     }
@@ -170772,6 +170772,6 @@
       "updated": "2026-09-25T13:19:31.941985+00:00"
     }
   },
-  "updated_at": "2026-09-25T13:18:07.677765+00:00",
+  "updated_at": "2026-09-25T13:26:23.755024+00:00",
   "version": 2
 }
