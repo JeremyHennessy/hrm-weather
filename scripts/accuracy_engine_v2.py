@@ -417,19 +417,17 @@ def wms_point_feature(layer: str, lat: float, lon: float) -> dict[str, Any] | No
 
 
 def feature_numeric(j: dict[str, Any] | None) -> float | None:
+    """Extract the GeoMet data value, never an arbitrary numeric metadata field."""
     if not j:
         return None
     for f in j.get("features", []):
         p = f.get("properties") or {}
-        preferred = ["value", "VALUE", "precipitation_rate", "PR", "Band1"]
-        for k in preferred:
+        # ECCC's GetFeatureInfo documentation/examples use properties.value.
+        # A few products expose legacy aliases; keep only explicit value fields.
+        for k in ["value", "VALUE", "precipitation_rate", "PR", "Band1"]:
             v = safe_float(p.get(k))
             if v is not None:
                 return v
-        for v in p.values():
-            x = safe_float(v)
-            if x is not None:
-                return x
     return None
 
 

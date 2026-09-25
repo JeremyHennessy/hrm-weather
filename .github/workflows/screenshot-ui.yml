@@ -79,6 +79,37 @@ jobs:
           done
           echo "Timed out waiting for GitHub Pages to serve $EXPECTED"
           exit 1
+      - name: Wait for Halifax locality server data
+        run: |
+          for i in $(seq 1 72); do
+            if curl -fsS "https://jeremyhennessy.github.io/hrm-weather/data/engine-v3.json?locality=$(date +%s)" -o /tmp/engine-v3.json; then
+              if python3 - <<'PY'
+          import json, math
+          j=json.load(open('/tmp/engine-v3.json'))
+          hrm=((j.get('microclimate_intelligence') or {}).get('hrm') or {})
+          points=hrm.get('points') or []
+          good=(
+              hrm.get('headline_blend_changed') is False
+              and len(points) >= 6
+              and all(isinstance(p.get('observation_temperature'), (int,float)) and math.isfinite(p['observation_temperature']) for p in points)
+              and all(isinstance(p.get('observation_real_feel'), (int,float)) and math.isfinite(p['observation_real_feel']) for p in points)
+          )
+          raise SystemExit(0 if good else 1)
+          PY
+              then
+                echo "Six-point Halifax ECCC locality data is live"
+                exit 0
+              fi
+            fi
+            echo "Attempt $i: waiting for regenerated Halifax locality data"
+            sleep 5
+          done
+          echo "Timed out waiting for Halifax locality server data"
+          exit 1
+      - name: Capture deployed GitHub Pages UI
+        env:
+          WX_URL: https://jeremyhennessy.github.io/hrm-weather/app.html
+        run: node scripts/capture-ui.mjs
       - name: Verify New York US-units spin
         run: node scripts/ny-units-qa.mjs
       - name: Verify live mobile startup
@@ -91,10 +122,6 @@ jobs:
         run: node scripts/uws-location-qa.mjs
       - name: Check responsive UI across phone sizes
         run: node scripts/layout-qa.mjs
-      - name: Capture deployed GitHub Pages UI
-        env:
-          WX_URL: https://jeremyhennessy.github.io/hrm-weather/app.html
-        run: node scripts/capture-ui.mjs
       - name: Upload screenshots for visual review
         if: always()
         uses: actions/upload-artifact@v4

@@ -25,9 +25,13 @@ const fmt=(x,d=1)=>Number.isFinite(x)?x.toFixed(d):'--';
 function robust(a){a=a.filter(Number.isFinite);if(!a.length)return null;if(a.length<4)return avg(a);const m=med(a),mad=med(a.map(x=>Math.abs(x-m)))||.5;const keep=a.filter(x=>Math.abs(x-m)<=Math.max(1.4,3*mad));return avg(keep.length?keep:a)}
 function icon(c){if(c===0)return'☀️';if([1,2].includes(c))return'🌤️';if(c===3)return'☁️';if([45,48].includes(c))return'🌫️';if(c>=51&&c<=67)return'🌧️';if(c>=71&&c<=77)return'🌨️';if(c>=80&&c<=82)return'🌦️';if(c>=95)return'⛈️';return'⛅️'}
 function idx(d){const n=new Intl.DateTimeFormat('sv-SE',{timeZone:'America/Halifax',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hour12:false}).format(new Date()).replace(' ','T').slice(0,13);const i=d.hourly.time.findIndex(t=>t.slice(0,13)>=n);return i<0?0:i}
-function hourName(t){return new Intl.DateTimeFormat('en-CA',{hour:'numeric',timeZone:'America/Halifax'}).format(new Date(t+':00-03:00'))}
-function dayName(d){return new Intl.DateTimeFormat('en-CA',{weekday:'short',timeZone:'America/Halifax'}).format(new Date(d+'T12:00:00-03:00'))}
-function clock(t){if(!t)return'--';return new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',timeZone:'America/Halifax'}).format(new Date(t+':00-03:00'))}
+// Open-Meteo returns wall-clock timestamps in the requested Halifax timezone.
+ // Format those wall times directly instead of attaching a fixed -03 offset,
+ // which would shift labels by one hour after Halifax returns to AST.
+function wallDate(t,noon=false){if(!t)return null;const s=String(t),iso=s.length===10?`${s}T${noon?'12':'00'}:00:00Z`:s.length===16?`${s}:00Z`:s.endsWith('Z')?s:`${s}Z`;const d=new Date(iso);return Number.isFinite(d.getTime())?d:null}
+function hourName(t){const d=wallDate(t);return d?new Intl.DateTimeFormat('en-CA',{hour:'numeric',timeZone:'UTC'}).format(d):'--'}
+function dayName(d){const x=wallDate(d,true);return x?new Intl.DateTimeFormat('en-CA',{weekday:'short',timeZone:'UTC'}).format(x):'--'}
+function clock(t){const d=wallDate(t);return d?new Intl.DateTimeFormat('en-CA',{hour:'numeric',minute:'2-digit',timeZone:'UTC'}).format(d):'--'}
 function nav(){tabs.innerHTML=Object.entries(L).map(([k,v])=>`<button class="tab ${k===loc?'active':''}" data-k="${k}">${v.n}</button>`).join('');tabs.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{loc=b.dataset.k;localStorage.setItem('wx-loc',loc);nav();load()})}
 
 function getSkills(){try{return JSON.parse(localStorage.getItem('wx-skills')||'{}')}catch{return{}}}
