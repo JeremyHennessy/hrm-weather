@@ -55,7 +55,7 @@ jobs:
           grep -q "weather-icons.js" scene-images.js
           grep -q "cloud-sky.js" sw.js
           grep -q "weather-icons.js" sw.js
-          grep -q "weather-consensus-v75" sw.js
+          grep -q "weather-consensus-v76" sw.js
           ! grep -q "open-meteo.com" cloud-sky.js
           grep -q "install_cloud_consensus" scripts/collect.py
       - name: Install Playwright
