@@ -90,8 +90,22 @@
     try{const jobs=points.map(async([name,lat,lon])=>{const q=new URLSearchParams({latitude:String(lat),longitude:String(lon),timezone:timezone(key),forecast_days:'1',temperature_unit:'celsius',current:'temperature_2m,apparent_temperature'});const r=await fetch(`https://api.open-meteo.com/v1/forecast?${q}`,{cache:'no-store',signal:ctrl.signal});if(!r.ok)throw Error(r.status);const d=await r.json(),c=d.current||{};return{name,air:num(c.temperature_2m),feel:num(c.apparent_temperature)}});const s=await Promise.allSettled(jobs);return s.filter(x=>x.status==='fulfilled'&&finite(x.value.air)&&finite(x.value.feel)).map(x=>x.value)}finally{clearTimeout(timer)}
   }
   async function ensurePointTruth(){const key=locKey(),server=serverHrmPointValues();if(server){pointTruth=server;pointTruthLoc=key;paintZones();return server}const fast=fastPointValues();if(fast){pointTruth=fast;pointTruthLoc=key;return fast}if(pointTruthLoc===key&&pointTruth?.length)return pointTruth;if(pointJob)return pointJob;pointJob=queryPointTruth(key).then(rows=>{if(locKey()===key){pointTruth=rows;pointTruthLoc=key;paintZones()}return rows}).catch(()=>[]).finally(()=>{pointJob=null});return pointJob}
+  function ensureHrmLocalityCards(values){
+    if(locKey()!=='hrm')return;
+    const micro=document.getElementById('microZones'),section=document.getElementById('microSection');if(!micro)return;
+    const existing=new Set([...micro.querySelectorAll('.card small')].map(x=>x.textContent?.trim()).filter(Boolean));
+    for(const p of values.filter(x=>x.role==='micro')){
+      if(existing.has(p.name))continue;
+      const card=document.createElement('div');card.className='card';
+      const name=document.createElement('small');name.textContent=p.name;
+      const value=document.createElement('div');value.className='zt';value.textContent='--°';
+      const sub=document.createElement('div');sub.className='sub';sub.textContent='Current locality data loading';
+      card.append(name,value,sub);micro.appendChild(card);existing.add(p.name);
+    }
+    if(values.some(x=>x.role==='micro')&&section)section.style.display='block';
+  }
   function paintZones(){
-    const key=locKey(),values=currentPointValues();if(!values?.length)return false;let changed=false;
+    const key=locKey(),values=currentPointValues();if(!values?.length)return false;ensureHrmLocalityCards(values);let changed=false;
     for(const card of document.querySelectorAll('#zones .card,#microZones .card')){const name=card.querySelector('small')?.textContent?.trim(),p=values.find(x=>x.name===name);if(!p)continue;const rf=card.querySelector('.zt'),sub=card.querySelector('.sub'),isMicro=Boolean(card.closest('#microZones'));if(rf&&finite(p.feel)){text(rf,fmtAbs(p.feel,1));rf.dataset.owner=key==='hrm'?'eccc-local-mesh-current':'live-current-point-truth';if(us())rf.dataset.wxMetricTemp=String(p.feel)}if(sub&&finite(p.air)){const current=sub.textContent||'',replacement=`Actual ${fmtAbs(p.air,1)}`;let next=/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i.test(current)?current.replace(/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i,replacement):`${replacement}${current?` · ${current}`:''}`;if(isMicro&&finite(p.next))next=`${replacement} · +1h ${fmtAbs(p.next,1)}`;text(sub,next);sub.dataset.owner=key==='hrm'?'eccc-local-mesh-current':'live-current-point-truth'}if(key==='hrm'&&p.station){card.title=`Localized ECCC mesh · nearest station ${p.station}${finite(p.stationDistance)?` · ${Number(p.stationDistance).toFixed(1)} km`:''}`;card.dataset.currentTruth='eccc-local-mesh-current'}else card.dataset.currentTruth='provider-apparent-current';changed=true}return changed;
   }
   function installOwnership(){try{window.wxHealth=paintHealth;window.wxScorecard=paintScorecard}catch{}}
