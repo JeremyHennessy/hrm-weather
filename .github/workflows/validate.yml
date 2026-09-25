@@ -76,6 +76,17 @@ jobs:
           assert any(m[0]=='ncep_hrrr_conus' for m in location_uws.models_for_location(uws))
           assert all(m[0]!='ncep_hrrr_conus' for m in location_uws.models_for_location(core.LOCATIONS['hrm']))
           assert core.MODEL_META['ncep_hrrr_conus']['family']=='hrrr'
+          # Halifax production headline stays frozen at the approved three points.
+          assert [p[0] for p in core.LOCATIONS['hrm']['points']] == ['Halifax Peninsula','Bedford','Dartmouth']
+          assert len(e31.HRM_LOCAL_POINTS) == 6
+          local=e31._point_observation([
+              {'station':'Near','lat':44.65,'lon':-63.58,'age_hours':0.1,'temperature_2m':15.0,'relative_humidity_2m':70.0,'wind_speed_10m':8.0,'wind_gusts_10m':12.0},
+              {'station':'Far','lat':44.80,'lon':-63.80,'age_hours':0.1,'temperature_2m':20.0,'relative_humidity_2m':50.0,'wind_speed_10m':14.0,'wind_gusts_10m':20.0},
+          ],44.6488,-63.5752)
+          assert local['available'] is True and local['nearest_station']=='Near', local
+          assert 15.0 <= local['temperature_2m'] < 17.0 and isinstance(local['real_feel'],float), local
+          assert core.feature_numeric({'features':[{'properties':{'pixel_size':0.041748047,'timestamp_epoch':123456}}]}) is None
+          assert core.feature_numeric({'features':[{'properties':{'pixel_size':0.041748047,'value':1.25}}]}) == 1.25
           assert len(v3.FAMILIES) >= 6
           assert callable(v3.fit_mos) and callable(v3.analog_predict) and callable(v3.observation_nudge)
           assert callable(walk.build) and callable(precip.build) and callable(conf.apply) and callable(rf.predict)
@@ -204,6 +215,10 @@ jobs:
           ! grep -q "import('./forecast-confidence.js" deep-ui.js
           grep -q 'server-truth-ui.js?v=1' accuracy-v3.js
           grep -q 'engine3-server-truth' server-truth-ui.js
+          grep -q 'eccc-local-mesh-current' server-truth-ui.js
+          grep -q 'serverHrmPointValues' server-truth-ui.js
+          grep -q "timeZone:'UTC'" v5b.js
+          ! grep -q -- '-03:00' v5b.js
           grep -q 'live-current-point-truth' server-truth-ui.js
           grep -q 'America/New_York' server-truth-ui.js
           grep -q 'engine3-empirical' forecast-confidence.js
