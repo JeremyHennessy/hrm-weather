@@ -213,7 +213,7 @@ jobs:
           grep -q 'forecast-insights.js?v=3' scene-images.js
           ! grep -q "import('./accuracy-v3.js" deep-ui.js
           ! grep -q "import('./forecast-confidence.js" deep-ui.js
-          grep -q 'server-truth-ui.js?v=1' accuracy-v3.js
+          grep -q 'server-truth-ui.js?v=2' accuracy-v3.js
           grep -q 'engine3-server-truth' server-truth-ui.js
           grep -q 'eccc-local-mesh-current' server-truth-ui.js
           grep -q 'serverHrmPointValues' server-truth-ui.js
