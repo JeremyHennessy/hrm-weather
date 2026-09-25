@@ -45,7 +45,7 @@ def apply_adaptive_verification(engine:dict,state:dict,walk:dict)->None:
                 den=sum(w for _,w in weighted);temp=sum(v*w for v,w in weighted)/den
                 if nudge is not None:temp+=max(-1.5,min(1.5,nudge*0.65*float(nudge_skill["factor"])))
                 h["temperature_2m"]=temp
-            raw_pop=core.safe_float(h.get("raw_precipitation_probability"));cal_pop=core.safe_float(h.get("precipitation_probability"));pop_skill=verify.precipitation_factor(state,loc,lead,regime)
+            raw_pop=core.safe_float(h.get("raw_precipitation_probability"));cal_pop=core.safe_float(h.get("calibrated_precipitation_probability"));pop_skill=verify.precipitation_factor(state,loc,lead,regime)
             if raw_pop is not None and cal_pop is not None:
                 f=float(pop_skill["factor"]);h["precipitation_probability"]=raw_pop*(1-f)+cal_pop*f
             h["adaptive_skill"]={"mos":mos_skill,"analog":analog_skill,"observation_nudge":nudge_skill,"precipitation_calibration":pop_skill};h["component_weighting"]=wdiag
