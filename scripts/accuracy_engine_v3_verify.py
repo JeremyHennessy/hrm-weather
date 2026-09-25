@@ -19,6 +19,8 @@ import real_feel_engine as rf
 VERIFY=core.DATA/"v3-verification.json"
 MAX_AGE_DAYS=60
 MIN_ADAPT_SAMPLES=8
+MIN_PRECIP_GATE_SAMPLES=30
+PRECIP_PROMOTION_MARGIN=0.01
 
 
 def _bucket(lead:int)->int:return int(lead)
@@ -109,14 +111,34 @@ def adaptive_factor(state:dict[str,Any],loc:str,lead:int,regime:str,layer:str)->
 
 
 def precipitation_factor(state:dict[str,Any],loc:str,lead:int,regime:str)->dict[str,Any]:
-    scores=state.get("precip_scores",{});cal=raw=None
-    for suffix in [regime,"all"]:
-        c=scores.get(f"{loc}:{_bucket(lead)}:{suffix}:calibrated");r=scores.get(f"{loc}:{_bucket(lead)}:{suffix}:raw")
-        if c and r and min(int(c.get("n",0)),int(r.get("n",0)))>=MIN_ADAPT_SAMPLES:cal,raw=c,r;break
-    if not cal or not raw:return {"factor":1.0,"samples":0,"status":"learning"}
-    cb=max(1e-4,float(cal.get("brier",1)));rb=max(1e-4,float(raw.get("brier",1)));ratio=rb/cb;factor=max(0.0,min(1.0,(ratio-0.85)/0.15)) if ratio<1 else 1.0
-    return {"factor":factor,"samples":min(int(cal.get("n",0)),int(raw.get("n",0))),"calibrated_brier":cb,"raw_brier":rb,"status":"active" if factor>=0.98 else "damped"}
+    scores=state.get("precip_scores",{})
+    lead_cal=scores.get(f"{loc}:{_bucket(lead)}:all:calibrated") or {}
+    lead_raw=scores.get(f"{loc}:{_bucket(lead)}:all:raw") or {}
+    lead_n=min(int(lead_cal.get("n",0)),int(lead_raw.get("n",0)))
+    if lead_n < MIN_PRECIP_GATE_SAMPLES:
+        return {"factor":0.0,"use":"raw","samples":lead_n,"status":"learning-raw-fallback","gate_scope":"lead-all"}
 
+    lead_cb=max(1e-4,float(lead_cal.get("brier",1)));lead_rb=max(1e-4,float(lead_raw.get("brier",1)))
+    lead_improvement=(lead_rb-lead_cb)/lead_rb
+    if lead_improvement < PRECIP_PROMOTION_MARGIN:
+        status="calibration-disabled-worse-than-raw" if lead_improvement <= 0 else "calibration-disabled-insufficient-skill"
+        return {"factor":0.0,"use":"raw","samples":lead_n,"calibrated_brier":lead_cb,"raw_brier":lead_rb,"relative_improvement":lead_improvement,"status":status,"gate_scope":"lead-all"}
+
+    cal,raw=lead_cal,lead_raw;scope="lead-all"
+    if regime!="all":
+        regime_cal=scores.get(f"{loc}:{_bucket(lead)}:{regime}:calibrated") or {}
+        regime_raw=scores.get(f"{loc}:{_bucket(lead)}:{regime}:raw") or {}
+        regime_n=min(int(regime_cal.get("n",0)),int(regime_raw.get("n",0)))
+        if regime_n >= MIN_PRECIP_GATE_SAMPLES:
+            cal,raw,scope=regime_cal,regime_raw,f"regime:{regime}"
+
+    cb=max(1e-4,float(cal.get("brier",1)));rb=max(1e-4,float(raw.get("brier",1)))
+    improvement=(rb-cb)/rb
+    samples=min(int(cal.get("n",0)),int(raw.get("n",0)))
+    if improvement < PRECIP_PROMOTION_MARGIN:
+        status="calibration-disabled-worse-than-raw" if improvement <= 0 else "calibration-disabled-insufficient-skill"
+        return {"factor":0.0,"use":"raw","samples":samples,"calibrated_brier":cb,"raw_brier":rb,"relative_improvement":improvement,"lead_relative_improvement":lead_improvement,"status":status,"gate_scope":scope}
+    return {"factor":1.0,"use":"calibrated","samples":samples,"calibrated_brier":cb,"raw_brier":rb,"relative_improvement":improvement,"lead_relative_improvement":lead_improvement,"status":"active-positive-skill","gate_scope":scope}
 
 def real_feel_replay(state:dict[str,Any])->dict[str,Any]:
     scores=state.get("real_feel_reference_scores",{});locations={}
@@ -154,7 +176,7 @@ def add_current_forecasts(state:dict[str,Any],engine:dict[str,Any])->int:
             state["forecasts"].append({
                 "loc":loc,"lead":lead,"regime":regime,"issued":core.iso(issued),"target":h.get("target"),
                 "temperature_candidates":temp_candidates,
-                "precip_candidates":{"raw":core.safe_float(h.get("raw_precipitation_probability")),"calibrated":core.safe_float(h.get("precipitation_probability"))},
+                "precip_candidates":{"raw":core.safe_float(h.get("raw_precipitation_probability")),"calibrated":core.safe_float(h.get("calibrated_precipitation_probability")),"production":core.safe_float(h.get("precipitation_probability"))},
                 "real_feel_candidates":{
                     "provider_apparent":core.safe_float(inputs.get("provider_apparent_temperature")),
                     "steadman":core.safe_float(rfe.get("steadman_real_feel") or rfe.get("physical_real_feel")),
