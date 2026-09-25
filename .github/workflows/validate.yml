@@ -233,7 +233,7 @@ jobs:
           grep -q 'wx-daily-detail-data' request-manager.js
           grep -q "el.dataset.owner='daily-detail'" daily-detail.js
           grep -q 'Real Feel first · swipe for the full day' daily-detail.js
-          grep -q "weather-consensus-v75" sw.js
+          grep -q "weather-consensus-v76" sw.js
           grep -q 'daily-detail.js' sw.js
           grep -q 'backgrounds/generated/uws.svg' sw.js
           grep -q "x!==null&&x!==undefined&&x!==''" accuracy-v2.js
