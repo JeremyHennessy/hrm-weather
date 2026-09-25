@@ -9,8 +9,10 @@ shadow verification so it can earn authority over time.
 from __future__ import annotations
 import hashlib
 import json
+import math
 from typing import Any
 import accuracy_engine_v2 as core
+import real_feel_engine as realfeel
 
 MIN_PROMOTION_SAMPLES=12
 PROMOTION_MARGIN=0.02
@@ -20,6 +22,14 @@ SAFETY_RELATIVE_DEGRADATION=0.20
 SAFETY_ABSOLUTE_DEGRADATION_C=0.25
 HALF_LIFE_DAYS=14.0
 MODEL_STATE=core.DATA/'model-set-state.json'
+HRM_LOCAL_POINTS=[
+    ('Halifax Peninsula',44.6488,-63.5752,'coastal','core'),
+    ('Bedford',44.7318,-63.6619,'basin','core'),
+    ('Dartmouth',44.6661,-63.5676,'harbour','core'),
+    ('Clayton Park',44.6718,-63.6530,'inland-edge','micro'),
+    ('Lower Sackville',44.7757,-63.6786,'inland','micro'),
+    ('Eastern Passage',44.6109,-63.4820,'open-harbour','micro'),
+]
 
 
 def _norm(weights:dict[str,float])->dict[str,float]:
@@ -115,17 +125,76 @@ def model_set_watch()->dict[str,Any]:
     state={'fingerprint':fp,'previous_fingerprint':old.get('fingerprint'),'changed':changed,'model_ids':[m[0] for m in core.MODELS],'checked_at':core.iso(core.utcnow()),'policy':'explicit configured model-set changes are detected immediately; unseen upstream revisions are caught by time-decayed prospective skill'};core.save(MODEL_STATE,state);return state
 
 
-def hrm_microclimate()->dict[str,Any]:
-    """Fail-soft HRDPS point diagnostic for Peninsula/Bedford/Dartmouth."""
-    loc=core.LOCATIONS['hrm'];now=core.utcnow().replace(minute=0,second=0,microsecond=0);points=[]
-    for name,lat,lon,kind in loc['points']:
+def _point_observation(stations:list[dict[str,Any]],lat:float,lon:float)->dict[str,Any]:
+    """Reweight the already-fetched HRM ECCC mesh around one displayed locality."""
+    rows=[]
+    for station in stations:
+        slat=core.safe_float(station.get('lat'));slon=core.safe_float(station.get('lon'))
+        if slat is None or slon is None:continue
+        dist=core.hav(lat,lon,slat,slon);age=max(0.0,core.safe_float(station.get('age_hours')) or 0.0)
+        weight=(1/(1+(dist/10.0)**1.45))*math.exp(-age/2.2)
+        rows.append({**station,'point_distance_km':dist,'point_weight':weight})
+    if not rows:return {'available':False}
+    def wmean(field:str)->float|None:
+        vals=[(core.safe_float(r.get(field)),float(r['point_weight'])) for r in rows]
+        vals=[(v,w) for v,w in vals if v is not None and w>0]
+        return sum(v*w for v,w in vals)/sum(w for _,w in vals) if vals else None
+    nearest=min(rows,key=lambda r:r['point_distance_km'])
+    air=wmean('temperature_2m');rh=wmean('relative_humidity_2m');wind=wmean('wind_speed_10m');gust=wmean('wind_gusts_10m')
+    feel=None
+    if air is not None:
+        try:feel=core.safe_float(realfeel.physical_real_feel(air,rh,wind).get('value'))
+        except Exception:feel=None
+    return {
+        'available':air is not None,
+        'temperature_2m':air,'real_feel':feel,'relative_humidity_2m':rh,
+        'wind_speed_10m':wind,'wind_gusts_10m':gust,
+        'nearest_station':nearest.get('station'),'nearest_station_distance_km':nearest.get('point_distance_km'),
+        'nearest_station_age_hours':nearest.get('age_hours'),
+        'station_count':sum(1 for r in rows if core.safe_float(r.get('temperature_2m')) is not None),
+        'method':'localized ECCC SWOB mesh reweighted by distance + recency',
+    }
+
+
+def hrm_microclimate(engine:dict[str,Any])->dict[str,Any]:
+    """Server-owned HRM locality layer; never changes the production headline blend."""
+    now=core.utcnow().replace(minute=0,second=0,microsecond=0);points=[]
+    stations=((((engine.get('observations') or {}).get('hrm') or {}).get('stations')) or [])
+    for name,lat,lon,kind,role in HRM_LOCAL_POINTS:
         fc=core.forecast_point(lat,lon,'gem_hrdps_continental')
-        if not fc:continue
-        tkey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('temperature_2m',{}));wkey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('wind_direction_10m',{}));skey=core.nearest_hour_key(now+core.timedelta(hours=1),fc.get('wind_speed_10m',{}))
-        points.append({'name':name,'kind':kind,'temperature_1h':core.safe_float((fc.get('temperature_2m') or {}).get(tkey)) if tkey else None,'wind_direction_1h':core.safe_float((fc.get('wind_direction_10m') or {}).get(wkey)) if wkey else None,'wind_speed_1h':core.safe_float((fc.get('wind_speed_10m') or {}).get(skey)) if skey else None})
-    temps=[p['temperature_1h'] for p in points if p.get('temperature_1h') is not None];spread=(max(temps)-min(temps)) if len(temps)>=2 else None
-    peninsula=next((p for p in points if p['name']=='Halifax Peninsula'),None);bedford=next((p for p in points if p['name']=='Bedford'),None);wd=core.safe_float((peninsula or {}).get('wind_direction_1h'));ws=core.safe_float((peninsula or {}).get('wind_speed_1h'));sea_breeze=bool(wd is not None and 70<=wd<=190 and (ws or 0)>=6 and spread is not None and spread>=1.0)
-    return {'available':bool(points),'points':points,'temperature_spread_c':spread,'sea_breeze_signal':sea_breeze,'peninsula_vs_bedford_c':(core.safe_float((peninsula or {}).get('temperature_1h'))-core.safe_float((bedford or {}).get('temperature_1h'))) if peninsula and bedford and core.safe_float(peninsula.get('temperature_1h')) is not None and core.safe_float(bedford.get('temperature_1h')) is not None else None,'method':'HRDPS point-level Peninsula/Bedford/Dartmouth diagnostic'}
+        point_obs=_point_observation(stations,lat,lon)
+        tkey=core.nearest_hour_key(now+core.timedelta(hours=1),(fc or {}).get('temperature_2m',{})) if fc else None
+        wkey=core.nearest_hour_key(now+core.timedelta(hours=1),(fc or {}).get('wind_direction_10m',{})) if fc else None
+        skey=core.nearest_hour_key(now+core.timedelta(hours=1),(fc or {}).get('wind_speed_10m',{})) if fc else None
+        points.append({
+            'name':name,'kind':kind,'role':role,'lat':lat,'lon':lon,
+            'temperature_1h':core.safe_float(((fc or {}).get('temperature_2m') or {}).get(tkey)) if tkey else None,
+            'wind_direction_1h':core.safe_float(((fc or {}).get('wind_direction_10m') or {}).get(wkey)) if wkey else None,
+            'wind_speed_1h':core.safe_float(((fc or {}).get('wind_speed_10m') or {}).get(skey)) if skey else None,
+            'observation_temperature':point_obs.get('temperature_2m'),
+            'observation_real_feel':point_obs.get('real_feel'),
+            'observation_relative_humidity':point_obs.get('relative_humidity_2m'),
+            'observation_wind_speed':point_obs.get('wind_speed_10m'),
+            'observation_wind_gust':point_obs.get('wind_gusts_10m'),
+            'observation_station':point_obs.get('nearest_station'),
+            'observation_station_distance_km':point_obs.get('nearest_station_distance_km'),
+            'observation_age_hours':point_obs.get('nearest_station_age_hours'),
+            'observation_station_count':point_obs.get('station_count',0),
+        })
+    temps=[p['temperature_1h'] for p in points if p.get('temperature_1h') is not None]
+    core_temps=[p['temperature_1h'] for p in points if p.get('role')=='core' and p.get('temperature_1h') is not None]
+    spread=(max(temps)-min(temps)) if len(temps)>=2 else None
+    core_spread=(max(core_temps)-min(core_temps)) if len(core_temps)>=2 else None
+    peninsula=next((p for p in points if p['name']=='Halifax Peninsula'),None);bedford=next((p for p in points if p['name']=='Bedford'),None)
+    wd=core.safe_float((peninsula or {}).get('wind_direction_1h'));ws=core.safe_float((peninsula or {}).get('wind_speed_1h'))
+    sea_breeze=bool(wd is not None and 70<=wd<=190 and (ws or 0)>=6 and core_spread is not None and core_spread>=1.0)
+    return {
+        'available':bool(points),'points':points,'temperature_spread_c':spread,'core_temperature_spread_c':core_spread,
+        'sea_breeze_signal':sea_breeze,
+        'peninsula_vs_bedford_c':(core.safe_float((peninsula or {}).get('temperature_1h'))-core.safe_float((bedford or {}).get('temperature_1h'))) if peninsula and bedford and core.safe_float(peninsula.get('temperature_1h')) is not None and core.safe_float(bedford.get('temperature_1h')) is not None else None,
+        'headline_blend_changed':False,
+        'method':'HRDPS + localized ECCC SWOB locality diagnostics for six HRM display points; production headline remains Peninsula/Bedford/Dartmouth',
+    }
 
 
 def apply(engine:dict[str,Any],state:dict[str,Any])->None:
@@ -142,7 +211,7 @@ def apply(engine:dict[str,Any],state:dict[str,Any])->None:
             locations[loc][lead_s]=c
     v2=core.load(core.ENGINE,{})
     engine['nowcast_intelligence']={'source':'Accuracy Engine 2 GeoMet radar/RDPA','locations':v2.get('nowcast',{}),'lead_priority':'0-3h'}
-    try:micro=hrm_microclimate()
+    try:micro=hrm_microclimate(engine)
     except Exception as exc:micro={'available':False,'error':type(exc).__name__}
     engine['microclimate_intelligence']={'hrm':micro}
     engine['engine31']={'version':'3.1-challenger','status':'shadow-with-automatic-evidence-gated-promotion','regime_aware':True,'lead_aware':True,'time_decayed_skill_half_life_days':HALF_LIFE_DAYS,'minimum_promotion_samples':MIN_PROMOTION_SAMPLES,'minimum_promotion_win_rate':MIN_PROMOTION_WIN_RATE,'minimum_effective_weight':MIN_EFFECTIVE_WEIGHT,'promotion_margin':PROMOTION_MARGIN,'promoted_points':promoted,'safety_fallbacks':safety_fallbacks,'model_set_watch':model_set_watch(),'locations':locations}
