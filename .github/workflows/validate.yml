@@ -164,7 +164,7 @@ jobs:
                   'calibrated_precipitation_probability':40.0,
                   'precipitation_probability':20.0,
                   'components':{},
-              }}}},
+              }}}}},
           })
           pc=precip_probe['forecasts'][0]['precip_candidates']
           assert pc['raw']==20.0 and pc['calibrated']==40.0 and pc['production']==20.0, pc
