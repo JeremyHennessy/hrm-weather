@@ -81,10 +81,25 @@
   function serverHrmPointValues(){
     if(locKey()!=='hrm')return null;
     const points=V3?.microclimate_intelligence?.hrm?.points;if(!Array.isArray(points)||!points.length)return null;
-    const rows=points.map(p=>({name:p.name,air:num(p.observation_temperature),feel:num(p.observation_real_feel),next:num(p.temperature_1h),station:p.observation_station||'',stationDistance:num(p.observation_station_distance_km),ageHours:num(p.observation_age_hours),role:p.role||''})).filter(p=>finite(p.air)&&finite(p.feel));
+    const rows=points.map(p=>({name:p.name,air:num(p.observation_temperature),feel:num(p.observation_real_feel),wind:num(p.observation_wind_speed),gust:num(p.observation_wind_gust),next:num(p.temperature_1h),station:p.observation_station||'',stationDistance:num(p.observation_station_distance_km),ageHours:num(p.observation_age_hours),role:p.role||''})).filter(p=>finite(p.air)&&finite(p.feel));
     return rows.length?rows:null;
   }
   function currentPointValues(){return serverHrmPointValues()||fastPointValues()||(pointTruthLoc===locKey()?pointTruth:null)}
+  function refineHrmOfficialFallback(){
+    if(locKey()!=='hrm')return false;const current=window.__wxFastCurrent;
+    if(current?.source!=='official-observation-steadman-current'||current.locality_source==='engine3-eccc-local-mesh')return false;
+    const core=(serverHrmPointValues()||[]).filter(p=>p.role==='core');if(core.length<3)return false;
+    const mean=key=>{const xs=core.map(p=>num(p[key])).filter(finite);return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null};
+    const air=mean('air'),feel=mean('feel'),wind=mean('wind'),gust=mean('gust');if(!finite(air)||!finite(feel))return false;
+    const next={...current,air,feel,wind,gust,points:core.length,total_points:core.length,point_values:core.map(p=>({name:p.name,air:p.air,feel:p.feel,wind:p.wind,gust:p.gust,truth:'eccc-local-mesh-current'})),locality_source:'engine3-eccc-local-mesh'};
+    window.__wxFastCurrent=next;
+    const feels=document.getElementById('feels'),actual=document.getElementById('actual'),line=document.getElementById('obsline');
+    if(feels){text(feels,fmtAbs(feel,1));feels.dataset.currentSource='official-observation-steadman-current';if(us())feels.dataset.wxMetricTemp=String(feel)}
+    if(actual){actual.innerHTML=`Actual <b>${fmtAbs(air,1)}</b>`;actual.dataset.currentSource='official-observation-steadman-current';if(us())actual.dataset.wxMetricTemp=String(air)}
+    if(line)text(line,'Current conditions from localized ECCC mesh · Halifax Peninsula + Bedford + Dartmouth');
+    document.documentElement.dataset.wxRealFeel='live-current-official-observation-fallback';document.documentElement.dataset.wxCurrentActual='live-current-input';
+    window.dispatchEvent(new CustomEvent('wx-fast-current-ready',{detail:next}));return true;
+  }
   async function queryPointTruth(key){
     const points=POINTS[key]||[];if(!points.length)return[];const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),6500);
     try{const jobs=points.map(async([name,lat,lon])=>{const q=new URLSearchParams({latitude:String(lat),longitude:String(lon),timezone:timezone(key),forecast_days:'1',temperature_unit:'celsius',current:'temperature_2m,apparent_temperature'});const r=await fetch(`https://api.open-meteo.com/v1/forecast?${q}`,{cache:'no-store',signal:ctrl.signal});if(!r.ok)throw Error(r.status);const d=await r.json(),c=d.current||{};return{name,air:num(c.temperature_2m),feel:num(c.apparent_temperature)}});const s=await Promise.allSettled(jobs);return s.filter(x=>x.status==='fulfilled'&&finite(x.value.air)&&finite(x.value.feel)).map(x=>x.value)}finally{clearTimeout(timer)}
@@ -109,7 +124,7 @@
     for(const card of document.querySelectorAll('#zones .card,#microZones .card')){const name=card.querySelector('small')?.textContent?.trim(),p=values.find(x=>x.name===name);if(!p)continue;const rf=card.querySelector('.zt'),sub=card.querySelector('.sub'),isMicro=Boolean(card.closest('#microZones'));if(rf&&finite(p.feel)){text(rf,fmtAbs(p.feel,1));rf.dataset.owner=key==='hrm'?'eccc-local-mesh-current':'live-current-point-truth';if(us())rf.dataset.wxMetricTemp=String(p.feel)}if(sub&&finite(p.air)){const current=sub.textContent||'',replacement=`Actual ${fmtAbs(p.air,1)}`;let next=/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i.test(current)?current.replace(/actual\s*-?\d+(?:\.\d+)?°(?:F)?/i,replacement):`${replacement}${current?` · ${current}`:''}`;if(isMicro&&finite(p.next))next=`${replacement} · +1h ${fmtAbs(p.next,1)}`;text(sub,next);sub.dataset.owner=key==='hrm'?'eccc-local-mesh-current':'live-current-point-truth'}if(key==='hrm'&&p.station){card.title=`Localized ECCC mesh · nearest station ${p.station}${finite(p.stationDistance)?` · ${Number(p.stationDistance).toFixed(1)} km`:''}`;card.dataset.currentTruth='eccc-local-mesh-current'}else card.dataset.currentTruth='provider-apparent-current';changed=true}return changed;
   }
   function installOwnership(){try{window.wxHealth=paintHealth;window.wxScorecard=paintScorecard}catch{}}
-  function paintAll(){if(!TRUTH||!V3)return false;paintHealth();paintOfficial();paintAccuracy();paintScorecard();paintCoverage();paintRealFeelValidation();paintZones();ensurePointTruth();document.documentElement.dataset.wxServerTruth=serverFresh()?'fresh':'loaded';return true}
+  function paintAll(){if(!TRUTH||!V3)return false;paintHealth();paintOfficial();refineHrmOfficialFallback();paintAccuracy();paintScorecard();paintCoverage();paintRealFeelValidation();paintZones();ensurePointTruth();document.documentElement.dataset.wxServerTruth=serverFresh()?'fresh':'loaded';return true}
   function schedule(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;paintAll()})}
   function bind(){window.addEventListener('wx-v3-ready',()=>{V3=cachedV3()||V3;if(V3?.server_truth)TRUTH=V3.server_truth;installOwnership();schedule()});document.querySelector('#tabs')?.addEventListener('click',()=>{pointTruth=null;pointTruthLoc=null;setTimeout(()=>{schedule();ensurePointTruth()},80)});document.querySelector('#locPrev')?.addEventListener('click',()=>{pointTruth=null;pointTruthLoc=null;setTimeout(()=>{schedule();ensurePointTruth()},80)});document.querySelector('#locNext')?.addEventListener('click',()=>{pointTruth=null;pointTruthLoc=null;setTimeout(()=>{schedule();ensurePointTruth()},80)});new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true,characterData:true});setInterval(paintAll,5000)}
   window.WXRefreshServerTruthUI=paintAll;if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{bind();loadTruth()},{once:true});else{bind();loadTruth()}
