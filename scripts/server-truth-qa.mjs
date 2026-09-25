@@ -58,7 +58,7 @@ try{
     const cardState=card=>({name:card.querySelector('small')?.textContent?.trim()||'',feel:card.querySelector('.zt')?.textContent?.trim()||'',actualText:card.querySelector('.sub')?.textContent?.trim()||'',actual:n(card.querySelector('.sub')?.textContent),owner:card.querySelector('.sub')?.dataset?.owner||'',truth:card.dataset.currentTruth||''});
     const zones=[...document.querySelectorAll('#zones .card')].map(cardState),microZones=[...document.querySelectorAll('#microZones .card')].map(cardState),microPoints=engine?.microclimate_intelligence?.hrm?.points||[];
     return{
-      loc,fastCurrentSource:window.__wxFastCurrent?.source||'',serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
+      loc,fastCurrentSource:window.__wxFastCurrent?.source||'',fastLocalitySource:window.__wxFastCurrent?.locality_source||'',serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
       feeds:Number(engine?.collector?.deterministic_forecasts||0),health:document.querySelector('#health')?.textContent?.trim()||'',healthOwner:document.querySelector('#health')?.dataset?.owner||'',
       officialTemp:document.querySelector('#officialTemp')?.textContent?.trim()||'',officialStation:document.querySelector('#officialStation')?.textContent?.trim()||'',officialOwner:document.querySelector('#officialStation')?.dataset?.owner||'',
       serverObsStations:Number(obs?.station_count||0),verified:document.querySelector('#verifiedCount')?.textContent?.trim()||'',verifiedOwner:document.querySelector('#verifiedCount')?.dataset?.owner||'',
@@ -82,6 +82,7 @@ try{
     if(Math.abs(card.actual-Number(p.air))>2.0)throw new Error(`${p.name} current Actual diverges from current input: input=${p.air}; card=${card.actual}`);
   }
   if(state.loc==='hrm'&&state.hasHrmLocalityTruth){
+    if(state.fastCurrentSource==='official-observation-steadman-current'&&state.fastLocalitySource!=='engine3-eccc-local-mesh')throw new Error(`HRM official-current fallback did not adopt localized ECCC core truth: ${state.fastLocalitySource||'missing'}`);
     if(state.zones.length<3||state.zones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM core cards are not ECCC-locality-owned: ${JSON.stringify(state.zones)}`);
     if(state.microZones.length<3||state.microZones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM microclimate cards are not ECCC-locality-owned: ${JSON.stringify(state.microZones)}`);
     for(const p of state.microPoints){
