@@ -49,4 +49,4 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',loadV3,{once:true});else loadV3();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(!V3||!fresh()))loadV3()});setInterval(render,60000);
 })();
-import('./server-truth-ui.js?v=1').catch(()=>{});
+import('./server-truth-ui.js?v=2').catch(()=>{});
