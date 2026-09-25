@@ -107,16 +107,23 @@
   async function ensurePointTruth(){const key=locKey(),server=serverHrmPointValues();if(server){pointTruth=server;pointTruthLoc=key;paintZones();return server}const fast=fastPointValues();if(fast){pointTruth=fast;pointTruthLoc=key;return fast}if(pointTruthLoc===key&&pointTruth?.length)return pointTruth;if(pointJob)return pointJob;pointJob=queryPointTruth(key).then(rows=>{if(locKey()===key){pointTruth=rows;pointTruthLoc=key;paintZones()}return rows}).catch(()=>[]).finally(()=>{pointJob=null});return pointJob}
   function ensureHrmLocalityCards(values){
     if(locKey()!=='hrm')return;
-    const micro=document.getElementById('microZones'),section=document.getElementById('microSection');if(!micro)return;
-    const existing=new Set([...micro.querySelectorAll('.card small')].map(x=>x.textContent?.trim()).filter(Boolean));
-    for(const p of values.filter(x=>x.role==='micro')){
-      if(existing.has(p.name))continue;
-      const card=document.createElement('div');card.className='card';
-      const name=document.createElement('small');name.textContent=p.name;
-      const value=document.createElement('div');value.className='zt';value.textContent='--°';
-      const sub=document.createElement('div');sub.className='sub';sub.textContent='Current locality data loading';
-      card.append(name,value,sub);micro.appendChild(card);existing.add(p.name);
-    }
+    const zones=document.getElementById('zones'),micro=document.getElementById('microZones'),section=document.getElementById('microSection');
+    const ensure=(container,role)=>{
+      if(!container)return;const wanted=values.filter(x=>x.role===role),names=new Set(wanted.map(x=>x.name));
+      if(role==='core'&&wanted.length){
+        for(const card of [...container.querySelectorAll('.card')]){const name=card.querySelector('small')?.textContent?.trim()||'';if(name&&!names.has(name))card.remove()}
+      }
+      const existing=new Set([...container.querySelectorAll('.card small')].map(x=>x.textContent?.trim()).filter(Boolean));
+      for(const p of wanted){
+        if(existing.has(p.name))continue;
+        const card=document.createElement('div');card.className='card';
+        const name=document.createElement('small');name.textContent=p.name;
+        const value=document.createElement('div');value.className='zt';value.textContent='--°';
+        const sub=document.createElement('div');sub.className='sub';sub.textContent='Current locality data loading';
+        card.append(name,value,sub);container.appendChild(card);existing.add(p.name);
+      }
+    };
+    ensure(zones,'core');ensure(micro,'micro');
     if(values.some(x=>x.role==='micro')&&section)section.style.display='block';
   }
   function paintZones(){
