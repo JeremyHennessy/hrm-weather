@@ -49,13 +49,14 @@ try{
   // If that layer is legitimately using the fresh official ECCC fallback, the
   // separate current-fallback QA owns that contract; this test must not turn a
   // provider outage into a false server-truth failure.
-  if(fastSource==='provider-apparent-current'){
+  if(fastSource==='provider-apparent-current'&&await page.evaluate(()=>(localStorage.getItem('wx-loc')||'hrm')!=='hrm')){
     await page.waitForFunction(()=>[...document.querySelectorAll('#zones .card')].some(x=>x.dataset.currentTruth==='provider-apparent-current'),null,{timeout:10000});
   }
   const state=await page.evaluate(()=>{
     const n=t=>{const m=String(t||'').match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):null};
     const loc=localStorage.getItem('wx-loc')||'hrm',engine=window.WXServerTruth?.engine||window.WXAccuracyV3||null,truth=window.WXServerTruth?.truth||engine?.server_truth||null,obs=truth?.observations?.[loc]||null;
-    const zones=[...document.querySelectorAll('#zones .card')].map(card=>({name:card.querySelector('small')?.textContent?.trim()||'',feel:card.querySelector('.zt')?.textContent?.trim()||'',actualText:card.querySelector('.sub')?.textContent?.trim()||'',actual:n(card.querySelector('.sub')?.textContent),owner:card.querySelector('.sub')?.dataset?.owner||'',truth:card.dataset.currentTruth||''}));
+    const cardState=card=>({name:card.querySelector('small')?.textContent?.trim()||'',feel:card.querySelector('.zt')?.textContent?.trim()||'',actualText:card.querySelector('.sub')?.textContent?.trim()||'',actual:n(card.querySelector('.sub')?.textContent),owner:card.querySelector('.sub')?.dataset?.owner||'',truth:card.dataset.currentTruth||''});
+    const zones=[...document.querySelectorAll('#zones .card')].map(cardState),microZones=[...document.querySelectorAll('#microZones .card')].map(cardState),microPoints=engine?.microclimate_intelligence?.hrm?.points||[];
     return{
       loc,fastCurrentSource:window.__wxFastCurrent?.source||'',serverConsensusFresh:typeof window.WX_SERVER_CONSENSUS_FRESH==='function'?window.WX_SERVER_CONSENSUS_FRESH():null,
       feeds:Number(engine?.collector?.deterministic_forecasts||0),health:document.querySelector('#health')?.textContent?.trim()||'',healthOwner:document.querySelector('#health')?.dataset?.owner||'',
@@ -63,7 +64,7 @@ try{
       serverObsStations:Number(obs?.station_count||0),verified:document.querySelector('#verifiedCount')?.textContent?.trim()||'',verifiedOwner:document.querySelector('#verifiedCount')?.dataset?.owner||'',
       scorecard:document.querySelector('#scoreRows')?.textContent?.trim()||'',scoreOwner:document.querySelector('#scoreRows')?.dataset?.owner||'',chips:document.querySelector('#chips')?.textContent?.trim()||'',chipsOwner:document.querySelector('#chips')?.dataset?.owner||'',
       realFeelValidation:document.querySelector('#v3RealFeel')?.textContent?.trim()||'',realFeelValidationOwner:document.querySelector('#v3RealFeel')?.dataset?.owner||'',
-      pointValues:window.__wxFastCurrent?.point_values||[],zones,consoleErrors:[]
+      pointValues:window.__wxFastCurrent?.point_values||[],zones,microZones,microPoints,consoleErrors:[]
     }
   });
   if(state.serverConsensusFresh&&state.feeds>0){
@@ -80,7 +81,16 @@ try{
     if(!Number.isFinite(card.actual)||Math.abs(card.actual)<0.5)throw new Error(`${p.name} current Actual regressed near zero while input air=${p.air}: ${card.actualText}`);
     if(Math.abs(card.actual-Number(p.air))>2.0)throw new Error(`${p.name} current Actual diverges from current input: input=${p.air}; card=${card.actual}`);
   }
-  if(state.fastCurrentSource==='provider-apparent-current'&&!state.zones.some(z=>z.truth==='provider-apparent-current'))throw new Error(`Provider current point truth did not reach any zone card: ${JSON.stringify(state.zones)}`);
+  if(state.loc==='hrm'&&state.microPoints.length){
+    if(state.zones.length<3||state.zones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM core cards are not ECCC-locality-owned: ${JSON.stringify(state.zones)}`);
+    if(state.microZones.length<3||state.microZones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM microclimate cards are not ECCC-locality-owned: ${JSON.stringify(state.microZones)}`);
+    for(const p of state.microPoints){
+      if(!Number.isFinite(Number(p.observation_temperature)))continue;
+      const card=[...state.zones,...state.microZones].find(z=>z.name===p.name);if(!card)throw new Error(`Missing HRM locality card for ${p.name}`);
+      if(!Number.isFinite(card.actual)||Math.abs(card.actual-Number(p.observation_temperature))>0.2)throw new Error(`${p.name} card does not match server ECCC locality value: card=${card.actual}; server=${p.observation_temperature}`);
+    }
+  }
+  if(state.loc!=='hrm'&&state.fastCurrentSource==='provider-apparent-current'&&!state.zones.some(z=>z.truth==='provider-apparent-current'))throw new Error(`Provider current point truth did not reach any zone card: ${JSON.stringify(state.zones)}`);
   if(state.verifiedOwner!=='engine3-server-truth')throw new Error(`Verified forecast count is not server-owned: ${state.verifiedOwner||'missing'}`);
   if(state.scoreOwner!=='engine3-server-truth'||!/MAE/i.test(state.scorecard))throw new Error(`Model scorecard is not server-owned: owner=${state.scoreOwner}; text=${state.scorecard}`);
   if(state.chipsOwner!=='engine3-server-truth'||!/model spread/i.test(state.chips))throw new Error(`Model spread/coverage is not server-owned: owner=${state.chipsOwner}; text=${state.chips}`);
