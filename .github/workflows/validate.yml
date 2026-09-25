@@ -85,6 +85,38 @@ jobs:
           synthetic={'brier':{'hrm:1:raw':{'n':20,'brier':.10},'hrm:1:calibrated':{'n':20,'brier':.14}}}
           assert p06._gate(synthetic,'hrm',1)['use']=='raw'
           assert p06._gate(synthetic,'hrm',1)['status']=='calibration-disabled-worse-than-raw'
+
+          # Engine 3 precipitation calibration is a pure challenger and must earn
+          # production use independently at every lead. The all-regime lead gate
+          # cannot be overridden by a smaller favourable regime sample.
+          assert verify.MIN_PRECIP_GATE_SAMPLES >= 30
+          bad_precip={'precip_scores':{
+              'hrm:12:all:raw':{'n':60,'brier':.06},
+              'hrm:12:all:calibrated':{'n':60,'brier':.08},
+              'hrm:12:stable:raw':{'n':40,'brier':.05},
+              'hrm:12:stable:calibrated':{'n':40,'brier':.04},
+          }}
+          bad_gate=verify.precipitation_factor(bad_precip,'hrm',12,'stable')
+          assert bad_gate['use']=='raw' and bad_gate['factor']==0.0 and bad_gate['gate_scope']=='lead-all', bad_gate
+          good_precip={'precip_scores':{
+              'hrm:3:all:raw':{'n':60,'brier':.10},
+              'hrm:3:all:calibrated':{'n':60,'brier':.08},
+          }}
+          good_gate=verify.precipitation_factor(good_precip,'hrm',3,'stable')
+          assert good_gate['use']=='calibrated' and good_gate['factor']==1.0, good_gate
+          marginal_precip={'precip_scores':{
+              'hrm:6:all:raw':{'n':60,'brier':.1000},
+              'hrm:6:all:calibrated':{'n':60,'brier':.0995},
+          }}
+          marginal_gate=verify.precipitation_factor(marginal_precip,'hrm',6,'stable')
+          assert marginal_gate['use']=='raw' and marginal_gate['status']=='calibration-disabled-insufficient-skill', marginal_gate
+          learning_precip={'precip_scores':{
+              'hrm:24:all:raw':{'n':10,'brier':.10},
+              'hrm:24:all:calibrated':{'n':10,'brier':.05},
+          }}
+          learning_gate=verify.precipitation_factor(learning_precip,'hrm',24,'stable')
+          assert learning_gate['use']=='raw' and learning_gate['status']=='learning-raw-fallback', learning_gate
+
           dense=rain.build({'forecasts':[]})
           assert dense.get('owner')=='precip-nowcast-verifier' and dense.get('lead_grid_hours')==[0,1,2,3,4,5,6]
           assert rrfs.LEADS==(1,3,6,12,24) and rrfs.APPLIED_PRODUCTION_WEIGHT==0.0
@@ -122,7 +154,22 @@ jobs:
           cold_refs=rf.independent_references(-5.0,75.0,30.0);assert 'eccc_wind_chill' in cold_refs
           replay=verify.real_feel_replay({'real_feel_reference_scores':{'hrm:1:all:bom_steadman_shade:provider_apparent':{'n':3,'mae':0.4,'bias':0.1,'rmse':0.5}},'forecasts':[]})
           assert replay['mode']=='comparative-independent-reference-replay'
-          now=core.utcnow();rows=[]
+          now=core.utcnow()
+          precip_probe={'forecasts':[]}
+          verify.add_current_forecasts(precip_probe,{
+              'updated_at':core.iso(now),
+              'consensus':{'hrm':{'regime':{'name':'stable'},'hours':{'12':{
+                  'target':core.iso(now+timedelta(hours=12)),
+                  'raw_precipitation_probability':20.0,
+                  'calibrated_precipitation_probability':40.0,
+                  'precipitation_probability':20.0,
+                  'components':{},
+              }}}},
+          })
+          pc=precip_probe['forecasts'][0]['precip_candidates']
+          assert pc['raw']==20.0 and pc['calibrated']==40.0 and pc['production']==20.0, pc
+
+          rows=[]
           for i in range(18):rows.append({'scored':True,'loc':'hrm','lead':3,'regime':'stable','issued':core.iso(now-timedelta(hours=i*8)),'actual_temperature':20.0,'temperature_candidates':{'v2':21.2,'mos':20.4,'analog':20.7,'final_v3':20.8,'engine31':20.3}})
           state={'forecasts':rows,'scores':{}}
           d=gate.component_gate(state,{},'hrm',3,'stable','mos');assert d['status']=='promotion-approved' and d['paired_win_rate'] >= .55

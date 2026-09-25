@@ -10,6 +10,7 @@ mitigated rather than blocking the release.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,7 @@ STABLE_BRANCH = "stable-v52-confidence-lock"
 MIN_SAMPLES = 12
 RELATIVE_DEGRADATION = 0.20
 ABSOLUTE_DEGRADATION_C = 0.25
+MAX_ENGINE_AGE_HOURS = 3.0
 
 
 def load(path: str) -> dict[str, Any]:
@@ -56,6 +58,16 @@ def prospective_failures(engine: dict[str, Any]) -> list[dict[str, Any]]:
 def structural_failures(engine: dict[str, Any], shadow: dict[str, Any]) -> list[str]:
     problems = []
     if engine.get("version") != "3.0": problems.append("Engine 3 version missing")
+    stamp=engine.get("updated_at")
+    try:
+        dt=datetime.fromisoformat(str(stamp).replace("Z","+00:00"))
+        if dt.tzinfo is None: dt=dt.replace(tzinfo=timezone.utc)
+        age_hours=max(0.0,(datetime.now(timezone.utc)-dt).total_seconds()/3600)
+    except Exception:
+        problems.append("Engine 3 updated_at missing or invalid")
+    else:
+        if age_hours > MAX_ENGINE_AGE_HOURS:
+            problems.append(f"Engine 3 snapshot stale: {age_hours:.2f}h > {MAX_ENGINE_AGE_HOURS:.1f}h")
     if ((engine.get("forecast_confidence") or {}).get("owner")) != "accuracy-engine-3": problems.append("Forecast Confidence is not Engine-3-owned")
     if ((engine.get("walk_forward_verification") or {}).get("leakage_policy")) != "strictly-earlier-targets-only": problems.append("temperature walk-forward leakage guard missing")
     if ((engine.get("precipitation_walk_forward") or {}).get("leakage_policy")) != "strictly-earlier-targets-only": problems.append("precipitation walk-forward leakage guard missing")
@@ -73,6 +85,7 @@ def main() -> int:
         "minimum_samples": MIN_SAMPLES,
         "relative_degradation_limit": RELATIVE_DEGRADATION,
         "absolute_degradation_limit_c": ABSOLUTE_DEGRADATION_C,
+        "max_engine_age_hours": MAX_ENGINE_AGE_HOURS,
         "structural_failures": structural,
         "skill_failures": skill,
         "mitigation_policy":"material V3 degradation is acceptable only when the current published point is explicitly falling back to V2"
