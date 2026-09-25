@@ -287,6 +287,7 @@ def build_engine_v3(
                 "target": core.iso(target),
                 "temperature_2m": temperature,
                 "precipitation_probability": pop,
+                "calibrated_precipitation_probability": pop,
                 "raw_precipitation_probability": pop_raw,
                 "components": {
                     "v2_consensus": v2temp,
