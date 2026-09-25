@@ -64,7 +64,7 @@ try{
       serverObsStations:Number(obs?.station_count||0),verified:document.querySelector('#verifiedCount')?.textContent?.trim()||'',verifiedOwner:document.querySelector('#verifiedCount')?.dataset?.owner||'',
       scorecard:document.querySelector('#scoreRows')?.textContent?.trim()||'',scoreOwner:document.querySelector('#scoreRows')?.dataset?.owner||'',chips:document.querySelector('#chips')?.textContent?.trim()||'',chipsOwner:document.querySelector('#chips')?.dataset?.owner||'',
       realFeelValidation:document.querySelector('#v3RealFeel')?.textContent?.trim()||'',realFeelValidationOwner:document.querySelector('#v3RealFeel')?.dataset?.owner||'',
-      pointValues:window.__wxFastCurrent?.point_values||[],zones,microZones,microPoints,consoleErrors:[]
+      pointValues:window.__wxFastCurrent?.point_values||[],zones,microZones,microPoints,hasHrmLocalityTruth:microPoints.some(p=>Number.isFinite(Number(p?.observation_temperature))&&Number.isFinite(Number(p?.observation_real_feel))),consoleErrors:[]
     }
   });
   if(state.serverConsensusFresh&&state.feeds>0){
@@ -81,7 +81,7 @@ try{
     if(!Number.isFinite(card.actual)||Math.abs(card.actual)<0.5)throw new Error(`${p.name} current Actual regressed near zero while input air=${p.air}: ${card.actualText}`);
     if(Math.abs(card.actual-Number(p.air))>2.0)throw new Error(`${p.name} current Actual diverges from current input: input=${p.air}; card=${card.actual}`);
   }
-  if(state.loc==='hrm'&&state.microPoints.length){
+  if(state.loc==='hrm'&&state.hasHrmLocalityTruth){
     if(state.zones.length<3||state.zones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM core cards are not ECCC-locality-owned: ${JSON.stringify(state.zones)}`);
     if(state.microZones.length<3||state.microZones.some(z=>z.truth!=='eccc-local-mesh-current'))throw new Error(`HRM microclimate cards are not ECCC-locality-owned: ${JSON.stringify(state.microZones)}`);
     for(const p of state.microPoints){
