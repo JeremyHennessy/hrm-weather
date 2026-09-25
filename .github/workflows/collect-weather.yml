@@ -253,6 +253,11 @@ jobs:
           degraded_text=','.join(shadow_degraded) if shadow_degraded else 'none'
           print(f"Engine 2/3/3.1/3.2 + UWS + precip0-6 + RRFS validation passed; fresh deterministic feeds={fresh_models}; HRM obs stations={hrm_health.get('observation_stations')}; UWS models={uhealth.get('deterministic_models')}/{uhealth.get('deterministic_expected')}; precip rows={precip06.get('rows')}; RRFS rows={rrfs.get('archived_rows')}; Engine 3.2 shadow degraded={degraded_text}; production RRFS weight=0")
           PY
+      - name: Enforce release guard on generated snapshot
+        if: steps.freshness.outputs.collect == 'true'
+        run: |
+          python scripts/release_guard.py
+          cat release-guard-report.json >> "$GITHUB_STEP_SUMMARY"
       - name: Commit updated skill data
         if: steps.freshness.outputs.collect == 'true'
         run: |
